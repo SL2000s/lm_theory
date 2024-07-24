@@ -1,0 +1,28 @@
+{% extends "statement.html.jinja" %}
+
+{% block statement_type_specific_content %}
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+{{statement.proof.statement_html}}
+</section>
+{% if statement.proof.proof_explaination_html %}
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            {{statement.proof.proof_explaination_html}}
+        </div>
+    </section>
+{% endif %}
+{% if corollaries %}
+    <section id="Corollaries">
+    <h3>Corollaries</h3>
+    <p>{{corollaries | link_list}}</p>
+    </section>
+{% endif %}
+{% if parent %}
+    <section id="Parent">
+    <h3>Parent statement</h3>
+    <p>{{parent | link_list}}</p>
+    </section>
+{% endif %}
+{% endblock %}

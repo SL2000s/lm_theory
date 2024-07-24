@@ -1,0 +1,125 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}{{statement.library_name}} - LM Theory{% endblock %}
+
+{% block head %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                {{paper.mathjax_macros | code_list}}
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock %}
+
+{% block content %}
+<section id="{{statement.title}}">
+    <h2>{{statement.library_name}}: {{statement.title}}</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            {{statement.statement_html}}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            {{statement.statement_motivation_html}}
+        </div>
+    </section>
+        {% block statement_type_specific_content %}{% endblock %}
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="{{paper.html_url | add_pages_root}}">{{paper.title}}</a></p>
+            <p>Authors: {{paper.authors | text_list}}</p>
+            <p>URL: <a href="{{paper.source_url}}">{{paper.source_url}}</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>{{paper.bibtex | add_html_tabs_newlines}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>{{statement.statement_original_tex}}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `{{paper.bibtex | replace_tabs_by_spaces}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `{{statement.statement_original_tex | escape_backslashes}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+{% endblock %}

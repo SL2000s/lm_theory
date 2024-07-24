@@ -1,0 +1,20 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}Index - LM Theory{% endblock %}
+
+{% block content %}
+<section id="index">
+    <h2>Full Index</h2>
+    <p>This page lists all the {{types_plural | text_list}} available in our repository. The papers used can be found <a href="{{papers_index_url | add_pages_root}}">here</a>.</p>
+    {% for statement_type, type_data in type2data.items() %}
+    <section id="{{statement_type}}">
+        <h3><a href="{{type_data.html_url | add_pages_root}}">{{type_data.capitalized_plural}}</a></h3>
+        <ul>
+        {% for statement in type_data.statements %}
+            <li><a href="{{statement.html_url | add_pages_root}}">{{statement.library_name}}: {{statement.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+    {% endfor %}
+</section>
+{% endblock %}

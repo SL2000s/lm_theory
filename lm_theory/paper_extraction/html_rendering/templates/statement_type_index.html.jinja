@@ -1,0 +1,18 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}{{type_data.capitalized_plural}} - LM Theory{% endblock %}
+
+{% block content %}
+<section id="{{type_data.plural}}">
+    <h2>{{type_data.capitalized_plural}} - Index</h2>
+    <p>This page lists all the {{type_data.plural}} available in our repository.</p>
+    <section id="{{statement_type}}">
+        <h3><a href="{{type_data.html_url | add_pages_root}}">{{type_data.capitalized_plural}}</a></h3>
+        <ul>
+        {% for statement in type_data.statements %}
+            <li><a href="{{statement.html_url | add_pages_root}}">{{statement.library_name}}: {{statement.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}Papers - LM Theory{% endblock %}
+
+{% block content %}
+<section id="index">
+    <h2>Papers - Index</h2>
+    <p>This page lists all the papers available in our repository.</p>
+    <section id="papers">
+        <h3>Papers</h3>
+        <ul>
+        {% for paper in papers %}
+            <li><a href="{{paper.html_url | add_pages_root}}">{{paper.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+</section>
+{% endblock %}

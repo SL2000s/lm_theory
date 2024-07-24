@@ -1,0 +1,27 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}{{paper.title}} - LM Theory{% endblock %}
+
+{% block content %}
+<section id="index">
+    <h2>Paper: {{paper.title}}</h2>
+    <p>This page contains data about the paper '{{paper.title}}'.</p>
+    <h3>Extractions</h3>
+    {% for statement_type, type_data in type2data.items() %}
+    <section id="{{statement_type}}">
+        <h4>{{type_data.capitalized_plural}}</h4>
+        <ul>
+        {% for statement in type_data.statements %}
+            <li><a href="{{statement.html_url | add_pages_root}}">{{statement.library_name}}: {{statement.title}}</a></li>
+        {% endfor %}
+        </ul>
+    </section>
+    {% endfor %}
+    <h3>Reference</h3>
+        <p>Title: <a href="{{paper.html_url | add_pages_root}}">{{paper.title}}</a></p>
+        <p>Authors: {{paper.authors | text_list}}</p>
+        <p>URL: <a href="{{paper.source_url}}">{{paper.source_url}}</a></p>
+        <h4>BibTex</h4>
+        <p>{{paper.bibtex | add_html_tabs_newlines}}</p>
+</section>
+{% endblock %}

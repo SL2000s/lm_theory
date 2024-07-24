@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LM Theory{% endblock %}</title>
+    <link rel="stylesheet" href="{{'assets/css/styles.css' | add_root}}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="{{'index.html' | add_pages_root}}">Home</a>
+            <a href="{{'examples.html' | add_pages_root}}">Examples</a>
+            <a href="{{'contact.html' | add_pages_root}}">Contact</a>
+            <a href="{{'contribute.html' | add_pages_root}}">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="{{'library/index.html' | add_pages_root}}">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="{{'library/index.html' | add_pages_root}}">Full Index</a>
+                    <a href="{{'library/papers/index.html' | add_pages_root}}">Papers</a>
+                    <a href="{{'library/definitions/index.html' | add_pages_root}}">Definitions</a>
+                    <a href="{{'library/axioms/index.html' | add_pages_root}}">Axioms</a>
+                    <a href="{{'library/lemmas/index.html' | add_pages_root}}">Lemmas</a>
+                    <a href="{{'library/theorems/index.html' | add_pages_root}}">Theorems</a>
+                    <a href="{{'library/corollaries/index.html' | add_pages_root}}">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>
