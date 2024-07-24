@@ -15,6 +15,6 @@ def load_paper_database(path: str = None):
     return paper_database
 
 
-def create_paper_database(path: str = None, extraction_dir: str = None):
+def create_paper_database(path: str = None, extraction_dir: str = '/tmp/paper_extraction'):
     paper_database = PaperDatabase(db_path=path, extraction_dir=extraction_dir)
     return paper_database

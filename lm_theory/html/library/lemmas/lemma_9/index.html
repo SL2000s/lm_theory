@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 9 - LM Theory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+Tr: "\\operatorname{Tr}",
+softmaxOp: "\\operatorname{softmax}",
+lip: "\\operatorname{Lip}",
+diag: "\\operatorname{diag}",
+spaces: "\\hspace{2mm}",
+unif: "\\pazocal{U}",
+softmax: ["\\softmaxOp\\left(#1\\right)", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+andriy: ["\\textcolor{blue}{[AM: #1]}", 1],
+hyunjik: ["\\textcolor{red}{[HK: #1]}", 1],
+george: ["\\textcolor{magenta}{[George: #1]}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/examples.html">Examples</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/contribute.html">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library/index.html">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library/index.html">Full Index</a>
+                    <a href="/library/papers/index.html">Papers</a>
+                    <a href="/library/definitions/index.html">Definitions</a>
+                    <a href="/library/axioms/index.html">Axioms</a>
+                    <a href="/library/lemmas/index.html">Lemmas</a>
+                    <a href="/library/theorems/index.html">Theorems</a>
+                    <a href="/library/corollaries/index.html">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Block Column Norm Inequality">
+    <h2>Lemma 9: Block Column Norm Inequality</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Let $A$ be a block matrix with block columns $A_1, \ldots, A_N$. Then $\|A\|_2 \leq \sqrt{\sum_i \|A_i\|_2^2}$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            The given inequality is useful in the context of block matrices, particularly when estimating the spectral norm of a matrix. It provides an upper bound for the spectral norm of the entire matrix in terms of the spectral norms of its block columns. This can be particularly helpful in numerical linear algebra and matrix analysis, where dealing with smaller submatrices can simplify computations and provide insights into the properties of the larger matrix.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+\begin{align*}
+\|A\|_2 &= \|[A_1, \ldots, A_N]\|_2 = \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1}  \left\Vert [A_1, \ldots, A_N] \begin{bmatrix} \mathbf{x}_1\\ \vdots \\ \mathbf{x}_N \\ \end{bmatrix} \right\Vert_2^2 = \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \|\sum_i A_i \mathbf{x}_i\|_2 \\ 
+& \leq \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \sum_i \|A_i \mathbf{x}_i\|_2 = \sup_{\|\mathbf{e}_i\|_2=1, \sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i \mathbf{e}_i\|_2 = \sup_{\sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i\|_2 \\
+& \leq \sqrt{\sum_i \|A_i\|_2^2},
+\end{align*}
+where we are using the substitution $\mathbf{x}_i = \lambda_i \mathbf{e}_i$, and the last inequality holds by e.g.~Cauchy--Schwartz inequality on $[\lambda_1, \ldots, \lambda_N]$ and $[\|A_1\|_2, \ldots, \|A_N\|_2]$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Norm Definition</i>: The proof starts by defining the 2-norm of matrix \(A\) as:
+<br>   \[
+   \|A\|_2 = \|[A_1, \ldots, A_N]\|_2
+   \]
+<br>
+<br>2. <i>Supremum of Quadratic Form</i>: The 2-norm is expressed as the supremum of a quadratic form involving vectors \(\mathbf{x}_i\) such that their squared norms sum to 1:
+<br>   \[
+   \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1}  \left\Vert [A_1, \ldots, A_N] \begin{bmatrix} \mathbf{x}_1\\ \vdots \\ \mathbf{x}_N \\ \end{bmatrix} \right\Vert_2^2
+   \]
+<br>
+<br>3. <i>Vector Summation</i>: This expression is simplified to the norm of the sum of \(A_i \mathbf{x}_i\):
+<br>   \[
+   \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \|\sum_i A_i \mathbf{x}_i\|_2
+   \]
+<br>
+<br>4. <i>Triangle Inequality</i>: The norm of the sum is bounded by the sum of the norms:
+<br>   \[
+   \leq \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \sum_i \|A_i \mathbf{x}_i\|_2
+   \]
+<br>
+<br>5. <i>Substitution</i>: The vectors \(\mathbf{x}_i\) are substituted with \(\lambda_i \mathbf{e}_i\), where \(\|\mathbf{e}_i\|_2=1\) and \(\sum_i \lambda_i^2 =1\):
+<br>   \[
+   = \sup_{\|\mathbf{e}_i\|_2=1, \sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i \mathbf{e}_i\|_2
+   \]
+<br>
+<br>6. <i>Norm Property</i>: This is further simplified to:
+<br>   \[
+   = \sup_{\sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i\|_2
+   \]
+<br>
+<br>7. <i>Cauchy-Schwarz Inequality</i>: Finally, the sum is bounded using the Cauchy-Schwarz inequality:
+<br>   \[
+   \leq \sqrt{\sum_i \|A_i\|_2^2}
+   \]
+<br>
+<br>Thus, the proof shows that:
+<br>\[
+\|A\|_2 \leq \sqrt{\sum_i \|A_i\|_2^2}
+\]
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
+            <p>Authors: []</p>
+            <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p></p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma} \label{lemma:block_cols}
+Let A be a block matrix with block columns $A_1, \ldots, A_N$. Then $\|A\|_2 \leq \sqrt{\sum_i \|A_i\|_2^2}$.
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = ``;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma} \\label{lemma:block_cols}
+Let A be a block matrix with block columns $A_1, \\ldots, A_N$. Then $\\|A\\|_2 \\leq \\sqrt{\\sum_i \\|A_i\\|_2^2}$.
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

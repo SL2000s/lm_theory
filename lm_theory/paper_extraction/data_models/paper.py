@@ -9,7 +9,7 @@ from ..builders.statements_builder import build_statements
 from ..config.config import STATEMENT_TYPES_METADATA
 from .statements.base_provable import Provable
 from .statements.statements import Statements
-from ..html_rendering.jinja2_env_filters import add_pages_root
+from lm_theory.generate_html.html_rendering.jinja2_env_filters import add_root
 from ..utils.tex_processing import process_tex_extraction, mathjax_macros
 
 
@@ -84,7 +84,7 @@ class Paper(BaseModel):
                     statement_html = statement_html.replace(
                         sub_match,
                         STATEMENT_INTERLINK_TEMPLATE.format(
-                            url=f'{add_pages_root(ref_url, pages_root)}#{urllib.parse.quote_plus(label_match)}',
+                            url=f'{add_root(ref_url, pages_root)}#{urllib.parse.quote_plus(label_match)}',
                             text=ref_statement.library_name
                         )
                     )
@@ -99,7 +99,7 @@ class Paper(BaseModel):
                     statement_html = statement_html.replace(
                         sub_match,
                         STATEMENT_INTERLINK_TEMPLATE.format(
-                            url=f'{add_pages_root(ref_url, pages_root)}#{urllib.parse.quote_plus(label_match)}',
+                            url=f'{add_root(ref_url, pages_root)}#{urllib.parse.quote_plus(label_match)}',
                             text=ref_statement.library_name
                         )
                     )

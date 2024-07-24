@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 4 - LM Theory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+Tr: "\\operatorname{Tr}",
+softmaxOp: "\\operatorname{softmax}",
+lip: "\\operatorname{Lip}",
+diag: "\\operatorname{diag}",
+spaces: "\\hspace{2mm}",
+unif: "\\pazocal{U}",
+softmax: ["\\softmaxOp\\left(#1\\right)", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+andriy: ["\\textcolor{blue}{[AM: #1]}", 1],
+hyunjik: ["\\textcolor{red}{[HK: #1]}", 1],
+george: ["\\textcolor{magenta}{[George: #1]}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/examples.html">Examples</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/contribute.html">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library/index.html">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library/index.html">Full Index</a>
+                    <a href="/library/papers/index.html">Papers</a>
+                    <a href="/library/definitions/index.html">Definitions</a>
+                    <a href="/library/axioms/index.html">Axioms</a>
+                    <a href="/library/lemmas/index.html">Lemmas</a>
+                    <a href="/library/theorems/index.html">Theorems</a>
+                    <a href="/library/corollaries/index.html">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Matrix Norm Bound Lemma">
+    <h2>Lemma 4: Matrix Norm Bound Lemma</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as in Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>).
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This inequality is useful in the context of matrix analysis and optimization. It provides an upper bound on the infinity norm of the product of a transposed matrix $Y^\top$, a matrix $P^{(i)}$, and the matrix $Y$. This can be particularly helpful when assessing the stability and performance of algorithms that involve such matrix products, especially in high-dimensional settings where direct computation might be infeasible.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Recall that $Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y})$. Let $\sigma(\mathbb{Y}_m)$ denote the standard deviation of $\mathbb{Y}_m$. Then $[\mathrm{Cov}(\mathbb{Y})]_{lm} \leq \sigma(\mathbb{Y}_l)\sigma(\mathbb{Y}_m)$. Hence 
+\begin{align*}
+\|\mathrm{Cov}(\mathbb{Y})\|_{\infty} = \max_l \sum_m \left|[\mathrm{Cov}(\mathbb{Y})]_{lm}\right| 
+& \leq  \max_l \sigma(\mathbb{Y}_l) \sum_m \sigma(\mathbb{Y}_m) \\
+& \leq \sqrt{\frac{D}{H}} \sum_m \sigma^2(\mathbb{Y}_m)  = \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y})) \\
+& \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1),
+\end{align*}
+since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$ (by e.g.~using the Cauchy--Schwartz inequality on $[\sigma(\mathbb{Y}_1), \ldots, \sigma(\mathbb{Y}_{D/H})]$ and $\mathds{1}$) and $\max_l \sigma(\mathbb{Y}_l) \leq \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$, and the last inequality is from Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Covariance Definition</i>: The proof starts by recalling that the covariance matrix of \(\mathbb{Y}\) is given by \(Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y})\).
+<br>
+<br>2. <i>Standard Deviation Bound</i>: It is noted that the covariance element \([\mathrm{Cov}(\mathbb{Y})]_{lm}\) is bounded by the product of the standard deviations of \(\mathbb{Y}_l\) and \(\mathbb{Y}_m\):
+<br>   \[
+   [\mathrm{Cov}(\mathbb{Y})]_{lm} \leq \sigma(\mathbb{Y}_l)\sigma(\mathbb{Y}_m)
+   \]
+<br>
+<br>3. <i>Infinity Norm of Covariance</i>: The infinity norm of the covariance matrix is then expressed as:
+<br>   \[
+   \|\mathrm{Cov}(\mathbb{Y})\|_{\infty} = \max_l \sum_m \left|[\mathrm{Cov}(\mathbb{Y})]_{lm}\right|
+   \]
+<br>   This is bounded by:
+<br>   \[
+   \max_l \sigma(\mathbb{Y}_l) \sum_m \sigma(\mathbb{Y}_m)
+   \]
+<br>
+<br>4. <i>Sum of Standard Deviations</i>: The sum of the standard deviations \(\sum_m \sigma(\mathbb{Y}_m)\) is further bounded using the Cauchy-Schwarz inequality:
+<br>   \[
+   \sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}
+   \]
+<br>
+<br>5. <i>Trace of Covariance</i>: Recognizing that \(\sum_m \sigma^2(\mathbb{Y}_m)\) is the trace of the covariance matrix, we get:
+<br>   \[
+   \sqrt{\frac{D}{H}} \sum_m \sigma^2(\mathbb{Y}_m) = \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y}))
+   \]
+<br>
+<br>6. <i>Final Bound</i>: Finally, using the bound from Lemma 3, the trace of the covariance matrix is bounded by \(\phi^{-1}(N-1)\):
+<br>   \[
+   \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
+   \]
+<br>
+<br>Thus, the proof shows that:
+<br>\[
+\|\mathrm{Cov}(\mathbb{Y})\|_{\infty} \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
+\]
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
+            <p>Authors: []</p>
+            <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p></p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}
+$\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as in Lemma \ref{lemma:key}).
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = ``;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}
+$\\|Y^\\top P^{(i)}Y\\|_\\infty \\leq  \\phi^{-1}(N-1) \\sqrt{D/H} $ ($\\phi$ defined as in Lemma \\ref{lemma:key}).
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

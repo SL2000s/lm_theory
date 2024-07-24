@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 8 - LM Theory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+Tr: "\\operatorname{Tr}",
+softmaxOp: "\\operatorname{softmax}",
+lip: "\\operatorname{Lip}",
+diag: "\\operatorname{diag}",
+spaces: "\\hspace{2mm}",
+unif: "\\pazocal{U}",
+softmax: ["\\softmaxOp\\left(#1\\right)", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+andriy: ["\\textcolor{blue}{[AM: #1]}", 1],
+hyunjik: ["\\textcolor{red}{[HK: #1]}", 1],
+george: ["\\textcolor{magenta}{[George: #1]}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/examples.html">Examples</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/contribute.html">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library/index.html">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library/index.html">Full Index</a>
+                    <a href="/library/papers/index.html">Papers</a>
+                    <a href="/library/definitions/index.html">Definitions</a>
+                    <a href="/library/axioms/index.html">Axioms</a>
+                    <a href="/library/lemmas/index.html">Lemmas</a>
+                    <a href="/library/theorems/index.html">Theorems</a>
+                    <a href="/library/corollaries/index.html">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="'Projection Inequality'">
+    <h2>Lemma 8: 'Projection Inequality'</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_2 \leq  \phi^{-1}(N-1)$
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            The given inequality is useful in the context of analyzing the stability and convergence of iterative algorithms, particularly in optimization and machine learning. It provides a bound on the sum of certain matrix norms, which can be critical for ensuring that the algorithm behaves as expected. This type of bound is often used to guarantee that the updates in an iterative process do not diverge, thereby ensuring the reliability and robustness of the algorithm.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of Lemma <a href="library/lemmas/lemma_5/index.html#lemma%3Alow_rank">Lemma 5</a>.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Application of Cauchy--Schwartz Inequality</i>: The proof begins by directly applying the Cauchy--Schwartz inequality to the variables \(c\) and \(d\).
+<br>
+<br>2. <i>Reference to Lemma 5</i>: This application is done in the context of the proof of Lemma 5, which can be found in the provided link.
+<br>
+<br>3. <i>Low Rank Condition</i>: The specific condition or property being utilized from Lemma 5 is the low rank condition, which is crucial for the application of the Cauchy--Schwartz inequality in this context.
+<br>
+<br>Thus, the proof shows that by using the Cauchy--Schwartz inequality on \(c\) and \(d\) within the framework of Lemma 5, the desired result is obtained.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
+            <p>Authors: []</p>
+            <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p></p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}
+$\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_2 \leq  \phi^{-1}(N-1)$
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = ``;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}
+$\\sum_j \\|P_{ij}(\\mathbf{y}_j - \\sum_k P_{ik} \\mathbf{y}_k)(\\mathbf{y}_i - \\mathbf{y}_j)^\\top\\|_2 \\leq  \\phi^{-1}(N-1)$
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

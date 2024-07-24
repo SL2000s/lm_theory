@@ -4,7 +4,7 @@ import warnings
 
 from jinja2 import Environment, FileSystemLoader
 
-from ..config.config import (
+from ...paper_extraction.config.config import (
     JINJA2_TEMPLATES_ROOT,
     STATEMENT_TYPE_HTML_TEMPLATE_PATHS,
     STATEMENT_TYPES_METADATA,
@@ -14,7 +14,6 @@ from ..config.config import (
 
 from ..html_rendering.jinja2_env_filters import (
     add_html_tabs_newlines,
-    add_pages_root,
     add_root,
     capitalize_first,
     code_list,
@@ -24,16 +23,21 @@ from ..html_rendering.jinja2_env_filters import (
     text_list,
 )
 
+from lm_theory.config.config import GENERATED_HTML_DIR
+
 
 class HTMLGenerator():
     def __init__(
-        self, paper_database, pages_root: str, root: str,
-        jinja2_templates_root=JINJA2_TEMPLATES_ROOT
+        self, paper_database, root: str, pages_root: str,
+        assets_root: str = None, generated_html_root: str = None,
+        jinja2_templates_root=JINJA2_TEMPLATES_ROOT,
     ):
         self.paper_database = paper_database
         self.env = self._create_jinja2_env(jinja2_templates_root)
         self.pages_root = pages_root
+        self.assets_root = assets_root
         self.root = root
+        self.generated_html_root = generated_html_root or os.path.join(root, GENERATED_HTML_DIR)
         self.statement_types_data = self._statement_types_data()
         self.types_plural = [
             data['plural'] for data in STATEMENT_TYPES_METADATA.values()
@@ -64,8 +68,9 @@ class HTMLGenerator():
     def _create_jinja2_env(self, jinja2_templates_root=JINJA2_TEMPLATES_ROOT):
         env = Environment(loader=FileSystemLoader(jinja2_templates_root))
         env.filters['add_html_tabs_newlines'] = add_html_tabs_newlines
-        env.filters['add_pages_root'] = lambda s: add_pages_root(s, self.pages_root)
         env.filters['add_root'] = lambda s: add_root(s, self.root)
+        env.filters['add_pages_root'] = lambda s: add_root(s, self.pages_root)
+        env.filters['add_assets_root'] = lambda s: add_root(s, self.assets_root)
         env.filters['capitalize_first'] = capitalize_first
         env.filters['code_list'] = code_list
         env.filters['escape_backslashes'] = escape_backslashes
@@ -77,25 +82,25 @@ class HTMLGenerator():
     def _render_template(self, template_name, context, path):   # TODO: default None on context; TODO: add arg type definitions
         template = self.env.get_template(template_name)
         output = template.render(context)
-        path = os.path.join(self.pages_root, path)
+        path = os.path.join(self.generated_html_root, path)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
             f.write(output)
 
-    def _generate_assets_file(self):
-        src_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'assets')
-        dest_dir = os.path.join(self.root, 'assets')
-        os.makedirs(os.path.dirname(dest_dir), exist_ok=True)
-        try:
-            shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
-        except shutil.Error as e:
-            warnings.warn(f'Error occurred while copying directory assets directory: {e}')
-        except OSError as e:
-            warnings.warn(f'OS error occurred when copying assets directory: {e}')
+    # def _generate_assets_file(self):
+    #     src_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'assets')
+    #     dest_dir = os.path.join(self.root, 'assets')
+    #     os.makedirs(os.path.dirname(dest_dir), exist_ok=True)
+    #     try:
+    #         shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
+    #     except shutil.Error as e:
+    #         warnings.warn(f'Error occurred while copying directory assets directory: {e}')
+    #     except OSError as e:
+    #         warnings.warn(f'OS error occurred when copying assets directory: {e}')
 
 
     def build_html_files(self):
-        self._generate_assets_file()
+        # self._generate_assets_file()
 
         self._render_template('index.html.jinja', {}, 'index.html')
         self._render_template('contact.html.jinja', {}, 'contact.html')

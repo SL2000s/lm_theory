@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 3 - LM Theory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+Tr: "\\operatorname{Tr}",
+softmaxOp: "\\operatorname{softmax}",
+lip: "\\operatorname{Lip}",
+diag: "\\operatorname{diag}",
+spaces: "\\hspace{2mm}",
+unif: "\\pazocal{U}",
+softmax: ["\\softmaxOp\\left(#1\\right)", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+andriy: ["\\textcolor{blue}{[AM: #1]}", 1],
+hyunjik: ["\\textcolor{red}{[HK: #1]}", 1],
+george: ["\\textcolor{magenta}{[George: #1]}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/examples.html">Examples</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/contribute.html">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library/index.html">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library/index.html">Full Index</a>
+                    <a href="/library/papers/index.html">Papers</a>
+                    <a href="/library/definitions/index.html">Definitions</a>
+                    <a href="/library/axioms/index.html">Axioms</a>
+                    <a href="/library/lemmas/index.html">Lemmas</a>
+                    <a href="/library/theorems/index.html">Theorems</a>
+                    <a href="/library/corollaries/index.html">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Covariance Trace Bound">
+    <h2>Lemma 3: Covariance Trace Bound</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            $\Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j P_{ij}\|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_2^2 \leq \sum_j P_{ij}\|\mathbf{y}_j-\mathbf{y}_i\|_2^2 \leq \phi^{-1}(N-1)$ where $\phi(c) = c \exp(c+1)$ is a one-dimensional invertible function on $\mathbb{R}_{\geq 0}$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This inequality provides a bound on the trace of the covariance matrix of a set of vectors $\mathbb{Y}$, which is crucial in understanding the spread and variability of the data. It is particularly useful in fields such as machine learning and statistics, where controlling the variance is important for ensuring the stability and performance of algorithms. The function $\phi(c)$ helps in deriving these bounds, making it easier to manage and interpret the data's dispersion.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+The first equality holds since $\Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j \mathrm{Cov}(\mathbb{Y})_{jj} = \sum_j \mathrm{Var}(\mathbb{Y}_j) = \sum_j \mathbb{E}[(\mathbb{Y}_j -\mathbb{E}[\mathbb{Y}_j])^2]$. 
+The next inequality holds since $\mathrm{Var}(\mathbb{Y}_j) = \mathrm{Var}(\overline{\mathbb{Y}}_j) = \mathbb{E}[\overline{\mathbb{Y}}_j^2] -\mathbb{E}[\overline{\mathbb{Y}}_j]^2 \leq \mathbb{E}[\overline{\mathbb{Y}}_j^2]$ where $\overline{\mathbb{Y}}= \mathbb{Y} - y_i$. 
+The final inequality can be proved as follows.
+
+We would like to bound 
+\begin{equation}
+    \sum_j P_{ij}\|\mathbf{y}_j-\mathbf{y}_i\|_2^2 = \frac{\sum_j \|\mathbf{y}_j-\mathbf{y}_i\|_2^2 \exp(-\|\mathbf{y}_j-\mathbf{y}_i\|_2^2)}{\sum_k \exp(-\|\mathbf{y}_k-\mathbf{y}_i\|_2^2)}  = \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)}
+\end{equation}
+where $z_j \coloneqq \|\mathbf{y}_j-\mathbf{y}_i\|_2$ (hence $z_i=0$). 
+Define:
+\begin{equation}
+    g(\mathbf{z}) \coloneqq \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)} = \frac{\sum_{j \neq i} z_j^2 \exp(-z_j^2)}{1 + \sum_{k \neq i} \exp(-z_k^2)}.
+\end{equation}
+First note that as $z_j \rightarrow \infty$, $\exp(-z_j^2) \rightarrow 0$ exponentially fast, causing the product $z_j^2 \exp(-z_j^2) \rightarrow 0$.
+Hence we expect the above quantity to be bounded and attain its maximum.
+
+Let $h(z_j) \coloneqq \exp(-z_j^2)$ for notational conciseness, and note $h(z_j) > 0$. By taking partial derivatives with the chain rule, we have that for $j \neq i$
+\begin{equation}
+\frac{\partial g(\mathbf{z})}{\partial z_j} = \frac{2z_j h(z_j)}{(\sum_k h(z_k))^2}\left[(1-z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2\right].
+\end{equation}
+Hence the derivative is $0$ if and only if $z_j = 0$ or $(1-z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2 = 0$, the latter being equivalent to $z_j^2 = 1 + \frac{\sum_k h(z_k)z_k^2}{\sum_k h(z_k)} = 1 + g(\mathbf{z})$. 
+Hence at the maximum, the non-zero values among $\{z_j\}_{j=1}^N$ must be equal to one another.
+It is clear now that the maximum value $c$ is attained when $z_j^2 = 1 + c$ for $j \neq i$ (and recall $z_i = 0$). 
+So $h(z_j) = \exp(-1-c)$ for $j \neq i$.
+Substituting this into $g(z)$, and rearranging, we obtain $c \exp(c+1) = N - 1$. Note $\phi(x) \coloneqq x \exp(x+1)$ is increasing for $x > 0$ hence $c = \phi^{-1}(N-1)$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Trace of Covariance</i>: The proof starts by expressing the trace of the covariance matrix \(\mathrm{Cov}(\mathbb{Y})\) in terms of the variances of its components:
+<br>   \[
+   \Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j \mathrm{Cov}(\mathbb{Y})_{jj} = \sum_j \mathrm{Var}(\mathbb{Y}_j) = \sum_j \mathbb{E}[(\mathbb{Y}_j -\mathbb{E}[\mathbb{Y}_j])^2]
+   \]
+<br>
+<br>2. <i>Variance Inequality</i>: The next step involves an inequality for the variance of \(\mathbb{Y}_j\). By defining \(\overline{\mathbb{Y}} = \mathbb{Y} - y_i\), we have:
+<br>   \[
+   \mathrm{Var}(\mathbb{Y}_j) = \mathrm{Var}(\overline{\mathbb{Y}}_j) = \mathbb{E}[\overline{\mathbb{Y}}_j^2] -\mathbb{E}[\overline{\mathbb{Y}}_j]^2 \leq \mathbb{E}[\overline{\mathbb{Y}}_j^2]
+   \]
+<br>
+<br>3. <i>Bounding the Sum</i>: The goal is to bound the following sum:
+<br>   \[
+   \sum_j P_{ij}\|\mathbf{y}_j-\mathbf{y}_i\|_2^2 = \frac{\sum_j \|\mathbf{y}_j-\mathbf{y}_i\|_2^2 \exp(-\|\mathbf{y}_j-\mathbf{y}_i\|_2^2)}{\sum_k \exp(-\|\mathbf{y}_k-\mathbf{y}_i\|_2^2)} = \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)}
+   \]
+<br>   where \(z_j \coloneqq \|\mathbf{y}_j-\mathbf{y}_i\|\) and \(z_i = 0\).
+<br>
+<br>4. <i>Function Definition</i>: Define the function \(g(\mathbf{z})\) for notational convenience:
+<br>   \[
+   g(\mathbf{z}) \coloneqq \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)} = \frac{\sum_{j \neq i} z_j^2 \exp(-z_j^2)}{1 + \sum_{k \neq i} \exp(-z_k^2)}
+   \]
+<br>
+<br>5. <i>Behavior at Infinity</i>: As \(z_j \rightarrow \infty\), \(\exp(-z_j^2) \rightarrow 0\) exponentially fast, causing \(z_j^2 \exp(-z_j^2) \rightarrow 0\). This suggests that \(g(\mathbf{z})\) is bounded and attains its maximum.
+<br>
+<br>6. <i>Partial Derivatives</i>: Define \(h(z_j) \coloneqq \exp(-z_j^2)\). By taking partial derivatives using the chain rule, we get:
+<br>   \[
+   \frac{\partial g(\mathbf{z})}{\partial z_j} = \frac{2z_j h(z_j)}{(\sum_k h(z_k))^2}\left[(1-z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2\right]
+   \]
+<br>   The derivative is zero if and only if \(z_j = 0\) or \(z_j^2 = 1 + g(\mathbf{z})\).
+<br>
+<br>7. <i>Maximum Condition</i>: At the maximum, the non-zero values among \(\{z_j\}_{j=1}^N\) must be equal. The maximum value \(c\) is attained when \(z_j^2 = 1 + c\) for \(j \neq i\). Thus, \(h(z_j) = \exp(-1-c)\) for \(j \neq i\).
+<br>
+<br>8. <i>Final Rearrangement</i>: Substituting into \(g(z)\) and rearranging, we obtain:
+<br>   \[
+   c \exp(c+1) = N - 1
+   \]
+<br>   Since \(\phi(x) \coloneqq x \exp(x+1)\) is increasing for \(x > 0\), we have \(c = \phi^{-1}(N-1)\).
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
+            <p>Authors: []</p>
+            <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p></p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma} \label{lemma:key}
+$\Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j P_{ij}\|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_2^2 \leq \sum_j P_{ij}\|\mathbf{y}_j-\mathbf{y}_i\|_2^2 \leq \phi^{-1}(N-1)$ where $\phi(c) = c \exp(c+1)$ is a one-dimensional invertible function on $\mathbb{R}_{\geq 0}$.
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = ``;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma} \\label{lemma:key}
+$\\Tr(\\mathrm{Cov}(\\mathbb{Y})) = \\sum_j P_{ij}\\|\\mathbf{y}_j - \\sum_k P_{ik} \\mathbf{y}_k\\|_2^2 \\leq \\sum_j P_{ij}\\|\\mathbf{y}_j-\\mathbf{y}_i\\|_2^2 \\leq \\phi^{-1}(N-1)$ where $\\phi(c) = c \\exp(c+1)$ is a one-dimensional invertible function on $\\mathbb{R}_{\\geq 0}$.
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

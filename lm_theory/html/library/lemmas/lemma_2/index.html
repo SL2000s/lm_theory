@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 2 - LM Theory</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+Tr: "\\operatorname{Tr}",
+softmaxOp: "\\operatorname{softmax}",
+lip: "\\operatorname{Lip}",
+diag: "\\operatorname{diag}",
+spaces: "\\hspace{2mm}",
+unif: "\\pazocal{U}",
+softmax: ["\\softmaxOp\\left(#1\\right)", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+andriy: ["\\textcolor{blue}{[AM: #1]}", 1],
+hyunjik: ["\\textcolor{red}{[HK: #1]}", 1],
+george: ["\\textcolor{magenta}{[George: #1]}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/examples.html">Examples</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/contribute.html">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library/index.html">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library/index.html">Full Index</a>
+                    <a href="/library/papers/index.html">Papers</a>
+                    <a href="/library/definitions/index.html">Definitions</a>
+                    <a href="/library/axioms/index.html">Axioms</a>
+                    <a href="/library/lemmas/index.html">Lemmas</a>
+                    <a href="/library/theorems/index.html">Theorems</a>
+                    <a href="/library/corollaries/index.html">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Non-Lipschitz Condition for Distinct Full Rank Matrices">
+    <h2>Lemma 2: Non-Lipschitz Condition for Distinct Full Rank Matrices</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            If $W^K \in \mathbb{R}^{D \times D/H}$ is full rank (i.e.~full column rank), and $W^K \neq W^Q$, then $J_{ij}$ has terms that are unbounded for $i \neq j$, hence $\tilde{f}$ is $\emph{not}$ Lipschitz.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This statement is useful in the context of analyzing the properties of neural networks, particularly in understanding the behavior of the attention mechanism in transformer models. If the weight matrices $W^K$ and $W^Q$ are distinct and $W^K$ is full rank, the resulting function $\tilde{f}$ is not Lipschitz continuous. This insight is crucial for understanding the stability and convergence properties of the model, as non-Lipschitz functions can lead to unbounded gradients and potentially unstable training dynamics.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Let us investigate the expression $\tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K) \in \mathbb{R}^{\frac{D}{H} \times \frac{D}{H}}$ for $i\neq j$, which is related to $\tilde{J}_{ij}$ as follows by Equation $\eqref{eq:jij}$:
+
+\begin{equation*}
+    W^{K^\top} \tilde{J}_{ij} = \left(\frac{2}{\sqrt{D/H}} \tilde{K}_{ij} + P_{ij}I \right)
+    W^{K^\top}.
+\end{equation*}
+
+It suffices to show that $\tilde{K}_{ij}$ is unbounded to show that $\tilde{J}_{ij}$ is unbounded, since $W^K$ is full rank and $P_{ij} \in [0,1]$. 
+
+Let $\mathbf{y}_j^\top = \mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K$. 
+Then we have:
+\begin{align*}
+    \mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k 
+    &= W^{Q^\top}\mathbf{x}_i - W^{K^\top}\mathbf{x}_j - \sum_k P_{ik} (W^{Q^\top}\mathbf{x}_i - W^{K^\top}\mathbf{x}_k)\\
+    &= W^{Q^\top}\mathbf{x}_i - W^{K^\top}\mathbf{x}_j - (W^{Q^\top}\mathbf{x}_i - \sum_k P_{ik} W^{K^\top}\mathbf{x}_k) \\
+    &= - W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k).
+\end{align*}
+Hence $\tilde{K}_{ij} = - P_{ij} (\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k) \mathbf{y}_j^\top$.
+Note $\mathbf{y}_i$ can take an arbitrary value in $\mathbb{R}^{D/H}$, since $W^K \neq W^Q$ and $W^K$ is full-rank.
+
+For all $j \neq i$, let us choose $\mathbf{x}_j$ such that $\mathbf{y}_j = -\mathbf{y}_i$. This is possible for any value of $\mathbf{y}_i$ since $W^K$ is full-rank.
+Note $\mathbf{y}_j = - \mathbf{y}_i$ and not $\mathbf{y}_i$.
+We then have that $\|\mathbf{y}_j\|_2^2$ is equal for all $j$, hence $P_{ij} \coloneqq \frac{\exp(-\|\mathbf{y}_j\|_2^2)}{\sum_k \exp(-\|\mathbf{y}_k\|_2^2)} = \frac{1}{N}$ for all $j$. 
+Then for $i \neq j$, $\tilde{K}_{ij}$ simplifies to
+\begin{equation*}
+\tilde{K}_{ij} = - \frac{1}{N} \left(-\mathbf{y}_i - \frac{1}{N} (N-2) (-\mathbf{y}_i)\right) (-\mathbf{y}_i)^\top  = - \frac{2N-2}{N^2} \mathbf{y}_i \mathbf{y}_i^\top 
+\end{equation*}
+whose entries are unbounded since $\mathbf{y}_i$ can be any vector in $\mathbb{R}^{D/H}$ (note we assume $N \geq 2$ for self-attention to be well-defined, hence $2N-2 \neq 0$).
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Expression Definition</i>: The proof starts by defining the expression \(\tilde{K}_{ij}\) in terms of \(P_{ij}\), \(W^{K^\top}\), and \(\mathbf{x}_j\):
+<br>   \[
+   \tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K)
+   \]
+<br>
+<br>2. <i>Relation to \(\tilde{J}_{ij}\)</i>: It is shown that \(\tilde{K}_{ij}\) is related to \(\tilde{J}_{ij}\) by the equation:
+<br>   \[
+   W^{K^\top} \tilde{J}_{ij} = \left(\frac{2}{\sqrt{D/H}} \tilde{K}_{ij} + P_{ij}I \right) W^{K^\top}
+   \]
+<br>
+<br>3. <i>Unboundedness of \(\tilde{K}_{ij}\)</i>: To prove \(\tilde{J}_{ij}\) is unbounded, it suffices to show \(\tilde{K}_{ij}\) is unbounded, given \(W^K\) is full rank and \(P_{ij} \in [0,1]\).
+<br>
+<br>4. <i>Substitution of \(\mathbf{y}_j\)</i>: Define \(\mathbf{y}_j^\top = \mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K\). Then:
+<br>   \[
+   \mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k = - W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)
+   \]
+<br>
+<br>5. <i>Expression for \(\tilde{K}_{ij}\)</i>: Using the above substitution, \(\tilde{K}_{ij}\) is expressed as:
+<br>   \[
+   \tilde{K}_{ij} = - P_{ij} (\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k) \mathbf{y}_j^\top
+   \]
+<br>
+<br>6. <i>Choice of \(\mathbf{x}_j\)</i>: Choose \(\mathbf{x}_j\) such that \(\mathbf{y}_j = -\mathbf{y}_i\). This is possible since \(W^K\) is full-rank.
+<br>
+<br>7. <i>Equal Norms and Simplification</i>: With \(\mathbf{y}_j = -\mathbf{y}_i\), the norms \(\|\mathbf{y}_j\|_2^2\) are equal for all \(j\), leading to:
+<br>   \[
+   P_{ij} = \frac{1}{N}
+   \]
+<br>
+<br>8. <i>Final Simplification</i>: For \(i \neq j\), \(\tilde{K}_{ij}\) simplifies to:
+<br>   \[
+   \tilde{K}_{ij} = - \frac{2N-2}{N^2} \mathbf{y}_i \mathbf{y}_i^\top
+   \]
+<br>
+<br>9. <i>Unbounded Entries</i>: The entries of \(\tilde{K}_{ij}\) are unbounded since \(\mathbf{y}_i\) can be any vector in \(\mathbb{R}^{D/H}\), and \(2N-2 \neq 0\) for \(N \geq 2\).
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
+            <p>Authors: []</p>
+            <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p></p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma} \label{lemma:tie_weights}
+If $W^K \in \mathbb{R}^{D \times D/H}$ is full rank (i.e.~full column rank), and $W^K \neq W^Q$, then $J_{ij}$ has terms that are unbounded for $i \neq j$, hence $\tilde{f}$ is \emph{not} Lipschitz. 
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = ``;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma} \\label{lemma:tie_weights}
+If $W^K \\in \\mathbb{R}^{D \\times D/H}$ is full rank (i.e.~full column rank), and $W^K \\neq W^Q$, then $J_{ij}$ has terms that are unbounded for $i \\neq j$, hence $\\tilde{f}$ is \\emph{not} Lipschitz. 
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>
