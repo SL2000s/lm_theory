@@ -74,8 +74,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     </header>
     <main>
         
-<section id="Matrix Norm Bound Lemma">
-    <h2>Lemma 7: Matrix Norm Bound Lemma</h2>
+<section id="Matrix Norm Bound">
+    <h2>Lemma 7: Matrix Norm Bound</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
@@ -85,47 +85,36 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The given inequality $\|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)$ is useful in the context of matrix analysis and optimization. It provides a bound on the spectral norm of a transformed matrix, which can be critical when assessing the stability and performance of numerical algorithms. This statement is particularly valuable when dealing with large-scale data or complex systems where ensuring that certain matrix properties are within specific limits is essential for accurate and efficient computations.
+            The given inequality $\|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)$ is useful in the context of matrix analysis and optimization. It provides a bound on the spectral norm of a transformed matrix, which can be critical in ensuring stability and convergence in numerical algorithms. This statement is particularly valuable when dealing with iterative methods or when assessing the performance of algorithms that involve matrix decompositions or transformations.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-$\|Y^\top P^{(i)}Y\|_2=\|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{Cov}(\mathbb{Y})) \leq \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)$, where the first equality holds by symmetry of $\mathrm{Cov}(\mathbb{Y})$ and the next holds by $\mathrm{Cov}(\mathbb{Y})$ being positive semi-definite, so all its eigenvalues are non-negative, and hence the maximal eigenvalue is bounded by the sum of the eigenvalues, equal to its trace. The final inequality is from Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
+$\|Y^\top P^{(i)}Y\|_2=\|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{Cov}(\mathbb{Y})) \leq \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)$, where the first equality holds by symmetry of $\mathrm{Cov}(\mathbb{Y})$ and the next holds by $\mathrm{Cov}(\mathbb{Y})$ being positive semi-definite, so all its eigenvalues are non-negative, and hence the maximal eigenvalue is bounded by the sum of the eigenvalues, equal to its trace. The final inequality is from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Norm of Transformed Matrix</i>: The proof begins by considering the norm of the transformed matrix \(Y^\top P^{(i)}Y\). This is expressed as:
-<br>   \[
-   \|Y^\top P^{(i)}Y\|_2
+            To understand the proof, let's break down each step:<br><br>1. <i></i>Equality by Symmetry<i></i>: 
+   \[
+   \|Y^\top P^{(i)}Y\|_2 = \|\mathrm{Cov}(\mathbb{Y})\|_2
    \]
-<br>
-<br>2. <i>Covariance Representation</i>: Next, this norm is equated to the norm of the covariance matrix of \(\mathbb{Y}\):
-<br>   \[
-   \|\mathrm{Cov}(\mathbb{Y})\|_2
+   This equality holds because the covariance matrix $\mathrm{Cov}(\mathbb{Y})$ is symmetric. For symmetric matrices, the 2-norm (spectral norm) is equal to the largest singular value, which is the same as the largest eigenvalue.<br><br>2. <i></i>Equality by Positive Semi-Definiteness<i></i>:
+   \[
+   \|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{Cov}(\mathbb{Y}))
    \]
-<br>
-<br>3. <i>Maximal Eigenvalue</i>: The norm of the covariance matrix is then represented by its maximal eigenvalue:
-<br>   \[
-   \lambda_{\max}(\mathrm{Cov}(\mathbb{Y}))
-   \]
-<br>
-<br>4. <i>Trace Bound</i>: Since \(\mathrm{Cov}(\mathbb{Y})\) is positive semi-definite, all its eigenvalues are non-negative. Therefore, the maximal eigenvalue is bounded by the sum of the eigenvalues, which is equal to the trace of the covariance matrix:
-<br>   \[
+   Since $\mathrm{Cov}(\mathbb{Y})$ is positive semi-definite, all its eigenvalues are non-negative. Therefore, the 2-norm of the covariance matrix is equal to its largest eigenvalue, $\lambda_{\max}$.<br><br>3. <i></i>Inequality by Trace<i></i>:
+   \[
    \lambda_{\max}(\mathrm{Cov}(\mathbb{Y})) \leq \Tr(\mathrm{Cov}(\mathbb{Y}))
    \]
-<br>
-<br>5. <i>Application of Lemma</i>: Finally, the trace of the covariance matrix is bounded by \(\phi^{-1}(N-1)\) as stated in Lemma 3:
-<br>   \[
+   The largest eigenvalue of a positive semi-definite matrix is bounded above by the sum of all its eigenvalues. The sum of the eigenvalues of a matrix is equal to its trace.<br><br>4. <i></i>Final Inequality from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a><i></i>:
+   \[
    \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)
    \]
-<br>
-<br>Thus, the proof shows that:
-<br>\[
+   This inequality is derived from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>, which provides an upper bound for the trace of the covariance matrix in terms of $\phi^{-1}$ and $N-1$.<br><br>By following these steps, we establish the desired inequality:
+\[
 \|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)
 \]
         </div>
@@ -136,8 +125,8 @@ $\|Y^\top P^{(i)}Y\|_2=\|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{C
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -145,7 +134,7 @@ $\|Y^\top P^{(i)}Y\|_2=\|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{C
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -154,7 +143,7 @@ $\|Y^\top P^{(i)}Y\|_2=\|\mathrm{Cov}(\mathbb{Y})\|_2 = \lambda_{\max}(\mathrm{C
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{lemma}
+            <p class="tex2jax_ignore"><code>\begin{lemma} \label{lemma:f6}
 $\|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)$
 \end{lemma}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
@@ -174,7 +163,15 @@ $\|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)$
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {
@@ -183,7 +180,7 @@ $\|Y^\top P^{(i)}Y\|_2 \leq \phi^{-1}(N-1)$
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{lemma}
+                var textToCopy = `\\begin{lemma} \\label{lemma:f6}
 $\\|Y^\\top P^{(i)}Y\\|_2 \\leq \\phi^{-1}(N-1)$
 \\end{lemma}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {

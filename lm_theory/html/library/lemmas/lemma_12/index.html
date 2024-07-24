@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 12 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Gradients of Self Attention with respect to Embedding Matrix">
+    <h2>Lemma 12: Gradients of Self Attention with respect to Embedding Matrix</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            The gradients of the self attention layer with respect to the embedding matrix $\Xm$ defined in Eq. (1) [in <a href="https://arxiv.org/pdf/2206.03126#equation.2.1">original paper</a>] have the following form
+
+\begin{align}
+\label{eq:grad_inp}
+    \frac{\partial\Sm}{\partial\Xm} 
+    &= \frac{1}{\sqrt{d_k}}(\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\left(\Im_n\kro\Xm\wK\wQT + \Km_{nn}(\Im_n\kro\Xm\wQ\wKT)\right) \,+ \,\Am\kro{\wV}^\top,
+\end{align}
+where the gradients of the softmax with respect to its inputs are denoted by $\frac{\partial \Am}{\partial \Mm}$ as before.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the gradients of the self-attention layer with respect to the embedding matrix $\Xm$ is crucial for training transformer models. This expression allows us to backpropagate errors through the self-attention mechanism, enabling the model to learn meaningful representations from the input data. It is particularly useful in natural language processing tasks, where transformers have become the state-of-the-art architecture for tasks such as translation, summarization, and question answering.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Remember that we defined $\Sm = \soft(\extra{\frac{1}{\sqrt{d_k}}}\Xm\wQ\wKT\Xm^\top)\Xm\wV$. Alongside with our previous shorthands $\Am$, $\Mm$, let us define the remaining $\Xm\wV$ as a matrix $\Tm$, so that $\Sm=\Am\,\Tm$. Both $\Am$ and $\Tm$ are functions of $\Xm$. So the matrix differential can be written as:
+\begin{align}
+    \frac{\partial\Sm}{\partial\Xm} &=  \frac{\partial\Sm}{\partial\Am}\frac{\partial\Am}{\partial\Xm} + \frac{\partial\Sm}{\partial\Tm}\frac{\partial\Tm}{\partial\Xm}\\
+    &=  \frac{\partial\Sm}{\partial\Am}\frac{\partial\Am}{\partial\Mm} \frac{\partial \Mm}{\partial\Xm} + \frac{\partial\Sm}{\partial\Tm}\frac{\partial\Tm}{\partial\Xm}\\
+    &= (\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\frac{\partial \Mm}{\partial \Xm} + (\Am\kro\Im_d)(\Im_n\kro\wVT)\\
+    &= (\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\frac{\partial \Mm}{\partial \Xm} + (\Am\kro\wVT)\label{eq:grad-SA-X}
+\end{align}
+
+Next, we use the matrix differential and then the identification theorem of matrix derivatives to compute the matrix gradient $\frac{\partial \Am}{\partial \Xm}$
+\begin{align*}
+    \mathrm{d} \Am &=  \extra{\frac{1}{\sqrt{d_k}}}\mathrm{d}(\Xm)\, \wQ\wKT\Xm^\top + \extra{\frac{1}{\sqrt{d_k}}}\Xm\wQ\wKT  \,\mathrm{d}(\Xm^\top).
+\end{align*}
+
+Vectorizing both sides:
+\begin{align*}
+    \mathrm{d} \vect_r(\Am) &=  \extra{\frac{1}{\sqrt{d_k}}}(\Im_n\kro\Xm\wK\wQT)\mathrm{d}(\vect_r(\Xm))\, + \,\extra{\frac{1}{\sqrt{d_k}}}(\Xm\wQ\wKT \kro\Im_n) \,\mathrm{d}(\vect_r(\Xm^\top)) \\
+    &=  \extra{\frac{1}{\sqrt{d_k}}}(\Im_n\kro\Xm\wK\wQT)\mathrm{d}(\vect_r(\Xm))\, + \,\extra{\frac{1}{\sqrt{d_k}}}(\Xm\wQ\wKT \kro\Im_n) \Km_{dn}\,\mathrm{d}(\vect_r(\Xm)).
+\end{align*}
+
+Recall, for an arbitrary matrix $\Bm\in\mathbb{R}^{m\times n}$, the commutation matrix $\Km_{mn}$ transforms columnwise vectorization into rowwise vectorization. More precisely,
+\begin{align*}
+    \Km_{mn}\vect_c(\Bm) = \vect_c(\Bm^\top)
+\end{align*}
+and $\vect_c(\Bm) = \vect_r(\Bm^\top)$. Therefore, for rowwise vectorization, we have a similar result:
+\begin{align*}
+    \Km_{mn}\vect_r(\Bm^\top) &= \vect_r(\Bm)\\
+    \vect_r(\Bm^\top) &= \Km_{nm}\vect_r(\Bm),
+\end{align*}
+where in the last line we used the fact the commutation is a permutation matrix, so $\Km_{mn}^{-1}=\Km_{mn}^\top=\Km_{nm}$. Thus, we get the required matrix derivative as follows:
+$$\frac{\partial \Am}{\partial \Xm} = \extra{\frac{1}{\sqrt{d_k}}}\Im_n\kro\Xm\wK\wQT + \extra{\frac{1}{\sqrt{d_k}}}(\Xm\wQ\wKT\kro\Im_n)\Km_{dn}\,.$$
+Next, we will use a property of commutation matrix to make things simpler (Theorem 7.9, <a href="https://arxiv.org/pdf/2206.03126#cite.magnus2019matrix"> Magnus and Neudecker [2019]</a>):
+$$
+\frac{\partial \Am}{\partial \Xm} = \extra{\frac{1}{\sqrt{d_k}}}\Im_n\kro\Xm\wK\wQT + \extra{\frac{1}{\sqrt{d_k}}}\Km_{nn}(\Im_n\kro\Xm\wQ\wKT).
+$$
+Plugging this into the above Eq. \eqref{eq:grad-SA-X}, we get:
+\begin{align*}
+     \frac{\partial\Sm}{\partial\Xm} 
+    &= \extra{\frac{1}{\sqrt{d_k}}}(\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\left(\Im_n\kro\Xm\wK\wQT + \Km_{nn}(\Im_n\kro\Xm\wQ\wKT)\right) \,+ \,\Am\kro{\wV}^\top.
+\end{align*}
+As a sanity check, we can calculate if the shapes of the matrices are consistent. LHS should be a $nd\times nd$ matrix, while the constituent matrices of the first term on RHS: $\Im_n\kro {\wV}^\top\Xm^\top\in\mathbb{R}^{nd\times n^2}$, $\frac{\partial \Am}{\partial \Mm} \in\mathbb{R}^{n^2\times n^2}$, the additive term next to it is a $n^2\times nd$ matrix, and the second term on RHS is a Kronecker product of a $n\times n$ and a $d\times d$ matrix.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            In this proof, we aim to compute the matrix gradient \(\frac{\partial \Sm}{\partial \Xm}\) for the given definition of \(\Sm\). Here are the steps involved:
+<br>
+<br>1. <i></i>Definition and Shorthands<i></i>:
+<br>   We start by defining \(\Sm = \soft\left(\frac{1}{\sqrt{d_k}}\Xm\wQ\wKT\Xm^\top\right)\Xm\wV\). We introduce shorthands \(\Am\) and \(\Mm\), and define \(\Tm = \Xm\wV\) so that \(\Sm = \Am\,\Tm\).
+<br>
+<br>2. <i></i>Matrix Differential<i></i>:
+<br>   We express the matrix differential of \(\Sm\) in terms of \(\Am\) and \(\Tm\):
+<br>   \[
+   \frac{\partial\Sm}{\partial\Xm} = \frac{\partial\Sm}{\partial\Am}\frac{\partial\Am}{\partial\Xm} + \frac{\partial\Sm}{\partial\Tm}\frac{\partial\Tm}{\partial\Xm}
+   \]
+<br>   Breaking it down further using the chain rule:
+<br>   \[
+   \frac{\partial\Sm}{\partial\Xm} = \frac{\partial\Sm}{\partial\Am}\frac{\partial\Am}{\partial\Mm} \frac{\partial \Mm}{\partial\Xm} + \frac{\partial\Sm}{\partial\Tm}\frac{\partial\Tm}{\partial\Xm}
+   \]
+<br>
+<br>3. <i></i>Vectorization and Commutation Matrix<i></i>:
+<br>   We use vectorization and the commutation matrix \(\Km_{mn}\) to transform the differentials:
+<br>   \[
+   \mathrm{d} \vect_r(\Am) = \frac{1}{\sqrt{d_k}}(\Im_n\kro\Xm\wK\wQT)\mathrm{d}(\vect_r(\Xm)) + \frac{1}{\sqrt{d_k}}(\Xm\wQ\wKT \kro\Im_n) \Km_{dn}\,\mathrm{d}(\vect_r(\Xm))
+   \]
+<br>
+<br>4. <i></i>Matrix Derivative<i></i>:
+<br>   Using properties of the commutation matrix, we derive the matrix derivative:
+<br>   \[
+   \frac{\partial \Am}{\partial \Xm} = \frac{1}{\sqrt{d_k}}\Im_n\kro\Xm\wK\wQT + \frac{1}{\sqrt{d_k}}(\Xm\wQ\wKT\kro\Im_n)\Km_{dn}
+   \]
+<br>   Simplifying further:
+<br>   \[
+   \frac{\partial \Am}{\partial \Xm} = \frac{1}{\sqrt{d_k}}\Im_n\kro\Xm\wK\wQT + \frac{1}{\sqrt{d_k}}\Km_{nn}(\Im_n\kro\Xm\wQ\wKT)
+   \]
+<br>
+<br>5. <i></i>Final Gradient Expression<i></i>:
+<br>   Plugging the matrix derivative back into the expression for \(\frac{\partial\Sm}{\partial\Xm}\):
+<br>   \[
+   \frac{\partial\Sm}{\partial\Xm} = \frac{1}{\sqrt{d_k}}(\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\left(\Im_n\kro\Xm\wK\wQT + \Km_{nn}(\Im_n\kro\Xm\wQ\wKT)\right) + \Am\kro{\wV}^\top
+   \]
+<br>
+<br>6. <i></i>Sanity Check<i></i>:
+<br>   We verify the consistency of matrix dimensions to ensure correctness. The left-hand side (LHS) should be a \(nd \times nd\) matrix, and the right-hand side (RHS) components are checked for matching dimensions.
+<br>
+<br>This step-by-step breakdown helps in understanding the derivation of the matrix gradient \(\frac{\partial \Sm}{\partial \Xm}\) using matrix calculus and properties of the commutation matrix.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}[Gradients of Self Attention with respect to the Embedding matrix]
+\label{lemma:grads_SA_X}
+The gradients of the self attention layer with respect to the embedding matrix $\Xm$ defined in Eq.~\eqref{eq:self_att} have the following form
+\small{
+\begin{align}
+\label{eq:grad_inp}
+    \frac{\partial\Sm}{\partial\Xm} 
+    &= \frac{1}{\sqrt{d_k}}(\Im_n\kro \wVT\Xm^\top)\,\frac{\partial \Am}{\partial \Mm}  \,\left(\Im_n\kro\Xm\wK\wQT + \Km_{nn}(\Im_n\kro\Xm\wQ\wKT)\right) \,+ \,\Am\kro{\wV}^\top,
+\end{align}}\normalsize
+where the gradients of the softmax with respect to its inputs are denoted by $\frac{\partial \Am}{\partial \Mm}$ as before.
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}[Gradients of Self Attention with respect to the Embedding matrix]
+\\label{lemma:grads_SA_X}
+The gradients of the self attention layer with respect to the embedding matrix $\\Xm$ defined in Eq.~\\eqref{eq:self_att} have the following form
+\\small{
+\\begin{align}
+\\label{eq:grad_inp}
+    \\frac{\\partial\\Sm}{\\partial\\Xm} 
+    &= \\frac{1}{\\sqrt{d_k}}(\\Im_n\\kro \\wVT\\Xm^\\top)\\,\\frac{\\partial \\Am}{\\partial \\Mm}  \\,\\left(\\Im_n\\kro\\Xm\\wK\\wQT + \\Km_{nn}(\\Im_n\\kro\\Xm\\wQ\\wKT)\\right) \\,+ \\,\\Am\\kro{\\wV}^\\top,
+\\end{align}}\\normalsize
+where the gradients of the softmax with respect to its inputs are denoted by $\\frac{\\partial \\Am}{\\partial \\Mm}$ as before.
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

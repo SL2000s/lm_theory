@@ -85,7 +85,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            This inequality is useful in the context of high-dimensional data analysis and machine learning, particularly in the study of the stability and robustness of algorithms. It provides a bound on the influence of individual data points on the overall system, which is crucial for understanding the behavior of algorithms under perturbations or noise. Use this inequality when you need to ensure that your model or algorithm remains stable and performs reliably even when subjected to small changes in the input data.
+            This inequality is useful in the context of analyzing the stability and convergence of certain iterative algorithms, particularly in high-dimensional spaces. It provides a bound on the infinity norm of a sum involving projection matrices and vectors, which can be critical for ensuring that the algorithm behaves as expected. This type of result is often used in optimization and machine learning to guarantee that updates to parameters do not lead to instability or divergence.
         </div>
     </section>
         
@@ -100,62 +100,69 @@ where $a_j = \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_\infty$
 
 Note $a_j \leq c_j \coloneqq  \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_2$ since $\|\mathbf{u}\|_\infty \leq \|\mathbf{u}\|_2$ for vector $\mathbf{u}$. Hence $\|\mathbf{a}\|_2 \leq \|\mathbf{c}\|_2$.
 
-Also $b_j \leq \sqrt{\frac{D}{H}} d_j \coloneqq  \sqrt{\frac{D}{H}} \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_2$ since $\|\mathbf{u}\|_1 \leq \sqrt{\frac{D}{H}}\|\mathbf{u}\|_2$ for $\mathbf{u} \in \mathbb{R}^{D/H}$ (e.g.~by the Cauchy--Schwartz inequality on $[|\mathbf{u}_1|, \ldots, |\mathbf{u}_{D/H}|]$ and $\mathds{1}$). Hence $\|b\|_2 \leq \sqrt{\frac{D}{H}}\|d\|_2$.
+Also $b_j \leq \sqrt{\frac{D}{H}} d_j \coloneqq  \sqrt{\frac{D}{H}} \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_2$ since $\|\mathbf{u}\|_1 \leq \sqrt{\frac{D}{H}}\|\mathbf{u}\|_2$ for $\mathbf{u} \in \mathbb{R}^{D/H}$ (e.g.~by the Cauchy--Schwartz inequality on $[|\mathbf{u}_1|, \ldots, |\mathbf{u}_{D/H}|]$ and $\mathbf{1}$). Hence $\|b\|_2 \leq \sqrt{\frac{D}{H}}\|d\|_2$.
 
-Note $\|c\|_2^2 = \sum_j P_{ij} \|y_j - \sum_k P_{ik} y_k\|_2^2 = \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)$ from Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>,
-and $\|d\|_2^2 =  \sum_j P_{ij} \|y_i - y_j\|_2^2 \leq  \phi^{-1}(N-1)$ also from Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
+Note $\|c\|_2^2 = \sum_j P_{ij} \|y_j - \sum_k P_{ik} y_k\|_2^2 = \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)$ from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>,
+and $\|d\|_2^2 =  \sum_j P_{ij} \|y_i - y_j\|_2^2 \leq  \phi^{-1}(N-1)$ also from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
 Hence $\|a\|_2 \|b\|_2 \leq \sqrt{\frac{D}{H}} \|c\|_2 \|d\|_2 \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)$.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Infinity Norm of Outer Product</i>: The proof starts by noting that the infinity norm of the outer product of two real vectors \(\mathbf{u}\) and \(\mathbf{v}\) is given by:
-<br>   \[
-   \|\mathbf{u}\mathbf{v}^\top\|_{\infty} = \|\mathbf{u}\|_{\infty} \|\mathbf{v}\|_1
-   \]
-<br>
-<br>2. <i>Summation and Norms</i>: Using the above property, the proof considers the sum involving \(P_{ij}\) and the norms of vectors \(\mathbf{y}_j\), \(\mathbf{y}_i\), and \(\mathbf{y}_k\):
-<br>   \[
-   \sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_\infty = \sum_j P_{ij} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_\infty \|\mathbf{y}_i - \mathbf{y}_j\|_1
-   \]
-<br>
-<br>3. <i>Vector Definitions</i>: The proof introduces vectors \(\mathbf{a}\) and \(\mathbf{b}\) defined as:
-<br>   \[
-   a_j = \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_\infty, \quad b_j = \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_1
-   \]
-<br>
-<br>4. <i>Inner Product and Cauchy-Schwarz</i>: The inner product \(\mathbf{a}^\top \mathbf{b}\) is then considered and bounded using the Cauchy-Schwarz inequality:
-<br>   \[
-   \mathbf{a}^\top \mathbf{b} \leq \|\mathbf{a}\|_2 \|\mathbf{b}\|_2
-   \]
-<br>
-<br>5. <i>Bounding \(\mathbf{a}\)</i>: The proof shows that \(a_j \leq c_j\) where:
-<br>   \[
-   c_j \coloneqq  \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_2
-   \]
-<br>   This follows from the property \(\|\mathbf{u}\|_\infty \leq \|\mathbf{u}\|_2\) for any vector \(\mathbf{u}\). Hence, \(\|\mathbf{a}\|_2 \leq \|\mathbf{c}\|_2\).
-<br>
-<br>6. <i>Bounding \(\mathbf{b}\)</i>: Similarly, \(b_j \leq \sqrt{\frac{D}{H}} d_j\) where:
-<br>   \[
-   d_j \coloneqq  \sqrt{\frac{D}{H}} \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_2
-   \]
-<br>   This follows from the property \(\|\mathbf{u}\|_1 \leq \sqrt{\frac{D}{H}}\|\mathbf{u}\|_2\) for \(\mathbf{u} \in \mathbb{R}^{D/H}\). Hence, \(\|\mathbf{b}\|_2 \leq \sqrt{\frac{D}{H}}\|\mathbf{d}\|_2\).
-<br>
-<br>7. <i>Bounding \(\|\mathbf{c}\|_2\) and \(\|\mathbf{d}\|_2\)</i>: The proof uses Lemma 3 to bound \(\|\mathbf{c}\|_2^2\) and \(\|\mathbf{d}\|_2^2\):
-<br>   \[
-   \|c\|_2^2 = \sum_j P_{ij} \|y_j - \sum_k P_{ik} y_k\|_2^2 = \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)
-   \]
-<br>   \[
-   \|d\|_2^2 =  \sum_j P_{ij} \|y_i - y_j\|_2^2 \leq  \phi^{-1}(N-1)
-   \]
-<br>
-<br>8. <i>Final Bound</i>: Combining the above results, the proof concludes with:
-<br>   \[
-   \|\mathbf{a}\|_2 \|\mathbf{b}\|_2 \leq \sqrt{\frac{D}{H}} \|\mathbf{c}\|_2 \|\mathbf{d}\|_2 \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
-   \]
+            To understand the proof, let's break down the steps involved:
+
+1. <i></i>Initial Norm Equality<i></i>:
+   - The proof starts by noting the equality $\|\mathbf{u}\mathbf{v}^\top\|_{\infty} = \|\mathbf{u}\|_{\infty} \|\mathbf{v}\|_1$ for real vectors $\mathbf{u}$ and $\mathbf{v}$.
+
+2. <i></i>Summation and Norms<i></i>:
+   - The expression $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_\infty$ is rewritten using the initial norm equality:
+     \[
+     \sum_j P_{ij} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_\infty \|\mathbf{y}_i - \mathbf{y}_j\|_1
+     \]
+   - This is then expressed as a dot product $\mathbf{a}^\top \mathbf{b}$, where:
+     \[
+     a_j = \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_\infty, \quad b_j = \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_1
+     \]
+
+3. <i></i>Cauchy-Schwarz Inequality<i></i>:
+   - The dot product $\mathbf{a}^\top \mathbf{b}$ is bounded by the Cauchy-Schwarz inequality:
+     \[
+     \mathbf{a}^\top \mathbf{b} \leq \|\mathbf{a}\|_2 \|\mathbf{b}\|_2
+     \]
+
+4. <i></i>Bounding $\mathbf{a}$<i></i>:
+   - The vector $\mathbf{a}$ is bounded by another vector $\mathbf{c}$:
+     \[
+     a_j \leq c_j \coloneqq \sqrt{P_{ij}} \|\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k\|_2
+     \]
+   - This follows from the inequality $\|\mathbf{u}\|_\infty \leq \|\mathbf{u}\|_2$ for any vector $\mathbf{u}$.
+   - Consequently, $\|\mathbf{a}\|_2 \leq \|\mathbf{c}\|_2$.
+
+5. <i></i>Bounding $\mathbf{b}$<i></i>:
+   - The vector $\mathbf{b}$ is bounded by another vector $\mathbf{d}$:
+     \[
+     b_j \leq \sqrt{\frac{D}{H}} d_j \coloneqq \sqrt{\frac{D}{H}} \sqrt{P_{ij}} \|\mathbf{y}_i - \mathbf{y}_j\|_2
+     \]
+   - This follows from the inequality $\|\mathbf{u}\|_1 \leq \sqrt{\frac{D}{H}}\|\mathbf{u}\|_2$ for $\mathbf{u} \in \mathbb{R}^{D/H}$, which can be derived using the Cauchy-Schwarz inequality.
+   - Consequently, $\|\mathbf{b}\|_2 \leq \sqrt{\frac{D}{H}}\|\mathbf{d}\|_2$.
+
+6. <i></i>Norms of $\mathbf{c}$ and $\mathbf{d}$<i></i>:
+   - The norms $\|\mathbf{c}\|_2^2$ and $\|\mathbf{d}\|_2^2$ are evaluated using <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>:
+     \[
+     \|c\|_2^2 = \sum_j P_{ij} \|y_j - \sum_k P_{ik} y_k\|_2^2 = \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)
+     \]
+     \[
+     \|d\|_2^2 = \sum_j P_{ij} \|y_i - y_j\|_2^2 \leq \phi^{-1}(N-1)
+     \]
+
+7. <i></i>Final Bound<i></i>:
+   - Combining the bounds, we get:
+     \[
+     \|\mathbf{a}\|_2 \|\mathbf{b}\|_2 \leq \sqrt{\frac{D}{H}} \|\mathbf{c}\|_2 \|\mathbf{d}\|_2 \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
+     \]
+
+This completes the proof by showing the desired inequality.
         </div>
     </section>
 
@@ -164,8 +171,8 @@ Hence $\|a\|_2 \|b\|_2 \leq \sqrt{\frac{D}{H}} \|c\|_2 \|d\|_2 \leq \sqrt{\frac{
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -173,7 +180,7 @@ Hence $\|a\|_2 \|b\|_2 \leq \sqrt{\frac{D}{H}} \|c\|_2 \|d\|_2 \leq \sqrt{\frac{
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -202,7 +209,15 @@ $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \math
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 7 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Propagation of Infinitesimal Perturbations in Attention Mechanisms">
+    <h2>Theorem 7: Propagation of Infinitesimal Perturbations in Attention Mechanisms</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Consider independent infinitesimal perturbations on queries $\epsilon^q \in \mathbb{R}^{N_{qkv}}$, keys $\epsilon^k_t \in \mathbb{R}^{N_{qkv}}$, and messages $\epsilon^m_t \in \mathbb{R}^{N_{qkv}}$. These propagate onto $\Delta x = \sum_{t}a_tm_t$ as
+\begin{align}
+    \epsilon^{\Delta x(q)} ~~&\xrightarrow[\epsilon^q\rightarrow0]{\mathrm{~~~~perturb~q~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ m_t {\tilde k}_t^T \Big] \epsilon^q ~~~~~~~~~~~~~~~~~  {\tilde k}_t ~\triangleq~ k_t ~- \mathop{\mathbb{E}}_{a_t} \Big[ k_t \Big] \\
+    \epsilon^{\Delta x(k)} ~~&\xrightarrow[\epsilon^k_t\rightarrow0]{\mathrm{~~~~perturb~k~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ {\tilde m}_t {\epsilon^k_t}^T \Big] q ~~~~~~~~~~~~~~~~~  {\tilde m}_t ~\triangleq~ m_t ~- \mathop{\mathbb{E}}_{a_t} \Big[ m_t \Big] \\
+    \epsilon^{\Delta x(m)} ~~&\xrightarrow[\epsilon^m_t\rightarrow0]{\mathrm{~~~~perturb~m~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ \epsilon^m_t \Big]
+\end{align}
+where ${\tilde z}_t$ is the value of $z_t$ measured from the attention-weighted centroid $\mathbb{E}_{a_t}[z_t] = \sum_t a_t z_t$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding how infinitesimal perturbations propagate in the context of queries, keys, and messages is crucial for analyzing the stability and sensitivity of attention mechanisms in neural networks. This can help in designing more robust models by identifying how small changes in input can affect the output, thereby improving the interpretability and reliability of the model's predictions.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Consider $q \rightarrow q + \epsilon^q$ where $\epsilon^q$ are infinitesimal perturbations on $q$. Then $\Delta x \rightarrow \Delta x + \epsilon^{\Delta x(q)}$ where by Taylor expansion we find
+\begin{equation}
+    \epsilon^{\Delta x(q)} ~=~ \frac{\partial \Delta x}{\partial q}\epsilon^q ~+~ \mathcal{O}\left({\epsilon^q}^2\right)
+\end{equation}
+where the leading term is a matrix $\frac{\partial \Delta x}{\partial q}$ acting on a vector $\epsilon^q$. Differentiating gives
+\begin{equation}
+    \frac{\partial\Delta x}{\partial q} ~=~ \sum_{ij} m_i \frac{\partial a_i}{\partial w_j} \frac{\partial w_j}{\partial q}
+\end{equation}
+with $a_i = \texttt{softmax}_i(w_i)$ and $w_i = k_i^T q$, and we are using $i, j, k$ etc to index over tokens instead of $t, t', t''$ etc, because this is more readable when we have many summations. Then
+
+\begin{equation}
+\begin{split}
+    \frac{\partial a_i}{\partial w_j} ~&=~ \frac{\partial}{\partial w_j} ~ \frac{e^{w_i}}{\sum_k e^{w_k}} \\
+    &=~ \frac{\delta_{ij}e^{w_i}}{\sum_k e^{w_k}} ~+~ e^{w_i}\left(-\frac{e^{w_j}}{\left(\sum_k e^{w_k}\right)^2}\right) \\
+    &=~ \frac{e^{w_i}}{\sum_k e^{w_k}}\left( 1 ~-~ \frac{e^{w_j}}{\sum_l e^{w_l}}\right) \\
+    &=~ a_i\left(\delta_{ij} ~-~ a_j\right) \\
+\end{split}
+\end{equation}
+and $\frac{\partial w_i}{\partial q} = k_i^T$, where we retain the transpose to indicate that this is an element of the dual vector space (i.e. covector). Inserting these results into our expression for $\epsilon^{\Delta x(q)}$ gives
+\begin{equation}
+\begin{split}
+    \epsilon^{\Delta x(q)} ~&=~ \sum_{ij} m_i a_i\left(\delta_{ij} ~-~ a_j\right) k_j^T \epsilon^q \\
+    &=~ \sum_{i} m_i a_i \left(k_i ~-~ \sum_j a_j k_j \right)^T \epsilon^q \\
+    &=~ \sum_{i} m_i a_i {\tilde k}_i^T \epsilon^q \\
+    &=~ \mathop{\mathbb{E}}_{a_i} \Big[m_i {\tilde k}_i^T \Big] \epsilon^q \\
+\end{split}
+\end{equation}
+This is the result for Eq. (39) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.39"> original paper</a>]. Repeating the process for perturbations on $k_i$, we have
+\begin{equation}
+    \epsilon^{\Delta x(k)} ~=~ \sum_i \frac{\partial \Delta x}{\partial k_i}\epsilon^k_i ~+~ \mathcal{O}\left({\epsilon^k}^2\right)
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+    \frac{\partial\Delta x}{\partial k_i} ~&=~ \sum_{jk} m_j \frac{\partial a_j}{\partial w_k} \frac{\partial w_k}{\partial k_i} \\
+    &=~ \sum_{jk} m_j a_j \left(\delta_{jk} ~-~ a_k\right) \delta_{ki} q^T \\
+    &=~ \sum_{j} m_j a_j \left(\delta_{ji} ~-~ a_i\right) q^T \\
+    &=~ a_i {\tilde m}_i q^T
+\end{split}
+\end{equation}
+Therefore
+\begin{equation}
+    \epsilon^{\Delta x(k)} ~=~ \sum_i a_i {\tilde m}_i q^T \epsilon^k_i ~=~ \mathop{\mathbb{E}}_{a_i} \Big[{\tilde m}_i {\epsilon^k_i}^T \Big] q
+\end{equation}
+which is the result for Eq. (40) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.40"> original paper</a>]. Finally,
+\begin{equation}
+\begin{split}
+    \epsilon^{\Delta x(m)} ~&=~ \sum_i \frac{\partial \Delta x}{\partial m_i}\epsilon^m_i \\
+    &=~ \sum_{i} a_i \epsilon^m_i \\
+    &=~ \mathop{\mathbb{E}}_{a_i} \Big[ \epsilon^m_i \Big]
+\end{split}
+\end{equation}
+using $\frac{\partial\Delta x}{\partial m_i} = \frac{\partial}{\partial m_i}\sum_j a_j m_j = \sum_j a_j \delta_{ij} = a_i$. This is the result for Eq. (41) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.41"> original paper</a>].
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, we break it down into several key steps:
+<br>
+<br>1. <i></i>Initial Perturbation<i></i>:
+<br>   - We start by considering a perturbation on \( q \), denoted as \( q \rightarrow q + \epsilon^q \), where \( \epsilon^q \) represents an infinitesimal change.
+<br>   - Consequently, the change in \( \Delta x \) is perturbed to \( \Delta x + \epsilon^{\Delta x(q)} \).
+<br>
+<br>2. <i></i>Taylor Expansion<i></i>:
+<br>   - Using a Taylor expansion, we express \( \epsilon^{\Delta x(q)} \) as:
+<br>     \[
+     \epsilon^{\Delta x(q)} = \frac{\partial \Delta x}{\partial q}\epsilon^q + \mathcal{O}\left({\epsilon^q}^2\right)
+     \]
+<br>   - Here, the leading term involves the matrix \( \frac{\partial \Delta x}{\partial q} \) acting on the vector \( \epsilon^q \).
+<br>
+<br>3. <i></i>Differentiation<i></i>:
+<br>   - We differentiate \( \Delta x \) with respect to \( q \):
+<br>     \[
+     \frac{\partial\Delta x}{\partial q} = \sum_{ij} m_i \frac{\partial a_i}{\partial w_j} \frac{\partial w_j}{\partial q}
+     \]
+<br>   - Where \( a_i = \texttt{softmax}_i(w_i) \) and \( w_i = k_i^T q \).
+<br>
+<br>4. <i></i>Softmax Derivative<i></i>:
+<br>   - We compute the derivative of the softmax function:
+<br>     \[
+     \frac{\partial a_i}{\partial w_j} = a_i\left(\delta_{ij} - a_j\right)
+     \]
+<br>   - And \( \frac{\partial w_i}{\partial q} = k_i^T \).
+<br>
+<br>5. <i></i>Substitution<i></i>:
+<br>   - Substituting these results into the expression for \( \epsilon^{\Delta x(q)} \):
+<br>     \[
+     \epsilon^{\Delta x(q)} = \sum_{i} m_i a_i {\tilde k}_i^T \epsilon^q = \mathop{\mathbb{E}}_{a_i} \Big[m_i {\tilde k}_i^T \Big] \epsilon^q
+     \]
+<br>
+<br>6. <i></i>Perturbation on \( k_i \)<i></i>:
+<br>   - Repeating the process for perturbations on \( k_i \):
+<br>     \[
+     \epsilon^{\Delta x(k)} = \sum_i \frac{\partial \Delta x}{\partial k_i}\epsilon^k_i + \mathcal{O}\left({\epsilon^k}^2\right)
+     \]
+<br>   - And differentiating:
+<br>     \[
+     \frac{\partial\Delta x}{\partial k_i} = a_i {\tilde m}_i q^T
+     \]
+<br>   - Leading to:
+<br>     \[
+     \epsilon^{\Delta x(k)} = \mathop{\mathbb{E}}_{a_i} \Big[{\tilde m}_i {\epsilon^k_i}^T \Big] q
+     \]
+<br>
+<br>7. <i></i>Perturbation on \( m_i \)<i></i>:
+<br>   - Finally, for perturbations on \( m_i \):
+<br>     \[
+     \epsilon^{\Delta x(m)} = \sum_i \frac{\partial \Delta x}{\partial m_i}\epsilon^m_i = \mathop{\mathbb{E}}_{a_i} \Big[ \epsilon^m_i \Big]
+     \]
+<br>   - Using \( \frac{\partial\Delta x}{\partial m_i} = a_i \).
+<br>
+<br>These steps collectively demonstrate how infinitesimal perturbations on \( q \), \( k_i \), and \( m_i \) propagate through the system, leading to the final results for each case.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+    Consider independent infinitesimal perturbations on queries $\epsilon^q \in \mathbb{R}^{N_{qkv}}$, keys $\epsilon^k_t \in \mathbb{R}^{N_{qkv}}$, and messages $\epsilon^m_t \in \mathbb{R}^{N_{qkv}}$. These propagate onto $\Delta x = \sum_{t}a_tm_t$ as
+    \begin{align}
+        \epsilon^{\Delta x(q)} ~~&\xrightarrow[\epsilon^q\rightarrow0]{\mathrm{~~~~perturb~q~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ m_t {\tilde k}_t^T \Big] \epsilon^q ~~~~~~~~~~~~~~~~~  {\tilde k}_t ~\triangleq~ k_t ~- \mathop{\mathbb{E}}_{a_t} \Big[ k_t \Big] \\
+        \epsilon^{\Delta x(k)} ~~&\xrightarrow[\epsilon^k_t\rightarrow0]{\mathrm{~~~~perturb~k~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ {\tilde m}_t {\epsilon^k_t}^T \Big] q ~~~~~~~~~~~~~~~~~  {\tilde m}_t ~\triangleq~ m_t ~- \mathop{\mathbb{E}}_{a_t} \Big[ m_t \Big] \\
+        \epsilon^{\Delta x(m)} ~~&\xrightarrow[\epsilon^m_t\rightarrow0]{\mathrm{~~~~perturb~m~~~~}}~~ \mathop{\mathbb{E}}_{a_t} \Big[ \epsilon^m_t \Big]
+    \end{align}
+    where ${\tilde z}_t$ is the value of $z_t$ measured from the attention-weighted centroid $\mathbb{E}_{a_t}[z_t] = \sum_t a_t z_t$.
+\label{theorem: stability: general}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+    Consider independent infinitesimal perturbations on queries $\\epsilon^q \\in \\mathbb{R}^{N_{qkv}}$, keys $\\epsilon^k_t \\in \\mathbb{R}^{N_{qkv}}$, and messages $\\epsilon^m_t \\in \\mathbb{R}^{N_{qkv}}$. These propagate onto $\\Delta x = \\sum_{t}a_tm_t$ as
+    \\begin{align}
+        \\epsilon^{\\Delta x(q)} ~~&\\xrightarrow[\\epsilon^q\\rightarrow0]{\\mathrm{~~~~perturb~q~~~~}}~~ \\mathop{\\mathbb{E}}_{a_t} \\Big[ m_t {\\tilde k}_t^T \\Big] \\epsilon^q ~~~~~~~~~~~~~~~~~  {\\tilde k}_t ~\\triangleq~ k_t ~- \\mathop{\\mathbb{E}}_{a_t} \\Big[ k_t \\Big] \\\\
+        \\epsilon^{\\Delta x(k)} ~~&\\xrightarrow[\\epsilon^k_t\\rightarrow0]{\\mathrm{~~~~perturb~k~~~~}}~~ \\mathop{\\mathbb{E}}_{a_t} \\Big[ {\\tilde m}_t {\\epsilon^k_t}^T \\Big] q ~~~~~~~~~~~~~~~~~  {\\tilde m}_t ~\\triangleq~ m_t ~- \\mathop{\\mathbb{E}}_{a_t} \\Big[ m_t \\Big] \\\\
+        \\epsilon^{\\Delta x(m)} ~~&\\xrightarrow[\\epsilon^m_t\\rightarrow0]{\\mathrm{~~~~perturb~m~~~~}}~~ \\mathop{\\mathbb{E}}_{a_t} \\Big[ \\epsilon^m_t \\Big]
+    \\end{align}
+    where ${\\tilde z}_t$ is the value of $z_t$ measured from the attention-weighted centroid $\\mathbb{E}_{a_t}[z_t] = \\sum_t a_t z_t$.
+\\label{theorem: stability: general}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

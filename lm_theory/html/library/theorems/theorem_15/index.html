@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 15 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Bias Nullification Theorem">
+    <h2>Theorem 15: Bias Nullification Theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            In the $\texttt{No-Norm}$ case, bias parameters in the construction of query and key vectors are nullified by the $\texttt{softmax}$, or only contribute terms that may be recovered if $x$ contains a constant direction.
+
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            The No-Norm case is useful in simplifying the computation of attention mechanisms in neural networks. By nullifying the bias parameters in the construction of query and key vectors, the softmax function ensures that only the essential directional information is retained. This can be particularly beneficial when dealing with input vectors that contain a constant direction, as it allows for a more efficient and focused computation.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Consider a modification to the construction of query and key vectors that uses the affine transformations $q = W_Qx+b_Q$ and $k_t = W_Ky_t+b_K$, with $W_{Q}\in\mathbb{R}^{N_{qkv}\times N_x}$, $W_{K}\in\mathbb{R}^{N_{qkv}\times N_y}$, $W_{QK}\triangleq W_Q^TW_K$, and $b_Q,b_K\in\mathbb{R}^{N_{qkv}}$. The dot-product attention scores are then:
+\begin{equation}
+\begin{split}
+    w_t ~&=~ q^T k_t \\
+       &=~ \left(W_Qx + b_Q\right)^T \left(W_Ky_t + b_K\right)  \\
+       &=~ x^TW_{QK}y_t ~+~ ({W_Q}^Tb_K)^Tx ~+~ ({W_K}^Tb_Q)^Ty_t ~+~ b_Q^Tb_K \\
+    w_t ~+~ const~ &=~ x^TW_{QK}y_t ~+~ ({W_Q}^Tb_K)^Tx ~+~ ({W_K}^Tb_Q)^Ty_t  \\
+       &\triangleq~ x^TW_{QK}y_t ~+~ \rho_x^Tx ~+~ \rho_y^Ty_t  ~~~~~~~~~~~~~\rightarrow ~\rho_x^Tx =const ~\mathrm{given}~x\rightarrow \\
+       &=~ x^TW_{QK}y_t ~+~ \rho_y^Ty_t  ~~~~~~~~~~~~~~~~~~~~~~~~~~~ \rightarrow ~W_{QK} \triangleq \Omega^T \Lambda \Sigma~\text{via SVD}~\rightarrow  \\
+       &=~ x^T\Omega^T\Lambda\Sigma y_t ~+~ \rho_y^Ty_t ~~~~~~~~~~~~~~~~~~~~~~~~~~ \rightarrow ~x' \triangleq \Omega x, ~~y'_t \triangleq \Sigma y_t ~\rightarrow \\
+       &=~ {x'}^T\Lambda y'_t ~+~ \rho_y^Ty_t
+\end{split}
+\end{equation}
+After expanding the terms, we find an additive constant $b_Q^Tb_K$, and move this onto the LHS. <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_12/index.html#theorem%3A+att+shift+operator">Theorem 12</a> states that this has no impact on the output of the $\texttt{softmax}$ operator. We identify $\rho_x\triangleq W_Q^Tb_k$ and $\rho_y\triangleq W_K^Tb_q$ as vectors on the <b>row-spaces of $W_Q$ and $W_K$ respectively</b>, defined as linear maps of the special directions $b_K$ and $b_Q$. Since $x$ is constant for each $\texttt{softmax}$, $\rho_x^Tx$ is constant, and we absorb it into the LHS. We perform the singular value decomposition $W_{QK} \triangleq \Omega^T \Lambda \Sigma$ where $\{\Omega\in\mathbb{R}^{N_x\times N_x},~\Sigma\in\mathbb{R}^{N_y\times N_y}\}$ are orthonormal matrices and $\Lambda \in \mathbb{R}^{N_x\times N_y}$ is a diagonal matrix of positive-semidefinite singular values with maximum rank $\min(N_x,N_y,N_{qkv})$. Orthonormal matrices apply a basis change to the embedding space using rotations and reflections. We write the transformed embeddings as $x' \triangleq \Omega x$ and $y_t' \triangleq \Sigma y_t$. The dot-product then has two terms:
+<ol>
+    <li>${x'}^T \Lambda y'_t = \sum_i \Lambda_{ii} x'_i y'_{ti}$ sculpts the attention distribution according to <i>pairwise relationships</i> between embeddings. We can say that $\{\Omega,\Sigma\}$ align the bases of $x$ and $y_t$, mapping them onto a common orthonormal coordinate system. $\Lambda_{ii}$ then assigns an importance weight to each coordinate $i$, determining the contribution of $x'_iy'_{ti}$.</li>
+    <li>$\rho_y^Ty$ means "token $t$ sends to all receivers when $y_t \parallel \rho_y$", where $\rho_y$ must be a vector on the row-space of $W_K$. This may be recovered in the expansion of ${x'}^T\Lambda y'_t$ if there exists a direction $i$ for which $x'_i=const$.</li>
+</ol>
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            Consider a modification to the construction of query and key vectors that uses the affine transformations \( q = W_Qx + b_Q \) and \( k_t = W_Ky_t + b_K \), with \( W_{Q} \in \mathbb{R}^{N_{qkv} \times N_x} \), \( W_{K} \in \mathbb{R}^{N_{qkv} \times N_y} \), \( W_{QK} \triangleq W_Q^T W_K \), and \( b_Q, b_K \in \mathbb{R}^{N_{qkv}} \). The dot-product attention scores are then:
+
+\[
+\begin{split}
+    w_t ~&=~ q^T k_t \\
+       &=~ \left(W_Q x + b_Q\right)^T \left(W_K y_t + b_K\right)  \\
+       &=~ x^T W_{QK} y_t ~+~ ({W_Q}^T b_K)^T x ~+~ ({W_K}^T b_Q)^T y_t ~+~ b_Q^T b_K \\
+    w_t ~+~ \text{const}~ &=~ x^T W_{QK} y_t ~+~ ({W_Q}^T b_K)^T x ~+~ ({W_K}^T b_Q)^T y_t  \\
+       &\triangleq~ x^T W_{QK} y_t ~+~ \rho_x^T x ~+~ \rho_y^T y_t  ~~~~~~~~~~~~~\rightarrow ~\rho_x^T x = \text{const} ~\text{given}~ x \rightarrow \\
+       &=~ x^T W_{QK} y_t ~+~ \rho_y^T y_t  ~~~~~~~~~~~~~~~~~~~~~~~~~~~ \rightarrow ~W_{QK} \triangleq \Omega^T \Lambda \Sigma~\text{via SVD}~\rightarrow  \\
+       &=~ x^T \Omega^T \Lambda \Sigma y_t ~+~ \rho_y^T y_t ~~~~~~~~~~~~~~~~~~~~~~~~~~ \rightarrow ~x' \triangleq \Omega x, ~~y'_t \triangleq \Sigma y_t ~\rightarrow \\
+       &=~ {x'}^T \Lambda y'_t ~+~ \rho_y^T y_t
+\end{split}
+\]
+
+After expanding the terms, we find an additive constant \( b_Q^T b_K \), and move this onto the LHS. <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_12/index.html#theorem%3A+att+shift+operator">Theorem 12</a> states that this has no impact on the output of the \(\texttt{softmax}\) operator. We identify \(\rho_x \triangleq W_Q^T b_K\) and \(\rho_y \triangleq W_K^T b_Q\) as vectors on the <i></i>row-spaces of \( W_Q \) and \( W_K \) respectively<i></i>, defined as linear maps of the special directions \( b_K \) and \( b_Q \). Since \( x \) is constant for each \(\texttt{softmax}\), \(\rho_x^T x\) is constant, and we absorb it into the LHS. We perform the singular value decomposition \( W_{QK} \triangleq \Omega^T \Lambda \Sigma \) where \(\{\Omega \in \mathbb{R}^{N_x \times N_x},~\Sigma \in \mathbb{R}^{N_y \times N_y}\}\) are orthonormal matrices and \(\Lambda \in \mathbb{R}^{N_x \times N_y}\) is a diagonal matrix of positive-semidefinite singular values with maximum rank \(\min(N_x, N_y, N_{qkv})\). Orthonormal matrices apply a basis change to the embedding space using rotations and reflections. We write the transformed embeddings as \( x' \triangleq \Omega x \) and \( y_t' \triangleq \Sigma y_t \). The dot-product then has two terms:
+
+1. \({x'}^T \Lambda y'_t = \sum_i \Lambda_{ii} x'_i y'_{ti}\) sculpts the attention distribution according to <i>pairwise relationships</i> between embeddings. We can say that \(\{\Omega, \Sigma\}\) align the bases of \( x \) and \( y_t \), mapping them onto a common orthonormal coordinate system. \(\Lambda_{ii}\) then assigns an importance weight to each coordinate \( i \), determining the contribution of \( x'_i y'_{ti} \).
+
+2. \(\rho_y^T y\) means "token \( t \) sends to all receivers when \( y_t \parallel \rho_y \)", where \(\rho_y\) must be a vector on the row-space of \( W_K \). This may be recovered in the expansion of \({x'}^T \Lambda y'_t\) if there exists a direction \( i \) for which \( x'_i = \text{const} \).
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+In the \texttt{No-Norm} case, bias parameters in the construction of query and key vectors are nullified by the \texttt{softmax}, or only contribute terms that may be recovered if $x$ contains a constant direction.
+\label{theorem: decomposition}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+In the \\texttt{No-Norm} case, bias parameters in the construction of query and key vectors are nullified by the \\texttt{softmax}, or only contribute terms that may be recovered if $x$ contains a constant direction.
+\\label{theorem: decomposition}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

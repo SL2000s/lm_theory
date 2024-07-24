@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Definition 4 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+repOp: "\\operatorname{Rep}",
+genOp: "\\operatorname{gen}",
+SpanOp: "\\operatorname{Span}",
+ConeOp: "\\operatorname{Cone}",
+argmin: "\\operatorname{argmin}",
+argmax: "\\operatorname{argmax}",
+logit: "\\operatorname{logit}",
+promptSpace: "\\mathcal{X}",
+conceptSpace: "\\mathcal{C}",
+repSpace: "\\mathcal{R}",
+responseSpace: "\\mathcal{Y}",
+defas: ":=",
+nullconcept: "\\phi",
+conceptDistSpace: "\\mathcal{Q}",
+cov: "\\mathrm{Cov}",
+yquad: "\\mathcal{Y}",
+parnum: "\\bfseries\\P\\arabic{parcount}",
+grad: "\\nabla",
+prm: "\\:;\\:",
+mbw: "\\mb{w}",
+mbW: "\\mb{W}",
+mbx: "\\mb{x}",
+mbX: "\\mb{X}",
+mby: "\\mb{y}",
+mbY: "\\mb{Y}",
+mbz: "\\mb{z}",
+mbZ: "\\mb{Z}",
+mbT: "\\mb{T}",
+mbA: "\\mb{A}",
+mba: "\\mb{a}",
+mbI: "\\mb{I}",
+mbone: "\\mb{1}",
+mbL: "\\mb{L}",
+mbtheta: "\\mb{\\theta}",
+mbTheta: "\\mb{\\Theta}",
+mbomega: "\\mb{\\omega}",
+mbOmega: "\\mb{\\Omega}",
+mbsigma: "\\mb{\\sigma}",
+mbSigma: "\\mb{\\Sigma}",
+mbphi: "\\mb{\\phi}",
+mbPhi: "\\mb{\\Phi}",
+mbalpha: "\\mb{\\alpha}",
+mbbeta: "\\mb{\\beta}",
+mbgamma: "\\mb{\\gamma}",
+mbeta: "\\mb{\\eta}",
+mbmu: "\\mb{\\mu}",
+mbrho: "\\mb{\\rho}",
+mblambda: "\\mb{\\lambda}",
+mbzeta: "\\mb{\\zeta}",
+diag: "\\textrm{diag}",
+supp: "\\textrm{supp}",
+V: "\\mathbb{V}",
+bbH: "\\mathbb{H}",
+bbN: "\\mathbb{N}",
+bbZ: "\\mathbb{Z}",
+bbR: "\\mathbb{R}",
+bbS: "\\mathbb{S}",
+cL: "\\mathcal{L}",
+cD: "\\mathcal{D}",
+cN: "\\mathcal{N}",
+cT: "\\mathcal{T}",
+Gam: "\\textrm{Gam}",
+InvGam: "\\textrm{InvGam}",
+g: "\\, | \\,",
+s: "\\, ; \\,",
+indpt: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+defeq: "\\coloneqq",
+asympeq: "\\ \\sim\\ ",
+Reals: "\\mathbb{R}",
+Nats: "\\mathbb{N}",
+NNReals: "\\Reals_{+}",
+exclude: "\\backslash",
+eps: "\\varepsilon",
+edges: "e",
+vertices: "v",
+loops: "l",
+EE: "\\mathbb{E}",
+var: "\\mathrm{var}",
+convPr: "\\xrightarrow{\\,p\\,}",
+convDist: "\\xrightarrow{\\,d\\,}",
+equaldist: "\\overset{d}{=}",
+upto: "\\!\\uparrow\\!",
+given: "\\mid",
+as: "\\textrm{ a.s.}",
+equalas: "\\overset{\\mathrm{a.s.}}{=}",
+intd: "\\mathrm{d}",
+dist: "\\ \\sim\\ ",
+distiid: "\\overset{\\mathrm{iid}}{\\dist}",
+distind: "\\overset{ind}{\\dist}",
+PPDist: "\\mathrm{PP}",
+Lebesgue: "\\Lambda",
+cdo: "\\mathrm{do}",
+normalDist: "\\mathrm{Normal}",
+diriDist: "\\mathrm{Diri}",
+categDist: "\\mathrm{Cat}",
+betaDist: "\\mathrm{Beta}",
+bernDist: "\\mathrm{Bern}",
+binDist: "\\mathrm{Bin}",
+uniDist: "\\mathrm{Uni}",
+poiDist: "\\mathrm{Poi}",
+gammaDist: "\\mathrm{Gamma}",
+multiDist: "\\mathrm{Multi}",
+Ind: "\\mathbbm{1}",
+p: "    \\stepcounter{parcount}    \\leavevmode\\marginpar[\\hfill\\parnum]{\\parnum}",
+independent: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+dif: "\\mathop{}\\!\\mathrm{d}",
+lmText: ["\\lmOp(\\text{``#1''})", 1],
+lm: ["\\lmOp(#1)", 1],
+repText: ["\\repOp(\\text{``#1''})", 1],
+rep: ["\\repOp(#1)", 1],
+ConceptName: ["$\\mathtt{#1}$", 1],
+ConceptValue: ["\\texttt{#1}", 1],
+SpanText: ["\\SpanOp(\\text{``#1''})", 1],
+Span: ["\\SpanOp(#1)", 1],
+ConeText: ["\\ConeOp(\\text{``#1''})", 1],
+Cone: ["\\ConeOp(#1)", 1],
+red: ["\\textcolor{BrickRed}{#1}", 1],
+orange: ["\\textcolor{BurntOrange}{#1}", 1],
+green: ["\\textcolor{OliveGreen}{#1}", 1],
+blue: ["\\textcolor{MidnightBlue}{#1}", 1],
+gray: ["\\textcolor{black!60}{#1}", 1],
+cdashlinelr: ["  \\noalign{\\vskip\\aboverulesep           \\global\\let\\@dashdrawstore\\adl@draw           \\global\\let\\adl@draw\\adl@drawiv}  \\cdashline{#1}  \\noalign{\\global\\let\\adl@draw\\@dashdrawstore           \\vskip\\belowrulesep}", 1],
+defnphrase: ["\\emph{#1}", 1],
+abs: ["\\left\\lvert#1 \\right\\rvert", 1],
+dtv: ["\\|#1\\|_{\\mathrm{TV}}", 1],
+NatSubs: ["\\tilde \\Nats_{#1}", 1],
+ConceptDirName: ["\\texttt{#1}\\Rightarrow\\texttt{#2}", 2],
+ConceptDirMath: ["#1 \\Rightarrow #2", 2],
+ip: ["\\langle #1,#2\\rangle", 2],
+E: ["\\mathbb{E}_{#1}\\left[#2\\right]", 2],
+checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Linear Concept Representation">
+    <h2>Definition 4: Linear Concept Representation</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            A vector $\bar{\ell}_W$ is a linear representation of a binary concept $W$ if
+\begin{align}
+  \Pr(W = 1 \given \ell + \alpha \bar{\ell}_W) &> \Pr(W = 1 \given \ell) \text{, and} \label{eq:linear_cond1} \\
+  \Pr(Z \given \ell + \alpha\bar{\ell}_W) &= \Pr(Z \given \ell), \label{eq:linear_cond2}
+\end{align}   
+for all contexts $\ell$, all $\alpha>0$, and all concept variables $Z$ that are either subordinate or causally separable with $W$.
+Here, if $W$ is a binary feature for an attribute $w$, $W=1$ denotes $W = \ConceptValue{is_w}$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the linear representation of a binary concept is crucial in fields like machine learning and natural language processing. This definition helps in identifying how a concept $W$ can be represented in a vector space such that the probability of $W$ being true increases with the addition of the vector $\bar{\ell}_W$, while the probabilities of other unrelated concepts remain unchanged. This is particularly useful when designing algorithms that need to isolate and manipulate specific features or attributes without affecting others.
+        </div>
+    </section>
+        
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/the_geometry_of_categorical_and_hierarchical_concepts_in_large_language_models/index.html">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a></p>
+            <p>Authors: Kiho Park, Yo Joong Choe, Yibo Jiang, and Victor Veitch</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.01506">https://arxiv.org/abs/2406.01506</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{park2024geometrycategoricalhierarchicalconcepts,<br>&emsp;title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, <br>&emsp;author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},<br>&emsp;year={2024},<br>&emsp;eprint={2406.01506},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.CL},<br>&emsp;url={https://arxiv.org/abs/2406.01506}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{definition}\label{def:linear_representation}
+    A vector $\bar{\ell}_W$ is a linear representation of a binary concept $W$ if
+    \begin{align}
+      \Pr(W = 1 \given \ell + \alpha \bar{\ell}_W) &> \Pr(W = 1 \given \ell) \text{, and} \label{eq:linear_cond1} \\
+      \Pr(Z \given \ell + \alpha\bar{\ell}_W) &= \Pr(Z \given \ell), \label{eq:linear_cond2}
+    \end{align}   
+    for all contexts $\ell$, all $\alpha>0$, and all concept variables $Z$ that are either subordinate or causally separable with $W$.
+    Here, if $W$ is a binary feature for an attribute $w$, $W=1$ denotes $W = \ConceptValue{is\_w}$.
+\end{definition}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{park2024geometrycategoricalhierarchicalconcepts,
+  title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, 
+  author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},
+  year={2024},
+  eprint={2406.01506},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2406.01506}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{definition}\\label{def:linear_representation}
+    A vector $\\bar{\\ell}_W$ is a linear representation of a binary concept $W$ if
+    \\begin{align}
+      \\Pr(W = 1 \\given \\ell + \\alpha \\bar{\\ell}_W) &> \\Pr(W = 1 \\given \\ell) \\text{, and} \\label{eq:linear_cond1} \\\\
+      \\Pr(Z \\given \\ell + \\alpha\\bar{\\ell}_W) &= \\Pr(Z \\given \\ell), \\label{eq:linear_cond2}
+    \\end{align}   
+    for all contexts $\\ell$, all $\\alpha>0$, and all concept variables $Z$ that are either subordinate or causally separable with $W$.
+    Here, if $W$ is a binary feature for an attribute $w$, $W=1$ denotes $W = \\ConceptValue{is\\_w}$.
+\\end{definition}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

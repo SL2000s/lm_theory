@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 6 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Semantic Orthogonality Theorem">
+    <h2>Theorem 6: Semantic Orthogonality Theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            $\texttt{QKV-Norm}$: Semantic subspaces must be linearly independent.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            The concept of $\texttt{QKV-Norm}$, which states that semantic subspaces must be linearly independent, is crucial in the field of machine learning and natural language processing. This principle ensures that the different semantic dimensions captured by the model do not overlap, thereby preserving the distinctiveness of each semantic feature. It is particularly useful when designing and training transformer models, as it helps in maintaining the integrity and clarity of the learned representations, leading to more accurate and meaningful results.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+We have
+\begin{equation}
+    w_t^{(A)}(\theta_A) ~=~ \frac{1}{\left|k_t^{(A)}\right|\left|q^{(A)}\right|} {w^*_t}^{(A)}(\theta_A)
+\end{equation}
+where $w^*_t$ are the attention scores from the $\texttt{No-Norm}$ case, which requires $x_A(\theta_A)$ and $x_B(\theta_B)$ to be linearly independent. Use
+\begin{equation}
+x(\theta_A,\theta_B,\phi) ~=~ x_A(\theta_A) ~+~ x_B(\theta_B) ~+~ x_{other}(\theta_A,\theta_B,\phi)
+\end{equation}
+and 
+\begin{equation}
+\begin{split}
+    q^{(A)}(\theta_A) ~&=~ W_Q^{(A)} x(\theta_A,\theta_B,\phi)  \\
+    &=~ W_Q^{(A)} x_A(\theta_A) ~+~ W_Q^{(A)} x_B(\theta_B) ~+~ W_Q^{(A)} x_{other}(\theta_A,\theta_B,\phi) \\
+\end{split}
+\end{equation}
+Since we already have the condition of linearly independent $x_A,x_B$, there must exist a linear projection operator $P_A$ such that $P_A x_A = x_A$. Defining $W_Q^{(A)}=P_A$, we then have
+\begin{equation}
+    q^{(A)}(\theta_A) ~=~ W_Q^{(A)} x_A(\theta_A) 
+\end{equation}
+This demonstrates that it is possible to separate linearly independent semantic subspaces on $x$. By symmetry of $w_t^{(A)}(\theta_A)$, the same must be true for $y_t$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, we can break it down into several key steps:
+<br>
+<br>1. <i></i>Initial Equation<i></i>:
+<br>   The proof starts with the given equation:
+<br>   \[
+   w_t^{(A)}(\theta_A) = \frac{1}{\left|k_t^{(A)}\right|\left|q^{(A)}\right|} {w^*_t}^{(A)}(\theta_A)
+   \]
+<br>   Here, \( w^*_t \) represents the attention scores from the \(\texttt{No-Norm}\) case, which assumes that \( x_A(\theta_A) \) and \( x_B(\theta_B) \) are linearly independent.
+<br>
+<br>2. <i></i>Definition of \( x(\theta_A, \theta_B, \phi) \)<i></i>:
+<br>   The proof introduces a function \( x \) defined as:
+<br>   \[
+   x(\theta_A, \theta_B, \phi) = x_A(\theta_A) + x_B(\theta_B) + x_{other}(\theta_A, \theta_B, \phi)
+   \]
+<br>   This function combines the components \( x_A \), \( x_B \), and an additional term \( x_{other} \).
+<br>
+<br>3. <i></i>Expression for \( q^{(A)}(\theta_A) \)<i></i>:
+<br>   The proof then expresses \( q^{(A)}(\theta_A) \) as:
+<br>   \[
+   \begin{split}
+   q^{(A)}(\theta_A) &= W_Q^{(A)} x(\theta_A, \theta_B, \phi) \\
+   &= W_Q^{(A)} x_A(\theta_A) + W_Q^{(A)} x_B(\theta_B) + W_Q^{(A)} x_{other}(\theta_A, \theta_B, \phi)
+   \end{split}
+   \]
+<br>   This step shows how \( q^{(A)} \) is derived from the linear transformation of \( x \).
+<br>
+<br>4. <i></i>Linear Independence and Projection Operator<i></i>:
+<br>   Given the condition that \( x_A \) and \( x_B \) are linearly independent, there must exist a linear projection operator \( P_A \) such that \( P_A x_A = x_A \). By defining \( W_Q^{(A)} = P_A \), we simplify \( q^{(A)} \) to:
+<br>   \[
+   q^{(A)}(\theta_A) = W_Q^{(A)} x_A(\theta_A)
+   \]
+<br>
+<br>5. <i></i>Conclusion<i></i>:
+<br>   This demonstrates that it is possible to separate linearly independent semantic subspaces on \( x \). By symmetry of \( w_t^{(A)}(\theta_A) \), the same must be true for \( y_t \).
+<br>
+<br>This step-by-step breakdown shows how the proof establishes the separation of linearly independent semantic subspaces using projection operators and linear transformations.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+    \texttt{QKV-Norm}: Semantic subspaces must be linearly independent.
+\label{theorem: structure: qkv-norm}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+    \\texttt{QKV-Norm}: Semantic subspaces must be linearly independent.
+\\label{theorem: structure: qkv-norm}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

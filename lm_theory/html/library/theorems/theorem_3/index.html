@@ -92,117 +92,136 @@ and the following bound on $\lip_{2}(F)$:
 \end{align*}
 where $\phi(x) \coloneqq x\exp(x+1)$ is an invertible univariate function on $x > 0$, and $N$ is the input sequence length.
 
-Specifically, $\phi^{-1}(N-1) = W_0(\frac{N}{e})$ where $W_0$ is the Lambert $W$-function, which grows sub-logarithmically as $O(\log N - \log \log N)$ \citep{corless1996lambertw}. Hence the above bounds can be simplified to $O(\log N)$ for $p=\infty$ and $O(\sqrt{N} \log N)$ for $p=2$.
+Specifically, $\phi^{-1}(N-1) = W_0(\frac{N}{e})$ where $W_0$ is the Lambert $W$-function, which grows sub-logarithmically as $O(\log N - \log \log N)$. Hence the above bounds can be simplified to $O(\log N)$ for $p=\infty$ and $O(\sqrt{N} \log N)$ for $p=2$.
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Understanding the Lipschitz properties of $\verb!L2-MHA!$ is crucial for analyzing the stability and robustness of neural networks, particularly in the context of multi-head attention mechanisms. These bounds provide insights into how the output of the network changes in response to small perturbations in the input, which is essential for ensuring reliable performance in various applications, such as natural language processing and computer vision. The bounds also help in designing networks that are less sensitive to noise and adversarial attacks, making them more robust and trustworthy.
+            Understanding the Lipschitz properties of $\verb!L2-MHA!$ is crucial for analyzing the stability and robustness of neural networks, particularly in the context of multi-head attention mechanisms. These bounds provide insights into how the output of the network changes in response to small perturbations in the input, which is essential for ensuring reliable performance in various applications, such as natural language processing and computer vision. The bounds also help in designing networks that are less sensitive to noise and adversarial attacks, thereby improving their generalization capabilities.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-The mapping $f$ can be written as
-\vspace{-5mm}
+<h4>Upper bound on $\boldsymbol{\lip_{\infty}(F)}$ for L2-MHA</h4>
+
+Consider the choice $p=\infty$, where $\|J_f\|_\infty$ is the maximum absolute row sum of $J_f$. A key observation is that if we can bound the $\infty$-norm of the Jacobian of $f_i$, a single output of $f$, (i.e.~a single block row $\|[J_{i1},...,J_{iN}]\|_\infty$ of $J_f$) then this is also a bound on $\|J_f\|_{\infty}$ due to permutation equivariance of self-attention; all block rows have the same maximal $\|\cdot\|_\infty$ when each is optimised over the input $X$. Using this, we can prove that $\|J_f\|_\infty$ admits an upper bound that is $O(\log N - \log \log N)$. Below we state and prove lemmas that lead to the proof of this upper bound.
+
+First we analyse the term $\sqrt{A}^\top X^\top P^{(i)}X \sqrt{A}$, that appears in the first term of $J_{ii}$. Note that for $Y \coloneqq X \sqrt{A}$, so that the rows of $Y$ are $\mathbf{y}_i^\top \coloneqq \mathbf{x}_i^\top \sqrt{A}$, we have 
 \begin{equation}
-f(X) = PX = \softmax{X A^\top X^\top} X = \begin{bmatrix}
-    f_1(X)^\top \\
-    \vdots \\
-    f_N(X)^\top
-\end{bmatrix} \in \mathbb{R}^{N \times D},
+    \sqrt{A}^\top X^\top P^{(i)}X \sqrt{A}= Y^\top P^{(i)} Y =  \mathrm{Cov}(\mathbb{Y})
 \end{equation}
-where $A = W^K W^{Q^\top} / \sqrt{D/H} \in \mathbb{R}^{D \times D}$ and
-$f_i(X) = \sum_{j=1}^N P_{ij}\mathbf{x}_j$ with $P_{i:}^\top = \softmax{XA\mathbf{x}_i}$.
-Hence $f$ can be interpreted as a map of each $\mathbf{x}_i$ to a point in the convex hull of ${\mathbf{x}_1,...,\mathbf{x}_N}$.
-Since $f$ is a map from $\mathbb{R}^{N \times D}$ to $\mathbb{R}^{N \times D}$, its Jacobian is
-\begin{equation}
-    J_f = \begin{bmatrix}
-    J_{11} & \dots & J_{1N} \\
-    \vdots & \ddots & \vdots \\
-    J_{N1} & \dots & J_{NN} \\
-    \end{bmatrix}\in \mathbb{R}^{ND \times ND},
-\end{equation}
-where $J_{ij} = \frac{\partial f_i(X)}{\partial \mathbf{x}_j} \in \mathbb{R}^{D \times D}$. 
-By taking partial derivatives we can show that $J_{ij} = X^\top P^{(i)} \left[E_{ji}XA^\top + XA\delta_{ij}\right] + P_{ij}I$
-where $E_{ij} \in \mathbb{R}^{N \times N}$ is a binary matrix with zeros everywhere except the $(i,j)$th entry, $\delta_{ij}$ is the Kronecker delta, and $P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:}$.
-So for $i=j$:
+where $\mathbb{P}(\mathbb{Y}=\mathbf{y}_j)=P_{ij} = \exp(-\|\mathbf{y}_j - \mathbf{y}_i\|^2_2)/\sum_k \exp(-\|\mathbf{y}_k - \mathbf{y}_i\|^2_2)$. The last equality uses the observation in Equation (7) [in <a href="https://arxiv.org/pdf/2006.04710#equation.3.7">original paper</a>].
+
+The central inequality used throughout the proof of the main theorem is the following:
+[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>]<br><br>
+
+Note $\phi(\log N) = (\log N) \exp(\log N + 1) \geq N \log N \geq N -1$ for $N \geq 3$. Since $\phi$ is increasing, we have $\phi^{-1}(N-1) \leq \log(N)$ for $N \geq 3$. In fact, it is known that $\phi^{-1}(N-1) = O(\log N - \log \log N)$.
+
+Note the $A$ term in $f(X) = \tilde{f}(X) A$ allows us to use the above inequality, since $Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y})$ now appears in the terms of $J_f$:
 \begin{align}
-J_{ii} &=X^\top P^{(i)}E_{ii}XA^\top + X^\top P^{(i)}XA + P_{ii}I \nonumber \\
-&= P_{ii}\left(\mathbf{x}_i - \textstyle\sum_k P_{ik} \mathbf{x}_k\right)\mathbf{x}_i^\top A^\top + X^\top P^{(i)}XA + P_{ii}I. \label{eq:jac_dot_general}
+    J_{ii}
+    &= 2 \sqrt{A} [Y^\top P^{(i)}Y]\sqrt{A}^\top + P_{ii} A,  \\ 
+    J_{ij},
+    &= 2 \sqrt{A} P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top \sqrt{A}^\top + P_{ij} A  \hspace{2mm} \text{for $i \neq j$}.
 \end{align}
-For the last equality, note $E_{ii}X$ has all rows equal to zero except for the $i$th row given by $\mathbf{x}_i^\top$. We can then verify that $X^\top P^{(i)}E_{ii}X$ simplifies to $P_{ii}(\mathbf{x}_i - \sum_k P_{ik} \mathbf{x}_k)\mathbf{x}_i^\top$.
 
-For vector $p$-norms, $\|J_f\|_p$ is bounded if and only if its entries are bounded, by definition of the operator norm. 
-The entries of $X^\top P^{(i)}XA$ are bounded for arbitrary $A$ only if the entries of $X^\top P^{(i)}X$ are bounded.
-So let us investigate the entries of this $D\times D$ matrix. 
-Writing out each term of the matrix, we observe that it is in fact a covariance matrix of a discrete distribution. Specifically:
-\begin{equation} \label{eq:cov_general}
-    [X^\top P^{(i)}X]_{lm}  = \textstyle\sum_k P_{ik} x_{kl} x_{km} - \left(\textstyle\sum_k P_{ik}  x_{kl}\right)\left(\textstyle\sum_k P_{ik} x_{km}\right) = \mathrm{Cov}(\mathbb{X}_l,\mathbb{X}_m),
+Using the inequalities $\|BC\| \leq \|B\| \|C\|$, $\|B + C\| \leq \|B\| + \|C\|$ and $\|[A_1, \ldots, A_N]\| \leq \sum_i \|A_i\|$, we have: 
+\begin{align*}
+\|[J_{i1} &, \ldots, J_{iN}]\|_{\infty}  \\
+\leq & \|J_{ii}\|_{\infty} + \sum_{j \neq i} \|J_{ij}\|_{\infty} \\
+  \leq & 2 \|\sqrt{A}\|_{\infty} \|Y^\top P^{(i)}Y\|_{\infty} \|\sqrt{A}^\top\|_{\infty} + P_{ii} \|A\|_{\infty} \\
+ & + 2 \sum_{j \neq i} \|\sqrt{A}\|_{\infty} \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_\infty \|\sqrt{A}^\top\|_{\infty} + P_{ij} \|A\|_{\infty}\\
+  = & 2  \|\sqrt{A}\|_{\infty}\|\sqrt{A}^\top\|_{\infty} 
+\bigg(\|Y^\top P^{(i)}Y\|_\infty 
+ + \sum_{j\neq i} \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_\infty\bigg) + \|A\|_{\infty} \\
+ = & 2  \frac{\|W^{Q}\|_{\infty}\|W^{Q^\top}\|_{\infty}}{\sqrt{D/H}} 
+\bigg(\|Y^\top P^{(i)}Y\|_\infty 
+ + \sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_\infty\bigg) + \frac{\|W^Q W^{Q^\top}\|_{\infty}}{\sqrt{D/H}}.
+\end{align*}
+For the first equality, note that $\sum_j P_{ij}=1$. For the second equality, note that the summand for $j=i$ is $0$ because the term $\mathbf{y}_i - \mathbf{y}_j=\mathbf{0}$. Each of the terms in the brackets are bounded by the following lemmas:<br>[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_4/index.html#lemma%3Af3">Lemma 4</a>]<br>
+[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_5/index.html#lemma%3Af4">Lemma 5</a>]<br><br>
+
+Putting the above lemmas altogether, with the observation $\sup_X \|J_f(X)\|_\infty = \sup_X \|[J_{i1}(X), \ldots, J_{iN}(X)]\|_\infty$ by permutation invariance of $\|J_f\|_\infty$ (since $f$ is permutation equivariant and $\|\cdot\|_\infty$ is the maximum absolute row sum), we have
+\begin{align}
+\|J_f\|_{\infty}
+& \leq 4\|W^Q\|_{\infty}\|W^{Q^\top}\|_{\infty} \phi^{-1}(N-1)
++ \frac{\|W^Q W^{Q^\top}\|_{\infty}}{\sqrt{D/H}} \nonumber\\
+& \leq \|W^Q\|_{\infty}\|W^{Q^\top}\|_{\infty} \left(4\phi^{-1}(N-1) + \frac{1}{\sqrt{D/H}}\right) \label{ineq:infty}\\
+& \leq \|W^Q\|_{\infty} \|W^{Q^\top}\|_{\infty} \left(4\log N + \frac{1}{\sqrt{D/H}}\right), \nonumber
+\end{align}
+where the last inequality holds for $N \geq 3$.
+
+The full multihead attention map that combines the heads $f^h(X)$ is:
+\begin{equation*}
+F: X \mapsto \left[f^1(X)W^{V,1}, \ldots f^H(X)W^{V,H}\right] W^O = g(X) W^V W^O
+\end{equation*}
+where $g:X \mapsto [f^1(X),\ldots,f^H(X)]$, $W^O \in \mathbb{R}^{D \times D}$ and
+\begin{equation*}
+    W^V = \begin{bmatrix}
+    W^{V,1} & \dots & 0 \\
+    \vdots & \ddots & \vdots \\
+    0 & \dots & W^{V,H} \\
+    \end{bmatrix} \in \mathbb{R}^{DH \times D}.
+\end{equation*}
+Note the Jacobian $J_g$ is a block matrix whose rows are $J_{f^h}$, hence $\|J_g\|_{\infty} = \max_h \|J_{f^h}\|_{\infty}$, and similarly $\|W^{V^\top}\|_{\infty} = \max_h \|W^{{V,h}^\top}\|_{\infty}$. Hence we have
+\begin{equation*}
+    \lip_{\infty}(F) \leq \max_h \|J_{f^h}\|_{\infty} \max_h \|W^{{V,h}^\top}\|_{\infty} \|W^{O^\top}\|_{\infty}.
+\end{equation*}
+
+Combining this with Inequality (\ref{ineq:infty}), we have:
+\begin{equation*}
+    \lip_{\infty}(F)  \leq \left(4 \phi^{-1}(N-1) + \frac{1}{\sqrt{D/H}}\right) \max_h \|W^{Q,h}\|_{\infty} \|W^{{Q,h}^\top}\|_{\infty} \max_h \|W^{{V,h}^\top}\|_{\infty} \ \|W^{O^\top}\|_{\infty}.
+\end{equation*}
+
+<h4>Upper bound on $\boldsymbol{\lip_2(F)}$ for L2-MHA</h4>
+
+For $p=2$, we use the following lemma:<br>[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_6/index.html#lemma%3Ablock_rows">Lemma 6</a>]<br><br>
+Hence a bound on the spectral norm of each block row of $J_f$ can give us an $O(\sqrt{N})$ bound on $\|J_f\|_2$, which may be loose, and it remains an open question as to whether this bound can be tightened.
+
+To bound the $\|\cdot\|_2$ norm of each row of $J_f$, we use the following lemmas:<br>[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_7/index.html#lemma%3Af6">Lemma 7</a>]<br>
+[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_8/index.html#lemma%3Af7">Lemma 8</a>]<br><br>
+
+Again using the inequalities $\|BC\| \leq \|B\| \|C\|$, $\|B + C\| \leq \|B\| + \|C\|$ and $\|[A_1, \ldots, A_N]\| \leq \sum_i \|A_i\|$, with the additional equality $\|B^\top\|_2 = \|B\|_2$, we have the bound: 
+\begin{align*}
+&\|[J_{i1}, \ldots, J_{iN}]\|_2 \\
+ & \leq  2  \frac{\|W^Q\|_2\|W^{Q^\top}\|_2}{\sqrt{D/H}} 
+\bigg(\|Y^\top P^{(i)}Y\|_2
+ + \sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_2 \bigg) + \frac{\|W^Q W^{Q^\top}\|_2}{\sqrt{D/H}} \\
+ & \leq  4\phi^{-1}(N-1) \frac{\|W^Q\|_2^2}{\sqrt{D/H}}  + \frac{\|W^Q W^{Q^\top}\|_2}{\sqrt{D/H}} \\
+ & \leq  \frac{\|W^Q\|_2^2}{\sqrt{D/H}} \bigg(4\phi^{-1}(N-1)+1 \bigg).
+\end{align*}
+Using <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_6/index.html#lemma%3Ablock_rows">Lemma 6</a>, we have that
+\begin{align}
+    \|J_f\|_2 & \leq \frac{\sqrt{N}\|W^Q\|_2^2}{\sqrt{D/H}} \bigg(4\phi^{-1}(N-1)+1 \bigg) \label{ineq:2} \\
+    & \leq \frac{\sqrt{N}\|W^Q\|_2^2}{\sqrt{D/H}}(4\log N+1). \nonumber
+\end{align}
+To obtain the final result for the full multihead self-attention $F$, we need a final lemma:<br>
+[<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_9/index.html#lemma%3Ablock_cols">Lemma 9</a>]<br><br>
+Recall that 
+\begin{equation*}
+F: X \mapsto \left[f^1(X)W^{V,1}, \ldots, f^H(X)W^{V,H}\right] W^O.
+\end{equation*}
+Since $\|f^h(X)W^{V,h}\|_2 \leq \|J_{f^h}\|_2 \|W^{V,h}\|_2$, by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_9/index.html#lemma%3Ablock_cols">Lemma 9</a> we have that
+\begin{equation*}
+    \left\|[f^1(X)W^{V,1}, \ldots, f^H(X)W^{V,H}]\right\|_2 \leq \sqrt{\sum_h \|J_{f^h}\|_2^2 \|W^{V,h}\|_2^2}
+\end{equation*} and hence
+\begin{equation}
+    \lip_2(F) 
+    \leq \left(\sqrt{\sum_h \|J_{f^h}\|_2^2 \|W^{V,h}\|_2^2}\right) \|W^O\|_2.
 \end{equation}
-where $\mathbb{X}$ is a discrete distribution with support at the inputs $\{\mathbf{x}_1,\ldots,\mathbf{x}_N \}$ and probability mass function given by their softmax probabilities $\mathbb{P}(\mathbb{X}=\mathbf{x}_j)=P_{ij}$. 
-A consequence of this interpretation is that $P^{(i)}$ is \textit{positive semi-definite} (PSD) since for $D=1$, Equation \eqref{eq:cov_general} becomes $X^\top P^{(i)} X = \mathrm{Var}(\mathbb{X}) \geq 0$, with equality if and only if the $\mathbf{x}_j$ are all equal.
-
-We use this observation to show that the terms of $J_{ii}$ are unbounded, and so $\verb!DP-MHA!$ is $\emph{not}$ Lipschitz.
-Consider the case $\mathbf{x}_i=0$. Then $P_{i:}^\top = \softmax{XA\mathbf{x}_i} = \frac{1}{N} \mathds{1}$, i.e.\ we have uniform attention regardless of $\mathbf{x}_{ \neq i}$. 
-The first term of $J_{ii}$ in Equation \eqref{eq:jac_dot_general} disappears since $\mathbf{x}_i=\mathbf{0}$, and the last term becomes $\frac{1}{N} I$. For the second term, the entries $[X^\top P^{(i)}X]_{ll} = \mathrm{Var}(\mathbb{X}_l)$ are unbounded since the latter is equal to the sample variance of ${x_{1l},\ldots,x_{Nl}}$, which can be arbitrarily large.
-
-Note that we have shown that single head dot-product self-atttention ($H=1$) is not Lipschitz, but it is clear that this implies multihead self-attention $\verb!DP-MHA!$ is also not Lipschitz, since the output of multihead attention is a linear combination of the outputs of each head.
+Combining this with Inequality (\ref{ineq:2}), we have:
+\begin{equation*}
+    \lip_2(F) \leq \frac{\sqrt{N}}{\sqrt{D/H}}
+    \left(4 \phi^{-1}(N-1) + 1 \right) \left(\sqrt{\textstyle\sum_h \|W^{Q,h}\|_2^2\, \|W^{V,h}\|_2^2}\right) \|W^O\|_2.
+\end{equation*}
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Mapping Definition</i>: The proof starts by defining the mapping \( f \) as:
-<br>   \[
-   f(X) = PX = \softmax{X A^\top X^\top} X = \begin{bmatrix}
-       f_1(X)^\top \\
-       \vdots \\
-       f_N(X)^\top
-   \end{bmatrix} \in \mathbb{R}^{N \times D},
-   \]
-<br>   where \( A = W^K W^{Q^\top} / \sqrt{D/H} \in \mathbb{R}^{D \times D} \) and \( f_i(X) = \sum_{j=1}^N P_{ij}\mathbf{x}_j \) with \( P_{i:}^\top = \softmax{XA\mathbf{x}_i} \).
-<br>
-<br>2. <i>Interpretation of \( f \)</i>: It is noted that \( f \) maps each \( \mathbf{x}_i \) to a point in the convex hull of \( \{\mathbf{x}_1, \ldots, \mathbf{x}_N\} \).
-<br>
-<br>3. <i>Jacobian Definition</i>: The Jacobian of \( f \) is defined as:
-<br>   \[
-   J_f = \begin{bmatrix}
-       J_{11} & \dots & J_{1N} \\
-       \vdots & \ddots & \vdots \\
-       J_{N1} & \dots & J_{NN} \\
-   \end{bmatrix} \in \mathbb{R}^{ND \times ND},
-   \]
-<br>   where \( J_{ij} = \frac{\partial f_i(X)}{\partial \mathbf{x}_j} \in \mathbb{R}^{D \times D} \).
-<br>
-<br>4. <i>Partial Derivatives</i>: By taking partial derivatives, it is shown that:
-<br>   \[
-   J_{ij} = X^\top P^{(i)} \left[E_{ji}XA^\top + XA\delta_{ij}\right] + P_{ij}I,
-   \]
-<br>   where \( E_{ij} \) is a binary matrix, \( \delta_{ij} \) is the Kronecker delta, and \( P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:} \).
-<br>
-<br>5. <i>Case \( i = j \)</i>: For \( i = j \), the expression simplifies to:
-<br>   \[
-   J_{ii} = P_{ii}\left(\mathbf{x}_i - \textstyle\sum_k P_{ik} \mathbf{x}_k\right)\mathbf{x}_i^\top A^\top + X^\top P^{(i)}XA + P_{ii}I.
-   \]
-<br>   It is noted that \( E_{ii}X \) has all rows equal to zero except for the \( i \)th row given by \( \mathbf{x}_i^\top \).
-<br>
-<br>6. <i>Boundedness of Entries</i>: For vector \( p \)-norms, \( \|J_f\|_p \) is bounded if and only if its entries are bounded. The entries of \( X^\top P^{(i)}XA \) are bounded for arbitrary \( A \) only if the entries of \( X^\top P^{(i)}X \) are bounded.
-<br>
-<br>7. <i>Covariance Matrix</i>: The entries of \( X^\top P^{(i)}X \) are shown to form a covariance matrix:
-<br>   \[
-   [X^\top P^{(i)}X]_{lm} = \textstyle\sum_k P_{ik} x_{kl} x_{km} - \left(\textstyle\sum_k P_{ik} x_{kl}\right)\left(\textstyle\sum_k P_{ik} x_{km}\right) = \mathrm{Cov}(\mathbb{X}_l, \mathbb{X}_m),
-   \]
-<br>   where \( \mathbb{X} \) is a discrete distribution with support at the inputs \( \{\mathbf{x}_1, \ldots, \mathbf{x}_N \} \) and probability mass function given by their softmax probabilities.
-<br>
-<br>8. <i>Positive Semi-Definiteness</i>: It is observed that \( P^{(i)} \) is positive semi-definite (PSD) since for \( D=1 \), \( X^\top P^{(i)} X = \mathrm{Var}(\mathbb{X}) \geq 0 \).
-<br>
-<br>9. <i>Unbounded Terms</i>: The terms of \( J_{ii} \) are shown to be unbounded, indicating that \( \verb!DP-MHA! \) is not Lipschitz. Specifically, for \( \mathbf{x}_i = 0 \), the entries \( [X^\top P^{(i)}X]_{ll} = \mathrm{Var}(\mathbb{X}_l) \) are unbounded.
-<br>
-<br>10. <i>Multihead Attention</i>: It is concluded that single head dot-product self-attention (\( H=1 \)) is not Lipschitz, implying that multihead self-attention (\( \verb!DP-MHA! \)) is also not Lipschitz, as the output of multihead attention is a linear combination of the outputs of each head.
+            [missing]
         </div>
     </section>
 
@@ -211,8 +230,8 @@ Note that we have shown that single head dot-product self-atttention ($H=1$) is 
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -220,7 +239,7 @@ Note that we have shown that single head dot-product self-atttention ($H=1$) is 
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -262,7 +281,15 @@ Specifically, $\phi^{-1}(N-1) = W_0(\frac{N}{e})$ where $W_0$ is the Lambert $W$
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

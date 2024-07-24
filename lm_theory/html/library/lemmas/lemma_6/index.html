@@ -74,8 +74,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     </header>
     <main>
         
-<section id="Block row norm inequality">
-    <h2>Lemma 6: Block row norm inequality</h2>
+<section id="Block Row Norm Inequality">
+    <h2>Lemma 6: Block Row Norm Inequality</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
@@ -85,7 +85,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The given inequality for block matrices is particularly useful in numerical linear algebra and matrix analysis. It provides an upper bound for the 2-norm of a block matrix in terms of the 2-norms of its block rows. This can be applied in scenarios where the matrix is too large to handle directly, but its blocks are more manageable. Additionally, the condition for equality helps in understanding the structure of the matrix and the alignment of its singular vectors, which can be crucial for optimization problems and in the study of matrix decompositions.
+            The given inequality for block matrices is particularly useful in numerical linear algebra and matrix analysis. It provides an upper bound for the spectral norm of a block matrix in terms of the spectral norms of its block rows. This can be applied in scenarios where the matrix is too large to handle directly, but its block structure can be exploited to simplify computations. The condition for equality is also significant in understanding the alignment of singular vectors, which can be crucial in applications like signal processing and data compression.
         </div>
     </section>
         
@@ -100,39 +100,47 @@ Note that equality holds if and only if the first right singular vectors of the 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Norm Definition</i>: The proof starts by defining the squared 2-norm of matrix \(A\) as the squared 2-norm of a block matrix composed of submatrices \(A_i\):
-<br>   \[
+            The proof demonstrates the relationship between the squared 2-norm of a block matrix \( A \) and the sum of the squared 2-norms of its submatrices \( A_i \). Here are the steps explained:
+
+1. <i></i>Expression of the 2-norm squared of \( A \)<i></i>:
+   \[
    \|A\|_2^2 = \left\Vert \begin{bmatrix} A_1 \\ \vdots \\ A_N \\ \end{bmatrix}\right\Vert_2^2
    \]
-<br>
-<br>2. <i>Supremum Representation</i>: The squared 2-norm is then expressed as the supremum over all unit vectors \(\mathbf{x}\):
-<br>   \[
-   \sup_{\|\mathbf{x}\|_2=1} \left\Vert\begin{bmatrix} A_1 \\ \vdots \\ A_N \\ \end{bmatrix} \mathbf{x}\right\Vert_2^2
+   This step expresses the squared 2-norm of the matrix \( A \) in terms of its block components \( A_i \).
+
+2. <i></i>Supremum over unit vectors<i></i>:
+   \[
+   \|A\|_2^2 = \sup_{\|\mathbf{x}\|_2=1} \left\Vert\begin{bmatrix} A_1 \\ \vdots \\ A_N \\ \end{bmatrix} \mathbf{x}\right\Vert_2^2
    \]
-<br>
-<br>3. <i>Sum of Norms</i>: This supremum is expanded into a sum of squared norms of the submatrices \(A_i\) applied to \(\mathbf{x}\):
-<br>   \[
-   \sup_{\|\mathbf{x}\|_2=1} \sum_i \|A_i \mathbf{x}\|_2^2
+   The squared 2-norm of \( A \) is defined as the supremum of the squared 2-norm of \( A \mathbf{x} \) over all unit vectors \( \mathbf{x} \).
+
+3. <i></i>Sum of squared norms<i></i>:
+   \[
+   \sup_{\|\mathbf{x}\|_2=1} \left\Vert\begin{bmatrix} A_1 \\ \vdots \\ A_N \\ \end{bmatrix} \mathbf{x}\right\Vert_2^2 = \sup_{\|\mathbf{x}\|_2=1} \sum_i \|A_i \mathbf{x}\|_2^2
    \]
-<br>
-<br>4. <i>Supremum of Each Term</i>: The sum of supremums is then bounded by the sum of the supremums of each individual term:
-<br>   \[
-   \leq \sum_i \sup_{\|\mathbf{x}\|_2=1} \|A_i \mathbf{x}\|_2^2
+   The squared 2-norm of the block matrix \( A \mathbf{x} \) is the sum of the squared 2-norms of each block component \( A_i \mathbf{x} \).
+
+4. <i></i>Inequality using supremum<i></i>:
+   \[
+   \sup_{\|\mathbf{x}\|_2=1} \sum_i \|A_i \mathbf{x}\|_2^2 \leq \sum_i \sup_{\|\mathbf{x}\|_2=1} \|A_i \mathbf{x}\|_2^2
    \]
-<br>
-<br>5. <i>Norm of Submatrices</i>: Finally, each supremum is recognized as the squared 2-norm of the submatrix \(A_i\):
-<br>   \[
-   = \sum_i \|A_i\|_2^2
+   The supremum of a sum is less than or equal to the sum of the suprema.
+
+5. <i></i>Sum of squared norms of \( A_i \)<i></i>:
+   \[
+   \sum_i \sup_{\|\mathbf{x}\|_2=1} \|A_i \mathbf{x}\|_2^2 = \sum_i \|A_i\|_2^2
    \]
-<br>
-<br>Thus, the proof shows that:
-<br>\[
-\|A\|_2^2 \leq \sum_i \|A_i\|_2^2
-\]
-<br>
-<br>Note that equality holds if and only if the first right singular vectors of the \(A_i\) align.
+   The supremum of the squared 2-norm of \( A_i \mathbf{x} \) over all unit vectors \( \mathbf{x} \) is the squared 2-norm of \( A_i \).
+
+6. <i></i>Conclusion<i></i>:
+   \[
+   \|A\|_2^2 \leq \sum_i \|A_i\|_2^2
+   \]
+   Combining the steps, we conclude that the squared 2-norm of \( A \) is less than or equal to the sum of the squared 2-norms of its submatrices \( A_i \).
+
+7. <i></i>Condition for equality<i></i>:
+   Note that equality holds if and only if the first right singular vectors of the \( A_i \) align.
+   This condition specifies when the inequality becomes an equality, which occurs when the first right singular vectors of all \( A_i \) are aligned.
         </div>
     </section>
 
@@ -141,8 +149,8 @@ Note that equality holds if and only if the first right singular vectors of the 
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -150,7 +158,7 @@ Note that equality holds if and only if the first right singular vectors of the 
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -179,7 +187,15 @@ Let A be a block matrix with block rows $A_1, \ldots, A_N$. Then $\|A\|_2 \leq \
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

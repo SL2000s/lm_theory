@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 13 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Gradients of Uniform-Attention Representations">
+    <h2>Lemma 13: Gradients of Uniform-Attention Representations</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Let $\Xm^{\ell}$ be the representations of the input sequence at the $\ell$-th layer. Under the uniform-attention assumption, we have
+\begin{align}
+\mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Wm^{V,\ell}}\right\|^2_F &= d_v n \mathbb{E}\|\bar{\mathbf{x}}^{\ell}\|^2~\label{eq:jacobian_values};\\ 
+\mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Wm^{Q,\ell}} \right\|^2_F &= \frac{\sigma^2_v\sigma^2_k d_v}{n^2}\cdot \Exp \left[ \|\Xm^{\ell}\|^2_F \cdot  \|(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\|^2_F\right]~\label{eq:jacobian_queries};\\ 
+\mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Xm^{\ell}}\right\|^2_F &\leq \frac{8\sigma^2_q\sigma^2_k\sigma^2_v d_kd_v}{n} \, \cdot \mathbb{E} \norm{(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top}^2_F + 2d_v^2\sigma^2_v \; .
+\end{align}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the gradients of the output sequence with respect to the value, query, and input matrices in a transformer model is crucial for analyzing the model's training dynamics and stability. These equations provide insights into how changes in the model parameters affect the output, which can help in diagnosing issues such as vanishing or exploding gradients. Use these results to ensure that the model is learning effectively and to guide adjustments in the architecture or training process.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+By using the chain rule and the fact that for two matrices $\Am, \Bm$ we have that $\norm{\Am\Bm}_F^2 \leq \norm{\Am}_F^2\norm{\Bm}_F^2$, we can upper bound the gradient as:
+\begin{align*}
+    \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2 &\leq \prod_{i=\ell+1}^{L-1} \norm{\frac{\partial \Xm^{i+1}}{\partial \Xm^i}}_{F}^2 \norm{\frac{\partial \mathcal{L}}{\partial \Xm^L}}_F^2 \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Wm^{Q,\ell}}}_F^2 \\
+    &\leq \prod_{i=\ell+1}^{L-1} \norm{\frac{\partial \Xm^{i+1}}{\partial \Xm^i}}_{F}^2 \norm{\frac{\partial \mathcal{L}}{\partial \Xm^L}}_F^2 \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Zm^{\ell}}}_F^2 \norm{\frac{\partial \Zm^\ell}{\partial \Wm^{Q, \ell}}}_F^2 \\
+    &\leq \prod_{i=\ell+1}^{L-1} \norm{\frac{\partial \Xm^{i+1}}{\partial \Xm^i}}_{F}^2 \norm{\frac{\partial \mathcal{L}}{\partial \Xm^L}}_F^2 \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Zm^{\ell}}}_F^2 \left(\norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2 + \underbrace{\norm{\frac{\partial \Xm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2}_{=0} \right) ,
+\end{align*}
+where we recall that $\Zm^{\ell} = \alpha_1 \Sm^{\ell}+ \Xm^{\ell}$ and in the last step we have used that $\Xm^\ell$ does not depend on $\Wm^{Q,\ell}$, hence the gradient vanishes. By taking expectation and using the tower property, we have that:
+\begin{equation*}
+    \Exp \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2 \leq \Exp\left[\underbrace{\Exp\left[\prod_{i=\ell+1}^{L-1} \norm{\frac{\partial \Xm^{i+1}}{\partial \Xm^i}}_{F}^2 \norm{\frac{\partial \mathcal{L}}{\partial \Xm^L}}_F^2 \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Zm^{\ell}}}_F^2\right]}_{=:G(\Xm^\ell)} \norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2   \right],
+\end{equation*}
+where the expectations are taken with respect to $\Xm^\ell$ for the outer one and conditioning on $\Xm^\ell$ for the inner one. Indeed, the first three terms only depend on the network values after $\Xm^\ell$. Now, a repeated application of the tower property in $G(\Xm^\ell)$, together with the results on the gradients of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_13/index.html#lemma%3Agradients_queries">Lemma 13</a>, easily shows that $G(\Xm^\ell)$ stays bounded under our hypothesis. To see this one can also simply note that, since the softmax and its derivatives are almost surely bounded, the boundedness of $G(\Xm^\ell)$ is implied by an analogous statement for a vanilla linear MLP~(i.e., removing the softmax). In this setting, the random variable inside the expectation in $G(\Xm^\ell)$ is a finite linear combination of Gaussian products --- which has bounded expectation.
+
+All in all, we have that
+\begin{equation*}
+    \Exp \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2\le \Exp\left[ B_{\Xm^\ell}\norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2\right],
+\end{equation*}
+where $B_{\Xm^\ell}$ is an almost-surely-bounded function of $\Xm^{\ell}$. Hence, to show that $\Exp \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2=0$, we now just need to show that:
+\begin{equation*}
+    \Exp \norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2 = 0
+\end{equation*}
+under the rank-1 hypothesis for $\Xm^\ell$.
+Let $\Xm_{1}^\ell, \dots \Xm_{n}^\ell \in \mathbb{R}^{d_v}$ be the representations for the $n$ tokens. Under the rank-1 assumption, each token can be written as a multiple of a single vector $\mathbf{x} \in \mathbb{R}^{d_v}$, and hence there exists $a_1, \dots, a_n \in \mathbb{R}$ such that $\Xm_1 = a_1 \mathbf{x}, \dots, \Xm_n = a_n \mathbf{x}$. From <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_13/index.html#lemma%3Agradients_queries">Lemma 13</a>, we know that:
+\begin{equation*}
+    \mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \wQ} \right\|^2_F = \frac{\sigma^2_v\sigma^2_k d^2}{n^2}\cdot \Exp \left[ \|\Xm^{\ell}\|^2_F \cdot  \|(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\|^2_F\right] .
+\end{equation*}
+The mean token simplifies to $\bar{\mathbf{x}}^l = \frac{\mathbf{x}}{n}\sum_k a_k$ and hence $\left(\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\right)_{ij} = \frac{1}{n^2} (\sum_{k}a_k)^2 x_ix_j$. Similarly, $\left((\Xm^{\ell})^\top\Xm^{\ell}\right)_{ij} = \sum_k a_k^2 x_i x_j$. If furthermore all the coefficients $a_i$ are the same (which corresponds to the rank collapse assumption $\Xm^{\ell}=\mathbf{1}_{n}\mathbf{x}^T$ analyzed here), then it is easy to see that $\left((\Xm^{\ell})^\top\Xm^{\ell}\right)_{ij} - n \left(\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\right)_{ij} = 0 \; \forall i,j$ and hence $\|(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\|^2_F = 0$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Initial Bound on Gradient</i>: The proof starts by using the chain rule and a matrix norm inequality to upper bound the gradient:
+<br>   \[
+   \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2 \leq \prod_{i=\ell+1}^{L-1} \norm{\frac{\partial \Xm^{i+1}}{\partial \Xm^i}}_{F}^2 \norm{\frac{\partial \mathcal{L}}{\partial \Xm^L}}_F^2 \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Wm^{Q,\ell}}}_F^2
+   \]
+<br>
+<br>2. <i>Decomposition of Terms</i>: The terms are further decomposed, introducing \(\Zm^{\ell}\) and noting that \(\Xm^\ell\) does not depend on \(\Wm^{Q,\ell}\):
+<br>   \[
+   \norm{\frac{\partial \Xm^{\ell+1}}{\partial \Wm^{Q,\ell}}}_F^2 = \norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2 + \underbrace{\norm{\frac{\partial \Xm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2}_{=0}
+   \]
+<br>
+<br>3. <i>Expectation and Tower Property</i>: By taking the expectation and using the tower property, the proof introduces \(G(\Xm^\ell)\):
+<br>   \[
+   \Exp \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2 \leq \Exp\left[G(\Xm^\ell) \norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2\right]
+   \]
+<br>
+<br>4. <i>Boundedness of \(G(\Xm^\ell)\)</i>: The boundedness of \(G(\Xm^\ell)\) is established using the properties of the softmax function and its derivatives, and by analogy to a vanilla linear MLP:
+<br>   \[
+   G(\Xm^\ell) \text{ is almost-surely bounded}
+   \]
+<br>
+<br>5. <i>Final Bound and Rank-1 Hypothesis</i>: The proof concludes by showing that under the rank-1 hypothesis for \(\Xm^\ell\), the expectation of the gradient norm squared is zero:
+<br>   \[
+   \Exp \norm{\frac{\partial \alpha_1 \Sm^{\ell}}{\partial \Wm^{Q, \ell}}}_F^2 = 0
+   \]
+<br>
+<br>6. <i>Rank-1 Assumption Details</i>: The rank-1 assumption is detailed, showing that each token is a multiple of a single vector \(\mathbf{x}\), leading to:
+<br>   \[
+   \|(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\mathbf{x}}^{\ell}(\bar{\mathbf{x}}^{\ell})^\top\|^2_F = 0
+   \]
+<br>
+<br>Thus, the proof shows that:
+<br>\[
+\Exp \norm{\frac{\partial \mathcal{L}}{\partial{\Wm^{Q,\ell}}}}_F^2 = 0
+\]
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}[]
+
+\label{lemma:gradients_queries}
+Let $\Xm^{\ell}$ be the representations of the input sequence at the $\ell$-th layer. Under the uniform-attention assumption, we have
+    \begin{align}
+    \mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Wm^{V,\ell}}\right\|^2_F &= d_v n \mathbb{E}\|\bar{\bm{x}}^{\ell}\|^2~\label{eq:jacobian_values};\\ \mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Wm^{Q,\ell}} \right\|^2_F &= \frac{\sigma^2_v\sigma^2_k d_v}{n^2}\cdot \Exp \left[ \|\Xm^{\ell}\|^2_F \cdot  \|(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\bm{x}}^{\ell}(\bar{\bm{x}}^{\ell})^\top\|^2_F\right]~\label{eq:jacobian_queries};\\ 
+    \mathbb{E}\left\|\frac{\partial \Sm^{\ell}}{\partial \Xm^{\ell}}\right\|^2_F &\leq \frac{8\sigma^2_q\sigma^2_k\sigma^2_v d_kd_v}{n} \, \cdot \mathbb{E} \norm{(\Xm^{\ell})^\top\Xm^{\ell} - n\bar{\bm{x}}^{\ell}(\bar{\bm{x}}^{\ell})^\top}^2_F + 2d_v^2\sigma^2_v \; .
+\end{align}
+
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}[]
+
+\\label{lemma:gradients_queries}
+Let $\\Xm^{\\ell}$ be the representations of the input sequence at the $\\ell$-th layer. Under the uniform-attention assumption, we have
+    \\begin{align}
+    \\mathbb{E}\\left\\|\\frac{\\partial \\Sm^{\\ell}}{\\partial \\Wm^{V,\\ell}}\\right\\|^2_F &= d_v n \\mathbb{E}\\|\\bar{\\bm{x}}^{\\ell}\\|^2~\\label{eq:jacobian_values};\\\\ \\mathbb{E}\\left\\|\\frac{\\partial \\Sm^{\\ell}}{\\partial \\Wm^{Q,\\ell}} \\right\\|^2_F &= \\frac{\\sigma^2_v\\sigma^2_k d_v}{n^2}\\cdot \\Exp \\left[ \\|\\Xm^{\\ell}\\|^2_F \\cdot  \\|(\\Xm^{\\ell})^\\top\\Xm^{\\ell} - n\\bar{\\bm{x}}^{\\ell}(\\bar{\\bm{x}}^{\\ell})^\\top\\|^2_F\\right]~\\label{eq:jacobian_queries};\\\\ 
+    \\mathbb{E}\\left\\|\\frac{\\partial \\Sm^{\\ell}}{\\partial \\Xm^{\\ell}}\\right\\|^2_F &\\leq \\frac{8\\sigma^2_q\\sigma^2_k\\sigma^2_v d_kd_v}{n} \\, \\cdot \\mathbb{E} \\norm{(\\Xm^{\\ell})^\\top\\Xm^{\\ell} - n\\bar{\\bm{x}}^{\\ell}(\\bar{\\bm{x}}^{\\ell})^\\top}^2_F + 2d_v^2\\sigma^2_v \\; .
+\\end{align}
+
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

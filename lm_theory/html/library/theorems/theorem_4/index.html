@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 4 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Orthogonal Attention Subspaces">
+    <h2>Theorem 4: Orthogonal Attention Subspaces</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            $\texttt{No-Norm}$: If two heads with finite non-zero temperature attend to different semantic subspaces, the subspaces must be linearly independent $\mathbb{S}^{N_\alpha}_\alpha \equiv \mathbb{R}^{N_\alpha}$. Corollary: $W_{QK}$ is a low-rank matrix with (left and right) null-spaces that span all non-attended information.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            The $\texttt{No-Norm}$ statement is crucial in understanding the behavior of attention mechanisms in neural networks, particularly in the context of multi-head attention. It ensures that different heads focus on distinct, linearly independent subspaces, which prevents redundancy and promotes efficient information processing. The corollary about $W_{QK}$ being a low-rank matrix highlights that it filters out non-attended information, making the model more efficient by concentrating on relevant features. This is particularly useful in designing and analyzing transformer models and other architectures that rely on attention mechanisms.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Let $\theta_A$ and $\theta_B$ be co-ordinates for the subspaces of $x$ attended to by heads A and B respectively, and $\phi$ be all other information. Let $\theta_A\perp\theta_B\perp\phi$ and $x \perp y_t$, where $\perp$ denotes independence. Without loss of generality, write
+\begin{equation}
+    x(\theta_A,\theta_B,\phi) ~=~ x_A(\theta_A) ~+~ x_B(\theta_B) ~+~ x_{other}(\theta_A,\theta_B,\phi)
+\end{equation}
+Then write
+\begin{equation}
+\begin{split}
+    w_t^{(A)}(\theta_A) ~&=~ \left(W_{QK}^{(A)} y_t\right)^T x(\theta_A,\theta_B,\phi)  \\
+    &=~ \left(W_{QK}^{(A)} y_t\right)^T x_A(\theta_A) ~+~ \left(W_{QK}^{(A)} y_t\right)^T x_B(\theta_B) ~+~ \left(W_{QK}^{(A)} y_t\right)^T x_{other}(\theta_A,\theta_B,\phi) \\
+\end{split}
+\end{equation}
+which requires $\left(W_{QK}^{(A)} y_t\right)^T x_B(\theta_B)=0$ and $\left(W_{QK}^{(A)} y_t\right)^T x_{other}(\theta_A,\theta_B,\phi)=0$, since any cancellation between the two terms must be independent of $\theta_A,\phi$ and so can be absorbed entirely into the function $x_{B}(\theta_B)$. This means that $x_B(\theta_B)$ and $x_{other}(\theta_A,\theta_B,\phi)$ must both be orthogonal to $W_{QK}^{(A)} y_t$, meaning that they reside on the <em>left null space</em> of $W_{QK}^{(A)}$, or are projected by ${W_{QK}^{(A)}}^T$ onto a null space of $y_t$.
+
+Head A can only attend to $\theta_A$ if $x_A(\theta_A)$ it is not on either of these null spaces, meaning that $x_A(\theta_A)$ is linearly independent of $x_{B}(\theta_B)$ and $x_{other}(\theta_A,\theta_B,\phi)$. Likewise for head B
+\begin{equation}
+\begin{split}
+    w_t^{(B)}(\theta_B) ~&=~ \left(W_{QK}^{(B)} y_t\right)^T x(\theta_A,\theta_B,\phi)  \\
+    &=~ \left(W_{QK}^{(B)} y_t\right)^T x_A(\theta_A) ~+~ \left(W_{QK}^{(B)} y_t\right)^T x_B(\theta_B) ~+~ \left(W_{QK}^{(B)} y_t\right)^T x_{other}(\theta_A,\theta_B,\phi) \\
+\end{split}
+\end{equation}
+requires that $x_{B}(\theta_B)$ is linearly independent of both $x_A(\theta_A)$ and $x_{other}(\theta_A,\theta_B,\phi)$. Since $x_{other}$ resides on both null spaces, it is linearly independent of both $x_A(\theta_A)$ and $x_B(\theta_B)$, and may be seen as a third subspace that passes information through to subsequent layers.
+
+We can also write $w_t = \left(W_{QK}^T x\right)^T y_t$, and so the same argument also holds for subspaces on $y_t$. In this case, non-attended subspaces are spanned by the <em>right null space</em> of $W_{QK}$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            In this proof, we explore the independence and orthogonality of subspaces attended to by different heads in a multi-head attention mechanism. Here are the steps broken down:
+<br>
+<br>1. <i></i>Define Coordinates and Independence<i></i>:
+<br>   - Let \(\theta_A\) and \(\theta_B\) represent the coordinates for the subspaces of \(x\) attended to by heads A and B, respectively.
+<br>   - Let \(\phi\) represent all other information.
+<br>   - Assume \(\theta_A \perp \theta_B \perp \phi\) and \(x \perp y_t\), where \(\perp\) denotes independence.
+<br>
+<br>2. <i></i>Express \(x\) in Terms of Subspaces<i></i>:
+<br>   - Write \(x\) as a sum of functions of \(\theta_A\), \(\theta_B\), and \(\phi\):
+<br>     \[
+     x(\theta_A, \theta_B, \phi) = x_A(\theta_A) + x_B(\theta_B) + x_{other}(\theta_A, \theta_B, \phi)
+     \]
+<br>
+<br>3. <i></i>Formulate Attention Weights for Head A<i></i>:
+<br>   - Write the attention weight \(w_t^{(A)}(\theta_A)\) for head A:
+<br>     \[
+     \begin{split}
+     w_t^{(A)}(\theta_A) &= \left(W_{QK}^{(A)} y_t\right)^T x(\theta_A, \theta_B, \phi) \\
+     &= \left(W_{QK}^{(A)} y_t\right)^T x_A(\theta_A) + \left(W_{QK}^{(A)} y_t\right)^T x_B(\theta_B) + \left(W_{QK}^{(A)} y_t\right)^T x_{other}(\theta_A, \theta_B, \phi)
+     \end{split}
+     \]
+<br>
+<br>4. <i></i>Orthogonality Conditions for Head A<i></i>:
+<br>   - For the terms involving \(\theta_B\) and \(\phi\) to be zero, they must be orthogonal to \(W_{QK}^{(A)} y_t\):
+<br>     \[
+     \left(W_{QK}^{(A)} y_t\right)^T x_B(\theta_B) = 0 \quad \text{and} \quad \left(W_{QK}^{(A)} y_t\right)^T x_{other}(\theta_A, \theta_B, \phi) = 0
+     \]
+<br>   - This implies \(x_B(\theta_B)\) and \(x_{other}(\theta_A, \theta_B, \phi)\) reside in the left null space of \(W_{QK}^{(A)}\).
+<br>
+<br>5. <i></i>Independence of \(x_A(\theta_A)\)<i></i>:
+<br>   - Head A can only attend to \(\theta_A\) if \(x_A(\theta_A)\) is not in the null spaces, meaning \(x_A(\theta_A)\) is linearly independent of \(x_B(\theta_B)\) and \(x_{other}(\theta_A, \theta_B, \phi)\).
+<br>
+<br>6. <i></i>Formulate Attention Weights for Head B<i></i>:
+<br>   - Similarly, write the attention weight \(w_t^{(B)}(\theta_B)\) for head B:
+<br>     \[
+     \begin{split}
+     w_t^{(B)}(\theta_B) &= \left(W_{QK}^{(B)} y_t\right)^T x(\theta_A, \theta_B, \phi) \\
+     &= \left(W_{QK}^{(B)} y_t\right)^T x_A(\theta_A) + \left(W_{QK}^{(B)} y_t\right)^T x_B(\theta_B) + \left(W_{QK}^{(B)} y_t\right)^T x_{other}(\theta_A, \theta_B, \phi)
+     \end{split}
+     \]
+<br>
+<br>7. <i></i>Orthogonality Conditions for Head B<i></i>:
+<br>   - For head B, \(x_B(\theta_B)\) must be linearly independent of \(x_A(\theta_A)\) and \(x_{other}(\theta_A, \theta_B, \phi)\).
+<br>
+<br>8. <i></i>Conclusion on Subspaces<i></i>:
+<br>   - Since \(x_{other}\) resides in both null spaces, it is linearly independent of both \(x_A(\theta_A)\) and \(x_B(\theta_B)\), acting as a third subspace passing information to subsequent layers.
+<br>
+<br>9. <i></i>Generalization to \(y_t\)<i></i>:
+<br>   - The same argument applies to subspaces on \(y_t\), where non-attended subspaces are spanned by the right null space of \(W_{QK}\).
+<br>
+<br>This proof demonstrates how the independence and orthogonality of subspaces ensure that different heads in a multi-head attention mechanism attend to distinct parts of the input, facilitating effective parallel processing.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+    \texttt{No-Norm}: If two heads with finite non-zero temperature attend to different semantic subspaces, the subspaces must be linearly independent $\mathbb{S}^{N_\alpha}_\alpha \equiv \mathbb{R}^{N_\alpha}$. Corollary: $W_{QK}$ is a low-rank matrix with (left and right) null-spaces that span all non-attended information.
+\label{theorem: structure: no-norm}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+    \\texttt{No-Norm}: If two heads with finite non-zero temperature attend to different semantic subspaces, the subspaces must be linearly independent $\\mathbb{S}^{N_\\alpha}_\\alpha \\equiv \\mathbb{R}^{N_\\alpha}$. Corollary: $W_{QK}$ is a low-rank matrix with (left and right) null-spaces that span all non-attended information.
+\\label{theorem: structure: no-norm}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

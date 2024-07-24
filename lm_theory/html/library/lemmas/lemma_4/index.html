@@ -79,13 +79,13 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as in Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>).
+            $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>).
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            This inequality is useful in the context of matrix analysis and optimization. It provides an upper bound on the infinity norm of the product of a transposed matrix $Y^\top$, a matrix $P^{(i)}$, and the matrix $Y$. This can be particularly helpful when assessing the stability and performance of algorithms that involve such matrix products, especially in high-dimensional settings where direct computation might be infeasible.
+            This inequality is useful in the context of matrix analysis and optimization. It provides an upper bound on the infinity norm of the product of a transposed matrix $Y^\top$, a matrix $P^{(i)}$, and the matrix $Y$. This can be particularly helpful when assessing the stability and performance of algorithms that involve such matrix products, especially in high-dimensional spaces where direct computation might be infeasible.
         </div>
     </section>
         
@@ -98,47 +98,46 @@ Recall that $Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y})$. Let $\sigma(\mathbb{Y}
 & \leq \sqrt{\frac{D}{H}} \sum_m \sigma^2(\mathbb{Y}_m)  = \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y})) \\
 & \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1),
 \end{align*}
-since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$ (by e.g.~using the Cauchy--Schwartz inequality on $[\sigma(\mathbb{Y}_1), \ldots, \sigma(\mathbb{Y}_{D/H})]$ and $\mathds{1}$) and $\max_l \sigma(\mathbb{Y}_l) \leq \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$, and the last inequality is from Lemma <a href="library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
+since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$ (by e.g.~using the Cauchy--Schwartz inequality on $[\sigma(\mathbb{Y}_1), \ldots, \sigma(\mathbb{Y}_{D/H})]$ and $\mathbf{1}$) and $\max_l \sigma(\mathbb{Y}_l) \leq \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}$, and the last inequality is from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Covariance Definition</i>: The proof starts by recalling that the covariance matrix of \(\mathbb{Y}\) is given by \(Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y})\).
-<br>
-<br>2. <i>Standard Deviation Bound</i>: It is noted that the covariance element \([\mathrm{Cov}(\mathbb{Y})]_{lm}\) is bounded by the product of the standard deviations of \(\mathbb{Y}_l\) and \(\mathbb{Y}_m\):
-<br>   \[
-   [\mathrm{Cov}(\mathbb{Y})]_{lm} \leq \sigma(\mathbb{Y}_l)\sigma(\mathbb{Y}_m)
-   \]
-<br>
-<br>3. <i>Infinity Norm of Covariance</i>: The infinity norm of the covariance matrix is then expressed as:
-<br>   \[
-   \|\mathrm{Cov}(\mathbb{Y})\|_{\infty} = \max_l \sum_m \left|[\mathrm{Cov}(\mathbb{Y})]_{lm}\right|
-   \]
-<br>   This is bounded by:
-<br>   \[
-   \max_l \sigma(\mathbb{Y}_l) \sum_m \sigma(\mathbb{Y}_m)
-   \]
-<br>
-<br>4. <i>Sum of Standard Deviations</i>: The sum of the standard deviations \(\sum_m \sigma(\mathbb{Y}_m)\) is further bounded using the Cauchy-Schwarz inequality:
-<br>   \[
-   \sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}
-   \]
-<br>
-<br>5. <i>Trace of Covariance</i>: Recognizing that \(\sum_m \sigma^2(\mathbb{Y}_m)\) is the trace of the covariance matrix, we get:
-<br>   \[
-   \sqrt{\frac{D}{H}} \sum_m \sigma^2(\mathbb{Y}_m) = \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y}))
-   \]
-<br>
-<br>6. <i>Final Bound</i>: Finally, using the bound from Lemma 3, the trace of the covariance matrix is bounded by \(\phi^{-1}(N-1)\):
-<br>   \[
-   \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y})) \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
-   \]
-<br>
-<br>Thus, the proof shows that:
-<br>\[
+            Recall that \( Y^\top P^{(i)}Y = \mathrm{Cov}(\mathbb{Y}) \). Let \(\sigma(\mathbb{Y}_m)\) denote the standard deviation of \(\mathbb{Y}_m\). Then \([\mathrm{Cov}(\mathbb{Y})]_{lm} \leq \sigma(\mathbb{Y}_l)\sigma(\mathbb{Y}_m)\). Hence 
+
+\[
+\|\mathrm{Cov}(\mathbb{Y})\|_{\infty} = \max_l \sum_m \left|[\mathrm{Cov}(\mathbb{Y})]_{lm}\right| 
+\leq  \max_l \sigma(\mathbb{Y}_l) \sum_m \sigma(\mathbb{Y}_m)
+\]
+
+We then use the Cauchy-Schwarz inequality to get:
+
+\[
+\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}
+\]
+
+and 
+
+\[
+\max_l \sigma(\mathbb{Y}_l) \leq \sqrt{\sum_m \sigma^2(\mathbb{Y}_m)}
+\]
+
+Combining these results, we have:
+
+\[
+\|\mathrm{Cov}(\mathbb{Y})\|_{\infty} \leq \sqrt{\frac{D}{H}} \sum_m \sigma^2(\mathbb{Y}_m) = \sqrt{\frac{D}{H}} \Tr(\mathrm{Cov}(\mathbb{Y}))
+\]
+
+Finally, using <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_3/index.html#lemma%3Akey">Lemma 3</a>, we get:
+
+\[
+\Tr(\mathrm{Cov}(\mathbb{Y})) \leq \phi^{-1}(N-1)
+\]
+
+Thus,
+
+\[
 \|\mathrm{Cov}(\mathbb{Y})\|_{\infty} \leq \sqrt{\frac{D}{H}} \phi^{-1}(N-1)
 \]
         </div>
@@ -149,8 +148,8 @@ since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -158,7 +157,7 @@ since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -167,7 +166,7 @@ since $\sum_m \sigma(\mathbb{Y}_m) \leq \sqrt{\frac{D}{H}} \sqrt{\sum_m \sigma^2
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{lemma}
+            <p class="tex2jax_ignore"><code>\begin{lemma}\label{lemma:f3}
 $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as in Lemma \ref{lemma:key}).
 \end{lemma}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
@@ -187,7 +186,15 @@ $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {
@@ -196,7 +203,7 @@ $\|Y^\top P^{(i)}Y\|_\infty \leq  \phi^{-1}(N-1) \sqrt{D/H} $ ($\phi$ defined as
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{lemma}
+                var textToCopy = `\\begin{lemma}\\label{lemma:f3}
 $\\|Y^\\top P^{(i)}Y\\|_\\infty \\leq  \\phi^{-1}(N-1) \\sqrt{D/H} $ ($\\phi$ defined as in Lemma \\ref{lemma:key}).
 \\end{lemma}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {

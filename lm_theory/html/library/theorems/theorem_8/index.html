@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 8 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Stability of Sparse Attention">
+    <h2>Theorem 8: Stability of Sparse Attention</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            For sparse attention:
+\begin{equation}
+    \epsilon^{\Delta x(q)} \xrightarrow[\epsilon^q\rightarrow0]{\mathrm{~~perturb~q~~}} 0   ~~~~~~~~~~
+    \epsilon^{\Delta x(k)} \xrightarrow[\epsilon^k_t\rightarrow0]{\mathrm{~~perturb~k~~}} 0   ~~~~~~~~~~
+    \epsilon^{\Delta x(m)} \xrightarrow[\epsilon^m_t\rightarrow0]{\mathrm{~~perturb~m~~}} \epsilon^m_{t^*}
+\end{equation}
+i.e. the message is stable with respect to small interference in the queries and keys. Interference in the selected value is linearly transferred onto the message.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Sparse attention is useful in the context of neural networks, particularly in transformer models. It ensures that the message remains stable despite small perturbations in the queries and keys, which is crucial for maintaining the integrity of the information being processed. This stability allows for more efficient and reliable computations, especially when dealing with large-scale data.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+For sparse attention we have $a_t = \delta_{tt^*}$ for some $t^*$. For perturbations of $q$, the RHS of Eq. (39) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.39"> original paper</a>] becomes
+\begin{equation}
+\begin{split}
+    \mathop{\mathbb{E}}_{a_t} \Big[ m_t {\tilde k}_t^T \Big] \epsilon^q ~&=~ \sum_{t} a_t m_t {\tilde k}_t^T \epsilon^q \\
+    &=~ \sum_{t} \delta_{tt^*} m_t {\tilde k}_t^T \epsilon^q \\
+    &=~ m_{t^*} {\tilde k}_{t^*}^T \epsilon^q \\
+    &=~ 0 \\
+\end{split}
+\end{equation}
+where the final step is because ${\tilde k}_{t^*} = k_{t^*} - \mathbb{E}_{a_t}[k_t] = k_{t^*} - \sum_t \delta_{tt^*} k_t = k_{t^*}-k_{t^*} = 0$. For perturbations of $k_t$, the RHS of Eq. (40) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.40"> original paper</a>] evaluates to $0$ because 
+\begin{equation}
+\begin{split}
+    \mathop{\mathbb{E}}_{a_t} \Big[ {\tilde m}_t {\epsilon^k_t}^T \Big] q ~&=~ \sum_t a_t {\tilde m}_t q^T \epsilon^k_t \\
+    &=~ \sum_t \delta_{tt^*} {\tilde m}_t q^T \epsilon^k_t \\
+    &=~ {\tilde m}_{t^*} q^T \epsilon^k_{t^*} \\
+    &=~ 0 \\
+\end{split}
+\end{equation}
+where the final step is because ${\tilde m}_{t^*} = m_{t^*} - \sum_t \delta_{tt^*} m_t = m_{t^*}-m_{t^*} = 0$. For perturbations of $m_t$, the RHS of Eq. (41) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.41"> original paper</a>] evaluates to
+\begin{equation}
+    \mathop{\mathbb{E}}_{a_t} \Big[ \epsilon^m_t \Big] ~=~ \sum_{t} a_t \epsilon^m_t ~=~ \sum_{t} \delta_{tt^*} \epsilon^m_t ~=~ \epsilon^m_{t^*}
+\end{equation}
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, we need to break down the steps involved in evaluating the right-hand side (RHS) of the given equations under different perturbations. Here is a step-by-step explanation:
+
+1. <i></i>Sparse Attention Definition<i></i>:
+   - We start with the definition of sparse attention: \( a_t = \delta_{tt^*} \) for some \( t^* \). This means that the attention is focused on a specific time step \( t^* \).
+
+2. <i></i>Perturbations of \( q \)<i></i>:
+   - We consider the perturbations of \( q \) and evaluate the RHS of Eq. (39) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.39"> original paper</a>]:
+   \[
+   \mathop{\mathbb{E}}_{a_t} \Big[ m_t {\tilde k}_t^T \Big] \epsilon^q = \sum_{t} a_t m_t {\tilde k}_t^T \epsilon^q
+   \]
+   - Substituting \( a_t = \delta_{tt^*} \):
+   \[
+   \sum_{t} \delta_{tt^*} m_t {\tilde k}_t^T \epsilon^q = m_{t^*} {\tilde k}_{t^*}^T \epsilon^q
+   \]
+   - Since \( {\tilde k}_{t^*} = k_{t^*} - \mathbb{E}_{a_t}[k_t] = k_{t^*} - \sum_t \delta_{tt^*} k_t = k_{t^*} - k_{t^*} = 0 \):
+   \[
+   m_{t^*} {\tilde k}_{t^*}^T \epsilon^q = 0
+   \]
+
+3. <i></i>Perturbations of \( k_t \)<i></i>:
+   - Next, we consider the perturbations of \( k_t \) and evaluate the RHS of Eq. (40) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.40"> original paper</a>]:
+   \[
+   \mathop{\mathbb{E}}_{a_t} \Big[ {\tilde m}_t {\epsilon^k_t}^T \Big] q = \sum_t a_t {\tilde m}_t q^T \epsilon^k_t
+   \]
+   - Substituting \( a_t = \delta_{tt^*} \):
+   \[
+   \sum_t \delta_{tt^*} {\tilde m}_t q^T \epsilon^k_t = {\tilde m}_{t^*} q^T \epsilon^k_{t^*}
+   \]
+   - Since \( {\tilde m}_{t^*} = m_{t^*} - \sum_t \delta_{tt^*} m_t = m_{t^*} - m_{t^*} = 0 \):
+   \[
+   {\tilde m}_{t^*} q^T \epsilon^k_{t^*} = 0
+   \]
+
+4. <i></i>Perturbations of \( m_t \)<i></i>:
+   - Finally, we consider the perturbations of \( m_t \) and evaluate the RHS of Eq. (41) [in <a href="https://arxiv.org/pdf/2406.17837#equation.F.41"> original paper</a>]:
+   \[
+   \mathop{\mathbb{E}}_{a_t} \Big[ \epsilon^m_t \Big] = \sum_{t} a_t \epsilon^m_t
+   \]
+   - Substituting \( a_t = \delta_{tt^*} \):
+   \[
+   \sum_{t} \delta_{tt^*} \epsilon^m_t = \epsilon^m_{t^*}
+   \]
+
+In summary, the proof shows that for sparse attention, the perturbations of \( q \) and \( k_t \) result in zero contributions due to the properties of \( {\tilde k}_{t^*} \) and \( {\tilde m}_{t^*} \). However, the perturbation of \( m_t \) directly results in \( \epsilon^m_{t^*} \).
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+    For sparse attention:
+    \begin{equation}
+        \epsilon^{\Delta x(q)} \xrightarrow[\epsilon^q\rightarrow0]{\mathrm{~~perturb~q~~}} 0   ~~~~~~~~~~
+        \epsilon^{\Delta x(k)} \xrightarrow[\epsilon^k_t\rightarrow0]{\mathrm{~~perturb~k~~}} 0   ~~~~~~~~~~
+        \epsilon^{\Delta x(m)} \xrightarrow[\epsilon^m_t\rightarrow0]{\mathrm{~~perturb~m~~}} \epsilon^m_{t^*}
+    \end{equation}
+    i.e. the message is stable with respect to small interference in the queries and keys. Interference in the selected value is linearly transferred onto the message.
+\label{theorem: stability: sparse}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+    For sparse attention:
+    \\begin{equation}
+        \\epsilon^{\\Delta x(q)} \\xrightarrow[\\epsilon^q\\rightarrow0]{\\mathrm{~~perturb~q~~}} 0   ~~~~~~~~~~
+        \\epsilon^{\\Delta x(k)} \\xrightarrow[\\epsilon^k_t\\rightarrow0]{\\mathrm{~~perturb~k~~}} 0   ~~~~~~~~~~
+        \\epsilon^{\\Delta x(m)} \\xrightarrow[\\epsilon^m_t\\rightarrow0]{\\mathrm{~~perturb~m~~}} \\epsilon^m_{t^*}
+    \\end{equation}
+    i.e. the message is stable with respect to small interference in the queries and keys. Interference in the selected value is linearly transferred onto the message.
+\\label{theorem: stability: sparse}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

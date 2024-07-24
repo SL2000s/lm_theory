@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 19 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Vanishing Attention Lemma">
+    <h2>Lemma 19: Vanishing Attention Lemma</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Consider initializing each entry of $\wQ\in\mathbb{R}^{d_{v}\times d_k}$ and $\wK\in\mathbb{R}^{d_{v}\times d_k}$ independently with variance $\sigma^2_k = 2/(d_{v}+d_k)$ --- i.e. Glorot initialization [<a href="https://arxiv.org/pdf/2206.03126#cite.glorot2010understanding">Glorot and Bengio, 2010b</a>]. Let $\Mm = \frac{1}{\sqrt{d_k}}\Xm^\ell\Wm^{Q,\ell}{\Wm^{K,\ell}}^\top{\Xm^\ell}^\top$; for any $(i,j)\in[n]\times[n]$ we have
+\begin{equation}
+    \Exp[\Mm_{i,j} \ | \ \Xm] = 0,\qquad \Exp[\Mm_{i,j}^2 \ | \ \Xm] = \sigma_k^4 \cdot \|\Xm_{i,:}\|^2 \cdot \|\Xm_{j,:}\|^2.
+\end{equation}
+While keeping $d_v<\infty$ fixed, taking $d_k$ to infinity yields
+\begin{equation}
+    \Exp[\Mm_{i,j}^2 \ | \ \Xm] = \mathcal{O}\left(\frac{1}{d_k^2}\right).
+\end{equation}
+In other words, $\Mm$ converges to $\mathbf{0}_{n\times n}$ in $L^2$ as $d_k\to\infty$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the behavior of the matrix $\Mm$ under Glorot initialization is crucial for analyzing the stability and convergence of neural networks, particularly in the context of attention mechanisms. The result shows that as the dimension $d_k$ increases, the entries of $\Mm$ tend to zero in $L^2$, which implies that the influence of the initialized weights diminishes. This can be useful for ensuring that the initial conditions do not dominate the learning process, allowing the network to learn meaningful patterns from the data.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+First, note that
+\begin{align*}
+    \Mm_{i,j} = \frac{1}{\sqrt{d_k}}\sum_{a,c=1}^{d_{v}}\sum_{b=1}^{d_k} \Xm_{i,a}\wQ_{a,b}\wK_{c,b} \Xm_{j,c}.
+\end{align*}
+Since $\wQ$ is independent from $\wK$ at initialization, $\Exp[\Mm_{i,j} \ | \ \Xm] = 0$. Next, we compute
+\begin{align*}
+    \Exp[\Mm_{i,j}^2] &= \frac{1}{d_k}\sum_{a,c,a',c'=1}^{d_{v}}\sum_{b,b'=1}^{d_{k}} \Xm_{i,a} \Xm_{i,a'} \Xm_{j,c} \Xm_{j,c'} \Exp\left[\wQ_{a,b}\wQ_{a',b'}\wK_{c,b} \wK_{c',b'}\right] \\
+    &=\frac{1}{d_k}\sum_{a,c,a',c'=1}^{d_{v}}\sum_{b,b'=1}^{d_{k}} \Xm_{i,a} \Xm_{i,a'} \Xm_{j,c} \Xm_{j,c'} \Exp\left[\wQ_{a,b}\wQ_{a',b'}\right]\Exp\left[\wK_{c,b} \wK_{c',b'}\right] \\
+    &= \frac{\sigma_k^4}{d_k}\sum_{a,c=1}^{d_{v}}\sum_{b=1}^{d_{k}}  \Xm_{i,a}^2 \Xm_{j,c}^2\\
+    &= \sigma_k^4 \|\Xm_{i,:}\|^2 \|\Xm_{j,:}\|^2.
+\end{align*}
+This concludes the proof.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            Here is a short explanation of the different steps in the proof:
+<br>
+<br>1. <i></i>Initial Expression<i></i>: The proof begins by expressing \(\Mm_{i,j}\) as a sum involving the elements of matrices \(\Xm\), \(\wQ\), and \(\wK\). Specifically, it is given by:
+<br>   \[
+   \Mm_{i,j} = \frac{1}{\sqrt{d_k}}\sum_{a,c=1}^{d_{v}}\sum_{b=1}^{d_k} \Xm_{i,a}\wQ_{a,b}\wK_{c,b} \Xm_{j,c}.
+   \]
+<br>
+<br>2. <i></i>Expectation of \(\Mm_{i,j}\)<i></i>: Since \(\wQ\) and \(\wK\) are independent at initialization, the expectation of \(\Mm_{i,j}\) given \(\Xm\) is zero:
+<br>   \[
+   \Exp[\Mm_{i,j} \ | \ \Xm] = 0.
+   \]
+<br>
+<br>3. <i></i>Computing \(\Exp[\Mm_{i,j}^2]\)<i></i>: The next step is to compute the expectation of the square of \(\Mm_{i,j}\):
+<br>   \[
+   \Exp[\Mm_{i,j}^2] = \frac{1}{d_k}\sum_{a,c,a',c'=1}^{d_{v}}\sum_{b,b'=1}^{d_{k}} \Xm_{i,a} \Xm_{i,a'} \Xm_{j,c} \Xm_{j,c'} \Exp\left[\wQ_{a,b}\wQ_{a',b'}\wK_{c,b} \wK_{c',b'}\right].
+   \]
+<br>
+<br>4. <i></i>Independence of \(\wQ\) and \(\wK\)<i></i>: Using the independence of \(\wQ\) and \(\wK\), the expectation can be separated:
+<br>   \[
+   \Exp\left[\wQ_{a,b}\wQ_{a',b'}\wK_{c,b} \wK_{c',b'}\right] = \Exp\left[\wQ_{a,b}\wQ_{a',b'}\right]\Exp\left[\wK_{c,b} \wK_{c',b'}\right].
+   \]
+<br>
+<br>5. <i></i>Simplifying the Expectation<i></i>: Given that \(\wQ\) and \(\wK\) are initialized with variance \(\sigma_k^2\), the expectation simplifies to:
+<br>   \[
+   \Exp\left[\wQ_{a,b}\wQ_{a',b'}\right] = \sigma_k^2 \delta_{a,a'} \delta_{b,b'}, \quad \Exp\left[\wK_{c,b} \wK_{c',b'}\right] = \sigma_k^2 \delta_{c,c'} \delta_{b,b'}.
+   \]
+<br>   Substituting these into the sum, we get:
+<br>   \[
+   \Exp[\Mm_{i,j}^2] = \frac{\sigma_k^4}{d_k}\sum_{a,c=1}^{d_{v}}\sum_{b=1}^{d_{k}}  \Xm_{i,a}^2 \Xm_{j,c}^2.
+   \]
+<br>
+<br>6. <i></i>Final Simplification<i></i>: The final expression simplifies to:
+<br>   \[
+   \Exp[\Mm_{i,j}^2] = \sigma_k^4 \|\Xm_{i,:}\|^2 \|\Xm_{j,:}\|^2.
+   \]
+<br>
+<br>This concludes the proof.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}
+\label{app:convergence_A}
+Consider initializing each entry of $\wQ\in\mathbb{R}^{d_{v}\times d_k}$ and $\wK\in\mathbb{R}^{d_{v}\times d_k}$ independently with variance $\sigma^2_k = 2/(d_{v}+d_k)$ --- i.e. Glorot initialization~\citep{glorot2010understanding}. Let $\Mm = \frac{1}{\sqrt{d_k}}\Xm^\ell\Wm^{Q,\ell}{\Wm^{K,\ell}}^\top{\Xm^\ell}^\top$; for any $(i,j)\in[n]\times[n]$ we have
+\begin{equation}
+    \Exp[\Mm_{i,j} \ | \ \Xm] = 0,\qquad \Exp[\Mm_{i,j}^2 \ | \ \Xm] = \sigma_k^4 \cdot \|\Xm_{i,:}\|^2 \cdot \|\Xm_{j,:}\|^2.
+\end{equation}
+While keeping $d_v<\infty$ fixed, taking $d_k$ to infinity yields
+\begin{equation}
+    \Exp[\Mm_{i,j}^2 \ | \ \Xm] = \mathcal{O}\left(\frac{1}{d_k^2}\right).
+\end{equation}
+In other words, $\Mm$ converges to $\bm{0}_{n\times n}$ in $L^2$ as $d_k\to\infty$. 
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}
+\\label{app:convergence_A}
+Consider initializing each entry of $\\wQ\\in\\mathbb{R}^{d_{v}\\times d_k}$ and $\\wK\\in\\mathbb{R}^{d_{v}\\times d_k}$ independently with variance $\\sigma^2_k = 2/(d_{v}+d_k)$ --- i.e. Glorot initialization~\\citep{glorot2010understanding}. Let $\\Mm = \\frac{1}{\\sqrt{d_k}}\\Xm^\\ell\\Wm^{Q,\\ell}{\\Wm^{K,\\ell}}^\\top{\\Xm^\\ell}^\\top$; for any $(i,j)\\in[n]\\times[n]$ we have
+\\begin{equation}
+    \\Exp[\\Mm_{i,j} \\ | \\ \\Xm] = 0,\\qquad \\Exp[\\Mm_{i,j}^2 \\ | \\ \\Xm] = \\sigma_k^4 \\cdot \\|\\Xm_{i,:}\\|^2 \\cdot \\|\\Xm_{j,:}\\|^2.
+\\end{equation}
+While keeping $d_v<\\infty$ fixed, taking $d_k$ to infinity yields
+\\begin{equation}
+    \\Exp[\\Mm_{i,j}^2 \\ | \\ \\Xm] = \\mathcal{O}\\left(\\frac{1}{d_k^2}\\right).
+\\end{equation}
+In other words, $\\Mm$ converges to $\\bm{0}_{n\\times n}$ in $L^2$ as $d_k\\to\\infty$. 
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

@@ -86,22 +86,44 @@ Let $J_f(x)$ denote its total derivative (Jacobian) at $x$. Then $\lip_p(f) = \s
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Understanding the Lipschitz constant $\lip_p(f)$ of a differentiable and Lipschitz continuous function $f$ is crucial in various fields such as optimization, numerical analysis, and machine learning. It provides a bound on how much the function can change with respect to changes in its input, ensuring stability and robustness. The relationship between the Lipschitz constant and the Jacobian matrix $J_f(x)$ allows us to compute this bound efficiently using the induced operator norm. This is particularly useful when analyzing the sensitivity of systems and algorithms to perturbations in their input.
+            Understanding the Lipschitz constant of a differentiable function $f$ is crucial in various fields such as optimization, numerical analysis, and machine learning. The given statement provides a way to compute the Lipschitz constant using the Jacobian matrix, which is particularly useful when dealing with high-dimensional functions. This approach allows for a more precise control over the function's behavior, ensuring stability and convergence in iterative algorithms.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-
+See proof at:
+Federer, $\textit{H. Geometric Measure Theory}$. Classics in Mathematics. Springer Berlin Heidelberg, 1969. ISBN 9783642620102.
 </section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof presented in Federer's "Geometric Measure Theory," we can break it down into several key steps:
+
+1. <i></i>Introduction of Concepts<i></i>: The proof begins by introducing the fundamental concepts and definitions necessary for understanding geometric measure theory. This includes measures, measurable sets, and the notion of rectifiability.
+
+2. <i></i>Preliminary Lemmas<i></i>: Several preliminary lemmas are established to build the foundation for the main proof. These lemmas address properties of measures, such as countable additivity and the behavior of measures under transformations.
+
+3. <i></i>Construction of Sets<i></i>: The proof involves constructing specific sets that exhibit the properties required for the theorem. This step often includes defining sets with particular geometric or measure-theoretic characteristics.
+
+4. <i></i>Application of Lemmas<i></i>: The previously established lemmas are applied to the constructed sets. This step is crucial as it links the abstract properties of measures to the specific sets under consideration.
+
+5. <i></i>Verification of Conditions<i></i>: The proof verifies that the constructed sets and measures satisfy the conditions of the theorem. This involves checking that all necessary criteria, such as measurability and rectifiability, are met.
+
+6. <i></i>Conclusion<i></i>: Finally, the proof concludes by summarizing how the established lemmas and verified conditions lead to the desired result. This step often includes a restatement of the theorem in the context of the constructed sets and measures.
+
+By following these steps, the proof systematically builds from basic definitions to the final conclusion, ensuring that each part logically follows from the previous ones. For a detailed and rigorous presentation, refer to Federer's "Geometric Measure Theory."
+        </div>
+    </section>
 
 
 
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -109,7 +131,7 @@ Let $J_f(x)$ denote its total derivative (Jacobian) at $x$. Then $\lip_p(f) = \s
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -138,7 +160,15 @@ Let $J_f(x)$ denote its total derivative (Jacobian) at $x$. Then $\lip_p(f) = \s
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

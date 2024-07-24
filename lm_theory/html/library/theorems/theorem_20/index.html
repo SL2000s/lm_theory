@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 20 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Asymptotic Uniformity of Softmax Attention">
+    <h2>Theorem 20: Asymptotic Uniformity of Softmax Attention</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Consider initializing each entry of $\wQ\in\mathbb{R}^{d_v\times d_k}$ and $\wK\in\mathbb{R}^{d_v\times d_k}$ independently with variance $\sigma^2_k = 2/(d_v+d_k)$ --- i.e. Glorot initialization [<a href="https://arxiv.org/pdf/2206.03126#cite.glorot2010understanding">Glorot and Bengio, 2010b</a>]. Let $d_v<\infty$ be fixed, as $d_k\to\infty$ we have that, for any $\Xm$,
+\begin{equation*}
+    \Am := \soft\left(\frac{1}{\sqrt{d_k}}\Xm\Wm^{Q}{\Wm^{K}}^\top{\Xm}^\top\right)\stackrel{a.s.}{\to} \frac{1}{n}\mathbf{1}_{n\times n}
+\end{equation*}
+and
+\begin{equation*}
+    \frac{\partial\Am}{\partial\Mm} \stackrel{a.s.}{\to} \frac{1}{n}\Im_n \otimes \left(\Im_n - \frac{1}{n}\mathbf{1}_{n\times n} \right).
+\end{equation*}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the behavior of the attention matrix $\Am$ as the dimension $d_k$ grows large is crucial in the context of neural network training, particularly in transformer models. This result shows that under Glorot initialization, the attention weights become uniform, which can simplify the analysis and understanding of the model's behavior. It is particularly useful when designing and initializing large-scale neural networks, as it provides insights into how the attention mechanism will behave in the limit, ensuring that the gradients remain well-behaved and preventing issues such as vanishing or exploding gradients.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Thanks to <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_19/index.html#app%3Aconvergence_A">Lemma 19</a> and Markov Inequality, we have fast convergence in probability: for any fixed $\Xm$,
+\begin{equation*}
+    \mathbb{P}[|\Mm_{i,j}|>\epsilon]\le\frac{\Exp[\Mm^2_{i,j}]}{\epsilon^2} \le \frac{C_\epsilon}{d_k^2}.
+\end{equation*}
+Borel Cantelli then directly yields almost sure convergence of $\Mm$ to $\mathbf{0}_{n\times n}$ as $d_k\to\infty$. Next, note that both $\Am$ and $\frac{\partial\Am}{\partial\Mm}$ are continuous functions of $\Am$, hence we can apply standard continuity event-per-event. For almost every $\omega\in\Omega$,
+\begin{equation*}
+    \lim_{d_k\to\infty} \Am(\Am(\omega)) = \Am\left(\lim_{d_k\to\infty}\Am(\omega)\right) = \Am( \mathbf{0}_{n\times n}) = \frac{1}{n}\mathbf{1}_{n\times n}.
+\end{equation*}
+Hence $\Am\to \frac{1}{n}\mathbf{1}_{n\times n}$ almost surely. This can also be seen as a simple application of the continuous mapping theorem. The same reasoning yields almost sure convergence of
+\begin{equation*}
+    \frac{\partial \Am}{\partial \Mm} = \blockdiag\Bigg(\diag(\Am_{i:}) - \Am_{i:}\Am_{i:}^\top\Bigg),
+\end{equation*}
+to the corresponding limiting quantity.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            <i></i>Proof Explanation:<i></i>
+<br>
+<br>1. <i></i>Application of Lemma 19 and Markov Inequality:<i></i>
+<br>   - Using Lemma 19 and the Markov Inequality, we establish fast convergence in probability. For any fixed matrix \(\Xm\), we have:
+<br>   \[
+   \mathbb{P}[|\Mm_{i,j}|>\epsilon]\le\frac{\Exp[\Mm^2_{i,j}]}{\epsilon^2} \le \frac{C_\epsilon}{d_k^2}.
+   \]
+<br>   This inequality shows that the probability of the elements of \(\Mm\) being larger than \(\epsilon\) decreases as \(d_k\) increases.
+<br>
+<br>2. <i></i>Borel-Cantelli Lemma:<i></i>
+<br>   - By applying the Borel-Cantelli Lemma, we conclude that \(\Mm\) converges almost surely to the zero matrix \(\mathbf{0}_{n\times n}\) as \(d_k \to \infty\).
+<br>
+<br>3. <i></i>Continuity of \(\Am\) and its Derivative:<i></i>
+<br>   - We note that both \(\Am\) and its derivative \(\frac{\partial\Am}{\partial\Mm}\) are continuous functions of \(\Am\). This allows us to use standard continuity arguments.
+<br>
+<br>4. <i></i>Limit of \(\Am\):<i></i>
+<br>   - For almost every \(\omega \in \Omega\), we have:
+<br>   \[
+   \lim_{d_k\to\infty} \Am(\Am(\omega)) = \Am\left(\lim_{d_k\to\infty}\Am(\omega)\right) = \Am( \mathbf{0}_{n\times n}) = \frac{1}{n}\mathbf{1}_{n\times n}.
+   \]
+<br>   This shows that \(\Am\) converges almost surely to \(\frac{1}{n}\mathbf{1}_{n\times n}\).
+<br>
+<br>5. <i></i>Continuous Mapping Theorem:<i></i>
+<br>   - The convergence of \(\Am\) can also be viewed as an application of the continuous mapping theorem.
+<br>
+<br>6. <i></i>Convergence of the Derivative:<i></i>
+<br>   - Using similar reasoning, we establish the almost sure convergence of the derivative:
+<br>   \[
+   \frac{\partial \Am}{\partial \Mm} = \blockdiag\Bigg(\diag(\Am_{i:}) - \Am_{i:}\Am_{i:}^\top\Bigg),
+   \]
+<br>   to its corresponding limiting quantity.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}[Almost-sure convergence]
+\label{thm:soft_assumption_proof}
+Consider initializing each entry of $\wQ\in\mathbb{R}^{d_v\times d_k}$ and $\wK\in\mathbb{R}^{d_v\times d_k}$ independently with variance $\sigma^2_k = 2/(d_v+d_k)$ --- i.e. Glorot initialization~\citep{glorot2010understanding}. Let $d_v<\infty$ be fixed, as $d_k\to\infty$ we have that, for any $\Xm$,
+\begin{equation*}
+    \Am := \soft\left(\frac{1}{\sqrt{d_k}}\Xm\Wm^{Q}{\Wm^{K}}^\top{\Xm}^\top\right)\stackrel{a.s.}{\to} \frac{1}{n}\bm{1}_{n\times n}
+\end{equation*}
+and
+\begin{equation*}
+    \frac{\partial\Am}{\partial\Mm} \stackrel{a.s.}{\to} \frac{1}{n}\Im_n \otimes \left(\Im_n - \frac{1}{n}\bm{1}_{n\times n} \right).
+\end{equation*}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}[Almost-sure convergence]
+\\label{thm:soft_assumption_proof}
+Consider initializing each entry of $\\wQ\\in\\mathbb{R}^{d_v\\times d_k}$ and $\\wK\\in\\mathbb{R}^{d_v\\times d_k}$ independently with variance $\\sigma^2_k = 2/(d_v+d_k)$ --- i.e. Glorot initialization~\\citep{glorot2010understanding}. Let $d_v<\\infty$ be fixed, as $d_k\\to\\infty$ we have that, for any $\\Xm$,
+\\begin{equation*}
+    \\Am := \\soft\\left(\\frac{1}{\\sqrt{d_k}}\\Xm\\Wm^{Q}{\\Wm^{K}}^\\top{\\Xm}^\\top\\right)\\stackrel{a.s.}{\\to} \\frac{1}{n}\\bm{1}_{n\\times n}
+\\end{equation*}
+and
+\\begin{equation*}
+    \\frac{\\partial\\Am}{\\partial\\Mm} \\stackrel{a.s.}{\\to} \\frac{1}{n}\\Im_n \\otimes \\left(\\Im_n - \\frac{1}{n}\\bm{1}_{n\\times n} \\right).
+\\end{equation*}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

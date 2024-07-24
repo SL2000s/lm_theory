@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 16 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+repOp: "\\operatorname{Rep}",
+genOp: "\\operatorname{gen}",
+SpanOp: "\\operatorname{Span}",
+ConeOp: "\\operatorname{Cone}",
+argmin: "\\operatorname{argmin}",
+argmax: "\\operatorname{argmax}",
+logit: "\\operatorname{logit}",
+promptSpace: "\\mathcal{X}",
+conceptSpace: "\\mathcal{C}",
+repSpace: "\\mathcal{R}",
+responseSpace: "\\mathcal{Y}",
+defas: ":=",
+nullconcept: "\\phi",
+conceptDistSpace: "\\mathcal{Q}",
+cov: "\\mathrm{Cov}",
+yquad: "\\mathcal{Y}",
+parnum: "\\bfseries\\P\\arabic{parcount}",
+grad: "\\nabla",
+prm: "\\:;\\:",
+mbw: "\\mb{w}",
+mbW: "\\mb{W}",
+mbx: "\\mb{x}",
+mbX: "\\mb{X}",
+mby: "\\mb{y}",
+mbY: "\\mb{Y}",
+mbz: "\\mb{z}",
+mbZ: "\\mb{Z}",
+mbT: "\\mb{T}",
+mbA: "\\mb{A}",
+mba: "\\mb{a}",
+mbI: "\\mb{I}",
+mbone: "\\mb{1}",
+mbL: "\\mb{L}",
+mbtheta: "\\mb{\\theta}",
+mbTheta: "\\mb{\\Theta}",
+mbomega: "\\mb{\\omega}",
+mbOmega: "\\mb{\\Omega}",
+mbsigma: "\\mb{\\sigma}",
+mbSigma: "\\mb{\\Sigma}",
+mbphi: "\\mb{\\phi}",
+mbPhi: "\\mb{\\Phi}",
+mbalpha: "\\mb{\\alpha}",
+mbbeta: "\\mb{\\beta}",
+mbgamma: "\\mb{\\gamma}",
+mbeta: "\\mb{\\eta}",
+mbmu: "\\mb{\\mu}",
+mbrho: "\\mb{\\rho}",
+mblambda: "\\mb{\\lambda}",
+mbzeta: "\\mb{\\zeta}",
+diag: "\\textrm{diag}",
+supp: "\\textrm{supp}",
+V: "\\mathbb{V}",
+bbH: "\\mathbb{H}",
+bbN: "\\mathbb{N}",
+bbZ: "\\mathbb{Z}",
+bbR: "\\mathbb{R}",
+bbS: "\\mathbb{S}",
+cL: "\\mathcal{L}",
+cD: "\\mathcal{D}",
+cN: "\\mathcal{N}",
+cT: "\\mathcal{T}",
+Gam: "\\textrm{Gam}",
+InvGam: "\\textrm{InvGam}",
+g: "\\, | \\,",
+s: "\\, ; \\,",
+indpt: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+defeq: "\\coloneqq",
+asympeq: "\\ \\sim\\ ",
+Reals: "\\mathbb{R}",
+Nats: "\\mathbb{N}",
+NNReals: "\\Reals_{+}",
+exclude: "\\backslash",
+eps: "\\varepsilon",
+edges: "e",
+vertices: "v",
+loops: "l",
+EE: "\\mathbb{E}",
+var: "\\mathrm{var}",
+convPr: "\\xrightarrow{\\,p\\,}",
+convDist: "\\xrightarrow{\\,d\\,}",
+equaldist: "\\overset{d}{=}",
+upto: "\\!\\uparrow\\!",
+given: "\\mid",
+as: "\\textrm{ a.s.}",
+equalas: "\\overset{\\mathrm{a.s.}}{=}",
+intd: "\\mathrm{d}",
+dist: "\\ \\sim\\ ",
+distiid: "\\overset{\\mathrm{iid}}{\\dist}",
+distind: "\\overset{ind}{\\dist}",
+PPDist: "\\mathrm{PP}",
+Lebesgue: "\\Lambda",
+cdo: "\\mathrm{do}",
+normalDist: "\\mathrm{Normal}",
+diriDist: "\\mathrm{Diri}",
+categDist: "\\mathrm{Cat}",
+betaDist: "\\mathrm{Beta}",
+bernDist: "\\mathrm{Bern}",
+binDist: "\\mathrm{Bin}",
+uniDist: "\\mathrm{Uni}",
+poiDist: "\\mathrm{Poi}",
+gammaDist: "\\mathrm{Gamma}",
+multiDist: "\\mathrm{Multi}",
+Ind: "\\mathbbm{1}",
+p: "    \\stepcounter{parcount}    \\leavevmode\\marginpar[\\hfill\\parnum]{\\parnum}",
+independent: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+dif: "\\mathop{}\\!\\mathrm{d}",
+lmText: ["\\lmOp(\\text{``#1''})", 1],
+lm: ["\\lmOp(#1)", 1],
+repText: ["\\repOp(\\text{``#1''})", 1],
+rep: ["\\repOp(#1)", 1],
+ConceptName: ["$\\mathtt{#1}$", 1],
+ConceptValue: ["\\texttt{#1}", 1],
+SpanText: ["\\SpanOp(\\text{``#1''})", 1],
+Span: ["\\SpanOp(#1)", 1],
+ConeText: ["\\ConeOp(\\text{``#1''})", 1],
+Cone: ["\\ConeOp(#1)", 1],
+red: ["\\textcolor{BrickRed}{#1}", 1],
+orange: ["\\textcolor{BurntOrange}{#1}", 1],
+green: ["\\textcolor{OliveGreen}{#1}", 1],
+blue: ["\\textcolor{MidnightBlue}{#1}", 1],
+gray: ["\\textcolor{black!60}{#1}", 1],
+cdashlinelr: ["  \\noalign{\\vskip\\aboverulesep           \\global\\let\\@dashdrawstore\\adl@draw           \\global\\let\\adl@draw\\adl@drawiv}  \\cdashline{#1}  \\noalign{\\global\\let\\adl@draw\\@dashdrawstore           \\vskip\\belowrulesep}", 1],
+defnphrase: ["\\emph{#1}", 1],
+abs: ["\\left\\lvert#1 \\right\\rvert", 1],
+dtv: ["\\|#1\\|_{\\mathrm{TV}}", 1],
+NatSubs: ["\\tilde \\Nats_{#1}", 1],
+ConceptDirName: ["\\texttt{#1}\\Rightarrow\\texttt{#2}", 2],
+ConceptDirMath: ["#1 \\Rightarrow #2", 2],
+ip: ["\\langle #1,#2\\rangle", 2],
+E: ["\\mathbb{E}_{#1}\\left[#2\\right]", 2],
+checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Magnitude Consistency Theorem">
+    <h2>Theorem 16: Magnitude Consistency Theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Suppose there exists a linear representation (normalized direction) $\bar\ell_W$ of a binary feature $W$ for an attribute $w$.  
+Then, there is a constant $b_w>0$ and a choice of unembedding space origin $\bar{\gamma}_0^w$ in (2.2) [in <a href="https://arxiv.org/pdf/2406.01506#equation.2.2">original paper</a>] such that
+\begin{equation}\label{eq:magnitude}
+  \begin{cases}
+    \bar\ell_W^\top g(y) = b_w & \text{if } y\in \yquad(w)\\
+    \bar\ell_W^\top g(y) = 0 & \text{if } y \not\in \yquad(w).
+  \end{cases}
+\end{equation}
+Further, if there are $d$ causally separable attributes $\{w_0, \dots, w_{d-1}\}$ with linear representations, we can choose a canonical origin $\bar\gamma_0$ in (2.2) [in <a href="https://arxiv.org/pdf/2406.01506#equation.2.2">original paper</a>] as
+\begin{equation}
+  \bar\gamma_0 = \sum_i \bar{\gamma}_0^{w_i}.
+\end{equation}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This statement is useful in the context of understanding and manipulating binary features in a linear representation space. It provides a clear criterion for distinguishing whether a given feature $y$ belongs to a specific attribute $w$ based on the inner product with the normalized direction $\bar\ell_W$. This can be particularly useful in machine learning and data analysis, where such representations are often used to interpret and modify features. The ability to choose a canonical origin $\bar\gamma_0$ when dealing with multiple causally separable attributes further aids in simplifying and standardizing the representation space, making it easier to work with complex data structures.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+For any $y_1, y_0 \in \yquad(w)$ or $y_1, y_0 \not\in \yquad(w)$, let $Z$ be a binary concept where $\yquad(Z = 0) = \{y_0\}$ and $\yquad(Z = 1) = \{y_1\}$. Since $Z$ is subordinate to $W$, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_4/index.html#eq%3Alinear_cond2">Definition 4</a> implies that
+\begin{align}
+    & \logit \Pr(Y = y_1 \given Y \in \{y_0, y_1\} , \ell +  \bar\ell_W )= \logit \Pr(Y = y_1 \given Y \in \{y_0, y_1\} , \ell)\\
+    & \iff  \bar\ell_W ^\top  (g(y_1) - g(y_0))=\bar\ell_W ^\top  A(\gamma(y_1) - \gamma(y_0)) = 0
+\end{align}
+where $A$ is the invertible matrix in (2.2) [in <a href="https://arxiv.org/pdf/2406.01506#equation.2.2">original paper</a>]. This means that $\bar\ell_W^\top A \gamma(y)$ is the same for all $y\in \yquad(w)$, and it is also the same for all $y\not\in \yquad(w)$.
+
+Furthermore, for any $y_1 \in \yquad(w)$ and $y_0 \not\in \yquad(w)$, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_4/index.html#eq%3Alinear_cond1">Definition 4</a> implies that
+\begin{align}
+    & \logit \Pr(Y = y_1 \given Y \in \{y_0, y_1\} , \ell + \bar\ell_W )> \logit \Pr(Y = y_1 \given Y \in \{y_0, y_1\} , \ell)\\
+    & \iff  \bar\ell_W ^\top  (g(y_1) - g(y_0)) =  \bar\ell_W ^\top  A(\gamma(y_1) - \gamma(y_0))> 0.
+\end{align}
+
+Thus, by setting $b_w^0 = \bar\ell_W^\top A \gamma(y)$ for any $y \not\in \yquad(w)$, and $b_w = \bar\ell_W^\top A \gamma(y_1) - \bar\ell_W^\top A \gamma(y_0) > 0$ for any $y_1 \in \yquad(w)$ and $y_0 \not\in \yquad(w)$, we get
+\begin{equation}\label{eq:feature_vector}
+    \begin{cases}
+      \bar\ell_W^\top A \gamma(y) = b_w^0 + b_w & \text{if } y\in \yquad(w)\\
+      \bar\ell_W^\top A \gamma(y) = b_w^0 & \text{if } y \not\in \yquad(w).
+    \end{cases}
+\end{equation}
+Then, we can choose an origin as
+\begin{equation}
+    \bar\gamma_0^w = b_w^0 A^{-1} \bar\ell_W
+\end{equation}
+satisfying <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#eq%3Amagnitude">Theorem 16</a>.
+
+On the other hand, if there exist $\bar\ell_W$ and $\bar\ell_Z$ for causally separable attributes $w$ and $z$, then $\bar\ell_W$ and $\bar\ell_Z$ are orthogonal by the property of the causal inner product. If they are not orthogonal, adding $\bar\ell_Z$ can change the other concept $W$, and it is a contradiction. Now if there exist the linear representation for $d$ binary features for causally separable attributes $\{w_0, \dots, w_{d-1}\}$, we can choose a canonical $\bar\gamma_0$ in (2.2) [in <a href="https://arxiv.org/pdf/2406.01506#equation.2.2">original paper</a>] as
+\begin{equation}
+    \bar\gamma_0 = \sum_i \bar{\gamma}_0^{w_i}.
+\end{equation}
+with <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#eq%3Amagnitude">Theorem 16</a> satisfied.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            The proof involves several steps to establish the relationship between certain variables and their properties under given conditions. Here is a breakdown of the steps:
+<br>
+<br>1. <i></i>Initial Setup<i></i>:
+<br>   - For any \( y_1, y_0 \in \yquad(w) \) or \( y_1, y_0 \not\in \yquad(w) \), define \( Z \) as a binary concept where \( \yquad(Z = 0) = \{y_0\} \) and \( \yquad(Z = 1) = \{y_1\} \).
+<br>   - Since \( Z \) is subordinate to \( W \), Definition 4 implies a specific relationship between the logit probabilities.
+<br>
+<br>2. <i></i>Logit Probability Relationship<i></i>:
+<br>   - The logit of the probability \( \Pr(Y = y_1 \given Y \in \{y_0, y_1\}, \ell + \bar\ell_W) \) is equal to the logit of the probability \( \Pr(Y = y_1 \given Y \in \{y_0, y_1\}, \ell) \) if and only if \( \bar\ell_W^\top (g(y_1) - g(y_0)) = \bar\ell_W^\top A(\gamma(y_1) - \gamma(y_0)) = 0 \).
+<br>
+<br>3. <i></i>Implication for \( \bar\ell_W^\top A \gamma(y) \)<i></i>:
+<br>   - This implies that \( \bar\ell_W^\top A \gamma(y) \) is constant for all \( y \in \yquad(w) \) and also constant for all \( y \not\in \yquad(w) \).
+<br>
+<br>4. <i></i>Different Case for \( y_1 \in \yquad(w) \) and \( y_0 \not\in \yquad(w) \)<i></i>:
+<br>   - For \( y_1 \in \yquad(w) \) and \( y_0 \not\in \yquad(w) \), Definition 4 implies that the logit probability relationship is greater than zero if and only if \( \bar\ell_W^\top (g(y_1) - g(y_0)) = \bar\ell_W^\top A(\gamma(y_1) - \gamma(y_0)) > 0 \).
+<br>
+<br>5. <i></i>Setting Constants \( b_w^0 \) and \( b_w \)<i></i>:
+<br>   - Define \( b_w^0 = \bar\ell_W^\top A \gamma(y) \) for any \( y \not\in \yquad(w) \).
+<br>   - Define \( b_w = \bar\ell_W^\top A \gamma(y_1) - \bar\ell_W^\top A \gamma(y_0) > 0 \) for any \( y_1 \in \yquad(w) \) and \( y_0 \not\in \yquad(w) \).
+<br>
+<br>6. <i></i>Feature Vector Representation<i></i>:
+<br>   - The feature vector can be represented as:
+<br>     \[
+     \begin{cases}
+       \bar\ell_W^\top A \gamma(y) = b_w^0 + b_w & \text{if } y \in \yquad(w) \\
+       \bar\ell_W^\top A \gamma(y) = b_w^0 & \text{if } y \not\in \yquad(w).
+     \end{cases}
+     \]
+<br>7. <i></i>Choosing an Origin<i></i>:
+<br>   - Choose an origin as \( \bar\gamma_0^w = b_w^0 A^{-1} \bar\ell_W \) satisfying Theorem 16.
+<br>
+<br>8. <i></i>Orthogonality of \( \bar\ell_W \) and \( \bar\ell_Z \)<i></i>:
+<br>   - If there exist \( \bar\ell_W \) and \( \bar\ell_Z \) for causally separable attributes \( w \) and \( z \), they must be orthogonal due to the property of the causal inner product. If not, adding \( \bar\ell_Z \) would change the other concept \( W \), leading to a contradiction.
+<br>
+<br>9. <i></i>Linear Representation for Multiple Attributes<i></i>:
+<br>   - For \( d \) binary features for causally separable attributes \( \{w_0, \dots, w_{d-1}\} \), choose a canonical \( \bar\gamma_0 \) as:
+<br>     \[
+     \bar\gamma_0 = \sum_i \bar{\gamma}_0^{w_i}
+     \]
+     satisfying Theorem 16.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/the_geometry_of_categorical_and_hierarchical_concepts_in_large_language_models/index.html">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a></p>
+            <p>Authors: Kiho Park, Yo Joong Choe, Yibo Jiang, and Victor Veitch</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.01506">https://arxiv.org/abs/2406.01506</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{park2024geometrycategoricalhierarchicalconcepts,<br>&emsp;title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, <br>&emsp;author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},<br>&emsp;year={2024},<br>&emsp;eprint={2406.01506},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.CL},<br>&emsp;url={https://arxiv.org/abs/2406.01506}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}[Magnitudes of Linear Representations]
+\label{thm:magnitude}
+  Suppose there exists a linear representation (normalized direction) $\bar\ell_W$ of a binary feature $W$ for an attribute $w$.  
+  Then, there is a constant $b_w>0$ and a choice of unembedding space origin $\bar{\gamma}_0^w$ in \cref{eq:transformation} such that
+  \begin{equation}\label{eq:magnitude}
+    \begin{cases}
+      \bar\ell_W^\top g(y) = b_w & \text{if } y\in \yquad(w)\\
+      \bar\ell_W^\top g(y) = 0 & \text{if } y \not\in \yquad(w).
+    \end{cases}
+  \end{equation}
+  Further, if there are $d$ causally separable attributes $\{w_0, \dots, w_{d-1}\}$ with linear representations, we can choose a canonical origin $\bar\gamma_0$ in \cref{eq:transformation} as
+  \begin{equation}
+    \bar\gamma_0 = \sum_i \bar{\gamma}_0^{w_i}.
+  \end{equation}
+
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{park2024geometrycategoricalhierarchicalconcepts,
+  title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, 
+  author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},
+  year={2024},
+  eprint={2406.01506},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2406.01506}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}[Magnitudes of Linear Representations]
+\\label{thm:magnitude}
+  Suppose there exists a linear representation (normalized direction) $\\bar\\ell_W$ of a binary feature $W$ for an attribute $w$.  
+  Then, there is a constant $b_w>0$ and a choice of unembedding space origin $\\bar{\\gamma}_0^w$ in \\cref{eq:transformation} such that
+  \\begin{equation}\\label{eq:magnitude}
+    \\begin{cases}
+      \\bar\\ell_W^\\top g(y) = b_w & \\text{if } y\\in \\yquad(w)\\\\
+      \\bar\\ell_W^\\top g(y) = 0 & \\text{if } y \\not\\in \\yquad(w).
+    \\end{cases}
+  \\end{equation}
+  Further, if there are $d$ causally separable attributes $\\{w_0, \\dots, w_{d-1}\\}$ with linear representations, we can choose a canonical origin $\\bar\\gamma_0$ in \\cref{eq:transformation} as
+  \\begin{equation}
+    \\bar\\gamma_0 = \\sum_i \\bar{\\gamma}_0^{w_i}.
+  \\end{equation}
+
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

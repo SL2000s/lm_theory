@@ -89,14 +89,14 @@ The smallest such $K$ is the $\textit{Lipschitz constant}$ of $f$, denoted $\lip
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Lipschitz continuity is a crucial concept in analysis and applied mathematics. It ensures that the function $f$ does not change too rapidly, providing a controlled rate of change. This property is particularly useful in numerical analysis, optimization, and differential equations, where stability and convergence of algorithms are often guaranteed under Lipschitz conditions. If you need to ensure that small changes in the input of a function result in proportionally small changes in the output, verifying Lipschitz continuity is essential.
+            Lipschitz continuity is a crucial concept in analysis and geometry, providing a way to control how much a function can stretch distances. It is particularly useful in numerical analysis, optimization, and differential equations, where ensuring that small changes in input lead to proportionally small changes in output is essential. The Lipschitz constant $K$ gives a precise measure of this control, making it easier to analyze the stability and convergence of algorithms.
         </div>
     </section>
         
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -104,7 +104,7 @@ The smallest such $K$ is the $\textit{Lipschitz constant}$ of $f$, denoted $\lip
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -137,7 +137,15 @@ The smallest such $K$ is the \textit{Lipschitz constant} of $f$, denoted $\lip(f
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

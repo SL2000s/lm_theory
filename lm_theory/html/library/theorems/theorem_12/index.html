@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 12 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Shift Invariance of Attention">
+    <h2>Theorem 12: Shift Invariance of Attention</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Shifting attention scores $w_t$ by a constant offset does not affect the attention distribution. Therefore attention is fully determined by differences in scores.
+
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding that shifting attention scores $w_t$ by a constant offset does not affect the attention distribution is crucial in the field of machine learning, particularly in the design and analysis of attention mechanisms. This property ensures that the relative importance of different elements remains unchanged, allowing for more stable and interpretable models. Use this theorem when you need to simplify or normalize attention scores without altering the underlying distribution of attention.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Applying the shift $w_t \xrightarrow[\mathrm{offset~w}]{} w_t + \delta w ~\forall~t$ with fixed $\delta w$, we have
+\begin{equation}
+\begin{split}
+a_t ~&=~ \frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}} \\
+&\xrightarrow[\mathrm{offset~w}]{} ~ \frac{e^{\delta w}e^{w_t}}{\sum_{t'} e^{\delta w}e^{w_{t'}}} ~=~ \frac{e^{\delta w}}{e^{\delta w}}\frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}} ~=~ 1 \cdot a_t~=~ a_t
+\end{split}
+\end{equation}
+Alternatively we may write
+\begin{equation}
+a_t ~=~ \frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}} ~=~ \frac{e^{w_t}}{e^{w_{t'}}\sum_{t'} e^{w_{t'}-w_t}} ~=~ \frac{1}{\sum_{t'} e^{w_{t'}-w_t}}
+\end{equation}
+where $\left(w_{t'}+\delta t\right)-\left(w_t+\delta t\right) = w_{t'}-w_t$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, we can break it down into the following steps:
+<br>
+<br>1. <i></i>Initial Expression<i></i>:
+<br>   The proof starts with the expression for \(a_t\):
+<br>   \[
+   a_t = \frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}}
+   \]
+<br>
+<br>2. <i></i>Applying the Shift<i></i>:
+<br>   We apply a shift \(w_t \xrightarrow[\mathrm{offset~w}]{} w_t + \delta w\) for all \(t\) with a fixed \(\delta w\). This modifies the expression for \(a_t\):
+<br>   \[
+   a_t \xrightarrow[\mathrm{offset~w}]{} \frac{e^{\delta w}e^{w_t}}{\sum_{t'} e^{\delta w}e^{w_{t'}}}
+   \]
+<br>
+<br>3. <i></i>Simplifying the Expression<i></i>:
+<br>   The exponential terms \(e^{\delta w}\) in the numerator and denominator cancel out:
+<br>   \[
+   \frac{e^{\delta w}e^{w_t}}{\sum_{t'} e^{\delta w}e^{w_{t'}}} = \frac{e^{\delta w}}{e^{\delta w}}\frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}} = 1 \cdot a_t = a_t
+   \]
+<br>
+<br>4. <i></i>Alternative Representation<i></i>:
+<br>   Alternatively, we can rewrite \(a_t\) by factoring out \(e^{w_t}\) from the denominator:
+<br>   \[
+   a_t = \frac{e^{w_t}}{\sum_{t'} e^{w_{t'}}} = \frac{e^{w_t}}{e^{w_{t'}}\sum_{t'} e^{w_{t'}-w_t}} = \frac{1}{\sum_{t'} e^{w_{t'}-w_t}}
+   \]
+<br>
+<br>5. <i></i>Invariance Under Shift<i></i>:
+<br>   The expression \(\left(w_{t'}+\delta t\right)-\left(w_t+\delta t\right) = w_{t'}-w_t\) shows that the difference between the terms remains unchanged under the shift, confirming that \(a_t\) is invariant under the shift \(w_t \xrightarrow[\mathrm{offset~w}]{} w_t + \delta w\).
+<br>
+<br>This proof demonstrates that the expression for \(a_t\) remains unchanged when a constant shift is applied to all \(w_t\) values.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+	Shifting attention scores $w_t$ by a constant offset does not affect the attention distribution. Therefore attention is fully determined by differences in scores.
+ \label{theorem: att shift operator}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+	Shifting attention scores $w_t$ by a constant offset does not affect the attention distribution. Therefore attention is fully determined by differences in scores.
+ \\label{theorem: att shift operator}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

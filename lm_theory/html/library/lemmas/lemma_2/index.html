@@ -85,13 +85,13 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            This statement is useful in the context of analyzing the properties of neural networks, particularly in understanding the behavior of the attention mechanism in transformer models. If the weight matrices $W^K$ and $W^Q$ are distinct and $W^K$ is full rank, the resulting function $\tilde{f}$ is not Lipschitz continuous. This insight is crucial for understanding the stability and convergence properties of the model, as non-Lipschitz functions can lead to unbounded gradients and potentially unstable training dynamics.
+            This statement is useful in the context of analyzing the behavior of certain functions, particularly in machine learning and optimization. If $W^K$ is full rank and distinct from $W^Q$, it indicates that the function $\tilde{f}$ can exhibit unbounded differences between its outputs for different inputs, meaning it is not Lipschitz continuous. This insight is crucial when assessing the stability and convergence properties of algorithms, as Lipschitz continuity often guarantees more predictable and controlled behavior.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-Let us investigate the expression $\tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K) \in \mathbb{R}^{\frac{D}{H} \times \frac{D}{H}}$ for $i\neq j$, which is related to $\tilde{J}_{ij}$ as follows by Equation $\eqref{eq:jij}$:
+Let us investigate the expression $\tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K) \in \mathbb{R}^{\frac{D}{H} \times \frac{D}{H}}$ for $i\neq j$, which is related to $\tilde{J}_{ij}$ as follows by Equation (20) [see original paper]:
 
 \begin{equation*}
     W^{K^\top} \tilde{J}_{ij} = \left(\frac{2}{\sqrt{D/H}} \tilde{K}_{ij} + P_{ij}I \right)
@@ -124,43 +124,56 @@ whose entries are unbounded since $\mathbf{y}_i$ can be any vector in $\mathbb{R
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Expression Definition</i>: The proof starts by defining the expression \(\tilde{K}_{ij}\) in terms of \(P_{ij}\), \(W^{K^\top}\), and \(\mathbf{x}_j\):
-<br>   \[
-   \tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K)
+            To understand the proof, let's break down the steps involved:
+
+1. <i></i>Expression Definition<i></i>:
+   We start by defining the expression \(\tilde{K}_{ij}\):
+   \[
+   \tilde{K}_{ij} \coloneqq P_{ij} W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)(\mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K) \in \mathbb{R}^{\frac{D}{H} \times \frac{D}{H}}
    \]
-<br>
-<br>2. <i>Relation to \(\tilde{J}_{ij}\)</i>: It is shown that \(\tilde{K}_{ij}\) is related to \(\tilde{J}_{ij}\) by the equation:
-<br>   \[
-   W^{K^\top} \tilde{J}_{ij} = \left(\frac{2}{\sqrt{D/H}} \tilde{K}_{ij} + P_{ij}I \right) W^{K^\top}
+   for \(i \neq j\). This expression is related to \(\tilde{J}_{ij}\) by the equation:
+   \[
+   W^{K^\top} \tilde{J}_{ij} = \left(\frac{2}{\sqrt{D/H}} \tilde{K}_{ij} + P_{ij}I \right) W^{K^\top}.
    \]
-<br>
-<br>3. <i>Unboundedness of \(\tilde{K}_{ij}\)</i>: To prove \(\tilde{J}_{ij}\) is unbounded, it suffices to show \(\tilde{K}_{ij}\) is unbounded, given \(W^K\) is full rank and \(P_{ij} \in [0,1]\).
-<br>
-<br>4. <i>Substitution of \(\mathbf{y}_j\)</i>: Define \(\mathbf{y}_j^\top = \mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K\). Then:
-<br>   \[
-   \mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k = - W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k)
+
+2. <i></i>Objective<i></i>:
+   The goal is to show that \(\tilde{K}_{ij}\) is unbounded, which would imply that \(\tilde{J}_{ij}\) is also unbounded, given that \(W^K\) is full rank and \(P_{ij} \in [0,1]\).
+
+3. <i></i>Substitution<i></i>:
+   Define \(\mathbf{y}_j^\top = \mathbf{x}_i^\top W^Q - \mathbf{x}_j^\top W^K\). Then:
+   \[
+   \mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k = W^{Q^\top}\mathbf{x}_i - W^{K^\top}\mathbf{x}_j - \sum_k P_{ik} (W^{Q^\top}\mathbf{x}_i - W^{K^\top}\mathbf{x}_k).
    \]
-<br>
-<br>5. <i>Expression for \(\tilde{K}_{ij}\)</i>: Using the above substitution, \(\tilde{K}_{ij}\) is expressed as:
-<br>   \[
-   \tilde{K}_{ij} = - P_{ij} (\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k) \mathbf{y}_j^\top
+
+4. <i></i>Simplification<i></i>:
+   Simplify the above expression:
+   \[
+   \mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k = - W^{K^\top}(\mathbf{x}_j - \sum_k P_{ik} \mathbf{x}_k).
    \]
-<br>
-<br>6. <i>Choice of \(\mathbf{x}_j\)</i>: Choose \(\mathbf{x}_j\) such that \(\mathbf{y}_j = -\mathbf{y}_i\). This is possible since \(W^K\) is full-rank.
-<br>
-<br>7. <i>Equal Norms and Simplification</i>: With \(\mathbf{y}_j = -\mathbf{y}_i\), the norms \(\|\mathbf{y}_j\|_2^2\) are equal for all \(j\), leading to:
-<br>   \[
-   P_{ij} = \frac{1}{N}
+   Hence:
+   \[
+   \tilde{K}_{ij} = - P_{ij} (\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k) \mathbf{y}_j^\top.
    \]
-<br>
-<br>8. <i>Final Simplification</i>: For \(i \neq j\), \(\tilde{K}_{ij}\) simplifies to:
-<br>   \[
-   \tilde{K}_{ij} = - \frac{2N-2}{N^2} \mathbf{y}_i \mathbf{y}_i^\top
+
+5. <i></i>Arbitrary Value<i></i>:
+   Note that \(\mathbf{y}_i\) can take any value in \(\mathbb{R}^{D/H}\) since \(W^K \neq W^Q\) and \(W^K\) is full-rank.
+
+6. <i></i>Choice of \(\mathbf{x}_j\)<i></i>:
+   For all \(j \neq i\), choose \(\mathbf{x}_j\) such that \(\mathbf{y}_j = -\mathbf{y}_i\). This is possible for any value of \(\mathbf{y}_i\) since \(W^K\) is full-rank.
+
+7. <i></i>Probability Simplification<i></i>:
+   Given \(\mathbf{y}_j = - \mathbf{y}_i\), the norm \(\|\mathbf{y}_j\|_2^2\) is equal for all \(j\). Thus:
+   \[
+   P_{ij} \coloneqq \frac{\exp(-\|\mathbf{y}_j\|_2^2)}{\sum_k \exp(-\|\mathbf{y}_k\|_2^2)} = \frac{1}{N}
    \]
-<br>
-<br>9. <i>Unbounded Entries</i>: The entries of \(\tilde{K}_{ij}\) are unbounded since \(\mathbf{y}_i\) can be any vector in \(\mathbb{R}^{D/H}\), and \(2N-2 \neq 0\) for \(N \geq 2\).
+   for all \(j\).
+
+8. <i></i>Final Simplification<i></i>:
+   For \(i \neq j\), \(\tilde{K}_{ij}\) simplifies to:
+   \[
+   \tilde{K}_{ij} = - \frac{1}{N} \left(-\mathbf{y}_i - \frac{1}{N} (N-2) (-\mathbf{y}_i)\right) (-\mathbf{y}_i)^\top = - \frac{2N-2}{N^2} \mathbf{y}_i \mathbf{y}_i^\top.
+   \]
+   The entries of \(\tilde{K}_{ij}\) are unbounded since \(\mathbf{y}_i\) can be any vector in \(\mathbb{R}^{D/H}\) (assuming \(N \geq 2\) for self-attention to be well-defined, hence \(2N-2 \neq 0\)).
         </div>
     </section>
 
@@ -169,8 +182,8 @@ whose entries are unbounded since $\mathbf{y}_i$ can be any vector in $\mathbb{R
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -178,7 +191,7 @@ whose entries are unbounded since $\mathbf{y}_i$ can be any vector in $\mathbb{R
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -207,7 +220,15 @@ If $W^K \in \mathbb{R}^{D \times D/H}$ is full rank (i.e.~full column rank), and
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

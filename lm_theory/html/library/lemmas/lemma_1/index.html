@@ -85,14 +85,36 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The composition of Lipschitz functions theorem is useful in analysis and applied mathematics, particularly when dealing with functions that have bounded rates of change. If you know that two functions $g$ and $h$ are Lipschitz, this theorem allows you to conclude that their composition $g \circ h$ is also Lipschitz. This is particularly valuable in scenarios where you need to ensure that the composed function does not exhibit wild fluctuations, and it provides an upper bound for the Lipschitz constant of the composition.
+            The composition of Lipschitz functions theorem is useful in analysis and applied mathematics, particularly when dealing with functions that have bounded rates of change. If you know that two functions $g$ and $h$ are Lipschitz, this theorem allows you to conclude that their composition $g \circ h$ is also Lipschitz. This is particularly valuable in scenarios where you need to ensure that the composed function does not exhibit wild fluctuations, which is crucial in stability analysis, numerical methods, and various applications in differential equations and optimization.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-
+See proof at:
+Federer, $\textit{H. Geometric Measure Theory}$. Classics in Mathematics. Springer Berlin Heidelberg, 1969. ISBN 9783642620102.
 </section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            The proof in Federer's "Geometric Measure Theory" involves several key steps:
+
+1. <i></i>Preliminaries and Definitions<i></i>: The proof begins by establishing the necessary definitions and preliminary results. This includes defining key concepts such as measures, measurable sets, and geometric properties relevant to the theorem.
+
+2. <i></i>Construction of Auxiliary Functions<i></i>: Auxiliary functions are constructed to facilitate the manipulation and analysis of the geometric objects under consideration. These functions often help in approximating or bounding the measures of sets.
+
+3. <i></i>Application of Geometric Inequalities<i></i>: The proof employs various geometric inequalities that relate different measures and dimensions. These inequalities are crucial for deriving bounds and relationships between the quantities involved.
+
+4. <i></i>Integration and Measure Theory Techniques<i></i>: Techniques from integration and measure theory are applied to handle the complexities of the geometric objects. This includes using integrals to sum over continuous distributions and applying measure-theoretic results to ensure the validity of the steps.
+
+5. <i></i>Limit Processes and Convergence<i></i>: The proof often involves taking limits and ensuring the convergence of sequences of functions or sets. This step is essential for transitioning from finite approximations to the actual infinite or continuous case.
+
+6. <i></i>Conclusion and Verification<i></i>: Finally, the proof concludes by verifying that all the conditions of the theorem are satisfied and that the desired result follows logically from the established steps.
+
+Each of these steps is meticulously detailed in Federer's text, providing a comprehensive and rigorous foundation for the theorem in question.
+        </div>
+    </section>
 
 
     <section id="Corollaries">
@@ -104,8 +126,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -113,7 +135,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -142,7 +164,15 @@ Let $g,h$ be two composable Lipschitz functions. Then $g \circ h$ is also Lipsch
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

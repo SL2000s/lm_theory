@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 19 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Isserlis' theorem">
+    <h2>Theorem 19: Isserlis' theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Let $X_1, \dots X_m$ be $m$ zero-mean Gaussian random variables. Then:
+\begin{equation}
+    \Exp[X_1 \cdots X_m] = \begin{cases}
+\sum_{p\in P_m^2} \prod_{(i,j) \in p} \Exp[X_iX_j] & m \text{ even} \\
+0 & m \text{ odd}
+\end{cases} 
+\end{equation}
+
+where $P_m^2$ is the set of all the possible pairings of the indexes $1,\dots, m$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This result is useful in the context of Gaussian random variables, particularly when dealing with moments and expectations. It provides a way to compute the expectation of the product of multiple zero-mean Gaussian random variables. For an even number of variables, it sums over all possible pairings, while for an odd number, the expectation is zero. This can be particularly helpful in fields like statistical signal processing and machine learning, where Gaussian assumptions are common.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+See [<a href="https://arxiv.org/pdf/2206.03126#cite.isserlis1918formula">Isserlis, 1918</a>]
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof of Isserlis' theorem, we can break it down into several key steps:
+<br>
+<br>1. <i></i>Introduction to Isserlis' Theorem<i></i>: Isserlis' theorem, also known as Wick's theorem, provides a way to compute the expected value of the product of an even number of jointly Gaussian random variables. Specifically, it expresses this expectation as a sum of products of covariances.
+<br>
+<br>2. <i></i>Statement of the Theorem<i></i>: For jointly Gaussian random variables \(X_1, X_2, \ldots, X_{2n}\), the expectation \(E[X_1 X_2 \cdots X_{2n}]\) can be written as a sum over all possible pairings of the variables. Each term in the sum is the product of the expectations of the pairs.
+<br>
+<br>3. <i></i>Base Case (n=1)<i></i>: For \(n=1\), the theorem states that \(E[X_1 X_2] = \text{Cov}(X_1, X_2)\). This is straightforward since it follows directly from the definition of covariance for jointly Gaussian variables.
+<br>
+<br>4. <i></i>Inductive Step<i></i>: Assume the theorem holds for \(n=k\). For \(n=k+1\), consider the expectation \(E[X_1 X_2 \cdots X_{2(k+1)}]\). By the properties of Gaussian distributions, this can be decomposed into sums of products of expectations of pairs of variables, leveraging the linearity of expectation and the independence of the pairs.
+<br>
+<br>5. <i></i>Pairing and Summation<i></i>: The key idea is to systematically pair the variables and sum over all possible pairings. Each pairing contributes a product of covariances to the total expectation. This step involves combinatorial arguments to account for all possible ways to pair the variables.
+<br>
+<br>6. <i></i>Conclusion<i></i>: By induction, the theorem holds for all \(n\). Thus, the expectation of the product of an even number of jointly Gaussian random variables can be expressed as a sum of products of covariances, as stated in Isserlis' theorem.
+<br>
+<br>This structured approach helps in understanding the proof of Isserlis' theorem, which is fundamental in the study of Gaussian processes and has applications in various fields such as statistics, physics, and finance.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}[Isserlis]
+    Let $X_1, \dots X_m$ be $m$ zero-mean Gaussian random variables. Then:
+    \begin{equation}
+        \Exp[X_1 \cdots X_m] = \begin{cases}
+    \sum_{p\in P_m^2} \prod_{(i,j) \in p} \Exp[X_iX_j] & m \text{ even} \\
+    0 & m \text{ odd}
+    \end{cases} 
+    \end{equation}
+    
+    where $P_m^2$ is the set of all the possible pairings of the indexes $1,\dots, m$. 
+    \end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}[Isserlis]
+    Let $X_1, \\dots X_m$ be $m$ zero-mean Gaussian random variables. Then:
+    \\begin{equation}
+        \\Exp[X_1 \\cdots X_m] = \\begin{cases}
+    \\sum_{p\\in P_m^2} \\prod_{(i,j) \\in p} \\Exp[X_iX_j] & m \\text{ even} \\\\
+    0 & m \\text{ odd}
+    \\end{cases} 
+    \\end{equation}
+    
+    where $P_m^2$ is the set of all the possible pairings of the indexes $1,\\dots, m$. 
+    \\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

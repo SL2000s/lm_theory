@@ -74,8 +74,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     </header>
     <main>
         
-<section id="Non-Lipschitz Property of DP-MHA">
-    <h2>Theorem 2: Non-Lipschitz Property of DP-MHA</h2>
+<section id="Non-Lipschitzness of DP-MHA">
+    <h2>Theorem 2: Non-Lipschitzness of DP-MHA</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
@@ -85,126 +85,120 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The fact that $\verb!DP-MHA!$ is not Lipschitz for any vector $p$-norm $\|\cdot\|_p$ with $p \in [1, \infty]$ is crucial in understanding the limitations of certain algorithms in machine learning and optimization. This result highlights that the stability and robustness of $\verb!DP-MHA!$ cannot be guaranteed under these norms, which is important when analyzing the performance and convergence of algorithms that rely on Lipschitz continuity. This insight is particularly useful when designing or choosing algorithms for applications where stability is a critical factor.
+            The fact that $\verb!DP-MHA!$ is not Lipschitz for any vector $p$-norm $\|\cdot\|_p$ with $p \in [1, \infty]$ is crucial in understanding the limitations of certain algorithms in machine learning and optimization. This result highlights that $\verb!DP-MHA!$ may exhibit sensitivity to small changes in input, which can affect the stability and robustness of the algorithm. It is particularly useful when analyzing the performance and reliability of algorithms in high-dimensional spaces, where ensuring Lipschitz continuity can be challenging.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-We show the proof for the case $D=H=1$ (i.e.~$X \in \mathbb{R}^{N \times 1}$, a column vector, and $x_i \in \mathbb{R}$) for readability. See Appendix $\ref{apd:general_d}$ for the general case, which follows the same logic. 
-
 The mapping $f$ can be written as
-\begin{align*}
-f(X) = PX = & \softmax{a X X^\top} X = \begin{bmatrix}
-    f_1(X) \\
+
+\begin{equation}
+f(X) = PX = \softmax{X A^\top X^\top} X = \begin{bmatrix}
+    f_1(X)^\top \\
     \vdots \\
-    f_N(X)
-\end{bmatrix} \in \mathbb{R}^{N \times 1}, \\
-\text{where} \quad & f_i(X) = \sum_{j=1}^N P_{ij}x_j \in \mathbb{R}
-\end{align*}
-and $a = W^K W^Q \in \mathbb{R}$ (we assume $a \neq 0$ such that self-attention is non-trivial).
-Hence $f$ can be interpreted as a map of each $x_i$ to a point in the convex hull of ${x_1,...,x_N}$.
-Since $f$ is a map from $\mathbb{R}^{N \times 1}$ to $\mathbb{R}^{N \times 1}$, its Jacobian is
+    f_N(X)^\top
+\end{bmatrix} \in \mathbb{R}^{N \times D},
+\end{equation}
+where $A = W^K W^{Q^\top} / \sqrt{D/H} \in \mathbb{R}^{D \times D}$ and
+$f_i(X) = \sum_{j=1}^N P_{ij}\mathbf{x}_j$ with $P_{i:}^\top = \softmax{XA\mathbf{x}_i}$.
+Hence $f$ can be interpreted as a map of each $\mathbf{x}_i$ to a point in the convex hull of ${\mathbf{x}_1,...,\mathbf{x}_N}$.
+Since $f$ is a map from $\mathbb{R}^{N \times D}$ to $\mathbb{R}^{N \times D}$, its Jacobian is
 \begin{equation}
     J_f = \begin{bmatrix}
     J_{11} & \dots & J_{1N} \\
     \vdots & \ddots & \vdots \\
     J_{N1} & \dots & J_{NN} \\
-    \end{bmatrix}\in \mathbb{R}^{N \times N},
+    \end{bmatrix}\in \mathbb{R}^{ND \times ND},
 \end{equation}
-where $\smash{J_{ij} = \frac{\partial f_i(X)}{\partial x_j} \in \mathbb{R}}$. 
-By taking partial derivatives we can show that
-\begin{equation*}
-    J_{ij} = a X^\top P^{(i)} \left[E_{ji}X + \delta_{ij}X \right] + P_{ij}I
-\end{equation*}
-where 
-<ul>
-    <li>$E_{ij} \in \mathbb{R}^{N \times N}$ is a binary matrix with zeros everywhere except the $(i,j)$th entry</li>
-    <li>$\delta_{ij} \in \{0,1\}$ is the Kronecker delta</li>
-    <li>$P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:} \in \mathbb{R}^{N \times N}$.</li>
-</ul>
-See Appendix $\ref{apd:identities}$ for useful identities in deriving the above Jacobian.
-
+where $J_{ij} = \frac{\partial f_i(X)}{\partial \mathbf{x}_j} \in \mathbb{R}^{D \times D}$. 
+By taking partial derivatives we can show that $J_{ij} = X^\top P^{(i)} \left[E_{ji}XA^\top + XA\delta_{ij}\right] + P_{ij}I$
+where $E_{ij} \in \mathbb{R}^{N \times N}$ is a binary matrix with zeros everywhere except the $(i,j)$th entry, $\delta_{ij}$ is the Kronecker delta, and $P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:}$.
 So for $i=j$:
 \begin{align}
-J_{ii} =
- a X^\top P^{(i)} e_{ii} X + a X^\top P^{(i)} X + P_{ii} \label{eq:jac_dot}
+J_{ii} &=X^\top P^{(i)}E_{ii}XA^\top + X^\top P^{(i)}XA + P_{ii}I \nonumber \\
+&= P_{ii}\left(\mathbf{x}_i - \textstyle\sum_k P_{ik} \mathbf{x}_k\right)\mathbf{x}_i^\top A^\top + X^\top P^{(i)}XA + P_{ii}I. \label{eq:jac_dot_general}
 \end{align}
+For the last equality, note $E_{ii}X$ has all rows equal to zero except for the $i$th row given by $\mathbf{x}_i^\top$. We can then verify that $X^\top P^{(i)}E_{ii}X$ simplifies to $P_{ii}(\mathbf{x}_i - \sum_k P_{ik} \mathbf{x}_k)\mathbf{x}_i^\top$.
 
-Let us investigate the scalar $X^\top P^{(i)}X$. We observe that it is in fact a variance of a discrete distribution. Specifically:
-\begin{equation} \label{eq:cov}
-    X^\top P^{(i)}X  = \textstyle\sum_k P_{ik} x_k^2 - \left(\textstyle\sum_k P_{ik}  x_k\right)^2 = \mathrm{Var}(\mathbb{X}),
+For vector $p$-norms, $\|J_f\|_p$ is bounded if and only if its entries are bounded, by definition of the operator norm. 
+The entries of $X^\top P^{(i)}XA$ are bounded for arbitrary $A$ only if the entries of $X^\top P^{(i)}X$ are bounded.
+So let us investigate the entries of this $D\times D$ matrix. 
+Writing out each term of the matrix, we observe that it is in fact a covariance matrix of a discrete distribution. Specifically:
+\begin{equation} \label{eq:cov_general}
+    [X^\top P^{(i)}X]_{lm}  = \textstyle\sum_k P_{ik} x_{kl} x_{km} - \left(\textstyle\sum_k P_{ik}  x_{kl}\right)\left(\textstyle\sum_k P_{ik} x_{km}\right) = \mathrm{Cov}(\mathbb{X}_l,\mathbb{X}_m),
 \end{equation}
-where $\mathbb{X}$ is a discrete distribution with support at the inputs $\{x_1,\ldots,x_N \}$ and probability mass function given by their softmax probabilities $\mathbb{P}(\mathbb{X}=x_j)=P_{ij}$. 
-A consequence of this interpretation is that $P^{(i)}$ is \textit{positive semi-definite} (PSD) since $X^\top P^{(i)} X = \mathrm{Var}(\mathbb{X}) \geq 0$, with equality if and only if the $x_j$ are all equal.
+where $\mathbb{X}$ is a discrete distribution with support at the inputs $\{\mathbf{x}_1,\ldots,\mathbf{x}_N \}$ and probability mass function given by their softmax probabilities $\mathbb{P}(\mathbb{X}=\mathbf{x}_j)=P_{ij}$. 
+A consequence of this interpretation is that $P^{(i)}$ is $\textit{positive semi-definite}$ (PSD) since for $D=1$, Equation \eqref{eq:cov_general} becomes $X^\top P^{(i)} X = \mathrm{Var}(\mathbb{X}) \geq 0$, with equality if and only if the $\mathbf{x}_j$ are all equal.
 
-We use this observation to show that $J_{ii}$ is unbounded, and so $\|J_f\|_p$ is unbounded, hence $\verb!DP-MHA!$ is $\emph{not}$ Lipschitz.
-Consider the case $x_i=0$. Then 
-\begin{equation*}
-    P_{i:}^\top = \softmax{XAx_i} = \frac{1}{N} \mathds{1},
-\end{equation*}
-i.e.\ we have uniform attention regardless of $x_{ \neq i}$. 
-The first term of $J_{ii}$ in Equation $\eqref{eq:jac_dot}$ disappears since $e_{ii} X = [0, \ldots, x_i, \ldots, 0] = \mathbf{0}$, and the last term becomes $\frac{1}{N} I$. Now consider the second term $a X^\top P^{(i)}X = a \mathrm{Var}(\mathbb{X}_l)$. Note $\mathbb{X}$ is uniformly distributed, since $\mathbb{P}(\mathbb{X}=x_j)=P_{ij}= 1/N$. Hence the second term is equal to $a$ times the sample variance of ${x_1,\ldots,x_N}$, which can be arbitrarily large. Hence $J_{ii}$ can become arbitrarily large, so the full Jacobian $J_f$ is unbounded.
+We use this observation to show that the terms of $J_{ii}$ are unbounded, and so $\verb!DP-MHA!$ is $\emph{not}$ Lipschitz.
+Consider the case $\mathbf{x}_i=0$. Then $P_{i:}^\top = \softmax{XA\mathbf{x}_i} = \frac{1}{N} \mathbf{1}$, i.e.\ we have uniform attention regardless of $\mathbf{x}_{ \neq i}$. 
+The first term of $J_{ii}$ in Equation \eqref{eq:jac_dot_general} disappears since $\mathbf{x}_i=\mathbf{0}$, and the last term becomes $\frac{1}{N} I$. For the second term, the entries $[X^\top P^{(i)}X]_{ll} = \mathrm{Var}(\mathbb{X}_l)$ are unbounded since the latter is equal to the sample variance of ${x_{1l},\ldots,x_{Nl}}$, which can be arbitrarily large.
+
+Note that we have shown that single head dot-product self-atttention ($H=1$) is not Lipschitz, but it is clear that this implies multihead self-attention $\verb!DP-MHA!$ is also not Lipschitz, since the output of multihead attention is a linear combination of the outputs of each head.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Setup and Assumptions</i>: The proof begins by considering the case where \(D=H=1\), meaning \(X\) is a column vector in \(\mathbb{R}^{N \times 1}\) and each \(x_i \in \mathbb{R}\). The general case is discussed in the appendix.
-<br>
-<br>2. <i>Mapping Definition</i>: The mapping \(f\) is defined as:
-<br>   \[
-   f(X) = PX = \softmax{a X X^\top} X = \begin{bmatrix}
-       f_1(X) \\
+            The proof involves several steps to demonstrate that the mapping \( f \) is not Lipschitz. Here is a breakdown of the steps:
+
+1. <i></i>Definition of the Mapping \( f \)<i></i>:
+   The mapping \( f \) is defined as:
+   \[
+   f(X) = PX = \softmax{X A^\top X^\top} X = \begin{bmatrix}
+       f_1(X)^\top \\
        \vdots \\
-       f_N(X)
-   \end{bmatrix} \in \mathbb{R}^{N \times 1},
+       f_N(X)^\top
+   \end{bmatrix} \in \mathbb{R}^{N \times D},
    \]
-<br>   where \(f_i(X) = \sum_{j=1}^N P_{ij}x_j \in \mathbb{R}\) and \(a = W^K W^Q \in \mathbb{R}\).
-<br>
-<br>3. <i>Jacobian Matrix</i>: The Jacobian \(J_f\) of the mapping \(f\) is given by:
-<br>   \[
+   where \( A = W^K W^{Q^\top} / \sqrt{D/H} \in \mathbb{R}^{D \times D} \) and \( f_i(X) = \sum_{j=1}^N P_{ij}\mathbf{x}_j \) with \( P_{i:}^\top = \softmax{XA\mathbf{x}_i} \).
+
+2. <i></i>Interpretation of \( f \)<i></i>:
+   \( f \) maps each \( \mathbf{x}_i \) to a point in the convex hull of \( \{\mathbf{x}_1, \ldots, \mathbf{x}_N\} \).
+
+3. <i></i>Jacobian of \( f \)<i></i>:
+   The Jacobian \( J_f \) of \( f \) is given by:
+   \[
    J_f = \begin{bmatrix}
        J_{11} & \dots & J_{1N} \\
        \vdots & \ddots & \vdots \\
        J_{N1} & \dots & J_{NN} \\
-   \end{bmatrix}\in \mathbb{R}^{N \times N},
+   \end{bmatrix} \in \mathbb{R}^{ND \times ND},
    \]
-<br>   where \(J_{ij} = \frac{\partial f_i(X)}{\partial x_j} \in \mathbb{R}\).
-<br>
-<br>4. <i>Partial Derivatives</i>: By taking partial derivatives, it is shown that:
-<br>   \[
-   J_{ij} = a X^\top P^{(i)} \left[E_{ji}X + \delta_{ij}X \right] + P_{ij}I,
+   where \( J_{ij} = \frac{\partial f_i(X)}{\partial \mathbf{x}_j} \in \mathbb{R}^{D \times D} \).
+
+4. <i></i>Expression for \( J_{ij} \)<i></i>:
+   By taking partial derivatives, it is shown that:
+   \[
+   J_{ij} = X^\top P^{(i)} \left[E_{ji}XA^\top + XA\delta_{ij}\right] + P_{ij}I,
    \]
-<br>   where:
-<ul>
-    <li>\(E_{ij} \in \mathbb{R}^{N \times N}\) is a binary matrix with zeros everywhere except the \((i,j)\)th entry.</li>
-    <li>\(\delta_{ij} \in \{0,1\}\) is the Kronecker delta.</li>
-    <li>\(P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:} \in \mathbb{R}^{N \times N}\).</li>
-</ul>
-<br>
-<br>5. <i>Diagonal Elements</i>: For \(i=j\), the Jacobian element \(J_{ii}\) is:
-<br>   \[
-   J_{ii} = a X^\top P^{(i)} e_{ii} X + a X^\top P^{(i)} X + P_{ii}.
+   where \( E_{ij} \in \mathbb{R}^{N \times N} \) is a binary matrix, \( \delta_{ij} \) is the Kronecker delta, and \( P^{(i)} \coloneqq \diag(P_{i:}) - P_{i:}^\top P_{i:} \).
+
+5. <i></i>Simplification for \( i = j \)<i></i>:
+   For \( i = j \):
+   \[
+   J_{ii} = P_{ii}\left(\mathbf{x}_i - \textstyle\sum_k P_{ik} \mathbf{x}_k\right)\mathbf{x}_i^\top A^\top + X^\top P^{(i)}XA + P_{ii}I.
    \]
-<br>
-<br>6. <i>Variance Interpretation</i>: The term \(X^\top P^{(i)}X\) is interpreted as the variance of a discrete distribution:
-<br>   \[
-   X^\top P^{(i)}X  = \textstyle\sum_k P_{ik} x_k^2 - \left(\textstyle\sum_k P_{ik}  x_k\right)^2 = \mathrm{Var}(\mathbb{X}),
+
+6. <i></i>Boundedness of \( \|J_f\|_p \)<i></i>:
+   The entries of \( X^\top P^{(i)}XA \) are bounded if and only if the entries of \( X^\top P^{(i)}X \) are bounded.
+
+7. <i></i>Covariance Matrix Interpretation<i></i>:
+   The entries of \( X^\top P^{(i)}X \) form a covariance matrix:
+   \[
+   [X^\top P^{(i)}X]_{lm} = \textstyle\sum_k P_{ik} x_{kl} x_{km} - \left(\textstyle\sum_k P_{ik}  x_{kl}\right)\left(\textstyle\sum_k P_{ik} x_{km}\right) = \mathrm{Cov}(\mathbb{X}_l,\mathbb{X}_m),
    \]
-<br>   where \(\mathbb{X}\) is a discrete distribution with support at \(\{x_1,\ldots,x_N \}\) and probability mass function \(\mathbb{P}(\mathbb{X}=x_j)=P_{ij}\).
-<br>
-<br>7. <i>Positive Semi-Definiteness</i>: It is noted that \(P^{(i)}\) is positive semi-definite (PSD) since \(X^\top P^{(i)} X = \mathrm{Var}(\mathbb{X}) \geq 0\).
-<br>
-<br>8. <i>Unbounded Jacobian</i>: To show that \(J_{ii}\) is unbounded, consider \(x_i=0\). Then:
-<br>   \[
-   P_{i:}^\top = \softmax{XAx_i} = \frac{1}{N} \mathds{1},
-   \]
-<br>   leading to uniform attention. The first term of \(J_{ii}\) disappears, and the last term becomes \(\frac{1}{N} I\). The second term \(a X^\top P^{(i)}X = a \mathrm{Var}(\mathbb{X}_l)\) can be arbitrarily large, making \(J_{ii}\) unbounded.
-<br>
-<br>Thus, the full Jacobian \(J_f\) is unbounded, showing that \(\verb!DP-MHA!\) is not Lipschitz.
+   where \( \mathbb{X} \) is a discrete distribution with support at the inputs \( \{\mathbf{x}_1, \ldots, \mathbf{x}_N \} \) and probability mass function given by their softmax probabilities.
+
+8. <i></i>Positive Semi-Definiteness<i></i>:
+   \( P^{(i)} \) is positive semi-definite (PSD).
+
+9. <i></i>Unboundedness of \( J_{ii} \)<i></i>:
+   For \( \mathbf{x}_i = 0 \), the entries of \( J_{ii} \) are unbounded, showing that \( \verb!DP-MHA! \) is not Lipschitz.
+
+10. <i></i>Conclusion<i></i>:
+    Since single head dot-product self-attention (\( H = 1 \)) is not Lipschitz, multihead self-attention (\( \verb!DP-MHA! \)) is also not Lipschitz, as the output of multihead attention is a linear combination of the outputs of each head.
         </div>
     </section>
 
@@ -213,8 +207,8 @@ The first term of $J_{ii}$ in Equation $\eqref{eq:jac_dot}$ disappears since $e_
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -222,7 +216,7 @@ The first term of $J_{ii}$ in Equation $\eqref{eq:jac_dot}$ disappears since $e_
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -251,7 +245,15 @@ The first term of $J_{ii}$ in Equation $\eqref{eq:jac_dot}$ disappears since $e_
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

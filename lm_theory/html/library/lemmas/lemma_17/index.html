@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 17 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Exponential Growth of Inner Products">
+    <h2>Lemma 17: Exponential Growth of Inner Products</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Let $C(\Xm^\ell) = \sum_{k,k'} \langle \Xm_{k}^\ell, \Xm_{k'}^\ell \rangle$ and $\Xm$ the input sequence. Under the Assumption 3.1 [in <a href="https://arxiv.org/pdf/2206.03126#ass.3.1">original paper</a>] and if $\sigma$ is the linear activation function, we have that:
+ 
+\begin{equation}
+    \Exp \left[C(\Xm^{L})\right] = (\alpha_2^2 + 1)^{L}(\alpha_1^2 + 1)^{L}C(\Xm)  .
+\end{equation}
+hence, under the depth scaling for the residual block parameters $\alpha_1^2 = \frac{\tilde{\alpha}_1}{L}, \alpha_2^2 = \frac{\tilde{\alpha}_2}{L}$ with $\tilde{\alpha}_1, \tilde{\alpha}_2 \in \mathbb{R}$ independent of $L$, we have that:
+\begin{equation}
+     \lim_{L\to \infty} \Exp[C(\Xm^L)] = \text{e}^{\tilde{\alpha}_1 + \tilde{\alpha}_2}C(\Xm).
+\end{equation}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This result is useful in the analysis of deep neural networks, particularly in understanding how the covariance of the input sequence evolves through the layers. It shows that under certain conditions, the covariance grows exponentially with the depth of the network. This insight can be used to design better initialization schemes and scaling strategies for the parameters of deep networks to ensure stable training and avoid issues like vanishing or exploding gradients.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+First, note that for the residual blocks we have that $\Exp [Y^{\ell}_{kj} | Z^{\ell}_{k'j}] = 0$ due to the independence assumption on the feedforward weights, and similarly $\Exp [S^{\ell}_{kj} | X^{\ell}_{k'j}] = 0$. Hence, we can use <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_15/index.html#lemma%3Aexp_skip">Lemma 15</a> in both the skip connections of the Transformer architecture.
+Therefore, using <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_15/index.html#lemma%3Aexp_skip">Lemma 15</a> (skip), <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_14/index.html#lemma%3Aexp_linear">Lemma 14</a> (linear) and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_16/index.html#lemma%3Aexp_softmax">Lemma 16</a> (attention):
+\begin{align*}
+        &\mathbb{E}[C(\Xm^{\ell+1})] \\
+        &\overset{\text{skip}}{=} \alpha_2^2\mathbb{E}C(\Ym^\ell) + \mathbb{E}C(\Zm^{\ell}) \\ 
+        &\overset{\text{linear}}{=} \alpha_2^2\mathbb{E}C(\Zm^{\ell}) + \mathbb{E}C(\Zm^{\ell}) \\ 
+        &= (\alpha_2^2 + 1)\mathbb{E}C(\Zm^{\ell}) \\
+        &\overset{\text{skip}}{=} (\alpha_2^2 + 1)\left(\alpha_1^2\mathbb{E}C(\Sm^{\ell}) + \mathbb{E}C(\Xm^{\ell})\right) \\ 
+        &\overset{\text{attention}}{=}  (\alpha_2^2 + 1)(\alpha_1^2 + 1) \mathbb{E}[C(\Xm^{\ell})] \\ 
+        &\overset{\text{unroll recurs.}}{=} (\alpha_2^2 + 1)^{\ell+1}(\alpha_1^2 + 1)^{\ell+1}C(\Xm) ,
+    \end{align*}
+    where in the last step we have unrolled the recursion until the input layer.
+    
+    For the limit as $L\to \infty$, simply note that:
+    $$\lim_{L\to \infty}\left(\frac{\tilde{\alpha}_i}{L}+1\right)^{L} = \text{e}^{\tilde{\alpha}_i} ,$$ 
+    with $i \in \{1, 2\}$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            First, note that for the residual blocks we have that $\Exp [Y^{\ell}_{kj} | Z^{\ell}_{k'j}] = 0$ due to the independence assumption on the feedforward weights, and similarly $\Exp [S^{\ell}_{kj} | X^{\ell}_{k'j}] = 0$. Hence, we can use <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_15/index.html#lemma%3Aexp_skip">Lemma 15</a> in both the skip connections of the Transformer architecture.
+
+Therefore, using <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_15/index.html#lemma%3Aexp_skip">Lemma 15</a> (skip), <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_14/index.html#lemma%3Aexp_linear">Lemma 14</a> (linear) and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_16/index.html#lemma%3Aexp_softmax">Lemma 16</a> (attention):
+\begin{align*}
+        &\mathbb{E}[C(\Xm^{\ell+1})] \\
+        &\overset{\text{skip}}{=} \alpha_2^2\mathbb{E}C(\Ym^\ell) + \mathbb{E}C(\Zm^{\ell}) \\ 
+        &\overset{\text{linear}}{=} \alpha_2^2\mathbb{E}C(\Zm^{\ell}) + \mathbb{E}C(\Zm^{\ell}) \\ 
+        &= (\alpha_2^2 + 1)\mathbb{E}C(\Zm^{\ell}) \\
+        &\overset{\text{skip}}{=} (\alpha_2^2 + 1)\left(\alpha_1^2\mathbb{E}C(\Sm^{\ell}) + \mathbb{E}C(\Xm^{\ell})\right) \\ 
+        &\overset{\text{attention}}{=}  (\alpha_2^2 + 1)(\alpha_1^2 + 1) \mathbb{E}[C(\Xm^{\ell})] \\ 
+        &\overset{\text{unroll recurs.}}{=} (\alpha_2^2 + 1)^{\ell+1}(\alpha_1^2 + 1)^{\ell+1}C(\Xm) ,
+    \end{align*}
+    where in the last step we have unrolled the recursion until the input layer.
+    
+For the limit as $L\to \infty$, simply note that:
+$$\lim_{L\to \infty}\left(\frac{\tilde{\alpha}_i}{L}+1\right)^{L} = \text{e}^{\tilde{\alpha}_i} ,$$ 
+with $i \in \{1, 2\}$.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}[Propagation of inner products]
+
+\label{lemma:propagation_of_inner_producets}
+ Let $C(\Xm^\ell) = \sum_{k,k'} \langle \Xm_{k}^\ell, \Xm_{k'}^\ell \rangle$ and $\Xm$ the input sequence. Under the Assumption~\ref{ass:uniform_softmax} and if $\sigma$ is the linear activation function, we have that:
+ 
+ \begin{equation}
+     \Exp \left[C(\Xm^{L})\right] = (\alpha_2^2 + 1)^{L}(\alpha_1^2 + 1)^{L}C(\Xm)  .
+ \end{equation}
+ hence, under the depth scaling for the residual block parameters $\alpha_1^2 = \frac{\tilde{\alpha}_1}{L}, \alpha_2^2 = \frac{\tilde{\alpha}_2}{L}$ with $\tilde{\alpha}_1, \tilde{\alpha}_2 \in \mathbb{R}$ independent of $L$, we have that:
+ \begin{equation}
+      \lim_{L\to \infty} \Exp[C(\Xm^L)] = \text{e}^{\tilde{\alpha}_1 + \tilde{\alpha}_2}C(\Xm).
+ \end{equation}
+
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}[Propagation of inner products]
+
+\\label{lemma:propagation_of_inner_producets}
+ Let $C(\\Xm^\\ell) = \\sum_{k,k'} \\langle \\Xm_{k}^\\ell, \\Xm_{k'}^\\ell \\rangle$ and $\\Xm$ the input sequence. Under the Assumption~\\ref{ass:uniform_softmax} and if $\\sigma$ is the linear activation function, we have that:
+ 
+ \\begin{equation}
+     \\Exp \\left[C(\\Xm^{L})\\right] = (\\alpha_2^2 + 1)^{L}(\\alpha_1^2 + 1)^{L}C(\\Xm)  .
+ \\end{equation}
+ hence, under the depth scaling for the residual block parameters $\\alpha_1^2 = \\frac{\\tilde{\\alpha}_1}{L}, \\alpha_2^2 = \\frac{\\tilde{\\alpha}_2}{L}$ with $\\tilde{\\alpha}_1, \\tilde{\\alpha}_2 \\in \\mathbb{R}$ independent of $L$, we have that:
+ \\begin{equation}
+      \\lim_{L\\to \\infty} \\Exp[C(\\Xm^L)] = \\text{e}^{\\tilde{\\alpha}_1 + \\tilde{\\alpha}_2}C(\\Xm).
+ \\end{equation}
+
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

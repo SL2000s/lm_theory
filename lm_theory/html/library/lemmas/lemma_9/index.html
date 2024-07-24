@@ -85,7 +85,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The given inequality is useful in the context of block matrices, particularly when estimating the spectral norm of a matrix. It provides an upper bound for the spectral norm of the entire matrix in terms of the spectral norms of its block columns. This can be particularly helpful in numerical linear algebra and matrix analysis, where dealing with smaller submatrices can simplify computations and provide insights into the properties of the larger matrix.
+            The given inequality is useful in the context of block matrices, particularly when estimating the spectral norm of a matrix. It provides an upper bound for the spectral norm of a block matrix in terms of the spectral norms of its block columns. This can be particularly helpful in numerical linear algebra and matrix analysis, where such bounds are often needed to ensure stability and convergence of algorithms.
         </div>
     </section>
         
@@ -102,47 +102,45 @@ where we are using the substitution $\mathbf{x}_i = \lambda_i \mathbf{e}_i$, and
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Norm Definition</i>: The proof starts by defining the 2-norm of matrix \(A\) as:
-<br>   \[
+            The proof demonstrates an upper bound for the 2-norm of a matrix \( A \) composed of submatrices \( A_1, \ldots, A_N \). Here are the steps explained:
+
+1. <i></i>Definition of the 2-norm<i></i>: The 2-norm of the matrix \( A \) is defined as:
+   \[
    \|A\|_2 = \|[A_1, \ldots, A_N]\|_2
    \]
-<br>
-<br>2. <i>Supremum of Quadratic Form</i>: The 2-norm is expressed as the supremum of a quadratic form involving vectors \(\mathbf{x}_i\) such that their squared norms sum to 1:
-<br>   \[
-   \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1}  \left\Vert [A_1, \ldots, A_N] \begin{bmatrix} \mathbf{x}_1\\ \vdots \\ \mathbf{x}_N \\ \end{bmatrix} \right\Vert_2^2
+   This is the supremum of the 2-norm of \( A \) applied to a vector, over all vectors with unit 2-norm.
+
+2. <i></i>Supremum over unit vectors<i></i>: The expression is rewritten to consider the supremum over vectors \( \mathbf{x}_i \) such that the sum of their squared norms is 1:
+   \[
+   \|A\|_2 = \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1}  \left\Vert [A_1, \ldots, A_N] \begin{bmatrix} \mathbf{x}_1\\ \vdots \\ \mathbf{x}_N \\ \end{bmatrix} \right\Vert_2^2
    \]
-<br>
-<br>3. <i>Vector Summation</i>: This expression is simplified to the norm of the sum of \(A_i \mathbf{x}_i\):
-<br>   \[
+
+3. <i></i>Matrix-vector multiplication<i></i>: This is simplified to:
+   \[
    \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \|\sum_i A_i \mathbf{x}_i\|_2
    \]
-<br>
-<br>4. <i>Triangle Inequality</i>: The norm of the sum is bounded by the sum of the norms:
-<br>   \[
+
+4. <i></i>Triangle inequality<i></i>: Using the triangle inequality, we get:
+   \[
    \leq \sup_{\sum_i\|\mathbf{x}_i\|^2_2=1} \sum_i \|A_i \mathbf{x}_i\|_2
    \]
-<br>
-<br>5. <i>Substitution</i>: The vectors \(\mathbf{x}_i\) are substituted with \(\lambda_i \mathbf{e}_i\), where \(\|\mathbf{e}_i\|_2=1\) and \(\sum_i \lambda_i^2 =1\):
-<br>   \[
+
+5. <i></i>Substitution<i></i>: By substituting \( \mathbf{x}_i = \lambda_i \mathbf{e}_i \) where \( \|\mathbf{e}_i\|_2 = 1 \) and \( \sum_i \lambda_i^2 = 1 \), the expression becomes:
+   \[
    = \sup_{\|\mathbf{e}_i\|_2=1, \sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i \mathbf{e}_i\|_2
    \]
-<br>
-<br>6. <i>Norm Property</i>: This is further simplified to:
-<br>   \[
+
+6. <i></i>Norm property<i></i>: Recognizing that \( \|A_i \mathbf{e}_i\|_2 \leq \|A_i\|_2 \), we get:
+   \[
    = \sup_{\sum_i \lambda_i^2 =1} \sum_i \lambda_i \|A_i\|_2
    \]
-<br>
-<br>7. <i>Cauchy-Schwarz Inequality</i>: Finally, the sum is bounded using the Cauchy-Schwarz inequality:
-<br>   \[
+
+7. <i></i>Cauchy-Schwarz inequality<i></i>: Applying the Cauchy-Schwarz inequality to the vectors \( [\lambda_1, \ldots, \lambda_N] \) and \( [\|A_1\|_2, \ldots, \|A_N\|_2] \), we obtain:
+   \[
    \leq \sqrt{\sum_i \|A_i\|_2^2}
    \]
-<br>
-<br>Thus, the proof shows that:
-<br>\[
-\|A\|_2 \leq \sqrt{\sum_i \|A_i\|_2^2}
-\]
+
+Thus, the 2-norm of the matrix \( A \) is bounded above by the square root of the sum of the squares of the 2-norms of its submatrices \( A_i \).
         </div>
     </section>
 
@@ -151,8 +149,8 @@ where we are using the substitution $\mathbf{x}_i = \lambda_i \mathbf{e}_i$, and
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -160,7 +158,7 @@ where we are using the substitution $\mathbf{x}_i = \lambda_i \mathbf{e}_i$, and
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -189,7 +187,15 @@ Let A be a block matrix with block columns $A_1, \ldots, A_N$. Then $\|A\|_2 \le
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

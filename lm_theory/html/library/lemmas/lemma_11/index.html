@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 11 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Gradients of Self Attention">
+    <h2>Lemma 11: Gradients of Self Attention</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            The gradients of the self attention layer defined in Eq. (1) [in <a href="https://arxiv.org/pdf/2206.03126#equation.2.1">original paper</a>] have the following form:
+\begin{align*}
+     & \frac{\partial \Sm}{\partial \wV} =    \soft\left(\frac{\Xm\wQ{\wK}^\top \Xm^\top}{\sqrt{d_k}}\right)\Xm\, \kro \Im_{d_v} \, \\
+     & \frac{\partial \Sm}{\partial \wQ} = \left(\Im_n \kro {\wV}^\top\Xm^\top\right) \frac{\partial \Am}{\partial \Mm} \left(\frac{\Xm\kro\Xm\wK}{\sqrt{d_k}}\right),
+\end{align*}
+where the gradients of the softmax with respect to its inputs are as follows:
+\begin{equation}
+\label{eq:grad_soft_complete}
+    \frac{\partial \Am}{\partial \Mm} = \blockdiag\Bigg( \dfrac{\partial \Am_{i}}{\partial \Mm_{i}^\top}\Bigg)
+\end{equation}
+and where $ \dfrac{\partial \Am_{i}}{\partial \Mm_{i}^\top}=\diag(\Am_{i}) - \Am_{i}\Am_{i}^\top$ with $\Am_{i}$ being the $i$-th row of $\Am$ in column vector format.\\
+Finally, note that under the uniform-attention assumption, Eq. (23) [in <a href="https://arxiv.org/pdf/2206.03126#equation.A.23">original paper</a>] simplifies to:
+\begin{equation}
+\label{eq:grad_soft}
+    \frac{\partial \Am}{\partial \Mm} = \frac{1}{n}\Im_n \kro \left(\Im_n - \frac{1}{n}\mathbf{1}_{n\times n} \right).
+\end{equation}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the gradients of the self-attention layer is crucial for optimizing transformer models, which are widely used in natural language processing and other machine learning tasks. The equations provided give explicit forms for these gradients, allowing for efficient backpropagation during training. This is particularly useful when implementing custom attention mechanisms or debugging gradient-related issues in deep learning models.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Let's start with the simple case of the values' weights $\wV$. Using the rule in Eq. (20) [in <a href="https://arxiv.org/pdf/2206.03126#equation.A.20">original paper</a>], it is immediate that:
+\begin{equation*}
+ \frac{\partial \Sm}{\partial \wV} =    \soft\left(\frac{\Xm\wQ{\wK}^\top \Xm^\top}{\sqrt{d_k}}\right)\Xm\, \kro \Im_{d_v} = \Am\Xm\, \kro \Im_{d_v} \,.
+\end{equation*}
+For the queries, a simple application of the chain rule and then again Eq. (20) [in <a href="https://arxiv.org/pdf/2206.03126#equation.A.20">original paper</a>] gives:
+\begin{align*}
+    \frac{\partial \Sm}{\partial \wQ} &= \frac{\partial \Sm}{\partial \Am} \frac{\partial \Am}{\partial \wQ}
+     = \frac{\partial \Sm}{\partial \Am} \frac{\partial \Am}{\partial \Mm} \frac{\partial \Mm}{\partial \wQ} \\
+     &= \left(\Im_n \kro {\wV}^\top\Xm^\top\right) \frac{\partial \Am}{\partial \Mm} \left(\frac{\Xm\kro\Xm\wK}{\sqrt{d_k}}\right) \, ,
+\end{align*}
+which is the desired results. Finally, for the gradients of the softmax note that:
+\begin{equation*}
+    \frac{\partial{\Am_{pq}}}{\partial \Mm_{ij}} =
+    \frac{\partial}{\partial \Mm_{ij}}\frac{\exp(\Mm_{pq})}{\sum_k \exp(\Mm_{pk})} =  \delta_{ip}\delta_{jq} \Am_{ij} - \delta_{ip} \Am_{iq}\Am_{ij} .
+\end{equation*}
+By writing the above expression in the matrix notation described above, we obtain the desired result. More specifically, the block diagonal structure is given from the term $\delta_{ip}$ which stems from the fact that the softmax is applied row-wise.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i>Initial Expression</i>: The proof begins by considering the partial derivative of \(\Sm\) with respect to the weights \(\wV\). Using the rule from Eq. (20) [in <a href="https://arxiv.org/pdf/2206.03126#equation.A.20">original paper</a>], we have:
+<br>   \[
+   \frac{\partial \Sm}{\partial \wV} = \soft\left(\frac{\Xm\wQ{\wK}^\top \Xm^\top}{\sqrt{d_k}}\right)\Xm\, \kro \Im_{d_v} = \Am\Xm\, \kro \Im_{d_v} \,.
+   \]
+<br>
+<br>2. <i>Chain Rule for Queries</i>: Next, the proof applies the chain rule to find the partial derivative of \(\Sm\) with respect to the queries \(\wQ\). This involves multiple steps:
+<br>   \[
+   \frac{\partial \Sm}{\partial \wQ} = \frac{\partial \Sm}{\partial \Am} \frac{\partial \Am}{\partial \wQ}
+   \]
+<br>   Breaking it down further using the chain rule again:
+<br>   \[
+   \frac{\partial \Sm}{\partial \Am} \frac{\partial \Am}{\partial \Mm} \frac{\partial \Mm}{\partial \wQ}
+   \]
+<br>   This results in:
+<br>   \[
+   \left(\Im_n \kro {\wV}^\top\Xm^\top\right) \frac{\partial \Am}{\partial \Mm} \left(\frac{\Xm\kro\Xm\wK}{\sqrt{d_k}}\right) \, ,
+   \]
+<br>   which is the desired result.
+<br>
+<br>3. <i>Gradients of the Softmax</i>: Finally, the proof considers the gradients of the softmax function. The partial derivative of \(\Am_{pq}\) with respect to \(\Mm_{ij}\) is given by:
+<br>   \[
+   \frac{\partial{\Am_{pq}}}{\partial \Mm_{ij}} = \frac{\partial}{\partial \Mm_{ij}}\frac{\exp(\Mm_{pq})}{\sum_k \exp(\Mm_{pk})} =  \delta_{ip}\delta_{jq} \Am_{ij} - \delta_{ip} \Am_{iq}\Am_{ij} .
+   \]
+<br>   By expressing this in matrix notation, we obtain the desired result. The block diagonal structure arises from the term \(\delta_{ip}\), which indicates that the softmax is applied row-wise.
+<br>
+<br>Thus, the proof shows the step-by-step derivation of the partial derivatives and the structure of the gradients.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}[Gradients of Self Attention for parameter matrices]
+\label{lemma:grads_SA}
+The gradients of the self attention layer defined in Eq.~\eqref{eq:self_att} have the following form:
+\begin{align*}
+     & \frac{\partial \Sm}{\partial \wV} =    \soft\left(\frac{\Xm\wQ{\wK}^\top \Xm^\top}{\sqrt{d_k}}\right)\Xm\, \kro \Im_{d_v} \, \\
+     & \frac{\partial \Sm}{\partial \wQ} = \left(\Im_n \kro {\wV}^\top\Xm^\top\right) \frac{\partial \Am}{\partial \Mm} \left(\frac{\Xm\kro\Xm\wK}{\sqrt{d_k}}\right),
+\end{align*}
+where the gradients of the softmax with respect to its inputs are as follows:
+\begin{equation}
+\label{eq:grad_soft_complete}
+    \frac{\partial \Am}{\partial \Mm} = \blockdiag\Bigg( \dfrac{\partial \Am_{i}}{\partial \Mm_{i}^\top}\Bigg)
+\end{equation}
+and where $ \dfrac{\partial \Am_{i}}{\partial \Mm_{i}^\top}=\diag(\Am_{i}) - \Am_{i}\Am_{i}^\top$ with $\Am_{i}$ being the $i$-th row of $\Am$ in column vector format.\\
+Finally, note that under the uniform-attention assumption, Eq.~\eqref{eq:grad_soft_complete} simplifies to:
+\begin{equation}
+\label{eq:grad_soft}
+    \frac{\partial \Am}{\partial \Mm} = \frac{1}{n}\Im_n \kro \left(\Im_n - \frac{1}{n}\bm{1}_{n\times n} \right).
+\end{equation}
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}[Gradients of Self Attention for parameter matrices]
+\\label{lemma:grads_SA}
+The gradients of the self attention layer defined in Eq.~\\eqref{eq:self_att} have the following form:
+\\begin{align*}
+     & \\frac{\\partial \\Sm}{\\partial \\wV} =    \\soft\\left(\\frac{\\Xm\\wQ{\\wK}^\\top \\Xm^\\top}{\\sqrt{d_k}}\\right)\\Xm\\, \\kro \\Im_{d_v} \\, \\\\
+     & \\frac{\\partial \\Sm}{\\partial \\wQ} = \\left(\\Im_n \\kro {\\wV}^\\top\\Xm^\\top\\right) \\frac{\\partial \\Am}{\\partial \\Mm} \\left(\\frac{\\Xm\\kro\\Xm\\wK}{\\sqrt{d_k}}\\right),
+\\end{align*}
+where the gradients of the softmax with respect to its inputs are as follows:
+\\begin{equation}
+\\label{eq:grad_soft_complete}
+    \\frac{\\partial \\Am}{\\partial \\Mm} = \\blockdiag\\Bigg( \\dfrac{\\partial \\Am_{i}}{\\partial \\Mm_{i}^\\top}\\Bigg)
+\\end{equation}
+and where $ \\dfrac{\\partial \\Am_{i}}{\\partial \\Mm_{i}^\\top}=\\diag(\\Am_{i}) - \\Am_{i}\\Am_{i}^\\top$ with $\\Am_{i}$ being the $i$-th row of $\\Am$ in column vector format.\\\\
+Finally, note that under the uniform-attention assumption, Eq.~\\eqref{eq:grad_soft_complete} simplifies to:
+\\begin{equation}
+\\label{eq:grad_soft}
+    \\frac{\\partial \\Am}{\\partial \\Mm} = \\frac{1}{n}\\Im_n \\kro \\left(\\Im_n - \\frac{1}{n}\\bm{1}_{n\\times n} \\right).
+\\end{equation}
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

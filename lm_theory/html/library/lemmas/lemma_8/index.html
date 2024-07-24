@@ -74,8 +74,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     </header>
     <main>
         
-<section id="'Projection Inequality'">
-    <h2>Lemma 8: 'Projection Inequality'</h2>
+<section id="Bounding Sum of Projected Differences">
+    <h2>Lemma 8: Bounding Sum of Projected Differences</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
@@ -85,27 +85,31 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The given inequality is useful in the context of analyzing the stability and convergence of iterative algorithms, particularly in optimization and machine learning. It provides a bound on the sum of certain matrix norms, which can be critical for ensuring that the algorithm behaves as expected. This type of bound is often used to guarantee that the updates in an iterative process do not diverge, thereby ensuring the reliability and robustness of the algorithm.
+            This inequality is useful in the context of analyzing the stability and convergence of iterative algorithms, particularly in optimization and machine learning. It provides a bound on the sum of certain matrix norms, which can be critical for ensuring that the updates in an iterative process do not diverge. This can be particularly important when dealing with high-dimensional data or complex models, where ensuring numerical stability is crucial for obtaining reliable results.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of Lemma <a href="library/lemmas/lemma_5/index.html#lemma%3Alow_rank">Lemma 5</a>.
+Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_5/index.html#lemma%3Alow_rank">Lemma 5</a>.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Application of Cauchy--Schwartz Inequality</i>: The proof begins by directly applying the Cauchy--Schwartz inequality to the variables \(c\) and \(d\).
-<br>
-<br>2. <i>Reference to Lemma 5</i>: This application is done in the context of the proof of Lemma 5, which can be found in the provided link.
-<br>
-<br>3. <i>Low Rank Condition</i>: The specific condition or property being utilized from Lemma 5 is the low rank condition, which is crucial for the application of the Cauchy--Schwartz inequality in this context.
-<br>
-<br>Thus, the proof shows that by using the Cauchy--Schwartz inequality on \(c\) and \(d\) within the framework of Lemma 5, the desired result is obtained.
+            To understand the proof, we need to apply the Cauchy-Schwarz inequality to the vectors \( c \) and \( d \). The Cauchy-Schwarz inequality states that for any vectors \( \mathbf{u} \) and \( \mathbf{v} \) in an inner product space, the following inequality holds:
+
+\[
+|\langle \mathbf{u}, \mathbf{v} \rangle| \leq \|\mathbf{u}\| \|\mathbf{v}\|
+\]
+
+In this context, let \( \mathbf{u} = c \) and \( \mathbf{v} = d \). Applying the Cauchy-Schwarz inequality, we get:
+
+\[
+|\langle c, d \rangle| \leq \|c\| \|d\|
+\]
+
+This inequality is used directly in the proof of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_5/index.html#lemma%3Alow_rank">Lemma 5</a> to establish the necessary bounds and relationships between the vectors \( c \) and \( d \).
         </div>
     </section>
 
@@ -114,8 +118,8 @@ Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of Lemma <a href="libr
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -123,7 +127,7 @@ Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of Lemma <a href="libr
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -132,7 +136,7 @@ Directly use Cauchy--Schwartz on $c$ and $d$ in the proof of Lemma <a href="libr
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{lemma}
+            <p class="tex2jax_ignore"><code>\begin{lemma} \label{lemma:f7}
 $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \mathbf{y}_j)^\top\|_2 \leq  \phi^{-1}(N-1)$
 \end{lemma}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
@@ -152,7 +156,15 @@ $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \math
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {
@@ -161,7 +173,7 @@ $\sum_j \|P_{ij}(\mathbf{y}_j - \sum_k P_{ik} \mathbf{y}_k)(\mathbf{y}_i - \math
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{lemma}
+                var textToCopy = `\\begin{lemma} \\label{lemma:f7}
 $\\sum_j \\|P_{ij}(\\mathbf{y}_j - \\sum_k P_{ik} \\mathbf{y}_k)(\\mathbf{y}_i - \\mathbf{y}_j)^\\top\\|_2 \\leq  \\phi^{-1}(N-1)$
 \\end{lemma}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {

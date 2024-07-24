@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 32 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+RSIS: "RSI$+$Smooth",
+qed: "{\\unskip\\nobreak\\hfil\\penalty50\\hskip2em\\vadjust{}           \\nobreak\\hfil$\\Box$\\parfillskip=0pt\\finalhyphendemerits=0\\par}",
+LM: "\\texttt{LMM}\\xspace",
+GM: "\\texttt{GMM}\\xspace",
+oo: "{11}",
+red: "\\textcolor{red}",
+blue: "\\textcolor{blue}",
+grn: "\\textcolor{darkgreen}",
+xat: "\\ob",
+rfn: "\\texttt{SVMeq}",
+ont: "\\texttt{1token}",
+xast: "\\xat^\\st",
+Wf: "{\\mtx{W}^\\tsc{fin}}",
+noi: "\\noindent",
+new: "\\text{new}",
+prm: "\\text{prompt}",
+TF: "{\\texttt{TF}}",
+eps: "\\epsilon",
+epsd: "\\varepsilon_\\dm",
+dv: "\\rho",
+beps: "\\boldsymbol{\\eps}",
+bota: "\\boldsymbol{\\iota}",
+ept: "\\eps_{\\TF}",
+cz: "c_0",
+kz: "\\nu",
+bxi: "\\boldsymbol{\\xi}",
+vsp: "\\vspace",
+fnn: "f_{\\text{nn}}",
+ff: "f_{\\text{nn}}",
+wi: "k_\\st",
+hbm: "\\vct{\\bar{h}}",
+vc: "\\text{vec}",
+flin: "f_{\\text{lin}}",
+bhbg: "{\\bar h}_{\\tsc{gap}}",
+rest: "\\text{rest}",
+hp: "\\tilde{\\mtx{h}}",
+Mb: "\\bar{\\M}",
+Nb: "\\bar{N}",
+epsr: "\\varepsilon_R",
+mur: "\\mu_R",
+bp: "\\bar{p}",
+zig: "\\nu",
+bh: "\\bar{h}",
+hb: "\\vct{h}",
+al: "\\alpha",
+als: "\\alpha",
+fs: "f^{\\Dc}",
+Ncov: "\\mathcal{N}_\\eps(\\Bal)",
+ft: "h",
+ftv: "f^{\\Tc\\cup\\Vc}",
+deff: "h_{\\text{eff}}",
+defz: "\\bar{h}_{\\text{eff}}",
+deft: "\\tilde{h}_{\\text{eff}}",
+defg: "\\bar{h}^{\\nabla}_{\\text{eff}}",
+defF: "\\bar{h}^{\\FB}_{\\text{eff}}",
+bC: "\\bar{C}",
+st: "\\star",
+dm: "{\\diamond}",
+nt: "n_\\mathcal{T}",
+h: "h",
+nv: "n_\\mathcal{V}",
+distas: "\\overset{\\text{i.i.d.}}{\\sim}",
+pleq: "\\overset{{P}}{\\leq}",
+np: "{n\\wedge p}",
+KB: "\\bar{K}",
+bG: "\\boldsymbol{\\Gamma}",
+rP: "\\stackrel{{P}}{\\longrightarrow}",
+xv: "\\x_{\\vb}",
+xa: "\\x^\\bal",
+xw: "\\x'_{\\vb}",
+xu: "\\x_{\\ub}",
+xs: "\\x_{\\ws}",
+yst: "\\hat{\\y}",
+yb: "\\bar{\\y}",
+lnk: "\\psi",
+eig: "\\text{eigvec}",
+hu: "h",
+ru: "r",
+pbar: "{{\\bar{p}}}",
+pbd: "p",
+lan: "\\vct{k}",
+cmp: "P_{\\text{nn}}",
+dcp: "\\vct{d}^{\\text{cnn}}",
+fcp: "\\vct{g}^{\\text{CNN}}",
+beq: "\\begin{equation}",
+ba: "\\begin{align}",
+ea: "\\end{align}",
+nrest: "\\bar{n}",
+eeq: "\\end{equation}",
+prox: "{{\\text{\\bf{prox}}}}",
+cov: "{{\\text{\\bf{cov}}}}",
+ex: "{{\\text{\\bf{ex}}}}",
+modu: "{{\\text{{mod}}}}",
+map: "{{\\text{\\bf{map}}}}",
+vrn: "\\sigma",
+Rcm: "\\Rcc_m",
+lowo: "\\texttt{low}_\\oo^{\\alpha}",
+tsig: "\\tilde{\\sigma}",
+dev: "{{\\text{\\bf{dev}}}}",
+meas: "{{\\text{\\bf{mean}}(\\sigma)}}",
+nn: "\\nonumber",
+la: "\\lambda",
+laz: "\\la_0",
+blaz: "\\bar{\\la}_0",
+caz: "\\la_C",
+saz: "L_\\sigma",
+smax: "\\bar{\\sigma}_{\\max}",
+Lat: "\\tilde{\\Lambda}",
+K: "\\mtx{K}",
+A: "{\\mtx{A}}",
+Aa: "{\\mtx{A}}",
+Bb: "{\\mtx{B}}",
+N: "{\\mtx{N}}",
+amp: "\\alpha_{\\text{cnn}}",
+btm: "\\bigotimes",
+bd: "\\bigodot",
+kapp: "s_{\\max}^{\\nu}",
+kal: "\\prod_{i=1}^{D-1}\\tn{\\lay{i}}",
+Ub: "{\\mtx{U}}",
+Ubb: "{\\mtx{U}}",
+kron: "\\otimes",
+M: "{\\mtx{M}}",
+dimondf: "\\W^\\svm",
+name: "Att-SVM",
+ten: "(\\{\\vb_\\ell\\}_{\\ell=1}^D)",
+uten: "(\\{\\ub_\\ell\\}_{\\ell=1}^D)",
+ken: "(\\{\\lay{i}\\}_{i=1}^D)",
+B: "{{\\mtx{B}}}",
+alx: "{{\\alpha_\\X}}",
+Ib: "{{\\mtx{I}}}",
+fp: "F",
+Xbin: "{{\\mtx{B}}}",
+Gbin: "{{\\mtx{S}}}",
+xbin: "{{\\mtx{b}}}",
+Sb: "{{\\mtx{S}}}",
+Sbt: "{\\mathbb{S}}^t",
+Sbtt: "{\\mathbb{S}}'^{t}",
+Gb: "{\\mtx{G}}",
+ymean: "{\\bar{\\y}(\\w;\\text{avg})}",
+yavg: "{{y}_{\\text{avg}}}",
+fmean: "{\\funcw{\\w;\\text{avg}}}",
+out: "\\text{out}",
+linest: "\\text{lin}",
+inp: "\\text{in}",
+inh: "\\hat{\\text{in}}",
+sexp: "subexponential ",
+Lc: "{\\cal{L}}",
+Hc: "{\\cal{H}}",
+Lcz: "{\\cal{L}}^{0-1}",
+Lczh: "{\\hat{\\cal{L}}}^{0-1}",
+Lch: "{\\widehat{\\cal{L}}}",
+Lct: "{\\tilde{\\cal{L}}}",
+Lcb: "{\\bar{\\cal{L}}}",
+Nc: "{\\cal{N}}",
+xm: "\\x^{\\tsc{mix}}",
+Jc: "{\\cal{J}}",
+Dc: "{\\cal{D}}",
+Dci: "{\\cal{D}}_{\\text{init}}",
+Ro: "{\\cal{RO}}",
+PC: "{\\cal{PC}}",
+Pb: "{\\mtx{P}}",
+Tb: "{\\mtx{T}}",
+Tn: "{T_0}",
+Kba: "{\\vct{k}}_{\\text{all}}",
+Qb: "{\\mtx{Q}}",
+QK: "{\\mtx{Q} \\mtx{K}^\\top}",
+rng: "\\gamma",
+ta: "\\tau",
+gmax: "\\gamma^\\star",
+ggap: "\\bar{\\gamma}_{\\tsc{gap}}",
+Cb: "{\\mtx{C}}",
+BC: "{\\bar{C}}",
+Eb: "{\\mtx{E}}",
+Hb: "{\\mtx{H}}",
+Gc: "{\\cal{G}}",
+Zc: "{\\cal{Z}}",
+F: "{\\mtx{F}}",
+Fa: "{\\mtx{F}}^\\bal",
+diff: "{\\text{diff}}",
+La: "{\\boldsymbol{{\\Lambda}}}",
+sigmap: "\\phi'",
+sigmaa: "\\sigma'_{\\text{all}}",
+bSi: "{\\boldsymbol{{\\Sigma}}}",
+bSii: "{\\boldsymbol{{\\Sigma}}}_{i,i}",
+bSib: "\\bar{{\\boldsymbol{{\\Sigma}}}}",
+bSit: "{\\boldsymbol{{\\tilde{\\Sigma}}}}",
+bSih: "{\\boldsymbol{{\\hat{\\Sigma}}}}",
+bmu: "{\\boldsymbol{{\\mu}}}",
+Db: "{\\mtx{D}}",
+bB: "{\\bar{B}}",
+tB: "{\\tilde{B}}",
+db: "{\\vct{d}}",
+oneb: "{\\mathbb{1}}",
+onebb: "{\\mathbf{1}}",
+Iden: "{\\mtx{I}}",
+gm: "\\gamma_m",
+OR: "\\text{OR}",
+z: "{\\vct{z}}",
+zt: "{\\tilde{\\vct{z}}}",
+fab: "f^\\bal_\\bt",
+zb: "{\\bar{\\z}}",
+el: "{\\ell}",
+sftx: "\\mathbb{S}",
+bad: "{\\bar{d}}",
+Lcg: "\\tilde{\\Lc}",
+Dp: "{D^+}",
+upp: "{\\cal{B}}_{\\alpha,\\Gamma}",
+upz: "{\\cal{B}}_{\\alpha_0,\\Gamma}",
+dpz: "{\\cal{D}}_{\\alpha_0,\\Gamma}",
+dpp: "{\\cal{D}}_{\\alpha,\\Gamma}",
+mpp: "M_{\\alpha,\\Gamma}",
+paf: "\\partial f(\\x)",
+Cc: "\\mathcal{C}",
+Rcc: "\\mathcal{R}",
+Qcc: "\\mathcal{Q}",
+Kcc: "\\mathcal{K}",
+Ac: "\\mathcal{A}",
+Acg: "\\Ac_g",
+At: "\\mathcal{A}",
+Acr: "\\mathcal{A_\\text{ridge}}",
+Bal: "{\\boldsymbol{\\Delta}}",
+pbb: "\\vct{\\bar{p}}",
+pbs: "\\tilde{\\pb}^\\svm",
+del: "\\delta",
+GG: "\\texttt{GG}",
+BB: "\\texttt{BB}",
+BG: "\\texttt{BG}",
+bGam: "\\bar{\\Gamma}_y",
+GB: "\\texttt{GB}",
+delw: "\\delta_w",
+delq: "\\delta_q",
+bdel: "\\boldsymbol{\\delta}",
+Ccb: "\\bar{\\mathcal{C}}",
+Rc: "\\mathcal{O}",
+Rcp: "\\mathcal{\\bar{O}}'",
+btrue: "\\bbeta_{true}",
+bt: "{\\boldsymbol{\\theta}}",
+bet: "{\\boldsymbol{\\beta}}",
+bT: "\\Theta",
+bts: "{\\boldsymbol{\\beta}_\\st}",
+btb: "\\bar{\\boldsymbol{\\theta}}",
+btid: "\\boldsymbol{\\theta}^\\text{ideal}",
+btt: "\\tilde{\\boldsymbol{\\theta}}",
+bal: "{\\boldsymbol{\\alpha}}",
+bgam: "\\boldsymbol{\\gamma}",
+bga: "\\boldsymbol{\\gamma}^\\bal",
+gamb: "\\bar{\\gamma}",
+bab: "{\\boldsymbol{\\bar{\\alpha}}}",
+bah: "{\\widehat{\\bal}}",
+berm: "\\bal^{\\texttt{ERM}}",
+bas: "{\\boldsymbol{\\alpha}_\\st}",
+bth: "{\\boldsymbol{\\hat{\\beta}}}",
+bPhi: "{\\boldsymbol{\\Phi}}",
+bbteta: "\\widetilde{\\boldsymbol{\\theta}}",
+bbeta: "{\\boldsymbol{\\beta}}",
+ddelta: "{\\boldsymbol{\\delta}}",
+DD: "{D}",
+babeta: "{\\bar{\\beta}}",
+balpha: "{\\bar{\\alpha}}",
+bgamma: "\\gamma^\\star",
+agam: "{\\bar{\\gamma}}_t",
+No: "N",
+Bc: "\\mathcal{B}",
+Sc: "\\mathcal{S}",
+Scc: "\\bar{\\mathcal{S}}",
+Sca: "\\mathcal{S}_{\\text{all}}",
+Dca: "\\mathcal{D}_{\\text{all}}",
+Scn: "\\mathcal{S}_{\\new}",
+Dcn: "\\mathcal{D}_{new}",
+Scb: "\\bar{\\mathcal{S}}",
+Sci: "\\mathcal{S}_{\\text{in}}",
+Sco: "\\mathcal{S}_{\\text{out}}",
+Ect: "\\mathcal{S}_{\\text{top}}",
+Mc: "\\mathcal{M}",
+pa: "{\\partial}",
+Nn: "\\mathcal{N}",
+pol: "^\\circ",
+vb: "\\vct{v}",
+Jb: "\\mtx{J}",
+Jt: "\\mtx{\\tilde{J}}",
+vbl: "\\vct{v}^{\\text{lin}}",
+fb: "\\vct{f}",
+Fb: "\\vct{F}",
+FB: "\\mathbb{F}",
+Ft: "\\tilde{\\vct{F}}",
+fa: "\\tilde{\\vct{f}}",
+ib: "{\\bf{i}}",
+hib: "{\\bf{\\hat{i}}}",
+Ic: "{\\mathcal{I}}",
+all: "{\\text{all}}",
+vh: "\\vct{\\hat{v}}",
+vbb: "\\vct{\\bar{v}}",
+Xb: "\\mtx{\\bar{X}}",
+xb: "\\vct{\\bar{x}}",
+abb: "\\mtx{\\bar{a}}",
+ap: "\\mtx{a}'",
+cb: "\\mtx{c}",
+cbb: "\\mtx{\\bar{c}}",
+kbb: "\\mtx{\\bar{k}}",
+bbb: "\\mtx{\\bar{b}}",
+nei: "\\text{support index}\\xspace",
+neis: "\\text{support indices}\\xspace",
+Nei: "\\text{Support index}\\xspace",
+Neis: "\\text{Support indices}\\xspace",
+NEIS: "\\text{Support Indices}\\xspace",
+w: "\\vct{w}",
+ww: "\\vct{V}",
+lgt: "\\texttt{lgt}'",
+ist: "i_\\st",
+cdm: "c_\\dm",
+cop: "c_\\texttt{up}",
+cdn: "c_\\texttt{dn}",
+Wp: "\\mtx{W}^\\dagger",
+tilW: "\\widetilde{\\mtx{W}}",
+tilw: "\\widetilde{\\vct{w}}",
+ob: "\\mtx{o}",
+obo: "\\mtx{o}_1(t)",
+obt: "\\mtx{o}_2(t)",
+obh: "\\mtx{\\hat{o}}",
+wh: "{\\hat{\\mtx{w}}}",
+li: "\\left<",
+xdm: "\\Xi_\\dm",
+ri: "\\right>",
+s: "\\vct{s}",
+sik: "\\s^{(\\ik)}",
+sir: "\\s^R",
+abik: "\\ab^{(\\ik)}",
+abr: "\\ab^R",
+ab: "{\\vct{a}}",
+abm: "\\vct{\\bar{a}}",
+abg: "\\vct{a}_{\\tsc{gap}}",
+bgag: "{\\gamma}_{\\tsc{gap}}",
+bgg: "\\gamma^{\\tsc{gap}}",
+bggm: "\\gamma^{\\tsc{gap}}_{\\min}",
+bgm: "\\bar{\\gamma}^{\\tsc{gap}}",
+abp: "\\vct{a}^\\pb",
+bb: "\\vct{b}",
+ub: "{\\vct{u}}",
+ubb: "\\bar{\\vct{u}}",
+hh: "{\\vct{h}}",
+ii: "{\\vct{i}}",
+dd: "{\\vct{d}}",
+ddt: "{\\vct{d}}_\\tau",
+Zb: "\\mathbb{Z}",
+hf: "\\hat{f}",
+corrCA: "\\rho_\\Cc(\\M)",
+Tc: "\\mathcal{T}",
+Tcb: "\\bar{\\mathcal{T}}",
+TVc: "\\Tc\\cup\\Vc",
+Ttc: "\\mathcal{T}_{\\text{test}}",
+Fc: "\\mathcal{F}",
+Fcl: "\\mathcal{F}^{\\text{lin}}",
+Xc: "\\mathcal{X}",
+Yc: "\\mathcal{Y}",
+rel: "optimal\\xspace",
+iopt: "non-optimal\\xspace",
+irel: "non-optimal\\xspace",
+ihere: "{\\textcolor{red}{I AM HERE! }}",
+gb: "\\bar{\\g}",
+bs: "\\bar{s}",
+cgain: "\\alpha_{\\text{CNN}}",
+cgainp: "\\tn{\\E_{\\x\\sim\\Nn(0,\\Iden)}[\\gcnn{}]}",
+ccorr: "\\rho_{\\text{cnn}}",
+kb: "\\vct{k}",
+kbo: "\\vct{k}^\\op",
+xbo: "\\vct{x}^\\op",
+xh: "\\hat{\\x}",
+cone: "\\Sc",
+conb: "\\bar{\\Cc}",
+xbr: "\\bar{\\h}",
+low: "\\texttt{low}^{\\alpha}(\\X)",
+high: "\\texttt{high}^{\\alpha}(\\X)",
+lowi: "\\texttt{low}_\\ik^{\\alpha}",
+higi: "\\texttt{high}_\\ik^{\\alpha}",
+xdr: "\\tilde{\\x}",
+ybt: "\\tilde{\\y}",
+Xt: "\\tilde{\\X}",
+gh: "\\hat{\\g}",
+gt: "\\tilde{\\g}",
+ir: "q",
+sbs: "\\vct{s}^{\\texttt{ref}}",
+bbg: "\\bgam^{\\tsc{gap}}",
+bbs: "\\bar{\\s}",
+gmb: "\\bar{\\gamma}",
+irm: "q^\\pb_{\\max}",
+ira: "q^{\\pb'}_{\\max}",
+vbs: "\\tilde{\\vb}^\\svm",
+vs: "\\vb^\\svm",
+ps: "\\W^\\svm",
+Ws: "\\W^\\svm",
+Wma: "\\W^\\svm_\\bal",
+Wsf: "\\W^\\svm",
+Wsb: "\\bar{\\W}^\\svm",
+Wcs: "\\Wc^\\svm",
+ik: "{ik}",
+itt: "{it}",
+ittt: "{i\\tau}",
+ikt: "{ikt}",
+iktt: "{ik\\tau}",
+ikix: "_{ik=(1,1)}^{(n,k)}",
+Ccd: "\\Cc_{\\eps,R_0}^\\dm",
+aik: "\\alpha_{ik}",
+prr: "\\pb^\\tsc{relax}",
+pre: "\\pb^\\tsc{$\\eps$-rlx}",
+pbr: "\\tilde{\\pb}^\\tsc{$\\eps$-rlx}",
+qbr: "\\tilde{\\qb}^\\tsc{relax}",
+pseb: "\\pbb^\\svm_\\eps",
+pset: "\\tilde{\\pb}^\\svm_\\eps",
+psdb: "\\pbb^\\svm_\\delta",
+pse: "\\pb^\\svm_\\eps",
+psd: "\\pb^\\svm_\\delta",
+pst: "\\pb^\\star",
+wst: "\\W^\\star",
+gamp: "\\Gamma_\\eps",
+gamt: "\\Gamma^{\\geq 2}_\\eps",
+damp: "\\Gamma_\\delta",
+pt: "\\tilde{\\pb}^\\svm",
+RR: "\\bar{R}",
+MM: "\\bar{M}",
+psb: "\\bar{\\pb}^\\svm",
+psp: "\\pb^\\beta",
+pso: "\\pb^{\\svm\\star}",
+Wso: "\\W^{\\svm\\star}",
+mipp: "L_{\\max}",
+mupp: "\\bar{\\mu}_{\\max}",
+mapp: "\\mu",
+tcnn: "{\\mtx{T}}_{\\text{cnn}}",
+lcnn: "{\\mtx{L}}_{\\text{CNN}}",
+smo: "S",
+SM: "{{\\bf{S}}}_{L,\\kb}",
+SMB: "{{\\bf{\\bar{S}}}}_{L,\\kb}",
+ws: "{\\W^\\star}",
+wss: "{\\w^\\star}",
+lab: "\\bar{\\la}",
+mult: "B^D\\bar{M}N",
+liptwo: "20R^3B\\nt^2\\laz^{-2}(B\\nt+1)",
+lipp: "5R^2\\sqrt{B^3\\nt^3\\h}\\laz^{-2}\\tn{\\yT}",
+lips: "6R^3B^2\\sqrt{\\nt^3\\h}\\laz^{-2}\\tn{\\yT}",
+lipl: "5(RB\\nt\\sqrt{\\h}+1)RB\\nt\\laz^{-2}",
+lip: "\\frac{5B^2\\tn{\\yT}}{\\laz^2}",
+lipt: "6R^3B^2\\Gamma\\sqrt{\\nt^3\\h}\\laz^{-2} \\tn{\\yT}",
+lipf: "{20R^4B^2\\laz^{-2}\\Gamma\\nt^2\\tn{\\yT}}",
+lipsum: "30R^4B^2\\laz^{-2}\\Gamma(\\nt^2+\\nv^2) \\tn{\\yT}",
+lipnn: "120B^4\\blaz^{-2}\\Gamma(\\nt^2+\\nv^2) \\tn{\\yT}",
+bL: "\\bar{L}",
+scl: "M",
+cA: "\\mathcal{A}",
+x: "\\vct{x}",
+rb: "\\vct{r}",
+rbb: "\\vct{\\widetilde{r}}",
+y: "\\vct{y}",
+yT: "\\vct{y}",
+yh: "\\hat{y}",
+ybh: "\\vct{\\hat{y}}",
+W: "\\mtx{W}",
+Wt: "\\tilde{\\mtx{W}}",
+Wc: "{\\cal{W}}",
+Wcb: "{\\cal{W}}",
+Vc: "{\\cal{V}}",
+bgl: "{~\\big |~}",
+p: "{\\vct{p}}",
+Kb: "{\\mtx{K}}",
+Kbb: "{\\mtx{\\bar{K}}}",
+Qbb: "{\\mtx{\\bar{Q}}}",
+Wb: "{\\mtx{\\bar{W}}}",
+Wpro: "\\mtx{\\W}_{\\textnormal{prod}}",
+Kbh: "{\\widehat{\\mtx{K}}}",
+somelog: "16\\Kb\\log (\\Kb)",
+somelg: "\\Kb\\log (\\Kb)",
+pb: "{\\vct{p}}",
+dpb: "{\\vct{\\dot p}}",
+drb: "{\\vct{\\dot r}}",
+qb: "{\\vct{q}}",
+qstar: "\\vct{q}_\\star",
+qtt: "{\\vct{\\tilde{q}}}",
+wstar: "\\vct{v}_\\star",
+vstar: "\\vct{v}_\\star",
+wstab: "\\bar{\\vb}_\\star",
+vstab: "\\bar{\\vb}_\\star",
+qstab: "\\bar{\\qb}_\\star",
+qbb: "\\bar{\\qb}",
+wbb: "\\bar{\\w}",
+wtt: "{\\vct{\\tilde{w}}}",
+R: "\\mathbb{R}",
+Pro: "\\mathbb{P}",
+C: "\\mathbb{C}",
+Z: "\\mtx{Z}",
+V: "\\mtx{V}",
+Za: "\\mtx{Z}^\\bal",
+Var: "\\textrm{Var}",
+E: "\\operatorname{\\mathbb{E}}",
+Eh: "\\operatorname{\\mathbb{\\hat{E}}}",
+e: "\\mathrm{e}",
+eb: "\\vct{e}",
+vba: "{\\bf{\\emph{v}}}",
+pba: "{\\bf{\\emph{p}}}",
+supp: "\\Sc",
+Id: "\\text{\\em I}",
+OpId: "\\mathcal{I}",
+Real: "\\operatorname{Re}",
+Imag: "\\operatorname{Im}",
+piyp: "\\pi'_1(\\vct{y})",
+piy: "\\pi_1(\\vct{y})",
+piar: "\\pi_1(\\vct{a}_r)",
+piarp: "\\pi'_1(\\vct{a}_r)",
+set: "{\\cal{F}}",
+des: "{\\x_0}",
+Pc: "{\\cal{P}}",
+X: "{\\mtx{X}}",
+Y: "{\\mtx{Y}}",
+Vb: "{\\mtx{V}}",
+Vh: "\\hat{{\\mtx{V}}}",
+Vbd: "{\\mtx{V}^\\dagger}",
+Rb: "{\\mtx{R}}",
+bR: "{\\bar{R}}",
+calF: "\\mathcal{I}",
+calS: "\\mathcal{N}",
+gi: "\\ab_{\\gamma_i}",
+ang: "\\text{ang}",
+mc: "\\mathcal",
+g: "\\vct{g}",
+tsc: "\\textsl",
+Prml: "\\text{Primal}\\xspace",
+cls: "\\texttt{[CLS]}\\xspace",
+prml: "\\text{primal}\\xspace",
+fat: "f_{\\tsc{sa}}",
+fatt: "f_{\\tsc{cls}}",
+faptt: "f^\\top_{\\tsc{cls}}",
+thetab: "\\boldsymbol{\\theta}",
+acc: "\\text{acc}",
+svm: "\\tsc{mm}",
+Wm: "\\W^\\svm",
+Wmt: "\\tilde\\W^\\svm",
+Wu: "\\W^{\\texttt{uni}}",
+Wbi: "\\W^{\\texttt{bi}}",
+Wub: "\\bar{\\W}^{\\texttt{uni}}",
+Wbb: "\\bar{\\W}^{\\texttt{bi}}",
+op: "\\texttt{opt}",
+opt: "\\texttt{opt}",
+xop: "\\x^\\texttt{opt}",
+reg: "\\tsc{reg}",
+vstap: "\\vstar'",
+Cbp: "\\Cb'",
+Rcb: "\\bar{\\Rc}",
+err: "\\texttt{err}",
+ones: "\\onebb",
+onet: "\\bar{\\onebb}",
+taub: "{\\bar{\\tau}}",
+taut: "\\tau",
+Qc: "{\\cal{Q}}",
+tr: "{{\\operatorname{trace}}}",
+goodbox: ["\\begin{center} \\begin{tcolorbox}[boxsep=1pt,left=7pt,right=7pt,top=0pt,bottom=2pt,enhanced, width=14cm,colframe=white!3!black,colback=black!2!white,colbacktitle=orange!5!yellow!10!white,fonttitle=\\bfseries,coltitle=black,attach boxed title to top center={yshift=-0.25mm-\\tcboxedtitleheight/2,yshifttext=2mm-\\tcboxedtitleheight/2},boxed title style={boxrule=0.2mm,frame code={ \\path[tcb fill frame] ([xshift=-4mm]frame.west)-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)-- (frame.south east) -- (frame.south west) -- cycle; },interior code={ \\path[tcb fill interior] ([xshift=-2mm]interior.west)-- (interior.north west) -- (interior.north east)-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)-- cycle;} }] #1 \\end{tcolorbox}\\end{center}", 1],
+nicebox: ["\\begin{center} \\begin{tcolorbox}[boxsep=1pt,left=7pt,right=7pt,top=0pt,bottom=2pt,enhanced, width=14cm,colframe=green!3!black,colback=green!3!white,colbacktitle=orange!5!yellow!10!white,fonttitle=\\bfseries,coltitle=black,attach boxed title to top center={yshift=-0.25mm-\\tcboxedtitleheight/2,yshifttext=2mm-\\tcboxedtitleheight/2},boxed title style={boxrule=0.2mm,frame code={ \\path[tcb fill frame] ([xshift=-4mm]frame.west)-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)-- (frame.south east) -- (frame.south west) -- cycle; },interior code={ \\path[tcb fill interior] ([xshift=-2mm]interior.west)-- (interior.north west) -- (interior.north east)-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)-- cycle;} }] #1 \\end{tcolorbox}\\end{center} ", 1],
+redp: ["\\textcolor{red}{[#1]}", 1],
+so: ["\\textcolor{darkblue}{#1}", 1],
+SO: ["\\textcolor{red}{[SO: #1]\\\\}", 1],
+dat: ["\\textcolor{darkgreen}{#1}", 1],
+DAT: ["\\textcolor{green}{[DAT: #1]}", 1],
+yl: ["\\textcolor{orange}{#1}", 1],
+YL: ["\\textcolor{orange}{[YL: #1]}", 1],
+ct: ["\\textcolor{magenta}{[CT: #1]}", 1],
+todo: ["\\textcolor{darkred}{TODO: #1}", 1],
+clr: ["\\red{#1}", 1],
+cln: ["\\red{}", 1],
+som: ["\\marginpar{\\color{darkblue}\\tiny\\ttfamily SO: #1}", 1],
+outr: ["\\text{outer\\_update}(#1)", 1],
+cc: ["\\Cc(#1)", 1],
+fF: ["f_{\\text{nn},#1}", 1],
+fln: ["f_{\\text{lin},#1}", 1],
+exc: ["\\mathcal{R}_{\\tsc{gap}}(#1)", 1],
+xvt: ["\\x_{\\vb_{#1}}", 1],
+xvtt: ["\\x_{\\vb,#1}", 1],
+xwt: ["\\x_{#1,\\w}", 1],
+xws: ["\\x_{#1,\\ws}", 1],
+link: ["\\lnk(#1)", 1],
+lay: ["{\\vct{k}}^{(#1)}", 1],
+lah: ["{\\vct{\\hat{k}}}^{(#1)}", 1],
+bea: ["\\begin{align}#1\\end{align}", 1],
+var: ["{{\\text{\\bf{var}}}}[#1]", 1],
+sgt: ["\\tilde{\\sigma}^{(#1)}", 1],
+func: ["{f_{\\text{CNN}}}(#1)", 1],
+funh: ["{{\\hat{f}}_{\\text{CNN}}}(#1)", 1],
+funcp: ["{f'_{\\text{cnn}}}(#1)", 1],
+funcw: ["{{{f}}'_{\\text{cnn}}}(#1)", 1],
+robt: ["\\bigotimes_{\\ell=1}^D{#1}_{\\ell}", 1],
+robtu: ["\\bigotimes_{\\ell=1}^D{#1}^{(\\ell)}", 1],
+kall: ["1_{\\lan #1}", 1],
+lall: ["{\\order{\\lip_{\\lan #1}}}", 1],
+lell: ["{\\lip}_{\\lan #1}", 1],
+bell: ["{{{\\beta}}}_{\\lan #1}", 1],
+aly: ["{{\\alpha_{\\X_{#1}}}}", 1],
+ravg: ["{{r}_{{\\text{avg}}}(#1)}", 1],
+diag: ["\\text{diag}(#1)", 1],
+Lcv: ["{\\cal{L}}^{#1}_{\\text{up}}", 1],
+noresamp: ["{\\textcolor{red}{#1}}", 1],
+relu: ["\\phi(#1)", 1],
+one: ["{\\bm{1}}(#1)", 1],
+sigmal: ["\\sigma^{(#1)}", 1],
+sigmalp: ["\\sigma'^{(#1)}", 1],
+sigmai: ["\\sigma'_{\\text{all},#1}", 1],
+order: ["{\\cal{O}}(#1)", 1],
+ordet: ["{\\widetilde{\\cal{O}}}(#1)", 1],
+rmax: ["{\\bf{r}_{\\max}(#1)}", 1],
+rbmax: ["{\\bf{\\bar{r}}_{\\max}(#1)}", 1],
+rmin: ["{\\bf{r}_{\\min}(#1)}", 1],
+gmmin: ["{\\gamma_{\\min}(#1)}", 1],
+gmmax: ["{\\gamma_{\\max}(#1)}", 1],
+smn: ["{s_{\\min}(#1)}", 1],
+smx: ["{s_{\\max}(#1)}", 1],
+isnr: ["\\texttt{ISNR}(#1)", 1],
+sft: ["\\mathbb{S}(#1)", 1],
+sftk: ["\\mathbb{S}_k(#1)", 1],
+sfp: ["\\mathbb{S}'(#1)", 1],
+distd: ["\\texttt{dist}_\\dm\\left(#1\\right)", 1],
+tn: ["\\|{#1}\\|", 1],
+td: ["\\|{#1}\\|_\\dm", 1],
+tl: ["\\|{#1}\\|_{L_2}", 1],
+ts: ["\\|{#1}\\|_{\\Sc}", 1],
+ti: ["\\|{#1}\\|_{\\infty}", 1],
+nrm: ["\\|{#1}\\|", 1],
+inr: ["\\left<#1\\right>", 1],
+tone: ["\\|{#1}\\|_{\\ell_1}", 1],
+lix: ["\\|{#1}\\|_{\\Xc}", 1],
+lif: ["\\text{dist}_{\\FB}({#1})", 1],
+lit: ["\\text{max}(#1)", 1],
+lia: ["\\text{avg}(#1)", 1],
+lin: ["\\|{#1}\\|_{L_\\infty}", 1],
+tff: ["\\|{#1}\\|_{\\ell_4}", 1],
+tin: ["\\|{#1}\\|_{\\ell_\\infty}", 1],
+trow: ["\\|{#1}\\|_{2,\\infty}", 1],
+tf: ["\\|{#1}\\|_{F}", 1],
+tnuc: ["\\|{#1}\\|_{\\star}", 1],
+te: ["\\|{#1}\\|_{\\psi_1}", 1],
+tsub: ["\\|{#1}\\|_{\\psi_2}", 1],
+tsut: ["\\|{#1}\\|_{\\psi_{2/3}}", 1],
+tsup: ["\\|{#1}\\|_{\\psi_a}", 1],
+dist: ["\\texttt{dist}\\left(#1\\right)", 1],
+Al: ["\\Ac(#1)", 1],
+Alg: ["\\Ac_g(#1)", 1],
+sbl: ["\\sigma_{\\boldsymbol{\\alpha^{(#1)}}}", 1],
+bl: ["{\\boldsymbol{\\alpha}}^{(#1)}", 1],
+blb: ["\\bar{\\boldsymbol{\\alpha}}^{(#1)}", 1],
+zm: ["{\\texttt{{{zm}}}[#1]}", 1],
+corr: ["{\\texttt{corr\\_coef}}(#1)", 1],
+qqq: ["{\\textcolor{red}{?{#1}?}}", 1],
+mat: ["{\\text{mat}{#1}}", 1],
+gcnn: ["{\\vct{g}}_{\\text{cnn}#1}", 1],
+con: ["\\texttt{cone}_{\\eps}(#1)", 1],
+xp: ["\\x^{(#1)}_\\prm", 1],
+Sn: ["\\Sc^{(#1)}", 1],
+Dn: ["\\Dc^{(#1)}", 1],
+xt: ["\\x^{(#1)}", 1],
+yt: ["y^{(#1)}", 1],
+inn: ["\\left<#1\\right>", 1],
+yp: ["\\textcolor{red}{ #1}", 1],
+zeronorm: ["\\left\\|#1 \\right\\|_0", 1],
+unorm: ["\\left\\|#1 \\right\\|_u", 1],
+ynorm: ["\\left\\|#1 \\right\\|_{\\bar{y}}", 1],
+onetwonorm: ["\\left\\|#1\\right\\|_{1,2}", 1],
+opnorm: ["\\left\\|#1\\right\\|", 1],
+fronorm: ["\\left\\|#1\\right\\|_{F}", 1],
+onenorm: ["\\left\\|#1\\right\\|_{\\ell_1}", 1],
+twonorm: ["\\left\\|#1\\right\\|_{\\ell_2}", 1],
+Dnorm: ["\\left\\|#1\\right\\|_{D}", 1],
+oneinfnorm: ["\\left\\|#1\\right\\|_{1,\\infty}", 1],
+infnorm: ["\\left\\|#1\\right\\|_{\\ell_\\infty}", 1],
+nucnorm: ["\\left\\|#1\\right\\|_*", 1],
+abs: ["\\left|#1\\right|", 1],
+avg: ["\\left< #1 \\right>", 1],
+xx: ["\\vct{x}^{(#1)}", 1],
+Ww: ["\\mtx{W}^{(#1)}", 1],
+ejc: ["\\textcolor{emmanuel}{EJC: #1}", 1],
+pp: ["{\\vct{p}}(#1)", 1],
+pr: ["{\\vct{\\bar{p}}}(#1)", 1],
+prl: ["{\\vct{\\tilde{p}}}(#1)", 1],
+prb: ["{\\vct{\\bar{p}}}(#1)", 1],
+wrb: ["{\\vct{\\bar{W}}}(#1)", 1],
+wrt: ["{\\vct{\\bar{W}}}_0(#1)", 1],
+sgn: ["\\textrm{sgn}(#1)", 1],
+grad: ["{\\nabla\\Lc(#1)}", 1],
+gradf: ["{\\nabla f(#1)}", 1],
+hessf: ["{\\nabla^2f(#1)}", 1],
+gradw: ["{\\nabla{\\Lc}(#1)}", 1],
+vct: ["\\bm{#1}", 1],
+mtx: ["\\bm{#1}", 1],
+rank: ["\\texttt{rank}(#1)", 1],
+restrict: ["\\big\\vert_{#1}", 1],
+note: ["{\\bf [{\\em Note:} #1]}", 1],
+m: ["{\\bf{#1}}", 1],
+mb: ["{\\mathbb{#1}}", 1],
+fapt: ["f_{\\tsc{cls}}(#1\\bT)", 1],
+fapn: ["f_{\\lnk}(#1\\bT)", 1],
+zX: ["\\z\\{#1\\}", 1],
+aX: ["\\ab\\{#1\\}", 1],
+wnorm: ["\\left\\|#1\\right\\|_{#2}", 2],
+grd: ["{\\nabla\\Lc_{#1}(#2)}", 2],
+iprod: ["\\left\\langle #1 , #2 \\right\\rangle", 2],
+ham: ["{\\|#1,#2\\|_H}", 2],
+endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Global Optimality Conditions">
+    <h2>Lemma 32: Global Optimality Conditions</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Suppose Assumption $\ref{assum:loss:prope}$ holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the $\ref{eqn:sattnsvm}$ solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see $\eqref{R bound2}$) such that:
+<ol style="list-style-type: none;">
+    <li><b>L1.</b> There is no stationary point within $ \conb_{\mu,\RR_\mu}(\Ws)$, where $\conb_{\mu,\RR_\mu} (\Ws)$ is defined in $\eqref{eqn:con:nabla0}$. </li>
+    <li><b>L2.</b> For all $\V\in \Scc_{\mu} (\Ws)$ with $\tf{\V}=\tf{\Wm}$  and $\W\in\conb_{\mu,\RR_\mu}(\Wm)$, there exist dataset dependent constants $C,c>0$ such that 
+    \begin{subequations}\label{zero:g:lbound}
+    \begin{align}
+    &C\cdot \frac{1}{n}\sum_{i=1}^n \left(1-\s_{i\op_i}\right) \geq -\Big\langle\nabla\Lc(\W),\V \Big\rangle\geq c\cdot \mu\cdot  \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right)>0, \label{zero1:g:bound} \\
+    & -\li\frac{\V}{\tf{\V}},\frac{\nabla\Lc(\W)}{\tf{\nabla\Lc(\W)}}\ri \geq  \frac{c}{C} \cdot \frac{\Theta}{\bar{A}}>0, \label{zero2:g:bound}\\
+    &\tf{\nabla\Lc(\W)}\leq \bar{A}C \cdot \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right). \label{zero3:g:bound}
+    </align>
+    </subequations>
+    Here,  $\s_{i\opt_i}=(\sft{\X_i\W \z_{i}})_{\opt_i}$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{\x_{it}- \x_{i\tau}}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
+</li>
+</ol>
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This lemma is crucial for understanding the behavior of the optimization landscape in machine learning models, particularly in the context of support vector machines (SVMs). It provides conditions under which no stationary points exist within a certain region, ensuring that the optimization process does not get stuck in suboptimal points. Additionally, it establishes bounds on the gradient, which are essential for analyzing the convergence properties of the optimization algorithm. Use this lemma when you need to guarantee the effectiveness and efficiency of your optimization procedure in high-dimensional spaces.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+For simplicity let $R=\RR_\mu$, $\W\in\conb_{\mu,R}(\Ws)$ and 
+\begin{equation}\label{mu choice2}
+\begin{split}
+&A=\max_{i\in[n],t,\tau\in[T]} \frac{(\tn{\x_{it}}\vee\tn{\x_{it}-\x_{i\tau}})\cdot\tn{\z_i}}{\Theta}.
+\end{split}
+\end{equation}
+
+The following inequalities hold for all $\V\in \Scc_{\mu},~\tf{\V}=\tf{\Wm}$ and all $i\in[n], t\neq \op_i$:
+\begin{equation}\label{cone-A-eq}
+\begin{split}
+A\geq(\x_{i\op_i}-\x_{it})^\top \V \z_i &\geq \mu.
+\end{split}
+\end{equation}
+
+To proceed, we write the gradient correlation following \eqref{grad def} and \eqref{eqn:grad:prod:p}
+\begin{align}\label{grad def32}
+\li\nabla\Lc(\W),\V\ri&=\frac{1}{n}\sum_{i=1}^n\ell'_i\cdot\li\hb_i,\sfp{\hp_i}\bgam_i\ri,
+\end{align}
+where we denoted $\ell'_i=\ell'(Y_i\cdot \vb^\top \X_i^\top\sft{\hp_i})$, $\hb_i=\X_i\V \z_{i}$, $\hp_i= \X_i\W \z_{i}$, $\s_i=\sft{\hp_i}$. 
+
+It follows from \eqref{mu choice2} that $A\geq \max_{i\in[n],t\in[T]}\tn{\hb_{it}}$. Using \eqref{cone-A-eq}, we can bound the softmax probabilities $\s_i=\sft{\hp_i}$ as follows, for all $i\in[n]$:
+\begin{align}\label{soft prob bound2}
+&S_i:= \sum_{\tau\neq \op_i}\s_{i\tau}\leq T e^{-R\mu\Theta}\s_{i\op_i}\leq T e^{-R\mu\Theta}.
+\end{align}
+
+Recall scores $\bgam_{it}=Y_i\cdot\vb^\top \x_{it}$. Define the score gaps:
+\begin{equation*}
+ \bgg_i=\bgam_{i\op_i}-\max_{t\neq\op_i}\bgam_{it},~~~ \bgm_i=\bgam_{i\op_i}-\min_{t\neq\op_i}\bgam_{it},~~~\textnormal{and}~~~\Gamma=\sup_{i\in[n],t,\tau\in[T]}|\bgam_{it}-\bgam_{i\tau}|. 
+\end{equation*}
+Let us focus on a fixed datapoint $i\in[n]$, assume (without losing generality) $\op_i=1$, and drop subscripts $i$.
+
+Directly applying Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, we obtain
+\[
+  \big|\hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam-\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2\Gamma A(1-\s_1)^2.
+\]
+To proceed, let us upper/lower bound the gradient correlation. Since $A\geq \hb_1-\hb_t\geq \mu>0$ from \eqref{cone-A-eq}, setting $S:=\sum_{t\neq\op_i}\s_t=1-\s_1$, we find
+\begin{equation}
+ A\cdot S\cdot \bgm  \geq\sum_{t\neq\op} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\geq \mu\cdot S\cdot \bgg.\label{aggregate2}
+\end{equation}
+Next we show that $S=1-\s_1$ dominates $(1-\s_1)^2=S^2$ for large $R$. Specifically, we wish for 
+\begin{align}\label{wishfor2}
+\mu S \bgg/2\geq 2\Gamma A(1-\s_1)^2\iff S\geq \frac{4}{\mu}\frac{\Gamma A}{\bgg}S^2\iff S\leq \frac{\mu\bgg}{4\Gamma A}.
+\end{align}
+Using \eqref{soft prob bound2}, what we wish is ensured for all $i\in[n]$, by guaranteeing $Te^{-R\mu\Theta}\leq \frac{\mu\bgg}{4\Gamma A}$. That is, by choosing
+\begin{align}\label{R bound2}
+R\geq \frac{1}{\mu\Theta}\log\left(\frac{4T\Gamma A}{\mu\bggm}\right),
+\end{align}
+where $\bggm=\min_{i\in[n]}\bgg_i$ is the global scalar corresponding to the worst case score gap over all inputs. 
+
+With the above choice of $R$, we guaranteed
+\[
+  2 A(1-\s_1)\cdot \bgm\geq 2A\cdot S\cdot \bgm \geq \sum_{t\neq\op} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\geq\frac{\mu\cdot S\cdot \bgg}{2}\geq\frac{\mu(1-\s_1) \bgg}{2},
+\]
+via \eqref{wishfor2} and \eqref{aggregate2}. 
+
+Since this holds over all inputs, going back to the gradient correlation \eqref{grad def32} and averaging above over all inputs $i\in[n]$ and plugging back the indices $i$, we obtain the advertised bound 
+\begin{align}\label{pbb corr2}
+  \frac{2A}{n}\sum_{i\in [n]} -\ell'_i\cdot S_i\cdot \bgm_i\geq -\li\nabla\Lc(\W),\V\ri\geq \frac{\mu}{2n}\sum_{i\in [n]} -\ell'_i\cdot S_i\cdot \bgg_i.
+\end{align}
+Let $-\ell'_{\min/\max}$ be the min/max values negative loss derivative admits over the ball $[-A,A]$ and note that $\max_{i\in[n]}\bgm_i>0$ and $\min_{i\in[n]}\bgg_i>0$ are dataset dependent constants. Then, we declare the constants $C=-2A\ell'_{\max}\cdot \max_{i\in[n]}\bgm_i>0,c=-(1/2)\ell'_{\min}\cdot \min_{i\in[n]}\bgg_i>0$ to obtain the bound \eqref{zero1:g:bound}. 
+
+The proof of  \eqref{zero2:g:bound} and \eqref{zero3:g:bound} follows similarly as the proof of Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_34/index.html#local+cond">Lemma 34</a>.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <i></i>Definition of Constants<i></i>: The proof starts by defining constants and variables for simplicity. Specifically, \( R = \RR_\mu \) and \( \W \in \conb_{\mu,R}(\Ws) \). The constant \( A \) is defined as:
+<br>   \[
+   A = \max_{i \in [n], t, \tau \in [T]} \frac{(\tn{\x_{it}} \vee \tn{\x_{it} - \x_{i\tau}}) \cdot \tn{\z_i}}{\Theta}.
+   \]
+<br>
+<br>2. <i></i>Inequalities for \(\V\)<i></i>: The proof establishes inequalities for all \(\V \in \Scc_{\mu}\) with \(\tf{\V} = \tf{\Wm}\) and for all \(i \in [n], t \neq \op_i\):
+<br>   \[
+   A \geq (\x_{i\op_i} - \x_{it})^\top \V \z_i \geq \mu.
+   \]
+<br>
+<br>3. <i></i>Gradient Correlation<i></i>: The gradient correlation is written using the definitions from previous equations:
+<br>   \[
+   \li \nabla \Lc(\W), \V \ri = \frac{1}{n} \sum_{i=1}^n \ell'_i \cdot \li \hb_i, \sfp{\hp_i} \bgam_i \ri,
+   \]
+<br>   where \(\ell'_i = \ell'(Y_i \cdot \vb^\top \X_i^\top \sft{\hp_i})\), \(\hb_i = \X_i \V \z_i\), \(\hp_i = \X_i \W \z_i\), and \(\s_i = \sft{\hp_i}\).
+<br>
+<br>4. <i></i>Bounding Softmax Probabilities<i></i>: Using the earlier inequalities, the softmax probabilities \(\s_i = \sft{\hp_i}\) are bounded:
+<br>   \[
+   S_i := \sum_{\tau \neq \op_i} \s_{i\tau} \leq T e^{-R\mu\Theta} \s_{i\op_i} \leq T e^{-R\mu\Theta}.
+   \]
+<br>
+<br>5. <i></i>Score Gaps<i></i>: The proof defines score gaps and a global scalar for the worst-case score gap:
+<br>   \[
+   \bgg_i = \bgam_{i\op_i} - \max_{t \neq \op_i} \bgam_{it}, \quad \bgm_i = \bgam_{i\op_i} - \min_{t \neq \op_i} \bgam_{it}, \quad \Gamma = \sup_{i \in [n], t, \tau \in [T]} |\bgam_{it} - \bgam_{i\tau}|.
+   \]
+<br>
+<br>6. <i></i>Application of Lemma<i></i>: By applying Lemma 29, the proof derives an inequality involving \(\hb\), \(\s\), and \(\bgam\):
+<br>   \[
+   \big|\hb^\top \diag{\s} \bgam - \hb^\top \s \s^\top \bgam - \sum_{t \geq 2}^T (\hb_1 - \hb_t) \s_t (\bgam_1 - \bgam_t)\big| \leq 2\Gamma A(1 - \s_1)^2.
+   \]
+<br>
+<br>7. <i></i>Bounding Gradient Correlation<i></i>: The proof bounds the gradient correlation by setting \( S = 1 - \s_1 \):
+<br>   \[
+   A \cdot S \cdot \bgm \geq \sum_{t \neq \op} (\hb_1 - \hb_t) \s_t (\bgam_1 - \bgam_t) \geq \mu \cdot S \cdot \bgg.
+   \]
+<br>
+<br>8. <i></i>Ensuring Dominance<i></i>: The proof ensures that \( S = 1 - \s_1 \) dominates \( (1 - \s_1)^2 = S^2 \) for large \( R \):
+<br>   \[
+   S \leq \frac{\mu \bgg}{4 \Gamma A}.
+   \]
+<br>   This is guaranteed by choosing:
+<br>   \[
+   R \geq \frac{1}{\mu \Theta} \log\left(\frac{4T \Gamma A}{\mu \bggm}\right),
+   \]
+<br>   where \(\bggm = \min_{i \in [n]} \bgg_i\).
+<br>
+<br>9. <i></i>Final Bound<i></i>: With the chosen \( R \), the proof guarantees:
+<br>   \[
+   2 A (1 - \s_1) \cdot \bgm \geq \sum_{t \neq \op} (\hb_1 - \hb_t) \s_t (\bgam_1 - \bgam_t) \geq \frac{\mu (1 - \s_1) \bgg}{2}.
+   \]
+<br>   Averaging over all inputs \( i \in [n] \) and plugging back the indices, the proof obtains the bound:
+<br>   \[
+   \frac{2A}{n} \sum_{i \in [n]} -\ell'_i \cdot S_i \cdot \bgm_i \geq -\li \nabla \Lc(\W), \V \ri \geq \frac{\mu}{2n} \sum_{i \in [n]} -\ell'_i \cdot S_i \cdot \bgg_i.
+   \]
+<br>
+<br>10. <i></i>Constants Declaration<i></i>: Finally, the proof declares constants \( C \) and \( c \) to obtain the bound:
+<br>   \[
+   C = -2A \ell'_{\max} \cdot \max_{i \in [n]} \bgm_i > 0, \quad c = -\frac{1}{2} \ell'_{\min} \cdot \min_{i \in [n]} \bgg_i > 0.
+   \]
+<br>   This leads to the bound \eqref{zero1:g:bound}.
+<br>
+<br>The proof of \eqref{zero2:g:bound} and \eqref{zero3:g:bound} follows similarly as the proof of Lemma 34.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformers_as_support_vector_machines/index.html">Transformers as Support Vector Machines</a></p>
+            <p>Authors: Davoud Ataee Tarzanagh, Yingcong Li, Christos Thrampoulidis, and Samet Oymak</p>
+            <p>URL: <a href="https://arxiv.org/abs/2308.16898">https://arxiv.org/abs/2308.16898</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{tarzanagh2024transformerssupportvectormachines,<br>&emsp;title={Transformers as Support Vector Machines},<br>&emsp;author={Davoud Ataee Tarzanagh and Yingcong Li and Christos Thrampoulidis and Samet Oymak},<br>&emsp;year={2024},<br>&emsp;eprint={2308.16898},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2308.16898}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}
+\label{glocal cond} 
+Suppose Assumption~\ref{assum:loss:prope} holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the \ref{eqn:sattnsvm} solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see \eqref{R bound2}) such that:
+\begin{enumerate}[label={\textnormal{\textbf{L\arabic*.}}}, wide, labelwidth=!,itemindent=!, labelindent=5pt]
+\item \label{lem:gcond:l1} There is no stationary point within  $ \conb_{\mu,\RR_\mu}(\Ws)$, where $\conb_{\mu,\RR_\mu} (\Ws)$ is defined in \eqref{eqn:con:nabla0}. 
+\item\label{lem:gcond:l2} For all $\V\in \Scc_{\mu} (\Ws)$ with $\tf{\V}=\tf{\Wm}$  and $\W\in\conb_{\mu,\RR_\mu}(\Wm)$, there exist dataset dependent constants $C,c>0$ such that 
+\begin{subequations}\label{zero:g:lbound}
+\begin{align}
+&C\cdot \frac{1}{n}\sum_{i=1}^n \left(1-\s_{i\op_i}\right) \geq -\Big\langle\nabla\Lc(\W),\V \Big\rangle\geq c\cdot \mu\cdot  \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right)>0, \label{zero1:g:bound} \\
+& -\li\frac{\V}{\tf{\V}},\frac{\nabla\Lc(\W)}{\tf{\nabla\Lc(\W)}}\ri \geq  \frac{c}{C} \cdot \frac{\Theta}{\bar{A}}>0, \label{zero2:g:bound}\\
+&\tf{\nabla\Lc(\W)}\leq \bar{A}C \cdot \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right). \label{zero3:g:bound}
+\end{align}
+\end{subequations}
+Here,  $\s_{i\opt_i}=(\sft{\X_i\W \z_{i}})_{\opt_i}$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{\x_{it}- \x_{i\tau}}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
+
+
+
+
+
+ 
+
+
+
+
+
+\end{enumerate}
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{tarzanagh2024transformerssupportvectormachines,
+  title={Transformers as Support Vector Machines},
+  author={Davoud Ataee Tarzanagh and Yingcong Li and Christos Thrampoulidis and Samet Oymak},
+  year={2024},
+  eprint={2308.16898},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2308.16898}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}
+\\label{glocal cond} 
+Suppose Assumption~\\ref{assum:loss:prope} holds and let $\\op=(\\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\\Wm$ denoting the \\ref{eqn:sattnsvm} solution. Define the margin $\\Theta=1/\\tf{\\Ws}$. Let $\\s_{i}=\\sft{\\X_i\\W\\z_i}$. For any $\\mu>0$, there exists a sufficiently large $\\RR_\\mu=\\order{1/\\mu}$ (see \\eqref{R bound2}) such that:
+\\begin{enumerate}[label={\\textnormal{\\textbf{L\\arabic*.}}}, wide, labelwidth=!,itemindent=!, labelindent=5pt]
+\\item \\label{lem:gcond:l1} There is no stationary point within  $ \\conb_{\\mu,\\RR_\\mu}(\\Ws)$, where $\\conb_{\\mu,\\RR_\\mu} (\\Ws)$ is defined in \\eqref{eqn:con:nabla0}. 
+\\item\\label{lem:gcond:l2} For all $\\V\\in \\Scc_{\\mu} (\\Ws)$ with $\\tf{\\V}=\\tf{\\Wm}$  and $\\W\\in\\conb_{\\mu,\\RR_\\mu}(\\Wm)$, there exist dataset dependent constants $C,c>0$ such that 
+\\begin{subequations}\\label{zero:g:lbound}
+\\begin{align}
+&C\\cdot \\frac{1}{n}\\sum_{i=1}^n \\left(1-\\s_{i\\op_i}\\right) \\geq -\\Big\\langle\\nabla\\Lc(\\W),\\V \\Big\\rangle\\geq c\\cdot \\mu\\cdot  \\frac{1}{n} \\sum_{i=1}^n  \\left(1-\\s_{i\\op_i}\\right)>0, \\label{zero1:g:bound} \\\\
+& -\\li\\frac{\\V}{\\tf{\\V}},\\frac{\\nabla\\Lc(\\W)}{\\tf{\\nabla\\Lc(\\W)}}\\ri \\geq  \\frac{c}{C} \\cdot \\frac{\\Theta}{\\bar{A}}>0, \\label{zero2:g:bound}\\\\
+&\\tf{\\nabla\\Lc(\\W)}\\leq \\bar{A}C \\cdot \\frac{1}{n} \\sum_{i=1}^n  \\left(1-\\s_{i\\op_i}\\right). \\label{zero3:g:bound}
+\\end{align}
+\\end{subequations}
+Here,  $\\s_{i\\opt_i}=(\\sft{\\X_i\\W \\z_{i}})_{\\opt_i}$, $\\bar{A}=\\max_{i\\in[n],t,\\tau\\in[T]}\\tn{\\x_{it}- \\x_{i\\tau}}~\\tn{\\z_i}$, and $\\Theta=1/\\tf{\\Ws}$.
+
+
+
+
+
+ 
+
+
+
+
+
+\\end{enumerate}
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

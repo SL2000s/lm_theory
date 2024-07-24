@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemma 18 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+soft: "\\operatorname{softmax}",
+blockdiag: "\\operatorname{blockdiag}",
+diag: "\\operatorname{diag}",
+vect: "\\operatorname{vec}",
+tr: "\\operatorname{tr}",
+rank: "\\operatorname{rank}",
+SA: "\\operatorname{SA}",
+mb: "\\mathbf",
+kro: "  \\mathbin{\\mathop{\\otimes}}",
+wQ: "\\mb W^{Q}",
+wQT: "\\mb W^{Q \\top}",
+wK: "\\mb W^{K}",
+wKT: "\\mb W^{K \\top}",
+wV: "\\mb W^{V}",
+wVT: "\\mb W^{V \\top}",
+p: "\\bm p",
+Exp: "\\mathbb{E}",
+R: "\\mathbb{R}",
+wM: ["\\mb W^{#1}", 1],
+wMt: ["\\mb W^{#1^\\top}", 1],
+norm: ["\\left\\lVert#1\\right\\rVert", 1],
+extra: ["{ #1}", 1],
+luca: ["{\\color{red} Luca: ``#1''}", 1],
+antonio: ["{\\color{magenta} Antonio: ``#1''}", 1],
+lorenzo: ["{\\color{blue} Lorenzo: ``#1''}", 1],
+sotiris: ["{\\color{green} Sotiris: ``#1''}", 1],
+sidak: ["{\\color{orange} Sidak: ``#1''}", 1],
+aurelien: ["{\\color{ForestGreen} Aurelien: ``#1''}", 1],
+Im: "{\\bf I}",
+Km: "{\\bf K}",
+Am: "{\\bf A}",
+Em: "{\\boldsymbol \\epsilon}",
+Lm: "{\\bf L}",
+Bm: "{\\bf B}",
+Cm: "{\\bf C}",
+Dm: "{\\bf D}",
+Sm: "{\\bf S}",
+Xm: "{\\bf X}",
+Ym: "{\\bf Y}",
+Nm: "{\\bf N}",
+Mm: "{\\bf M}",
+Tm: "{\\bf T}",
+Wm: "{\\bf W}",
+Zm: "{\\bf Z}",
+Sm: "{\\bf S}"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Exponential Norm Growth in Deep Networks">
+    <h2>Lemma 18: Exponential Norm Growth in Deep Networks</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Let $\Xm^{L}$ be the representations of the input sequence at the final layer. Under the assumptions of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_17/index.html#lemma%3Apropagation_of_inner_producets">Lemma 17</a>, we have that:
+\begin{equation}
+    \Exp \norm{\Xm^{L}}_{F}^2 = n (\alpha_2^2+1)^{L}\alpha_1^2 \sum_{k=0}^{L-1}(\alpha_1^2+1)^k \norm{\bar{\mathbf{x}}}^2 + (\alpha_2^2+1)^{L} ||\Xm||_F^2  ,
+\end{equation}
+hence, under the depth scaling for the residual block parameters $\alpha_1^2 = \frac{\tilde{\alpha}_1}{L}, \alpha_2^2 = \frac{\tilde{\alpha}_2}{L}$ with $\tilde{\alpha_1}, \tilde{\alpha_2} \in \mathbb{R}$ independent of $L$, we have that:
+\begin{equation}
+    \lim_{L\to \infty} \Exp \norm{\Xm^{L}}_{F}^2 = n \text{e}^{\tilde{\alpha}_2}(\text{e}^{\tilde{\alpha}_1} - 1)\norm{\bar{\mathbf{x}}}^2 + \text{e}^{\tilde{\alpha}_2} ||\Xm||_F^2.
+\end{equation}
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the behavior of the representations of input sequences in deep neural networks is crucial for designing and analyzing these models. The given result provides an explicit formula for the expected Frobenius norm of the representations at the final layer, which helps in understanding how the representations evolve as the network depth increases. This is particularly useful when choosing the scaling parameters for residual blocks, ensuring that the network remains stable and avoids issues like vanishing or exploding gradients. By applying the depth scaling for the residual block parameters, one can predict the asymptotic behavior of the network, which is essential for training very deep networks effectively.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Due to the rotational symmetries of the Gaussian random matrices, if the input tokens have the same norm, then the expected norm at layer $\ell \in [L]$ is also the same across the token's representations. Hence, we can write $\Exp\norm{\Xm^\ell}_F^2 = n \Exp\norm{\mathbf{x}^\ell}^2$, where $\norm{\mathbf{x}^\ell}^2$ is the norm of every token at layer $\ell$. Furthermore, by definition of our correlation coefficient $\rho^\ell_{kk'}$, we have that $\Exp\langle\Xm^\ell_k, \Xm^\ell_{k'}\rangle = \rho^\ell_{kk'} \Exp\norm{\mathbf{x}^\ell}^2$. By summing over the indexes $k,k'$, we can expand the relation as:
+\begin{equation*}
+    \underbrace{\sum_{k,k'}\Exp\langle\Xm^\ell_k, \Xm^\ell_{k'}\rangle}_{\Exp C(\Xm)} = \sum_{k,k'} \rho^\ell_{kk'} \Exp\norm{\mathbf{x}^\ell}^2 = (n + \sum_{k\neq k'}\rho^\ell_{k,k'})\Exp\norm{\mathbf{x}^\ell}^2 = \underbrace{n\Exp\norm{\mathbf{x}^\ell}^2}_{\Exp \norm{\Xm^\ell}_F^2}(1 + (n-1) \rho^\ell).
+\end{equation*}
+By solving for $\rho^\ell$, we have that:
+\begin{equation*}
+    \rho^\ell = \frac{\Exp C(\Xm^\ell)}{(n-1)\Exp \norm{\Xm^\ell}^2 } - \frac{1}{n-1} .
+\end{equation*}
+Now we plug in the expressions for $\Exp C(\Xm^\ell)$ and $\Exp \norm{\Xm^\ell}^2 $ with the aid of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_17/index.html#lemma%3Apropagation_of_inner_producets">Lemma 17</a> and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_18/index.html#thm%3Aforward_pass">Lemma 18</a>, respectively. Finally, by taking the limits with respect to $L$, we get the desired result.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break down the different steps:
+<br>
+<br>1. <i></i>Rotational Symmetries and Norms<i></i>:
+<br>   - The proof begins by leveraging the rotational symmetries of Gaussian random matrices. This symmetry implies that if the input tokens have the same norm, then the expected norm at any layer $\ell$ will also be the same across all token representations.
+<br>   - Mathematically, this is expressed as $\Exp\norm{\Xm^\ell}_F^2 = n \Exp\norm{\mathbf{x}^\ell}^2$, where $\norm{\mathbf{x}^\ell}^2$ is the norm of each token at layer $\ell$.
+<br>
+<br>2. <i></i>Correlation Coefficient Definition<i></i>:
+<br>   - The correlation coefficient $\rho^\ell_{kk'}$ is defined such that $\Exp\langle\Xm^\ell_k, \Xm^\ell_{k'}\rangle = \rho^\ell_{kk'} \Exp\norm{\mathbf{x}^\ell}^2$.
+<br>   - This relationship helps in understanding how the inner products of token representations relate to their norms and the correlation coefficient.
+<br>
+<br>3. <i></i>Summing Over Indexes<i></i>:
+<br>   - By summing over the indexes $k$ and $k'$, the proof expands the relation to:
+<br>     \[
+     \sum_{k,k'}\Exp\langle\Xm^\ell_k, \Xm^\ell_{k'}\rangle = \sum_{k,k'} \rho^\ell_{kk'} \Exp\norm{\mathbf{x}^\ell}^2.
+     \]
+<br>   - This can be further simplified to:
+<br>     \[
+     (n + \sum_{k\neq k'}\rho^\ell_{k,k'})\Exp\norm{\mathbf{x}^\ell}^2 = n\Exp\norm{\mathbf{x}^\ell}^2(1 + (n-1) \rho^\ell).
+     \]
+<br>
+<br>4. <i></i>Solving for $\rho^\ell$<i></i>:
+<br>   - By isolating $\rho^\ell$, the proof derives:
+<br>     \[
+     \rho^\ell = \frac{\Exp C(\Xm^\ell)}{(n-1)\Exp \norm{\Xm^\ell}^2 } - \frac{1}{n-1}.
+     \]
+<br>
+<br>5. <i></i>Using Lemmas for Expressions<i></i>:
+<br>   - The proof then references <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_17/index.html#lemma%3Apropagation_of_inner_producets">Lemma 17</a> and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_18/index.html#thm%3Aforward_pass">Lemma 18</a> to plug in the expressions for $\Exp C(\Xm^\ell)$ and $\Exp \norm{\Xm^\ell}^2$.
+<br>   - These lemmas provide the necessary mathematical tools to express the expected values in terms of known quantities.
+<br>
+<br>6. <i></i>Taking Limits<i></i>:
+<br>   - Finally, by taking the limits with respect to $L$, the proof arrives at the desired result, completing the argument.
+<br>
+<br>This structured approach ensures that each step logically follows from the previous one, leading to a coherent and rigorous proof.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/signal_propagation_in_transformers_theoretical_perspectives_and_the_role_of_rank_collapse/index.html">Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse</a></p>
+            <p>Authors: Lorenzo Noci, Sotiris Anagnostidis, Luca Biggio, Antonio Orvieto, Sidak Pal Singh, and Aurelien Lucchi</p>
+            <p>URL: <a href="https://arxiv.org/abs/2206.03126">https://arxiv.org/abs/2206.03126</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{noci2022signalpropagationtransformerstheoretical,<br>&emsp;title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, <br>&emsp;author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},<br>&emsp;year={2022},<br>&emsp;eprint={2206.03126},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2206.03126}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{lemma}[Propagation of the norm]
+
+\label{thm:forward_pass}
+  Let $\Xm^{L}$ be the representations of the input sequence at the final layer. Under the assumptions of Lemma \ref{lemma:propagation_of_inner_producets}, we have that:
+ \begin{equation}
+     \Exp \norm{\Xm^{L}}_{F}^2 = n (\alpha_2^2+1)^{L}\alpha_1^2 \sum_{k=0}^{L-1}(\alpha_1^2+1)^k \norm{\bar{\bm{x}}}^2 + (\alpha_2^2+1)^{L} ||\Xm||_F^2  ,
+ \end{equation}
+ hence, under the depth scaling for the residual block parameters $\alpha_1^2 = \frac{\tilde{\alpha}_1}{L}, \alpha_2^2 = \frac{\tilde{\alpha}_2}{L}$ with $\tilde{\alpha_1}, \tilde{\alpha_2} \in \mathbb{R}$ independent of $L$, we have that:
+ \begin{equation}
+     \lim_{L\to \infty} \Exp \norm{\Xm^{L}}_{F}^2 = n \text{e}^{\tilde{\alpha}_2}(\text{e}^{\tilde{\alpha}_1} - 1)\norm{\bar{\bm{x}}}^2 + \text{e}^{\tilde{\alpha}_2} ||\Xm||_F^2.
+ \end{equation}
+
+\end{lemma}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{noci2022signalpropagationtransformerstheoretical,
+  title={Signal Propagation in Transformers: Theoretical Perspectives and the Role of Rank Collapse}, 
+  author={Lorenzo Noci and Sotiris Anagnostidis and Luca Biggio and Antonio Orvieto and Sidak Pal Singh and Aurelien Lucchi},
+  year={2022},
+  eprint={2206.03126},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2206.03126}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{lemma}[Propagation of the norm]
+
+\\label{thm:forward_pass}
+  Let $\\Xm^{L}$ be the representations of the input sequence at the final layer. Under the assumptions of Lemma \\ref{lemma:propagation_of_inner_producets}, we have that:
+ \\begin{equation}
+     \\Exp \\norm{\\Xm^{L}}_{F}^2 = n (\\alpha_2^2+1)^{L}\\alpha_1^2 \\sum_{k=0}^{L-1}(\\alpha_1^2+1)^k \\norm{\\bar{\\bm{x}}}^2 + (\\alpha_2^2+1)^{L} ||\\Xm||_F^2  ,
+ \\end{equation}
+ hence, under the depth scaling for the residual block parameters $\\alpha_1^2 = \\frac{\\tilde{\\alpha}_1}{L}, \\alpha_2^2 = \\frac{\\tilde{\\alpha}_2}{L}$ with $\\tilde{\\alpha_1}, \\tilde{\\alpha_2} \\in \\mathbb{R}$ independent of $L$, we have that:
+ \\begin{equation}
+     \\lim_{L\\to \\infty} \\Exp \\norm{\\Xm^{L}}_{F}^2 = n \\text{e}^{\\tilde{\\alpha}_2}(\\text{e}^{\\tilde{\\alpha}_1} - 1)\\norm{\\bar{\\bm{x}}}^2 + \\text{e}^{\\tilde{\\alpha}_2} ||\\Xm||_F^2.
+ \\end{equation}
+
+\\end{lemma}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

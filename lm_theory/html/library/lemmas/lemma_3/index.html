@@ -85,7 +85,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            This inequality provides a bound on the trace of the covariance matrix of a set of vectors $\mathbb{Y}$, which is crucial in understanding the spread and variability of the data. It is particularly useful in fields such as machine learning and statistics, where controlling the variance is important for ensuring the stability and performance of algorithms. The function $\phi(c)$ helps in deriving these bounds, making it easier to manage and interpret the data's dispersion.
+            This inequality is useful in the context of covariance analysis and clustering. It provides an upper bound on the trace of the covariance matrix, which can be used to assess the spread of data points around their mean. This is particularly helpful in clustering algorithms to ensure that clusters are well-formed and not overly dispersed.
         </div>
     </section>
         
@@ -121,44 +121,55 @@ Substituting this into $g(z)$, and rearranging, we obtain $c \exp(c+1) = N - 1$.
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Trace of Covariance</i>: The proof starts by expressing the trace of the covariance matrix \(\mathrm{Cov}(\mathbb{Y})\) in terms of the variances of its components:
-<br>   \[
-   \Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j \mathrm{Cov}(\mathbb{Y})_{jj} = \sum_j \mathrm{Var}(\mathbb{Y}_j) = \sum_j \mathbb{E}[(\mathbb{Y}_j -\mathbb{E}[\mathbb{Y}_j])^2]
+            The proof involves several steps, each building on the previous one to establish the final result. Here is a breakdown of the different steps:
+
+1. <i></i>Trace of Covariance Matrix<i></i>:
+   The first equality is derived from the definition of the trace of the covariance matrix:
+   \[
+   \Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j \mathrm{Cov}(\mathbb{Y})_{jj} = \sum_j \mathrm{Var}(\\mathbb{Y}_j) = \sum_j \mathbb{E}[(\mathbb{Y}_j - \mathbb{E}[\mathbb{Y}_j])^2].
    \]
-<br>
-<br>2. <i>Variance Inequality</i>: The next step involves an inequality for the variance of \(\mathbb{Y}_j\). By defining \(\overline{\mathbb{Y}} = \mathbb{Y} - y_i\), we have:
-<br>   \[
-   \mathrm{Var}(\mathbb{Y}_j) = \mathrm{Var}(\overline{\mathbb{Y}}_j) = \mathbb{E}[\overline{\mathbb{Y}}_j^2] -\mathbb{E}[\overline{\mathbb{Y}}_j]^2 \leq \mathbb{E}[\overline{\mathbb{Y}}_j^2]
+
+2. <i></i>Variance Inequality<i></i>:
+   The next inequality uses the property of variance:
+   \[
+   \mathrm{Var}(\mathbb{Y}_j) = \mathrm{Var}(\overline{\mathbb{Y}}_j) = \mathbb{E}[\overline{\mathbb{Y}}_j^2] - \mathbb{E}[\overline{\mathbb{Y}}_j]^2 \leq \mathbb{E}[\overline{\mathbb{Y}}_j^2],
    \]
-<br>
-<br>3. <i>Bounding the Sum</i>: The goal is to bound the following sum:
-<br>   \[
-   \sum_j P_{ij}\|\mathbf{y}_j-\mathbf{y}_i\|_2^2 = \frac{\sum_j \|\mathbf{y}_j-\mathbf{y}_i\|_2^2 \exp(-\|\mathbf{y}_j-\mathbf{y}_i\|_2^2)}{\sum_k \exp(-\|\mathbf{y}_k-\mathbf{y}_i\|_2^2)} = \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)}
+   where \(\overline{\mathbb{Y}} = \mathbb{Y} - y_i\).
+
+3. <i></i>Bounding the Sum<i></i>:
+   The goal is to bound the expression:
+   \[
+   \sum_j P_{ij}\|\mathbf{y}_j - \mathbf{y}_i\|_2^2 = \frac{\sum_j \|\mathbf{y}_j - \mathbf{y}_i\|_2^2 \exp(-\|\mathbf{y}_j - \mathbf{y}_i\|_2^2)}{\\sum_k \exp(-\|\mathbf{y}_k - \mathbf{y}_i\|_2^2)} = \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)},
    \]
-<br>   where \(z_j \coloneqq \|\mathbf{y}_j-\mathbf{y}_i\|\) and \(z_i = 0\).
-<br>
-<br>4. <i>Function Definition</i>: Define the function \(g(\mathbf{z})\) for notational convenience:
-<br>   \[
-   g(\mathbf{z}) \coloneqq \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)} = \frac{\sum_{j \neq i} z_j^2 \exp(-z_j^2)}{1 + \sum_{k \neq i} \exp(-z_k^2)}
+   where \(z_j \coloneqq \|\mathbf{y}_j - \mathbf{y}_i\|_2\) and \(z_i = 0\).
+
+4. <i></i>Function Definition<i></i>:
+   Define the function:
+   \[
+   g(\mathbf{z}) \coloneqq \frac{\sum_j z_j^2 \exp(-z_j^2)}{\sum_k \exp(-z_k^2)} = \frac{\sum_{j \neq i} z_j^2 \exp(-z_j^2)}{1 + \sum_{k \neq i} \exp(-z_k^2)}.
    \]
-<br>
-<br>5. <i>Behavior at Infinity</i>: As \(z_j \rightarrow \infty\), \(\exp(-z_j^2) \rightarrow 0\) exponentially fast, causing \(z_j^2 \exp(-z_j^2) \rightarrow 0\). This suggests that \(g(\mathbf{z})\) is bounded and attains its maximum.
-<br>
-<br>6. <i>Partial Derivatives</i>: Define \(h(z_j) \coloneqq \exp(-z_j^2)\). By taking partial derivatives using the chain rule, we get:
-<br>   \[
-   \frac{\partial g(\mathbf{z})}{\partial z_j} = \frac{2z_j h(z_j)}{(\sum_k h(z_k))^2}\left[(1-z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2\right]
+
+5. <i></i>Behavior at Infinity<i></i>:
+   As \(z_j \rightarrow \infty\), \(\exp(-z_j^2) \rightarrow 0\) exponentially fast, causing \(z_j^2 \exp(-z_j^2) \rightarrow 0\). This suggests that the quantity is bounded and attains its maximum.
+
+6. <i></i>Partial Derivatives<i></i>:
+   Let \(h(z_j) \coloneqq \exp(-z_j^2)\). By taking partial derivatives using the chain rule, we get:
+   \[
+   \frac{\partial g(\mathbf{z})}{\partial z_j} = \frac{2z_j h(z_j)}{(\sum_k h(z_k))^2}\left[(1 - z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2\right].
    \]
-<br>   The derivative is zero if and only if \(z_j = 0\) or \(z_j^2 = 1 + g(\mathbf{z})\).
-<br>
-<br>7. <i>Maximum Condition</i>: At the maximum, the non-zero values among \(\{z_j\}_{j=1}^N\) must be equal. The maximum value \(c\) is attained when \(z_j^2 = 1 + c\) for \(j \neq i\). Thus, \(h(z_j) = \exp(-1-c)\) for \(j \neq i\).
-<br>
-<br>8. <i>Final Rearrangement</i>: Substituting into \(g(z)\) and rearranging, we obtain:
-<br>   \[
-   c \exp(c+1) = N - 1
+
+7. <i></i>Critical Points<i></i>:
+   The derivative is zero if and only if \(z_j = 0\) or \((1 - z_j^2)\sum_k h(z_k) + \sum_k h(z_k)z_k^2 = 0\), which simplifies to \(z_j^2 = 1 + \frac{\sum_k h(z_k)z_k^2}{\sum_k h(z_k)} = 1 + g(\mathbf{z})\).
+
+8. <i></i>Maximum Value<i></i>:
+   At the maximum, the non-zero values among \(\{z_j\}_{j=1}^N\) must be equal. The maximum value \(c\) is attained when \(z_j^2 = 1 + c\) for \(j \neq i\) (and \(z_i = 0\)). Thus, \(h(z_j) = \exp(-1 - c)\) for \(j \neq i\).
+
+9. <i></i>Final Expression<i></i>:
+   Substituting into \(g(z)\) and rearranging, we get:
+   \[
+   c \exp(c + 1) = N - 1.
    \]
-<br>   Since \(\phi(x) \coloneqq x \exp(x+1)\) is increasing for \(x > 0\), we have \(c = \phi^{-1}(N-1)\).
+   The function \(\phi(x) \coloneqq x \exp(x + 1)\) is increasing for \(x > 0\), hence \(c = \phi^{-1}(N - 1)\).
         </div>
     </section>
 
@@ -167,8 +178,8 @@ Substituting this into $g(z)$, and rearranging, we obtain $c \exp(c+1) = N - 1$.
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -176,7 +187,7 @@ Substituting this into $g(z)$, and rearranging, we obtain $c \exp(c+1) = N - 1$.
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -205,7 +216,15 @@ $\Tr(\mathrm{Cov}(\mathbb{Y})) = \sum_j P_{ij}\|\mathbf{y}_j - \sum_k P_{ik} \ma
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

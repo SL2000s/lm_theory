@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 13 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Attention Scaling Theorem">
+    <h2>Theorem 13: Attention Scaling Theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Multiplying attention scores by a positive factor changes the inverse-temperature of the attention distribution, modulating its sparsity (low temperature = less entropy = more sparse). Corollary: In the sparse limit, attention is fully determined by the order of $w_t$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding how multiplying attention scores by a positive factor affects the inverse-temperature of the attention distribution is crucial in the field of machine learning, particularly in the design and optimization of attention mechanisms. This insight allows us to control the sparsity of the attention distribution, which can be beneficial in various applications such as natural language processing and computer vision. In the sparse limit, where the attention becomes highly focused, the distribution is determined solely by the order of the attention scores, simplifying the model and potentially improving computational efficiency.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Applying the scaling $w_t \xrightarrow[\mathrm{scale~w}]{} \kappa w_t ~\forall~ t$ with fixed $\kappa > 0$, we have
+\begin{equation}
+\begin{split}
+\frac{e^{\kappa w_t}}{\sum_{t'} e^{\kappa w_{t'}}} ~~&=~~ \frac{1}{\sum_{t'} e^{\kappa (w_{t'}-w_t)}}   \\
+~~&\xrightarrow[\kappa\rightarrow 0]{} ~~~~ \frac{1}{\sum_{t'} e^0} ~=~ \frac{1}{T} ~\forall~ t ~~~~~~~~~~~~~~~~~~~~~\text{[fully isotropic distribution]} \\
+~~&\xrightarrow[\kappa\rightarrow \infty]{} ~~ 
+\begin{cases}
+1 ~~ ~\mathrm{for}~ t = \mathrm{argmax}_{t'} w_{t'} \\
+0 ~~ ~~~\forall~ t \neq \mathrm{argmax}_{t'} w_{t'} \\
+\end{cases}
+~~~\text{[fully sparse distribution]}
+\end{split}
+\end{equation}
+where the $\texttt{argmax}$ operator is fully determined by the order of $w_t$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break down the steps involved:
+<br>
+<br>1. <i></i>Scaling Transformation<i></i>: 
+<br>   We start by applying a scaling transformation to the weights \( w_t \) such that \( w_t \) is scaled by a factor \( \kappa \), where \( \kappa > 0 \) is a fixed constant. This transformation is denoted as:
+<br>   \[
+   w_t \xrightarrow[\mathrm{scale~w}]{} \kappa w_t \quad \forall \, t
+   \]
+<br>
+<br>2. <i></i>Expression of Softmax Function<i></i>:
+<br>   The softmax function with the scaled weights is given by:
+<br>   \[
+   \frac{e^{\kappa w_t}}{\sum_{t'} e^{\kappa w_{t'}}}
+   \]
+<br>   This can be rewritten by factoring out \( e^{\kappa w_t} \) from the denominator:
+<br>   \[
+   \frac{e^{\kappa w_t}}{\sum_{t'} e^{\kappa w_{t'}}} = \frac{1}{\sum_{t'} e^{\kappa (w_{t'} - w_t)}}
+   \]
+<br>
+<br>3. <i></i>Limit as \(\kappa \to 0\)<i></i>:
+<br>   When \(\kappa\) approaches 0, the exponent \( \kappa (w_{t'} - w_t) \) approaches 0 for all \( t' \). Thus, \( e^{\kappa (w_{t'} - w_t)} \) approaches 1 for all \( t' \). The sum in the denominator becomes \( T \), where \( T \) is the total number of terms:
+<br>   \[
+   \frac{1}{\sum_{t'} e^{\kappa (w_{t'} - w_t)}} \xrightarrow[\kappa\rightarrow 0]{} \frac{1}{\sum_{t'} e^0} = \frac{1}{T} \quad \forall \, t
+   \]
+<br>   This represents a fully isotropic distribution, where each term is equally likely.
+<br>
+<br>4. <i></i>Limit as \(\kappa \to \infty\)<i></i>:
+<br>   When \(\kappa\) approaches infinity, the term \( e^{\kappa (w_{t'} - w_t)} \) will be dominated by the largest \( w_{t'} \). Specifically, if \( t = \mathrm{argmax}_{t'} w_{t'} \), then \( e^{\kappa (w_{t'} - w_t)} \) will be very large for \( t' = t \) and very small (approaching 0) for \( t' \neq t \):
+<br>   \[
+   \frac{1}{\sum_{t'} e^{\kappa (w_{t'} - w_t)}} \xrightarrow[\kappa\rightarrow \infty]{} 
+   \begin{cases}
+   1 & \text{for } t = \mathrm{argmax}_{t'} w_{t'} \\
+   0 & \forall \, t \neq \mathrm{argmax}_{t'} w_{t'}
+   \end{cases}
+   \]
+<br>   This represents a fully sparse distribution, where only the term with the maximum weight has a probability of 1, and all other terms have a probability of 0.
+<br>
+<br>5. <i></i>Conclusion<i></i>:
+<br>   The \(\texttt{argmax}\) operator is used to determine the index \( t \) that maximizes \( w_t \). This operator is fully determined by the order of the weights \( w_t \).
+<br>
+<br>In summary, the proof demonstrates how the softmax function transitions from a fully isotropic distribution to a fully sparse distribution as the scaling factor \(\kappa\) varies from 0 to infinity.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+	Multiplying attention scores by a positive factor changes the inverse-temperature of the attention distribution, modulating its sparsity (low temperature = less entropy = more sparse). Corollary: In the sparse limit, attention is fully determined by the order of $w_t$.
+ \label{theorem: att scale operator}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+	Multiplying attention scores by a positive factor changes the inverse-temperature of the attention distribution, modulating its sparsity (low temperature = less entropy = more sparse). Corollary: In the sparse limit, attention is fully determined by the order of $w_t$.
+ \\label{theorem: att scale operator}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 17 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+repOp: "\\operatorname{Rep}",
+genOp: "\\operatorname{gen}",
+SpanOp: "\\operatorname{Span}",
+ConeOp: "\\operatorname{Cone}",
+argmin: "\\operatorname{argmin}",
+argmax: "\\operatorname{argmax}",
+logit: "\\operatorname{logit}",
+promptSpace: "\\mathcal{X}",
+conceptSpace: "\\mathcal{C}",
+repSpace: "\\mathcal{R}",
+responseSpace: "\\mathcal{Y}",
+defas: ":=",
+nullconcept: "\\phi",
+conceptDistSpace: "\\mathcal{Q}",
+cov: "\\mathrm{Cov}",
+yquad: "\\mathcal{Y}",
+parnum: "\\bfseries\\P\\arabic{parcount}",
+grad: "\\nabla",
+prm: "\\:;\\:",
+mbw: "\\mb{w}",
+mbW: "\\mb{W}",
+mbx: "\\mb{x}",
+mbX: "\\mb{X}",
+mby: "\\mb{y}",
+mbY: "\\mb{Y}",
+mbz: "\\mb{z}",
+mbZ: "\\mb{Z}",
+mbT: "\\mb{T}",
+mbA: "\\mb{A}",
+mba: "\\mb{a}",
+mbI: "\\mb{I}",
+mbone: "\\mb{1}",
+mbL: "\\mb{L}",
+mbtheta: "\\mb{\\theta}",
+mbTheta: "\\mb{\\Theta}",
+mbomega: "\\mb{\\omega}",
+mbOmega: "\\mb{\\Omega}",
+mbsigma: "\\mb{\\sigma}",
+mbSigma: "\\mb{\\Sigma}",
+mbphi: "\\mb{\\phi}",
+mbPhi: "\\mb{\\Phi}",
+mbalpha: "\\mb{\\alpha}",
+mbbeta: "\\mb{\\beta}",
+mbgamma: "\\mb{\\gamma}",
+mbeta: "\\mb{\\eta}",
+mbmu: "\\mb{\\mu}",
+mbrho: "\\mb{\\rho}",
+mblambda: "\\mb{\\lambda}",
+mbzeta: "\\mb{\\zeta}",
+diag: "\\textrm{diag}",
+supp: "\\textrm{supp}",
+V: "\\mathbb{V}",
+bbH: "\\mathbb{H}",
+bbN: "\\mathbb{N}",
+bbZ: "\\mathbb{Z}",
+bbR: "\\mathbb{R}",
+bbS: "\\mathbb{S}",
+cL: "\\mathcal{L}",
+cD: "\\mathcal{D}",
+cN: "\\mathcal{N}",
+cT: "\\mathcal{T}",
+Gam: "\\textrm{Gam}",
+InvGam: "\\textrm{InvGam}",
+g: "\\, | \\,",
+s: "\\, ; \\,",
+indpt: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+defeq: "\\coloneqq",
+asympeq: "\\ \\sim\\ ",
+Reals: "\\mathbb{R}",
+Nats: "\\mathbb{N}",
+NNReals: "\\Reals_{+}",
+exclude: "\\backslash",
+eps: "\\varepsilon",
+edges: "e",
+vertices: "v",
+loops: "l",
+EE: "\\mathbb{E}",
+var: "\\mathrm{var}",
+convPr: "\\xrightarrow{\\,p\\,}",
+convDist: "\\xrightarrow{\\,d\\,}",
+equaldist: "\\overset{d}{=}",
+upto: "\\!\\uparrow\\!",
+given: "\\mid",
+as: "\\textrm{ a.s.}",
+equalas: "\\overset{\\mathrm{a.s.}}{=}",
+intd: "\\mathrm{d}",
+dist: "\\ \\sim\\ ",
+distiid: "\\overset{\\mathrm{iid}}{\\dist}",
+distind: "\\overset{ind}{\\dist}",
+PPDist: "\\mathrm{PP}",
+Lebesgue: "\\Lambda",
+cdo: "\\mathrm{do}",
+normalDist: "\\mathrm{Normal}",
+diriDist: "\\mathrm{Diri}",
+categDist: "\\mathrm{Cat}",
+betaDist: "\\mathrm{Beta}",
+bernDist: "\\mathrm{Bern}",
+binDist: "\\mathrm{Bin}",
+uniDist: "\\mathrm{Uni}",
+poiDist: "\\mathrm{Poi}",
+gammaDist: "\\mathrm{Gamma}",
+multiDist: "\\mathrm{Multi}",
+Ind: "\\mathbbm{1}",
+p: "    \\stepcounter{parcount}    \\leavevmode\\marginpar[\\hfill\\parnum]{\\parnum}",
+independent: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
+dif: "\\mathop{}\\!\\mathrm{d}",
+lmText: ["\\lmOp(\\text{``#1''})", 1],
+lm: ["\\lmOp(#1)", 1],
+repText: ["\\repOp(\\text{``#1''})", 1],
+rep: ["\\repOp(#1)", 1],
+ConceptName: ["$\\mathtt{#1}$", 1],
+ConceptValue: ["\\texttt{#1}", 1],
+SpanText: ["\\SpanOp(\\text{``#1''})", 1],
+Span: ["\\SpanOp(#1)", 1],
+ConeText: ["\\ConeOp(\\text{``#1''})", 1],
+Cone: ["\\ConeOp(#1)", 1],
+red: ["\\textcolor{BrickRed}{#1}", 1],
+orange: ["\\textcolor{BurntOrange}{#1}", 1],
+green: ["\\textcolor{OliveGreen}{#1}", 1],
+blue: ["\\textcolor{MidnightBlue}{#1}", 1],
+gray: ["\\textcolor{black!60}{#1}", 1],
+cdashlinelr: ["  \\noalign{\\vskip\\aboverulesep           \\global\\let\\@dashdrawstore\\adl@draw           \\global\\let\\adl@draw\\adl@drawiv}  \\cdashline{#1}  \\noalign{\\global\\let\\adl@draw\\@dashdrawstore           \\vskip\\belowrulesep}", 1],
+defnphrase: ["\\emph{#1}", 1],
+abs: ["\\left\\lvert#1 \\right\\rvert", 1],
+dtv: ["\\|#1\\|_{\\mathrm{TV}}", 1],
+NatSubs: ["\\tilde \\Nats_{#1}", 1],
+ConceptDirName: ["\\texttt{#1}\\Rightarrow\\texttt{#2}", 2],
+ConceptDirMath: ["#1 \\Rightarrow #2", 2],
+ip: ["\\langle #1,#2\\rangle", 2],
+E: ["\\mathbb{E}_{#1}\\left[#2\\right]", 2],
+checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Hierarchical Orthogonality Theorem">
+    <h2>Theorem 17: Hierarchical Orthogonality Theorem</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Suppose there exist the vector representations for all the following binary features. Then, we have that
+<ol type="a">
+    <li>$\bar\ell_{w_1} - \bar\ell_{w_0}$ is a linear representation $\bar{\ell}_{\ConceptDirMath{w_0}{w_1}}$ defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_4/index.html#def%3Alinear_representation">Definition 4</a>;</li>
+    <li>$\bar\ell_{w} \perp \bar\ell_{z} - \bar\ell_w$ for $z \prec w$;</li>
+    <li>$\bar{\ell}_{w} \perp \bar\ell_{z_1} - \bar\ell_{z_0}$ for $Z \in_R \{z_0, z_1\}$ subordinate to $W \in_R \{\ConceptValue{not_w}, \ConceptValue{is_w}\}$;</li>
+    <li>$\bar{\ell}_{w_1} - \bar{\ell}_{w_0}  \perp \bar\ell_{z_1} - \bar\ell_{z_0}$ for $Z \in_R \{z_0, z_1\}$ subordinate to $W \in_R \{w_0, w_1\}$; and</li>
+    <li>$\bar\ell_{w_1}-\bar\ell_{w_0} \perp \bar\ell_{w_2} - \bar\ell_{w_1}$ for $w_2 \prec w_1 \prec w_0$.</li>
+</ol>
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            This set of conditions is useful in the context of vector representations of binary features. It provides a structured way to understand the relationships and orthogonality between different feature vectors. This can be particularly useful in machine learning and data analysis, where understanding the independence and dependencies between features is crucial for building accurate models.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+<ol type="a">
+    <li>For $\bar\ell_{w_1}$ and $\bar\ell_{w_0}$, by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#thm%3Amagnitude">Theorem 16</a>, we have
+    \begin{equation}
+      \begin{cases}
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = 0-b_{w_0} = -b_{w_0} & \text{if } y\in \yquad(w_0)\\
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = b_{w_1} - 0 = b_{w_1} & \text{if } y \in \yquad(w_1)\\
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = 0 - 0 = 0 & \text{if } y\not\in \yquad(w_0)\cup \yquad(w_1).
+      \end{cases}
+    \end{equation}
+    Since $\bar\ell_{w_1} - \bar\ell_{w_0}$ can change the target concept $\ConceptDirMath{w_0}{w_1}$ without changing any other concept subordinate or causally separable to the target concept, $\bar\ell_{w_1} - \bar\ell_{w_0}$ is the linear representation $\bar{\ell}_{w_0\Rightarrow w_1}$.
+
+    <li>For $\bar\ell_{w}$ and $\bar\ell_{z}$ where $z \prec w$, by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#thm%3Amagnitude">Theorem 16</a>, we have
+    <begin{equation}
+      <begin{cases}
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) = b_z - b_w & \text{if } y\in \yquad(z)\\
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) =  0 -b_w =  -b_w & \text{if } y \in \yquad(w)\setminus \yquad(z)\\
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) = 0 - 0 = 0 & \text{if } y\not\in \yquad(w).
+      \end{cases}
+    \end{equation}
+    When $w\setminus z$ denotes an attribute defined by $\yquad(w)\setminus \yquad(z)$, $\bar\ell_{z} - \bar\ell_{w}$ can change the target concept $\ConceptDirMath{w\setminus z}{z}$ without changing any other concept subordinate or causally separable to the target concept.
+    Thus, $\bar\ell_{z} - \bar\ell_{w}$ is the linear representation $\bar{\ell}_{w\setminus z \Rightarrow z}$.
+    This concept means $\ConceptValue{not\_z}  \Rightarrow \ConceptValue{is\_z}$ conditioned on $w$, and hence it is subordinate to $w$.
+    
+    Therefore, $\bar\ell_w$ is orthogonal to the linear representation $\bar{\ell}_{w\setminus z \Rightarrow z} = \bar\ell_z - \bar\ell_w$ by the property of the causal inner product.
+    If they are not orthogonal, adding $\bar\ell_w$ can change the other concept $\ConceptDirMath{w\setminus z}{z}$, and it is a contradiction.
+
+    <li>By the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aleft">Theorem 17</a>, $\bar\ell_w^\top (\bar\ell_{z_1} - \bar\ell_w) = \bar\ell_w^\top (\bar\ell_{z_0} - \bar\ell_w) = 0$.
+    Therefore, $\bar\ell_w^\top (\bar\ell_{z_1} - \bar\ell_{z_0}) = 0$.
+
+    <li>Let's say that $w_1$ is $w_Z$ defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_3/index.html#def%3Ahierarchical_relation">Definition 3</a>.
+    The binary contrast $\ConceptDirMath{z_0}{z_1}$ is subordinate to the binary feature for the attribute $w_0$.
+    By the property of the causal inner product, $\bar\ell_{w_0}$ is orthogonal to the linear representation $\bar{\ell}_{z_0\Rightarrow z_1} = \bar\ell_{z_1} - \bar\ell_{z_0}$ (by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aa">Theorem 17</a>).
+    Then, with the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Amiddle">Theorem 17</a>, we have $(\bar\ell_{w_1} - \bar\ell_{w_0})^\top (\bar\ell_{z_1} - \bar\ell_{z_0})$.
+
+    <li>By the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aleft">Theorem 17</a>, we have
+    <begin{equation>
+      <begin{cases}
+        \|\bar\ell_{w_1} - \bar\ell_{w_0}\|_2^2 = \|\bar\ell_{w_1}\|_2^2  - \|\bar\ell_{w_0}\|_2^2\\
+        \|\bar\ell_{w_2} - \bar\ell_{w_1}\|_2^2 = \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_1}\|_2^2\\
+        \|\bar\ell_{w_2} - \bar\ell_{w_0}\|_2^2 = \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_0}\|_2^2.
+      \end{cases}
+    \end{equation}
+    Then,
+    <begin{align}
+      &\|\bar\ell_{w_1} - \bar\ell_{w_0}\|_2^2 + \|\bar\ell_{w_2} - \bar\ell_{w_1}\|_2^2\\
+      &= \|\bar\ell_{w_1}\|_2^2  - \|\bar\ell_{w_0}\|_2^2 + \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_1}\|_2^2\\
+      &= \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_0}\|_2^2\\
+      & = \|\bar\ell_{w_2} - \bar\ell_{w_0}\|_2^2.
+    \end{align}
+    Therefore, $\bar\ell_{w_1} - \bar\ell_{w_0}$ is orthogonal to $\bar\ell_{w_2} - \bar\ell_{w_1}$.
+</ol>
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            <ol type="a">
+    <li>For $\bar\ell_{w_1}$ and $\bar\ell_{w_0}$, by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#thm%3Amagnitude">Theorem 16</a>, we have
+    \[
+      \begin{cases}
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = 0-b_{w_0} = -b_{w_0} & \text{if } y\in \yquad(w_0)\\
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = b_{w_1} - 0 = b_{w_1} & \text{if } y \in \yquad(w_1)\\
+        (\bar\ell_{w_1} - \bar\ell_{w_0})^\top g(y) = 0 - 0 = 0 & \text{if } y\not\in \yquad(w_0)\cup \yquad(w_1).
+      \end{cases}
+    \]
+    Since $\bar\ell_{w_1} - \bar\ell_{w_0}$ can change the target concept $\ConceptDirMath{w_0}{w_1}$ without changing any other concept subordinate or causally separable to the target concept, $\bar\ell_{w_1} - \bar\ell_{w_0}$ is the linear representation $\bar{\ell}_{w_0\Rightarrow w_1}$.
+
+    <li>For $\bar\ell_{w}$ and $\bar\ell_{z}$ where $z \prec w$, by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_16/index.html#thm%3Amagnitude">Theorem 16</a>, we have
+    \[
+      \begin{cases}
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) = b_z - b_w & \text{if } y\in \yquad(z)\\
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) =  0 -b_w =  -b_w & \text{if } y \in \yquad(w)\setminus \yquad(z)\\
+        (\bar\ell_{z} - \bar\ell_{w})^\top g(y) = 0 - 0 = 0 & \text{if } y\not\in \yquad(w).
+      \end{cases}
+    \]
+    When $w\setminus z$ denotes an attribute defined by $\yquad(w)\setminus \yquad(z)$, $\bar\ell_{z} - \bar\ell_{w}$ can change the target concept $\ConceptDirMath{w\setminus z}{z}$ without changing any other concept subordinate or causally separable to the target concept.
+    Thus, $\bar\ell_{z} - \bar\ell_{w}$ is the linear representation $\bar{\ell}_{w\setminus z \Rightarrow z}$.
+    This concept means $\ConceptValue{not\_z}  \Rightarrow \ConceptValue{is\_z}$ conditioned on $w$, and hence it is subordinate to $w$.
+    
+    Therefore, $\bar\ell_w$ is orthogonal to the linear representation $\bar{\ell}_{w\setminus z \Rightarrow z} = \bar\ell_z - \bar\ell_w$ by the property of the causal inner product.
+    If they are not orthogonal, adding $\bar\ell_w$ can change the other concept $\ConceptDirMath{w\setminus z}{z}$, and it is a contradiction.
+
+    <li>By the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aleft">Theorem 17</a>, $\bar\ell_w^\top (\bar\ell_{z_1} - \bar\ell_w) = \bar\ell_w^\top (\bar\ell_{z_0} - \bar\ell_w) = 0$.
+    Therefore, $\bar\ell_w^\top (\bar\ell_{z_1} - \bar\ell_{z_0}) = 0$.
+
+    <li>Let's say that $w_1$ is $w_Z$ defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_3/index.html#def%3Ahierarchical_relation">Definition 3</a>.
+    The binary contrast $\ConceptDirMath{z_0}{z_1}$ is subordinate to the binary feature for the attribute $w_0$.
+    By the property of the causal inner product, $\bar\ell_{w_0}$ is orthogonal to the linear representation $\bar{\ell}_{z_0\Rightarrow z_1} = \bar\ell_{z_1} - \bar\ell_{z_0}$ (by <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aa">Theorem 17</a>).
+    Then, with the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Amiddle">Theorem 17</a>, we have $(\bar\ell_{w_1} - \bar\ell_{w_0})^\top (\bar\ell_{z_1} - \bar\ell_{z_0})$.
+
+    <li>By the above result <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_17/index.html#item%3Aleft">Theorem 17</a>, we have
+    \[
+      \begin{cases}
+        \|\bar\ell_{w_1} - \bar\ell_{w_0}\|_2^2 = \|\bar\ell_{w_1}\|_2^2  - \|\bar\ell_{w_0}\|_2^2\\
+        \|\bar\ell_{w_2} - \bar\ell_{w_1}\|_2^2 = \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_1}\|_2^2\\
+        \|\bar\ell_{w_2} - \bar\ell_{w_0}\|_2^2 = \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_0}\|_2^2.
+      \end{cases}
+    \]
+    Then,
+    \[
+      \begin{align}
+        &\|\bar\ell_{w_1} - \bar\ell_{w_0}\|_2^2 + \|\bar\ell_{w_2} - \bar\ell_{w_1}\|_2^2\\
+        &= \|\bar\ell_{w_1}\|_2^2  - \|\bar\ell_{w_0}\|_2^2 + \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_1}\|_2^2\\
+        &= \|\bar\ell_{w_2}\|_2^2  - \|\bar\ell_{w_0}\|_2^2\\
+        & = \|\bar\ell_{w_2} - \bar\ell_{w_0}\|_2^2.
+      \end{align}
+    \]
+    Therefore, $\bar\ell_{w_1} - \bar\ell_{w_0}$ is orthogonal to $\bar\ell_{w_2} - \bar\ell_{w_1}$.
+</ol>
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/the_geometry_of_categorical_and_hierarchical_concepts_in_large_language_models/index.html">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a></p>
+            <p>Authors: Kiho Park, Yo Joong Choe, Yibo Jiang, and Victor Veitch</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.01506">https://arxiv.org/abs/2406.01506</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{park2024geometrycategoricalhierarchicalconcepts,<br>&emsp;title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, <br>&emsp;author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},<br>&emsp;year={2024},<br>&emsp;eprint={2406.01506},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.CL},<br>&emsp;url={https://arxiv.org/abs/2406.01506}}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}[Hierarchical Orthogonality]
+\label{thm:orthogonality}
+  Suppose there exist the vector representations for all the following binary features.
+  Then, we have that
+  \begin{enumerate}[label=(\alph*)]
+    \item $\bar\ell_{w_1} - \bar\ell_{w_0}$ is a linear representation $\bar{\ell}_{\ConceptDirMath{w_0}{w_1}}$ defined in \cref{def:linear_representation}; \label{item:a}
+    \item $\bar\ell_{w} \perp \bar\ell_{z} - \bar\ell_w$ for $z \prec w$; \label{item:left}
+    \item $\bar{\ell}_{w} \perp \bar\ell_{z_1} - \bar\ell_{z_0}$ for $Z \in_R \{z_0, z_1\}$ subordinate to $W \in_R \{\ConceptValue{not\_w}, \ConceptValue{is\_w}\}$; \label{item:middle}
+    \item $\bar{\ell}_{w_1} - \bar{\ell}_{w_0}  \perp \bar\ell_{z_1} - \bar\ell_{z_0}$ for $Z \in_R \{z_0, z_1\}$ subordinate to $W \in_R \{w_0, w_1\}$; and \label{item:right}
+    \item $\bar\ell_{w_1}-\bar\ell_{w_0} \perp \bar\ell_{w_2} - \bar\ell_{w_1}$ for $w_2 \prec w_1 \prec w_0$.
+  \end{enumerate}
+
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{park2024geometrycategoricalhierarchicalconcepts,
+  title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, 
+  author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},
+  year={2024},
+  eprint={2406.01506},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2406.01506}}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}[Hierarchical Orthogonality]
+\\label{thm:orthogonality}
+  Suppose there exist the vector representations for all the following binary features.
+  Then, we have that
+  \\begin{enumerate}[label=(\\alph*)]
+    \\item $\\bar\\ell_{w_1} - \\bar\\ell_{w_0}$ is a linear representation $\\bar{\\ell}_{\\ConceptDirMath{w_0}{w_1}}$ defined in \\cref{def:linear_representation}; \\label{item:a}
+    \\item $\\bar\\ell_{w} \\perp \\bar\\ell_{z} - \\bar\\ell_w$ for $z \\prec w$; \\label{item:left}
+    \\item $\\bar{\\ell}_{w} \\perp \\bar\\ell_{z_1} - \\bar\\ell_{z_0}$ for $Z \\in_R \\{z_0, z_1\\}$ subordinate to $W \\in_R \\{\\ConceptValue{not\\_w}, \\ConceptValue{is\\_w}\\}$; \\label{item:middle}
+    \\item $\\bar{\\ell}_{w_1} - \\bar{\\ell}_{w_0}  \\perp \\bar\\ell_{z_1} - \\bar\\ell_{z_0}$ for $Z \\in_R \\{z_0, z_1\\}$ subordinate to $W \\in_R \\{w_0, w_1\\}$; and \\label{item:right}
+    \\item $\\bar\\ell_{w_1}-\\bar\\ell_{w_0} \\perp \\bar\\ell_{w_2} - \\bar\\ell_{w_1}$ for $w_2 \\prec w_1 \\prec w_0$.
+  \\end{enumerate}
+
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

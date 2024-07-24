@@ -85,7 +85,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Understanding the Lipschitz constant of a neural network is crucial for analyzing its robustness and generalization capabilities. The given inequality provides an upper bound on the Lipschitz constant of the entire network in terms of the product of the norms of its weight matrices. This is particularly useful when designing or evaluating neural networks, as it helps in ensuring that small changes in the input do not lead to disproportionately large changes in the output, thereby promoting stability and reliability in the network's predictions.
+            Understanding the Lipschitz constant of a neural network is crucial for analyzing its robustness and generalization capabilities. The given inequality $\lip_p(f) \leq \prod_k \|W_k\|_p$ provides an upper bound on the Lipschitz constant of the network $f$ in terms of the $p$-norms of its weight matrices $W_k$. This is particularly useful when designing or evaluating neural networks, as it helps in ensuring that small changes in the input do not lead to disproportionately large changes in the output, thereby promoting stability and reliability in the network's predictions.
         </div>
     </section>
         
@@ -104,8 +104,8 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
 
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/895bbef7-305d-4454-850a-7279bb832d9d/index.html"></a></p>
-            <p>Authors: []</p>
+            <p>Title: <a href="/library/papers/the_lipschitz_constant_of_self-attention/index.html">The Lipschitz Constant of Self-Attention</a></p>
+            <p>Authors: Hyunjik Kim, George Papamakarios, and Andriy Mnih</p>
             <p>URL: <a href="https://arxiv.org/abs/2006.04710">https://arxiv.org/abs/2006.04710</a></p>
     </section>
     <section id="Resources">
@@ -113,7 +113,7 @@ george: ["\\textcolor{magenta}{[George: #1]}", 1]
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p></p>
+            <p>@misc{kim2021lipschitzconstantselfattention,<br>&emsp;title={The Lipschitz Constant of Self-Attention},<br>&emsp;author={Hyunjik Kim and George Papamakarios and Andriy Mnih},<br>&emsp;year={2021},<br>&emsp;eprint={2006.04710},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={stat.ML},<br>&emsp;url={https://arxiv.org/abs/2006.04710}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -142,7 +142,15 @@ For a fully-connected network (\verb!FCN!) or a convolutional neural network (\v
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = ``;
+                var textToCopy = `@misc{kim2021lipschitzconstantselfattention,
+  title={The Lipschitz Constant of Self-Attention},
+  author={Hyunjik Kim and George Papamakarios and Andriy Mnih},
+  year={2021},
+  eprint={2006.04710},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML},
+  url={https://arxiv.org/abs/2006.04710}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {

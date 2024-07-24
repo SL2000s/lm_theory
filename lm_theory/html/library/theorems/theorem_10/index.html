@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 10 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Sensitivity of Sparse Attention to Multiplicative Perturbations">
+    <h2>Theorem 10: Sensitivity of Sparse Attention to Multiplicative Perturbations</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Sensitivity of sparse attention to multiplicative perturbations $\epsilon^q = \kappa^q q$ and $\epsilon^k = \kappa^k_t k_t$ with $\kappa^q,\kappa^k_t\ll1$. Circuit collapse occurs when $\exists~ t \neq t^*$ for which:
+\begin{equation}
+    \frac{w_{t^*}}{w_t} ~\begin{cases} ~&lt;~ \lambda_w & \mathrm{if}~ w_t \left(1 + \kappa^q + \kappa^k_{t^*}\right) &gt; 0 \\
+    ~&gt;~ \lambda_w & \mathrm{otherwise} \\ \end{cases}
+    ~~~~~~~~~~~~~ \lambda_w ~\triangleq~ \frac{1 + \kappa^q + \kappa^k_t}{1 + \kappa^q + \kappa^k_{t^*}}
+\end{equation}
+where temperature cancels in the fraction. <strong>Attention is fully stable above the critical transition point $\lambda_w$</strong> (c.f. $w_t \left(1 + \kappa^q + \kappa^k_{t^*}\right) &gt; 0$). We see that query perturbations alone are insufficient, as they result in $\lambda_w=1$. Lemma: consider the special case when all keys have similar length $k_t \approx const$, the attended token has $\theta_{t^*}\approx0$, the keys are far-from-orthogonal s.t. $\theta_t \ll 1$, and $\kappa^q\approx0$. Using $w_t \triangleq |q| |k_t| \cos\theta_t$, circuit collapse occurs when $\exists~ t \neq t^*$ for which:
+\begin{equation}
+        \frac{1}{2}\theta_t^2 ~\lesssim~ \kappa^k_t - \kappa^k_{t^*}   ~~~~~~~~~~~ \mathrm{if}~ w_t \left(1  + \kappa^k_{t^*}\right) &gt; 0 ~\text{, otherwise reverse}
+\label{eq: sparse circuit collapse result}
+\end{equation}
+i.e. stability requires either well-separated keys s.t. $\theta_t \gg 0$, or small perturbations $\kappa_t-\kappa^*_t \ll 1$.
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the stability of sparse attention mechanisms is crucial for designing robust neural networks, especially in natural language processing tasks. This lemma provides insights into how multiplicative perturbations in queries and keys can lead to circuit collapse, affecting the model's performance. By identifying the critical transition point $\lambda_w$, we can ensure that attention remains stable, thereby improving the reliability of the model. This is particularly useful when dealing with large-scale data where even minor perturbations can significantly impact the results.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Apply $q \rightarrow q + \epsilon^q$ and $k_t \rightarrow k_t + \epsilon_t^k$ to $w_t = q^T k_t$, then we have $w_t \rightarrow w_t + \epsilon_w$ such that $\epsilon^w_t = q^T \epsilon_t^k + {\epsilon^q}^T k_t + {\epsilon^q}^T \epsilon_t^k$. For multiplicative perturbations we have $\epsilon^q = \kappa^q q$ and $\epsilon^k = \kappa^k_t k_t$, and so $\epsilon^w_t = \kappa^k_t q^T k_t + \kappa^q q^T k_t + \kappa^k_t \kappa^q q^T k_t$. Each term recovers a factor of $w_t = q^T k_t$, which we factor out to give $\epsilon^w_t = \left(\kappa^q + \kappa^k_t + \kappa^k_t \kappa^q\right) w_t$. The final term is subleading in the limit of small perturbations, and so
+\begin{equation}
+    \epsilon^w_t ~\xrightarrow[~\kappa^q,\kappa^k_t\rightarrow0~]{}~ \left(\kappa^q  ~+~ \kappa^k_t\right)w_t ~+~ \mathcal{O}\left(\kappa^q \kappa^k_t\right)
+\end{equation}
+Circuit collapse occurs when $w_{t^*} - w_t &lt; \epsilon^w_t - \epsilon^w_{t^*}$ for some $t$. Substituting our limit for $\epsilon^w_t$ gives
+\begin{equation}
+    w_{t^*} - w_t ~&lt;~ \left(\kappa^q  ~+~ \kappa^k_t\right)w_t - \left(\kappa^q  ~+~ \kappa^k_{t^*}\right)w_{t^*}
+\end{equation}
+and collecting terms gives
+\begin{equation}
+    \left(1 ~+~ \kappa^q ~+~ \kappa^k_{t^*}\right) w_{t^*} ~&lt;~ \left(1 ~+~ \kappa^q ~+~ \kappa^k_t\right)w_t
+\end{equation}
+We then divide each side by $w_t (1 + \kappa^q + \kappa^k_{t^*})$, taking care to reverse the sign of the inequality when this factor is negative, to give
+\begin{equation}
+    \frac{w_{t^*}}{w_t} ~\begin{cases} ~&lt;~ \lambda_w & \mathrm{if}~ w_t \left(1 + \kappa^q + \kappa^k_{t^*}\right) &gt; 0 \\
+    ~&gt;~ \lambda_w & \mathrm{otherwise} \\ \end{cases}
+    ~~~~~~~~~~~~~ \lambda_w ~\triangleq~ \frac{1 + \kappa^q + \kappa^k_t}{1 + \kappa^q + \kappa^k_{t^*}}
+\end{equation}
+which is the first expression in the theorem. We note that any temperature parameter cancels in the fraction, which means that the attention head cannot become more stable by reducing its temperature to become more sparse. $\lambda_w$ has the limits
+\begin{equation}
+    \lambda_w ~\xrightarrow[\kappa^q\rightarrow0]{~~\mathrm{keys~only}~~}~ \frac{1+\kappa^k_t}{1+\kappa^k_{t^*}}
+    ~~~~~~~~~~~~~~~~~
+    \lambda_w ~\xrightarrow[\kappa^k_t,\kappa^k_{t^*}\rightarrow0]{~~\mathrm{query~only}~~}~ \frac{1 + \kappa_q}{1 + \kappa_q} = 1
+\end{equation}
+meaning that query perturbations alone are insufficient, contributing only when they co-occur with perturbations on the keys. Write $w_t = |q| |k_t| \cos\theta_t$ with $\theta_t = q \wedge k_t$, and the approximation of identical key norms $k_{t^*} = k_t \equiv k$ turns this into $w_t = |q| |k| \cos\theta_t$. Then
+\begin{equation}
+    \frac{w_{t^*}}{w_t} ~=~ \frac{|q| |k| \cos\theta_{t^*}}{|q| |k| \cos\theta_t} ~=~ \frac{\cos\theta_{t^*}}{\cos\theta_t}
+\end{equation}
+Then $\theta_{t^*} = 0$ means that $\cos\theta_{t^*} = \cos0 = 1$, and so $\frac{\cos\theta_{t^*}}{\cos\theta_t} = \frac{1}{\cos\theta_t} = \sec \theta_t$. We perform a Taylor expansion in $\theta_t$ to obtain
+\begin{equation}
+    \frac{w_{t^*}}{w_t} ~\approx~ \sec\theta_t ~\approx~ 1 ~+~ \frac{1}{2}\theta_t^2 ~+~\mathcal{O}\left(\theta_t^4\right)
+\end{equation}
+which is valid when $\theta_t \ll 1$. This is true for any $t \neq t^*$ for which $k_t$ is far from orthogonal with $k_{t^*}$. Substituting this into our circuit collapse condition, we have
+\begin{equation}
+    1 ~+~ \frac{1}{2}\theta_t^2 ~&lt;~ \frac{1 + \kappa^k_t}{1 + \kappa^k_{t^*}} ~~~~~~~~~~~~~~ \mathrm{if}~ w_t \left(1 + \kappa^k_{t^*}\right) &gt; 0 
+\end{equation}
+where we consider the case of $\kappa_q \approx 0$ for readability. Re-arranging gives
+\begin{equation}
+    \frac{1}{2}\theta_t^2 ~\lesssim~  \kappa^k_t - \kappa^k_{t^*} ~~~~~~~~~~~~~~~~\text{Circuit~collapse~when~}k_t~\text{similar}
+\label{eq: app: sparse circuit collapse result duplicate}
+\end{equation}
+if $w_t(1 + \kappa^k_{t^*}) &gt; 0$, and we reverse the inequality otherwise. We have approximated the denominator on the RHS as $1 + \kappa^k_{t^*} \approx 1$ for $\kappa^k_{t^*} \rightarrow 0$.
+
+When $\theta_t \ll 1$, the LHS of Eq. \ref{eq: app: sparse circuit collapse result duplicate} is small. This means that the attention head can tolerate only very small perturbations $\{\kappa^k_t, \kappa^k_{t^*}\}$. Therefore semantic subspaces must either have a highly orthogonal substructure s.t. $\theta_t \gtrsim 1 ~\forall~ t \neq t^*$, or be orthogonal s.t. $\kappa_t \ll 1 ~\forall~ t$.
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several key steps:
+<br>
+<br>1. <i></i>Initial Perturbations<i></i>:
+<br>   - We start by applying small perturbations to the vectors \( q \) and \( k_t \), denoted as \( \epsilon^q \) and \( \epsilon_t^k \) respectively.
+<br>   - This results in a perturbation in \( w_t = q^T k_t \), denoted as \( \epsilon^w_t \).
+<br>
+<br>2. <i></i>Expression for Perturbation<i></i>:
+<br>   - The perturbation \( \epsilon^w_t \) is expressed in terms of \( \epsilon^q \) and \( \epsilon_t^k \).
+<br>   - For multiplicative perturbations, \( \epsilon^q = \kappa^q q \) and \( \epsilon^k = \kappa^k_t k_t \), leading to \( \epsilon^w_t = (\kappa^q + \kappa^k_t + \kappa^q \kappa^k_t) w_t \).
+<br>
+<br>3. <i></i>Simplification for Small Perturbations<i></i>:
+<br>   - In the limit of small perturbations (\( \kappa^q, \kappa^k_t \rightarrow 0 \)), the term \( \kappa^q \kappa^k_t \) becomes negligible.
+<br>   - Thus, \( \epsilon^w_t \approx (\kappa^q + \kappa^k_t) w_t \).
+<br>
+<br>4. <i></i>Circuit Collapse Condition<i></i>:
+<br>   - Circuit collapse occurs when the difference between \( w_{t^*} \) and \( w_t \) is less than the difference in their perturbations.
+<br>   - Substituting the expression for \( \epsilon^w_t \) into this condition, we derive an inequality involving \( w_{t^*} \) and \( w_t \).
+<br>
+<br>5. <i></i>Normalization and Inequality<i></i>:
+<br>   - By normalizing the inequality, we obtain a condition involving the ratio \( \frac{w_{t^*}}{w_t} \) and a parameter \( \lambda_w \).
+<br>   - \( \lambda_w \) is defined in terms of the perturbation factors \( \kappa^q \) and \( \kappa^k_t \).
+<br>
+<br>6. <i></i>Limits of \( \lambda_w \)<i></i>:
+<br>   - We explore the limits of \( \lambda_w \) for cases where only keys or only queries are perturbed.
+<br>   - For key-only perturbations, \( \lambda_w \) simplifies to \( \frac{1+\kappa^k_t}{1+\kappa^k_{t^*}} \).
+<br>   - For query-only perturbations, \( \lambda_w \) equals 1, indicating that query perturbations alone are insufficient.
+<br>
+<br>7. <i></i>Geometric Interpretation<i></i>:
+<br>   - Expressing \( w_t \) in terms of the magnitudes and angle between \( q \) and \( k_t \), we derive \( \frac{w_{t^*}}{w_t} = \frac{\cos\theta_{t^*}}{\cos\theta_t} \).
+<br>   - For small angles \( \theta_t \), this ratio approximates to \( \sec\theta_t \).
+<br>
+<br>8. <i></i>Taylor Expansion<i></i>:
+<br>   - Performing a Taylor expansion of \( \sec\theta_t \) for small \( \theta_t \), we get \( \sec\theta_t \approx 1 + \frac{1}{2}\theta_t^2 \).
+<br>
+<br>9. <i></i>Final Condition for Circuit Collapse<i></i>:
+<br>   - Substituting the Taylor expansion into the circuit collapse condition, we derive an inequality involving \( \theta_t^2 \) and the perturbation factors.
+<br>   - This shows that circuit collapse occurs when the perturbations are small and the vectors \( k_t \) are similar.
+<br>
+<br>10. <i></i>Conclusion<i></i>:
+<br>    - The attention head can only tolerate very small perturbations unless the semantic subspaces are highly orthogonal.
+<br>    - This ensures stability in the presence of small perturbations.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}
+    Sensitivity of sparse attention to multiplicative perturbations $\epsilon^q = \kappa^q q$ and $\epsilon^k = \kappa^k_t k_t$ with $\kappa^q,\kappa^k_t\ll1$. Circuit collapse occurs when $\exists~ t \neq t^*$ for which:
+    \begin{equation}
+        \frac{w_{t^*}}{w_t} ~\begin{cases} ~<~ \lambda_w & \mathrm{if}~ w_t \left(1 + \kappa^q + \kappa^k_{t^*}\right) > 0 \\
+        ~>~ \lambda_w & \mathrm{otherwise} \\ \end{cases}
+        ~~~~~~~~~~~~~ \lambda_w ~\triangleq~ \frac{1 + \kappa^q + \kappa^k_t}{1 + \kappa^q + \kappa^k_{t^*}}
+    \end{equation}
+    where temperature cancels in the fraction. \textbf{Attention is fully stable above the critical transition point $\lambda_w$} (c.f. $w_t \left(1 + \kappa^q + \kappa^k_{t^*}\right) > 0$). We see that query perturbations alone are insufficient, as they result in $\lambda_w=1$. Lemma: consider the special case when all keys have similar length $k_t \approx const$, the attended token has $\theta_{t^*}\approx0$, the keys are far-from-orthogonal s.t. $\theta_t \ll 1$, and $\kappa^q\approx0$. Using $w_t \triangleq |q| |k_t| \cos\theta_t$, circuit collapse occurs when $\exists~ t \neq t^*$ for which:
+    \begin{equation}
+            \frac{1}{2}\theta_t^2 ~\lesssim~ \kappa^k_t - \kappa^k_{t^*}   ~~~~~~~~~~~ \mathrm{if}~ w_t \left(1  + \kappa^k_{t^*}\right) > 0 ~\text{, otherwise reverse}
+    \label{eq: sparse circuit collapse result}
+    \end{equation}
+    i.e. stability requires either well-separated keys s.t. $\theta_t \gg 0$, or small perturbations $\kappa_t-\kappa^*_t \ll 1$.
+\label{theorem: multiplicative stability: sparse}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
+  year={2024},
+  eprint={2406.17837},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}
+    Sensitivity of sparse attention to multiplicative perturbations $\\epsilon^q = \\kappa^q q$ and $\\epsilon^k = \\kappa^k_t k_t$ with $\\kappa^q,\\kappa^k_t\\ll1$. Circuit collapse occurs when $\\exists~ t \\neq t^*$ for which:
+    \\begin{equation}
+        \\frac{w_{t^*}}{w_t} ~\\begin{cases} ~<~ \\lambda_w & \\mathrm{if}~ w_t \\left(1 + \\kappa^q + \\kappa^k_{t^*}\\right) > 0 \\\\
+        ~>~ \\lambda_w & \\mathrm{otherwise} \\\\ \\end{cases}
+        ~~~~~~~~~~~~~ \\lambda_w ~\\triangleq~ \\frac{1 + \\kappa^q + \\kappa^k_t}{1 + \\kappa^q + \\kappa^k_{t^*}}
+    \\end{equation}
+    where temperature cancels in the fraction. \\textbf{Attention is fully stable above the critical transition point $\\lambda_w$} (c.f. $w_t \\left(1 + \\kappa^q + \\kappa^k_{t^*}\\right) > 0$). We see that query perturbations alone are insufficient, as they result in $\\lambda_w=1$. Lemma: consider the special case when all keys have similar length $k_t \\approx const$, the attended token has $\\theta_{t^*}\\approx0$, the keys are far-from-orthogonal s.t. $\\theta_t \\ll 1$, and $\\kappa^q\\approx0$. Using $w_t \\triangleq |q| |k_t| \\cos\\theta_t$, circuit collapse occurs when $\\exists~ t \\neq t^*$ for which:
+    \\begin{equation}
+            \\frac{1}{2}\\theta_t^2 ~\\lesssim~ \\kappa^k_t - \\kappa^k_{t^*}   ~~~~~~~~~~~ \\mathrm{if}~ w_t \\left(1  + \\kappa^k_{t^*}\\right) > 0 ~\\text{, otherwise reverse}
+    \\label{eq: sparse circuit collapse result}
+    \\end{equation}
+    i.e. stability requires either well-separated keys s.t. $\\theta_t \\gg 0$, or small perturbations $\\kappa_t-\\kappa^*_t \\ll 1$.
+\\label{theorem: multiplicative stability: sparse}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>

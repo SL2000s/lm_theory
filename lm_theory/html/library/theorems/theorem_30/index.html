@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theorem 30 - LM Theory</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            // loader: {load: ['[tex]/autoload']},               // TODO: remove
+            // packages: {'[+]': ['autoload', 'mathtools']},     // TODO: remove
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                emph: ["\\textit{#1}", 1],
+mathds: ["\\mathbf{#1}", 1],
+bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
+RSIS: "RSI$+$Smooth",
+qed: "{\\unskip\\nobreak\\hfil\\penalty50\\hskip2em\\vadjust{}           \\nobreak\\hfil$\\Box$\\parfillskip=0pt\\finalhyphendemerits=0\\par}",
+LM: "\\texttt{LMM}\\xspace",
+GM: "\\texttt{GMM}\\xspace",
+oo: "{11}",
+red: "\\textcolor{red}",
+blue: "\\textcolor{blue}",
+grn: "\\textcolor{darkgreen}",
+xat: "\\ob",
+rfn: "\\texttt{SVMeq}",
+ont: "\\texttt{1token}",
+xast: "\\xat^\\st",
+Wf: "{\\mtx{W}^\\tsc{fin}}",
+noi: "\\noindent",
+new: "\\text{new}",
+prm: "\\text{prompt}",
+TF: "{\\texttt{TF}}",
+eps: "\\epsilon",
+epsd: "\\varepsilon_\\dm",
+dv: "\\rho",
+beps: "\\boldsymbol{\\eps}",
+bota: "\\boldsymbol{\\iota}",
+ept: "\\eps_{\\TF}",
+cz: "c_0",
+kz: "\\nu",
+bxi: "\\boldsymbol{\\xi}",
+vsp: "\\vspace",
+fnn: "f_{\\text{nn}}",
+ff: "f_{\\text{nn}}",
+wi: "k_\\st",
+hbm: "\\vct{\\bar{h}}",
+vc: "\\text{vec}",
+flin: "f_{\\text{lin}}",
+bhbg: "{\\bar h}_{\\tsc{gap}}",
+rest: "\\text{rest}",
+hp: "\\tilde{\\mtx{h}}",
+Mb: "\\bar{\\M}",
+Nb: "\\bar{N}",
+epsr: "\\varepsilon_R",
+mur: "\\mu_R",
+bp: "\\bar{p}",
+zig: "\\nu",
+bh: "\\bar{h}",
+hb: "\\vct{h}",
+al: "\\alpha",
+als: "\\alpha",
+fs: "f^{\\Dc}",
+Ncov: "\\mathcal{N}_\\eps(\\Bal)",
+ft: "h",
+ftv: "f^{\\Tc\\cup\\Vc}",
+deff: "h_{\\text{eff}}",
+defz: "\\bar{h}_{\\text{eff}}",
+deft: "\\tilde{h}_{\\text{eff}}",
+defg: "\\bar{h}^{\\nabla}_{\\text{eff}}",
+defF: "\\bar{h}^{\\FB}_{\\text{eff}}",
+bC: "\\bar{C}",
+st: "\\star",
+dm: "{\\diamond}",
+nt: "n_\\mathcal{T}",
+h: "h",
+nv: "n_\\mathcal{V}",
+distas: "\\overset{\\text{i.i.d.}}{\\sim}",
+pleq: "\\overset{{P}}{\\leq}",
+np: "{n\\wedge p}",
+KB: "\\bar{K}",
+bG: "\\boldsymbol{\\Gamma}",
+rP: "\\stackrel{{P}}{\\longrightarrow}",
+xv: "\\x_{\\vb}",
+xa: "\\x^\\bal",
+xw: "\\x'_{\\vb}",
+xu: "\\x_{\\ub}",
+xs: "\\x_{\\ws}",
+yst: "\\hat{\\y}",
+yb: "\\bar{\\y}",
+lnk: "\\psi",
+eig: "\\text{eigvec}",
+hu: "h",
+ru: "r",
+pbar: "{{\\bar{p}}}",
+pbd: "p",
+lan: "\\vct{k}",
+cmp: "P_{\\text{nn}}",
+dcp: "\\vct{d}^{\\text{cnn}}",
+fcp: "\\vct{g}^{\\text{CNN}}",
+beq: "\\begin{equation}",
+ba: "\\begin{align}",
+ea: "\\end{align}",
+nrest: "\\bar{n}",
+eeq: "\\end{equation}",
+prox: "{{\\text{\\bf{prox}}}}",
+cov: "{{\\text{\\bf{cov}}}}",
+ex: "{{\\text{\\bf{ex}}}}",
+modu: "{{\\text{{mod}}}}",
+map: "{{\\text{\\bf{map}}}}",
+vrn: "\\sigma",
+Rcm: "\\Rcc_m",
+lowo: "\\texttt{low}_\\oo^{\\alpha}",
+tsig: "\\tilde{\\sigma}",
+dev: "{{\\text{\\bf{dev}}}}",
+meas: "{{\\text{\\bf{mean}}(\\sigma)}}",
+nn: "\\nonumber",
+la: "\\lambda",
+laz: "\\la_0",
+blaz: "\\bar{\\la}_0",
+caz: "\\la_C",
+saz: "L_\\sigma",
+smax: "\\bar{\\sigma}_{\\max}",
+Lat: "\\tilde{\\Lambda}",
+K: "\\mtx{K}",
+A: "{\\mtx{A}}",
+Aa: "{\\mtx{A}}",
+Bb: "{\\mtx{B}}",
+N: "{\\mtx{N}}",
+amp: "\\alpha_{\\text{cnn}}",
+btm: "\\bigotimes",
+bd: "\\bigodot",
+kapp: "s_{\\max}^{\\nu}",
+kal: "\\prod_{i=1}^{D-1}\\tn{\\lay{i}}",
+Ub: "{\\mtx{U}}",
+Ubb: "{\\mtx{U}}",
+kron: "\\otimes",
+M: "{\\mtx{M}}",
+dimondf: "\\W^\\svm",
+name: "Att-SVM",
+ten: "(\\{\\vb_\\ell\\}_{\\ell=1}^D)",
+uten: "(\\{\\ub_\\ell\\}_{\\ell=1}^D)",
+ken: "(\\{\\lay{i}\\}_{i=1}^D)",
+B: "{{\\mtx{B}}}",
+alx: "{{\\alpha_\\X}}",
+Ib: "{{\\mtx{I}}}",
+fp: "F",
+Xbin: "{{\\mtx{B}}}",
+Gbin: "{{\\mtx{S}}}",
+xbin: "{{\\mtx{b}}}",
+Sb: "{{\\mtx{S}}}",
+Sbt: "{\\mathbb{S}}^t",
+Sbtt: "{\\mathbb{S}}'^{t}",
+Gb: "{\\mtx{G}}",
+ymean: "{\\bar{\\y}(\\w;\\text{avg})}",
+yavg: "{{y}_{\\text{avg}}}",
+fmean: "{\\funcw{\\w;\\text{avg}}}",
+out: "\\text{out}",
+linest: "\\text{lin}",
+inp: "\\text{in}",
+inh: "\\hat{\\text{in}}",
+sexp: "subexponential ",
+Lc: "{\\cal{L}}",
+Hc: "{\\cal{H}}",
+Lcz: "{\\cal{L}}^{0-1}",
+Lczh: "{\\hat{\\cal{L}}}^{0-1}",
+Lch: "{\\widehat{\\cal{L}}}",
+Lct: "{\\tilde{\\cal{L}}}",
+Lcb: "{\\bar{\\cal{L}}}",
+Nc: "{\\cal{N}}",
+xm: "\\x^{\\tsc{mix}}",
+Jc: "{\\cal{J}}",
+Dc: "{\\cal{D}}",
+Dci: "{\\cal{D}}_{\\text{init}}",
+Ro: "{\\cal{RO}}",
+PC: "{\\cal{PC}}",
+Pb: "{\\mtx{P}}",
+Tb: "{\\mtx{T}}",
+Tn: "{T_0}",
+Kba: "{\\vct{k}}_{\\text{all}}",
+Qb: "{\\mtx{Q}}",
+QK: "{\\mtx{Q} \\mtx{K}^\\top}",
+rng: "\\gamma",
+ta: "\\tau",
+gmax: "\\gamma^\\star",
+ggap: "\\bar{\\gamma}_{\\tsc{gap}}",
+Cb: "{\\mtx{C}}",
+BC: "{\\bar{C}}",
+Eb: "{\\mtx{E}}",
+Hb: "{\\mtx{H}}",
+Gc: "{\\cal{G}}",
+Zc: "{\\cal{Z}}",
+F: "{\\mtx{F}}",
+Fa: "{\\mtx{F}}^\\bal",
+diff: "{\\text{diff}}",
+La: "{\\boldsymbol{{\\Lambda}}}",
+sigmap: "\\phi'",
+sigmaa: "\\sigma'_{\\text{all}}",
+bSi: "{\\boldsymbol{{\\Sigma}}}",
+bSii: "{\\boldsymbol{{\\Sigma}}}_{i,i}",
+bSib: "\\bar{{\\boldsymbol{{\\Sigma}}}}",
+bSit: "{\\boldsymbol{{\\tilde{\\Sigma}}}}",
+bSih: "{\\boldsymbol{{\\hat{\\Sigma}}}}",
+bmu: "{\\boldsymbol{{\\mu}}}",
+Db: "{\\mtx{D}}",
+bB: "{\\bar{B}}",
+tB: "{\\tilde{B}}",
+db: "{\\vct{d}}",
+oneb: "{\\mathbb{1}}",
+onebb: "{\\mathbf{1}}",
+Iden: "{\\mtx{I}}",
+gm: "\\gamma_m",
+OR: "\\text{OR}",
+z: "{\\vct{z}}",
+zt: "{\\tilde{\\vct{z}}}",
+fab: "f^\\bal_\\bt",
+zb: "{\\bar{\\z}}",
+el: "{\\ell}",
+sftx: "\\mathbb{S}",
+bad: "{\\bar{d}}",
+Lcg: "\\tilde{\\Lc}",
+Dp: "{D^+}",
+upp: "{\\cal{B}}_{\\alpha,\\Gamma}",
+upz: "{\\cal{B}}_{\\alpha_0,\\Gamma}",
+dpz: "{\\cal{D}}_{\\alpha_0,\\Gamma}",
+dpp: "{\\cal{D}}_{\\alpha,\\Gamma}",
+mpp: "M_{\\alpha,\\Gamma}",
+paf: "\\partial f(\\x)",
+Cc: "\\mathcal{C}",
+Rcc: "\\mathcal{R}",
+Qcc: "\\mathcal{Q}",
+Kcc: "\\mathcal{K}",
+Ac: "\\mathcal{A}",
+Acg: "\\Ac_g",
+At: "\\mathcal{A}",
+Acr: "\\mathcal{A_\\text{ridge}}",
+Bal: "{\\boldsymbol{\\Delta}}",
+pbb: "\\vct{\\bar{p}}",
+pbs: "\\tilde{\\pb}^\\svm",
+del: "\\delta",
+GG: "\\texttt{GG}",
+BB: "\\texttt{BB}",
+BG: "\\texttt{BG}",
+bGam: "\\bar{\\Gamma}_y",
+GB: "\\texttt{GB}",
+delw: "\\delta_w",
+delq: "\\delta_q",
+bdel: "\\boldsymbol{\\delta}",
+Ccb: "\\bar{\\mathcal{C}}",
+Rc: "\\mathcal{O}",
+Rcp: "\\mathcal{\\bar{O}}'",
+btrue: "\\bbeta_{true}",
+bt: "{\\boldsymbol{\\theta}}",
+bet: "{\\boldsymbol{\\beta}}",
+bT: "\\Theta",
+bts: "{\\boldsymbol{\\beta}_\\st}",
+btb: "\\bar{\\boldsymbol{\\theta}}",
+btid: "\\boldsymbol{\\theta}^\\text{ideal}",
+btt: "\\tilde{\\boldsymbol{\\theta}}",
+bal: "{\\boldsymbol{\\alpha}}",
+bgam: "\\boldsymbol{\\gamma}",
+bga: "\\boldsymbol{\\gamma}^\\bal",
+gamb: "\\bar{\\gamma}",
+bab: "{\\boldsymbol{\\bar{\\alpha}}}",
+bah: "{\\widehat{\\bal}}",
+berm: "\\bal^{\\texttt{ERM}}",
+bas: "{\\boldsymbol{\\alpha}_\\st}",
+bth: "{\\boldsymbol{\\hat{\\beta}}}",
+bPhi: "{\\boldsymbol{\\Phi}}",
+bbteta: "\\widetilde{\\boldsymbol{\\theta}}",
+bbeta: "{\\boldsymbol{\\beta}}",
+ddelta: "{\\boldsymbol{\\delta}}",
+DD: "{D}",
+babeta: "{\\bar{\\beta}}",
+balpha: "{\\bar{\\alpha}}",
+bgamma: "\\gamma^\\star",
+agam: "{\\bar{\\gamma}}_t",
+No: "N",
+Bc: "\\mathcal{B}",
+Sc: "\\mathcal{S}",
+Scc: "\\bar{\\mathcal{S}}",
+Sca: "\\mathcal{S}_{\\text{all}}",
+Dca: "\\mathcal{D}_{\\text{all}}",
+Scn: "\\mathcal{S}_{\\new}",
+Dcn: "\\mathcal{D}_{new}",
+Scb: "\\bar{\\mathcal{S}}",
+Sci: "\\mathcal{S}_{\\text{in}}",
+Sco: "\\mathcal{S}_{\\text{out}}",
+Ect: "\\mathcal{S}_{\\text{top}}",
+Mc: "\\mathcal{M}",
+pa: "{\\partial}",
+Nn: "\\mathcal{N}",
+pol: "^\\circ",
+vb: "\\vct{v}",
+Jb: "\\mtx{J}",
+Jt: "\\mtx{\\tilde{J}}",
+vbl: "\\vct{v}^{\\text{lin}}",
+fb: "\\vct{f}",
+Fb: "\\vct{F}",
+FB: "\\mathbb{F}",
+Ft: "\\tilde{\\vct{F}}",
+fa: "\\tilde{\\vct{f}}",
+ib: "{\\bf{i}}",
+hib: "{\\bf{\\hat{i}}}",
+Ic: "{\\mathcal{I}}",
+all: "{\\text{all}}",
+vh: "\\vct{\\hat{v}}",
+vbb: "\\vct{\\bar{v}}",
+Xb: "\\mtx{\\bar{X}}",
+xb: "\\vct{\\bar{x}}",
+abb: "\\mtx{\\bar{a}}",
+ap: "\\mtx{a}'",
+cb: "\\mtx{c}",
+cbb: "\\mtx{\\bar{c}}",
+kbb: "\\mtx{\\bar{k}}",
+bbb: "\\mtx{\\bar{b}}",
+nei: "\\text{support index}\\xspace",
+neis: "\\text{support indices}\\xspace",
+Nei: "\\text{Support index}\\xspace",
+Neis: "\\text{Support indices}\\xspace",
+NEIS: "\\text{Support Indices}\\xspace",
+w: "\\vct{w}",
+ww: "\\vct{V}",
+lgt: "\\texttt{lgt}'",
+ist: "i_\\st",
+cdm: "c_\\dm",
+cop: "c_\\texttt{up}",
+cdn: "c_\\texttt{dn}",
+Wp: "\\mtx{W}^\\dagger",
+tilW: "\\widetilde{\\mtx{W}}",
+tilw: "\\widetilde{\\vct{w}}",
+ob: "\\mtx{o}",
+obo: "\\mtx{o}_1(t)",
+obt: "\\mtx{o}_2(t)",
+obh: "\\mtx{\\hat{o}}",
+wh: "{\\hat{\\mtx{w}}}",
+li: "\\left<",
+xdm: "\\Xi_\\dm",
+ri: "\\right>",
+s: "\\vct{s}",
+sik: "\\s^{(\\ik)}",
+sir: "\\s^R",
+abik: "\\ab^{(\\ik)}",
+abr: "\\ab^R",
+ab: "{\\vct{a}}",
+abm: "\\vct{\\bar{a}}",
+abg: "\\vct{a}_{\\tsc{gap}}",
+bgag: "{\\gamma}_{\\tsc{gap}}",
+bgg: "\\gamma^{\\tsc{gap}}",
+bggm: "\\gamma^{\\tsc{gap}}_{\\min}",
+bgm: "\\bar{\\gamma}^{\\tsc{gap}}",
+abp: "\\vct{a}^\\pb",
+bb: "\\vct{b}",
+ub: "{\\vct{u}}",
+ubb: "\\bar{\\vct{u}}",
+hh: "{\\vct{h}}",
+ii: "{\\vct{i}}",
+dd: "{\\vct{d}}",
+ddt: "{\\vct{d}}_\\tau",
+Zb: "\\mathbb{Z}",
+hf: "\\hat{f}",
+corrCA: "\\rho_\\Cc(\\M)",
+Tc: "\\mathcal{T}",
+Tcb: "\\bar{\\mathcal{T}}",
+TVc: "\\Tc\\cup\\Vc",
+Ttc: "\\mathcal{T}_{\\text{test}}",
+Fc: "\\mathcal{F}",
+Fcl: "\\mathcal{F}^{\\text{lin}}",
+Xc: "\\mathcal{X}",
+Yc: "\\mathcal{Y}",
+rel: "optimal\\xspace",
+iopt: "non-optimal\\xspace",
+irel: "non-optimal\\xspace",
+ihere: "{\\textcolor{red}{I AM HERE! }}",
+gb: "\\bar{\\g}",
+bs: "\\bar{s}",
+cgain: "\\alpha_{\\text{CNN}}",
+cgainp: "\\tn{\\E_{\\x\\sim\\Nn(0,\\Iden)}[\\gcnn{}]}",
+ccorr: "\\rho_{\\text{cnn}}",
+kb: "\\vct{k}",
+kbo: "\\vct{k}^\\op",
+xbo: "\\vct{x}^\\op",
+xh: "\\hat{\\x}",
+cone: "\\Sc",
+conb: "\\bar{\\Cc}",
+xbr: "\\bar{\\h}",
+low: "\\texttt{low}^{\\alpha}(\\X)",
+high: "\\texttt{high}^{\\alpha}(\\X)",
+lowi: "\\texttt{low}_\\ik^{\\alpha}",
+higi: "\\texttt{high}_\\ik^{\\alpha}",
+xdr: "\\tilde{\\x}",
+ybt: "\\tilde{\\y}",
+Xt: "\\tilde{\\X}",
+gh: "\\hat{\\g}",
+gt: "\\tilde{\\g}",
+ir: "q",
+sbs: "\\vct{s}^{\\texttt{ref}}",
+bbg: "\\bgam^{\\tsc{gap}}",
+bbs: "\\bar{\\s}",
+gmb: "\\bar{\\gamma}",
+irm: "q^\\pb_{\\max}",
+ira: "q^{\\pb'}_{\\max}",
+vbs: "\\tilde{\\vb}^\\svm",
+vs: "\\vb^\\svm",
+ps: "\\W^\\svm",
+Ws: "\\W^\\svm",
+Wma: "\\W^\\svm_\\bal",
+Wsf: "\\W^\\svm",
+Wsb: "\\bar{\\W}^\\svm",
+Wcs: "\\Wc^\\svm",
+ik: "{ik}",
+itt: "{it}",
+ittt: "{i\\tau}",
+ikt: "{ikt}",
+iktt: "{ik\\tau}",
+ikix: "_{ik=(1,1)}^{(n,k)}",
+Ccd: "\\Cc_{\\eps,R_0}^\\dm",
+aik: "\\alpha_{ik}",
+prr: "\\pb^\\tsc{relax}",
+pre: "\\pb^\\tsc{$\\eps$-rlx}",
+pbr: "\\tilde{\\pb}^\\tsc{$\\eps$-rlx}",
+qbr: "\\tilde{\\qb}^\\tsc{relax}",
+pseb: "\\pbb^\\svm_\\eps",
+pset: "\\tilde{\\pb}^\\svm_\\eps",
+psdb: "\\pbb^\\svm_\\delta",
+pse: "\\pb^\\svm_\\eps",
+psd: "\\pb^\\svm_\\delta",
+pst: "\\pb^\\star",
+wst: "\\W^\\star",
+gamp: "\\Gamma_\\eps",
+gamt: "\\Gamma^{\\geq 2}_\\eps",
+damp: "\\Gamma_\\delta",
+pt: "\\tilde{\\pb}^\\svm",
+RR: "\\bar{R}",
+MM: "\\bar{M}",
+psb: "\\bar{\\pb}^\\svm",
+psp: "\\pb^\\beta",
+pso: "\\pb^{\\svm\\star}",
+Wso: "\\W^{\\svm\\star}",
+mipp: "L_{\\max}",
+mupp: "\\bar{\\mu}_{\\max}",
+mapp: "\\mu",
+tcnn: "{\\mtx{T}}_{\\text{cnn}}",
+lcnn: "{\\mtx{L}}_{\\text{CNN}}",
+smo: "S",
+SM: "{{\\bf{S}}}_{L,\\kb}",
+SMB: "{{\\bf{\\bar{S}}}}_{L,\\kb}",
+ws: "{\\W^\\star}",
+wss: "{\\w^\\star}",
+lab: "\\bar{\\la}",
+mult: "B^D\\bar{M}N",
+liptwo: "20R^3B\\nt^2\\laz^{-2}(B\\nt+1)",
+lipp: "5R^2\\sqrt{B^3\\nt^3\\h}\\laz^{-2}\\tn{\\yT}",
+lips: "6R^3B^2\\sqrt{\\nt^3\\h}\\laz^{-2}\\tn{\\yT}",
+lipl: "5(RB\\nt\\sqrt{\\h}+1)RB\\nt\\laz^{-2}",
+lip: "\\frac{5B^2\\tn{\\yT}}{\\laz^2}",
+lipt: "6R^3B^2\\Gamma\\sqrt{\\nt^3\\h}\\laz^{-2} \\tn{\\yT}",
+lipf: "{20R^4B^2\\laz^{-2}\\Gamma\\nt^2\\tn{\\yT}}",
+lipsum: "30R^4B^2\\laz^{-2}\\Gamma(\\nt^2+\\nv^2) \\tn{\\yT}",
+lipnn: "120B^4\\blaz^{-2}\\Gamma(\\nt^2+\\nv^2) \\tn{\\yT}",
+bL: "\\bar{L}",
+scl: "M",
+cA: "\\mathcal{A}",
+x: "\\vct{x}",
+rb: "\\vct{r}",
+rbb: "\\vct{\\widetilde{r}}",
+y: "\\vct{y}",
+yT: "\\vct{y}",
+yh: "\\hat{y}",
+ybh: "\\vct{\\hat{y}}",
+W: "\\mtx{W}",
+Wt: "\\tilde{\\mtx{W}}",
+Wc: "{\\cal{W}}",
+Wcb: "{\\cal{W}}",
+Vc: "{\\cal{V}}",
+bgl: "{~\\big |~}",
+p: "{\\vct{p}}",
+Kb: "{\\mtx{K}}",
+Kbb: "{\\mtx{\\bar{K}}}",
+Qbb: "{\\mtx{\\bar{Q}}}",
+Wb: "{\\mtx{\\bar{W}}}",
+Wpro: "\\mtx{\\W}_{\\textnormal{prod}}",
+Kbh: "{\\widehat{\\mtx{K}}}",
+somelog: "16\\Kb\\log (\\Kb)",
+somelg: "\\Kb\\log (\\Kb)",
+pb: "{\\vct{p}}",
+dpb: "{\\vct{\\dot p}}",
+drb: "{\\vct{\\dot r}}",
+qb: "{\\vct{q}}",
+qstar: "\\vct{q}_\\star",
+qtt: "{\\vct{\\tilde{q}}}",
+wstar: "\\vct{v}_\\star",
+vstar: "\\vct{v}_\\star",
+wstab: "\\bar{\\vb}_\\star",
+vstab: "\\bar{\\vb}_\\star",
+qstab: "\\bar{\\qb}_\\star",
+qbb: "\\bar{\\qb}",
+wbb: "\\bar{\\w}",
+wtt: "{\\vct{\\tilde{w}}}",
+R: "\\mathbb{R}",
+Pro: "\\mathbb{P}",
+C: "\\mathbb{C}",
+Z: "\\mtx{Z}",
+V: "\\mtx{V}",
+Za: "\\mtx{Z}^\\bal",
+Var: "\\textrm{Var}",
+E: "\\operatorname{\\mathbb{E}}",
+Eh: "\\operatorname{\\mathbb{\\hat{E}}}",
+e: "\\mathrm{e}",
+eb: "\\vct{e}",
+vba: "{\\bf{\\emph{v}}}",
+pba: "{\\bf{\\emph{p}}}",
+supp: "\\Sc",
+Id: "\\text{\\em I}",
+OpId: "\\mathcal{I}",
+Real: "\\operatorname{Re}",
+Imag: "\\operatorname{Im}",
+piyp: "\\pi'_1(\\vct{y})",
+piy: "\\pi_1(\\vct{y})",
+piar: "\\pi_1(\\vct{a}_r)",
+piarp: "\\pi'_1(\\vct{a}_r)",
+set: "{\\cal{F}}",
+des: "{\\x_0}",
+Pc: "{\\cal{P}}",
+X: "{\\mtx{X}}",
+Y: "{\\mtx{Y}}",
+Vb: "{\\mtx{V}}",
+Vh: "\\hat{{\\mtx{V}}}",
+Vbd: "{\\mtx{V}^\\dagger}",
+Rb: "{\\mtx{R}}",
+bR: "{\\bar{R}}",
+calF: "\\mathcal{I}",
+calS: "\\mathcal{N}",
+gi: "\\ab_{\\gamma_i}",
+ang: "\\text{ang}",
+mc: "\\mathcal",
+g: "\\vct{g}",
+tsc: "\\textsl",
+Prml: "\\text{Primal}\\xspace",
+cls: "\\texttt{[CLS]}\\xspace",
+prml: "\\text{primal}\\xspace",
+fat: "f_{\\tsc{sa}}",
+fatt: "f_{\\tsc{cls}}",
+faptt: "f^\\top_{\\tsc{cls}}",
+thetab: "\\boldsymbol{\\theta}",
+acc: "\\text{acc}",
+svm: "\\tsc{mm}",
+Wm: "\\W^\\svm",
+Wmt: "\\tilde\\W^\\svm",
+Wu: "\\W^{\\texttt{uni}}",
+Wbi: "\\W^{\\texttt{bi}}",
+Wub: "\\bar{\\W}^{\\texttt{uni}}",
+Wbb: "\\bar{\\W}^{\\texttt{bi}}",
+op: "\\texttt{opt}",
+opt: "\\texttt{opt}",
+xop: "\\x^\\texttt{opt}",
+reg: "\\tsc{reg}",
+vstap: "\\vstar'",
+Cbp: "\\Cb'",
+Rcb: "\\bar{\\Rc}",
+err: "\\texttt{err}",
+ones: "\\onebb",
+onet: "\\bar{\\onebb}",
+taub: "{\\bar{\\tau}}",
+taut: "\\tau",
+Qc: "{\\cal{Q}}",
+tr: "{{\\operatorname{trace}}}",
+goodbox: ["\\begin{center} \\begin{tcolorbox}[boxsep=1pt,left=7pt,right=7pt,top=0pt,bottom=2pt,enhanced, width=14cm,colframe=white!3!black,colback=black!2!white,colbacktitle=orange!5!yellow!10!white,fonttitle=\\bfseries,coltitle=black,attach boxed title to top center={yshift=-0.25mm-\\tcboxedtitleheight/2,yshifttext=2mm-\\tcboxedtitleheight/2},boxed title style={boxrule=0.2mm,frame code={ \\path[tcb fill frame] ([xshift=-4mm]frame.west)-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)-- (frame.south east) -- (frame.south west) -- cycle; },interior code={ \\path[tcb fill interior] ([xshift=-2mm]interior.west)-- (interior.north west) -- (interior.north east)-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)-- cycle;} }] #1 \\end{tcolorbox}\\end{center}", 1],
+nicebox: ["\\begin{center} \\begin{tcolorbox}[boxsep=1pt,left=7pt,right=7pt,top=0pt,bottom=2pt,enhanced, width=14cm,colframe=green!3!black,colback=green!3!white,colbacktitle=orange!5!yellow!10!white,fonttitle=\\bfseries,coltitle=black,attach boxed title to top center={yshift=-0.25mm-\\tcboxedtitleheight/2,yshifttext=2mm-\\tcboxedtitleheight/2},boxed title style={boxrule=0.2mm,frame code={ \\path[tcb fill frame] ([xshift=-4mm]frame.west)-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)-- (frame.south east) -- (frame.south west) -- cycle; },interior code={ \\path[tcb fill interior] ([xshift=-2mm]interior.west)-- (interior.north west) -- (interior.north east)-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)-- cycle;} }] #1 \\end{tcolorbox}\\end{center} ", 1],
+redp: ["\\textcolor{red}{[#1]}", 1],
+so: ["\\textcolor{darkblue}{#1}", 1],
+SO: ["\\textcolor{red}{[SO: #1]\\\\}", 1],
+dat: ["\\textcolor{darkgreen}{#1}", 1],
+DAT: ["\\textcolor{green}{[DAT: #1]}", 1],
+yl: ["\\textcolor{orange}{#1}", 1],
+YL: ["\\textcolor{orange}{[YL: #1]}", 1],
+ct: ["\\textcolor{magenta}{[CT: #1]}", 1],
+todo: ["\\textcolor{darkred}{TODO: #1}", 1],
+clr: ["\\red{#1}", 1],
+cln: ["\\red{}", 1],
+som: ["\\marginpar{\\color{darkblue}\\tiny\\ttfamily SO: #1}", 1],
+outr: ["\\text{outer\\_update}(#1)", 1],
+cc: ["\\Cc(#1)", 1],
+fF: ["f_{\\text{nn},#1}", 1],
+fln: ["f_{\\text{lin},#1}", 1],
+exc: ["\\mathcal{R}_{\\tsc{gap}}(#1)", 1],
+xvt: ["\\x_{\\vb_{#1}}", 1],
+xvtt: ["\\x_{\\vb,#1}", 1],
+xwt: ["\\x_{#1,\\w}", 1],
+xws: ["\\x_{#1,\\ws}", 1],
+link: ["\\lnk(#1)", 1],
+lay: ["{\\vct{k}}^{(#1)}", 1],
+lah: ["{\\vct{\\hat{k}}}^{(#1)}", 1],
+bea: ["\\begin{align}#1\\end{align}", 1],
+var: ["{{\\text{\\bf{var}}}}[#1]", 1],
+sgt: ["\\tilde{\\sigma}^{(#1)}", 1],
+func: ["{f_{\\text{CNN}}}(#1)", 1],
+funh: ["{{\\hat{f}}_{\\text{CNN}}}(#1)", 1],
+funcp: ["{f'_{\\text{cnn}}}(#1)", 1],
+funcw: ["{{{f}}'_{\\text{cnn}}}(#1)", 1],
+robt: ["\\bigotimes_{\\ell=1}^D{#1}_{\\ell}", 1],
+robtu: ["\\bigotimes_{\\ell=1}^D{#1}^{(\\ell)}", 1],
+kall: ["1_{\\lan #1}", 1],
+lall: ["{\\order{\\lip_{\\lan #1}}}", 1],
+lell: ["{\\lip}_{\\lan #1}", 1],
+bell: ["{{{\\beta}}}_{\\lan #1}", 1],
+aly: ["{{\\alpha_{\\X_{#1}}}}", 1],
+ravg: ["{{r}_{{\\text{avg}}}(#1)}", 1],
+diag: ["\\text{diag}(#1)", 1],
+Lcv: ["{\\cal{L}}^{#1}_{\\text{up}}", 1],
+noresamp: ["{\\textcolor{red}{#1}}", 1],
+relu: ["\\phi(#1)", 1],
+one: ["{\\bm{1}}(#1)", 1],
+sigmal: ["\\sigma^{(#1)}", 1],
+sigmalp: ["\\sigma'^{(#1)}", 1],
+sigmai: ["\\sigma'_{\\text{all},#1}", 1],
+order: ["{\\cal{O}}(#1)", 1],
+ordet: ["{\\widetilde{\\cal{O}}}(#1)", 1],
+rmax: ["{\\bf{r}_{\\max}(#1)}", 1],
+rbmax: ["{\\bf{\\bar{r}}_{\\max}(#1)}", 1],
+rmin: ["{\\bf{r}_{\\min}(#1)}", 1],
+gmmin: ["{\\gamma_{\\min}(#1)}", 1],
+gmmax: ["{\\gamma_{\\max}(#1)}", 1],
+smn: ["{s_{\\min}(#1)}", 1],
+smx: ["{s_{\\max}(#1)}", 1],
+isnr: ["\\texttt{ISNR}(#1)", 1],
+sft: ["\\mathbb{S}(#1)", 1],
+sftk: ["\\mathbb{S}_k(#1)", 1],
+sfp: ["\\mathbb{S}'(#1)", 1],
+distd: ["\\texttt{dist}_\\dm\\left(#1\\right)", 1],
+tn: ["\\|{#1}\\|", 1],
+td: ["\\|{#1}\\|_\\dm", 1],
+tl: ["\\|{#1}\\|_{L_2}", 1],
+ts: ["\\|{#1}\\|_{\\Sc}", 1],
+ti: ["\\|{#1}\\|_{\\infty}", 1],
+nrm: ["\\|{#1}\\|", 1],
+inr: ["\\left<#1\\right>", 1],
+tone: ["\\|{#1}\\|_{\\ell_1}", 1],
+lix: ["\\|{#1}\\|_{\\Xc}", 1],
+lif: ["\\text{dist}_{\\FB}({#1})", 1],
+lit: ["\\text{max}(#1)", 1],
+lia: ["\\text{avg}(#1)", 1],
+lin: ["\\|{#1}\\|_{L_\\infty}", 1],
+tff: ["\\|{#1}\\|_{\\ell_4}", 1],
+tin: ["\\|{#1}\\|_{\\ell_\\infty}", 1],
+trow: ["\\|{#1}\\|_{2,\\infty}", 1],
+tf: ["\\|{#1}\\|_{F}", 1],
+tnuc: ["\\|{#1}\\|_{\\star}", 1],
+te: ["\\|{#1}\\|_{\\psi_1}", 1],
+tsub: ["\\|{#1}\\|_{\\psi_2}", 1],
+tsut: ["\\|{#1}\\|_{\\psi_{2/3}}", 1],
+tsup: ["\\|{#1}\\|_{\\psi_a}", 1],
+dist: ["\\texttt{dist}\\left(#1\\right)", 1],
+Al: ["\\Ac(#1)", 1],
+Alg: ["\\Ac_g(#1)", 1],
+sbl: ["\\sigma_{\\boldsymbol{\\alpha^{(#1)}}}", 1],
+bl: ["{\\boldsymbol{\\alpha}}^{(#1)}", 1],
+blb: ["\\bar{\\boldsymbol{\\alpha}}^{(#1)}", 1],
+zm: ["{\\texttt{{{zm}}}[#1]}", 1],
+corr: ["{\\texttt{corr\\_coef}}(#1)", 1],
+qqq: ["{\\textcolor{red}{?{#1}?}}", 1],
+mat: ["{\\text{mat}{#1}}", 1],
+gcnn: ["{\\vct{g}}_{\\text{cnn}#1}", 1],
+con: ["\\texttt{cone}_{\\eps}(#1)", 1],
+xp: ["\\x^{(#1)}_\\prm", 1],
+Sn: ["\\Sc^{(#1)}", 1],
+Dn: ["\\Dc^{(#1)}", 1],
+xt: ["\\x^{(#1)}", 1],
+yt: ["y^{(#1)}", 1],
+inn: ["\\left<#1\\right>", 1],
+yp: ["\\textcolor{red}{ #1}", 1],
+zeronorm: ["\\left\\|#1 \\right\\|_0", 1],
+unorm: ["\\left\\|#1 \\right\\|_u", 1],
+ynorm: ["\\left\\|#1 \\right\\|_{\\bar{y}}", 1],
+onetwonorm: ["\\left\\|#1\\right\\|_{1,2}", 1],
+opnorm: ["\\left\\|#1\\right\\|", 1],
+fronorm: ["\\left\\|#1\\right\\|_{F}", 1],
+onenorm: ["\\left\\|#1\\right\\|_{\\ell_1}", 1],
+twonorm: ["\\left\\|#1\\right\\|_{\\ell_2}", 1],
+Dnorm: ["\\left\\|#1\\right\\|_{D}", 1],
+oneinfnorm: ["\\left\\|#1\\right\\|_{1,\\infty}", 1],
+infnorm: ["\\left\\|#1\\right\\|_{\\ell_\\infty}", 1],
+nucnorm: ["\\left\\|#1\\right\\|_*", 1],
+abs: ["\\left|#1\\right|", 1],
+avg: ["\\left< #1 \\right>", 1],
+xx: ["\\vct{x}^{(#1)}", 1],
+Ww: ["\\mtx{W}^{(#1)}", 1],
+ejc: ["\\textcolor{emmanuel}{EJC: #1}", 1],
+pp: ["{\\vct{p}}(#1)", 1],
+pr: ["{\\vct{\\bar{p}}}(#1)", 1],
+prl: ["{\\vct{\\tilde{p}}}(#1)", 1],
+prb: ["{\\vct{\\bar{p}}}(#1)", 1],
+wrb: ["{\\vct{\\bar{W}}}(#1)", 1],
+wrt: ["{\\vct{\\bar{W}}}_0(#1)", 1],
+sgn: ["\\textrm{sgn}(#1)", 1],
+grad: ["{\\nabla\\Lc(#1)}", 1],
+gradf: ["{\\nabla f(#1)}", 1],
+hessf: ["{\\nabla^2f(#1)}", 1],
+gradw: ["{\\nabla{\\Lc}(#1)}", 1],
+vct: ["\\bm{#1}", 1],
+mtx: ["\\bm{#1}", 1],
+rank: ["\\texttt{rank}(#1)", 1],
+restrict: ["\\big\\vert_{#1}", 1],
+note: ["{\\bf [{\\em Note:} #1]}", 1],
+m: ["{\\bf{#1}}", 1],
+mb: ["{\\mathbb{#1}}", 1],
+fapt: ["f_{\\tsc{cls}}(#1\\bT)", 1],
+fapn: ["f_{\\lnk}(#1\\bT)", 1],
+zX: ["\\z\\{#1\\}", 1],
+aX: ["\\ab\\{#1\\}", 1],
+wnorm: ["\\left\\|#1\\right\\|_{#2}", 2],
+grd: ["{\\nabla\\Lc_{#1}(#2)}", 2],
+iprod: ["\\left\\langle #1 , #2 \\right\\rangle", 2],
+ham: ["{\\|#1,#2\\|_H}", 2],
+endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
+
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>Theoretical Results on Transformers and Language Models</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/examples">Examples</a>
+            <a href="/contact">Contact</a>
+            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/library">Index</a></span>
+                <div class="dropdown-content">
+                    <a href="/library">Full Index</a>
+                    <a href="/library/papers">Papers</a>
+                    <a href="/library/definitions">Definitions</a>
+                    <a href="/library/axioms">Axioms</a>
+                    <a href="/library/lemmas">Lemmas</a>
+                    <a href="/library/theorems">Theorems</a>
+                    <a href="/library/corollaries">Corollaries</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+<section id="Global Convergence of Gradient Descent with Initial Gradient Assumption">
+    <h2>Theorem 30: Global Convergence of Gradient Descent with Initial Gradient Assumption</h2>
+    <section id="Statement">
+        <h3>Statement</h3>
+        <div>
+            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ and Assumption $\ref{assum:nabla0}$ on the initial gradient hold.  
+<ol style="list-style-type: none;">
+  <li><strong>L1.</strong> For any $\mu>0$, there exists $R>0$ such that $\conb_{\mu,R}(\Ws)$ defined in $\eqref{eqn:con:nabla0}$ does not contain any stationary points.</li>
+  <li><strong>L2.</strong> Fix any $\mu \in (0,\min (1,\iota \tf{\Ws}/\tf{\nabla \Lc(0)}))$. Consider GD iterations with $\W(0)=0$, $\W(1)=-R\nabla\Lc(0)/\tf{\nabla\Lc(0)}$, and $\W(k+1)=\W(k)-\eta\nabla\Lc(\W(k))$ for $\eta\le 1/L_{\W}$, $k\ge 1$, and $R$ sufficiently large. If all iterates remain within $\conb_{\mu,R}$, then $\lim_{k\rightarrow\infty} \tf{\W(k)}=\infty$ and $\lim_{k\rightarrow\infty}\frac{\W(k)}{\tf{\W(k)}}=\frac{\Wm}{\tf{\Wm}}$.</li>
+  <li><strong>L3.</strong> Assume $\eta\leq 1/L_{\W}$ and for all $\W \in \conb_{\mu,R}(\Ws)$ with sufficiently large $R$:
+\begin{align}\label{assum:extra}
+   \min_{i \in [n]}\li(\x_{i\op_i}-\x_\itt)\z_i^\top, \W-\eta\nabla\Lc(\W) \ri \geq \min_{i \in [n]}\li(\x_{i\op_i}-\x_\itt)\z_i^\top, \W\ri - \frac{2\eta\mu}{\tf{\Wm}^2}\iprod{\nabla\mc{L}(\W)}{\Wm},
+\end{align}
+then all GD iterations remain within $\conb_{\mu,R}(\Wm)$.</li>
+</ol>
+        </div>
+    </section>
+    <section id="motivation">
+        <h3>Motivation of Statement (AI-Generated)</h3>
+        <div>
+            Understanding the conditions under which gradient descent (GD) iterations diverge or converge is crucial for optimizing machine learning models. The lemmas L1, L2, and L3 provide a theoretical foundation for analyzing the behavior of GD under specific assumptions about the loss function and initial gradient. 
+
+- <i></i>L1<i></i> ensures that there are no stationary points within a certain region, which is important for avoiding local minima that could trap the optimization process.
+- <i></i>L2<i></i> describes the conditions under which GD iterations will diverge to infinity, providing insight into the stability and behavior of the algorithm when starting from a specific initial point.
+- <i></i>L3<i></i> offers a condition that guarantees all GD iterations remain within a bounded region, ensuring that the optimization process does not diverge uncontrollably.
+
+These lemmas are particularly useful when designing and analyzing optimization algorithms for complex loss landscapes, helping to ensure convergence and stability in practical applications.
+        </div>
+    </section>
+        
+<section id="OriginalProof">
+<h3>Original Proof</h3>
+Note that <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al1">Theorem 30</a> is a direct corollary of Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>. We proceed with the proof of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al2">Theorem 30</a> and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>.
+
+We provide the proof in four steps:
+<br>
+<b>Step~1: $\conb_{\mu,R^0_\mu}(\Wm)$ construction</b>. Let us denote the initialization lower bound as $R^0_\mu:=R$, where $R$ is given in the Theorem <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0%3Aapp">Theorem 30</a>'s statement. Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. We additionally denote $R_\eps\gets R_\pi\vee 1/2$ where $R_\pi$ was defined in Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. At initialization $\W(0)$, we set $\eps=\mu/2$ to obtain $R^0_\mu= R_{\mu/2}$.
+
+We proceed to show $\mu \in (0,\min (1,\iota \tf{\Ws}/\tf{\nabla \Lc(0)})$. It follows from Assumption $\ref{assum:nabla0}$ and under zero initialization for GD ($\W(0)=0$) that
+$$
+\left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, - \nabla \mc{L}(\W(0)) \right\rangle =\left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, - \nabla \mc{L}(0) \right\rangle\ge \iota > 0,
+$$
+for some positive constant $\iota$. Hence, for any initial step size $\eta (0)>0$ and $\W(1)=-\eta(0) \nabla\Lc(0)$,
+\begin{equation}\label{eqn:decpath:zinit}
+\begin{split}
+    \li(\x_{i\op_i}-\x_\itt)\z_i^\top, \frac{\W (1)}{\tf{\W(1)}}\ri &= \frac{\eta (0) }{\tf{\W(1)}} \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, - \nabla \mc{L}(0) \right\rangle \\
+     & \geq \frac{\iota \eta (0) }{\tf{\W(1)}}= \frac{\iota }{ \tf{\nabla \mc{L}(0)}}\\
+     &\geq \frac{\mu}{\tf{\Wm}}.
+\end{split}
+\end{equation}
+Here, the last inequality follows from our choice of $\mu$ in the theorem statement, i.e.
+\begin{align}\label{eqn:mu:zero}
+ \mu \in \left(0, \min\left(1, \frac{\iota \tf{\Wm}}{\tf{\nabla \mc{L}(0)}}\right)\right).
+\end{align}
+
+This $\mu$ choice induces the conic set $\conb_{\mu,R^0_\mu}(\Wm)$ with $R^0_\mu= R_{\mu/2}$, where $R_{\mu/2}$ was defined in Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. Now, given the parameter $\mu$ satisfying \eqref{eqn:mu:zero}, we can choose $\eta (0)$ such that $\tf{\W (1)} \geq R^0_\mu$ and $\W(1)\in\conb_{\mu, R^0_\mu}(\Wm)$. To achieve this, since $\W(0)=0$, we obtain
+\begin{equation}\label{eqn:stepeta0}
+    \eta (0) =\frac{R^0_\mu}{\tf{\nabla \mc{L}(0) }}.
+\end{equation}
+Since by our definition, $R^0_\mu \leftarrow R$, \eqref{eqn:stepeta0} gives $\W(1)$ in the theorem's statement.
+
+<br>
+<b>Step~2: There are no stationary points within $\conb_{\mu,R_\mu^0}(\Wm)$.</b>
+This step follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al1">Theorem 30</a>. Specifically,
+
+we can apply Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a> to find that: For all $\V,\W\in \bar{\Sc}_{\mu}(\Ws)$ with $\tf{\W} \neq 0$ and $\tf{\W} \geq R^0_\mu$, we have that $-\li\V, \nabla \Lc(\W)\ri$ is strictly positive.
+
+<br>
+$\emph{Gradient correlation holds for large parameter norm.}$
+
+It follows from Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> that, there exists $R_\epsilon\geq \bar{R}_\mu\vee 1/2$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
+\begin{align}\label{eqn:neg:corr:0}
+\iprod{-\nabla\mc{L}(\W)} {\frac{\Wm}{\tf{\Wm}}} \geq (1-\epsilon) \iprod{-\nabla \mc{L}(\W)}{\frac{\W}{\tf{\W}}}.
+\end{align}
+The following argument applies to a general $\eps\in(0,\mu/2)$. However, at initialization $\W(0)=0$, we have set $\eps=\mu/2$ and defined the initialization radius as $R^0_\mu= R_{\mu/2}$. To proceed, we will prove the main statements <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al2">Theorem 30</a> and <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a> as follows.
+<ul>
+<li>Proving <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>: In <b>Step 3</b>, we will assume Condition \eqref{assum:extra} to prove that gradient iterates remain within $\conb_{\mu,R_\eps}(\Ws)$. Concretely, for any $\epsilon \in (0, \mu/2)$, we will show that after gradient descent enters the conic set $\conb_{\mu,R_\eps}(\Ws)$ for the first time, it will never leave the set under Condition \eqref{assum:extra} of the theorem statement and \eqref{eqn:neg:corr:0}. In what follows, let us denote $k_\eps$ to be the first time gradient descent enters $\conb_{\mu,R_\eps}(\Ws)$. Note that for $\eps\gets\mu/2$, $k_\eps=0$ i.e.~the point of initialization.</li>
+
+<li>Proving <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al2">Theorem 30</a>: In <b>Step 4</b>, assuming iterates within $\conb_{\mu,R_\eps}(\Ws)$, we will prove that the norm diverges (as a result such $k_\eps$ is guaranteed to exist) and, additionally, the gradient updates asymptotically aligns with $\Ws$.</li>
+</ul>
+
+<br>
+<b>Step~3 (Proof of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>): Updates remain inside the cone $\conb_{\mu,R_\eps}(\Ws)$.</b>
+Note that if $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$ for all $k \geq 1$, the required condition in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al2">Theorem 30</a> holds, and we proceed to <b>Step 4</b>. In this step, we show <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>. Specifically, we show that under Condition \eqref{assum:extra} and using \eqref{eqn:neg:corr:0}, all iterates $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$ remain within $\conb_{\mu,R_\eps}(\Ws)$.
+
+To proceed, by leveraging the results from <b>Step 1</b> and <b>Step 2</b>, we demonstrate that the gradient iterates, with an appropriate constant step size, starting from $\W(k_\eps) \in \conb_{\mu,R_\eps}(\Ws)$, remain within this set. We proceed by induction. Suppose that the claim holds up to iteration $k \geq k_\eps$. This implies that $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$. Hence, recalling $\conb_{\mu,R_\eps}(\Ws)$ defined in \eqref{eqn:con:nabla0}, there exists scalar $\mu=\mu(\bal) \in (0,1)$ and $R_\eps$ such that $\tf{\W(k)}\geq R_\eps$, and
+
+\begin{equation*}
+\begin{split}
+\left\langle (\x_{i\op_i}-\x_{it})\z_i^\top,\frac{\W(k)}{\tf{\W(k)}} \right\rangle \geq \mu\Theta,
+\end{split}
+\end{equation*}
+
+where $\Theta=1/\tf{\Wm}$.
+
+Let
+\begin{subequations}\label{eqn:rho:def:nabla0}
+\begin{align}
+\frac{1}{1-\epsilon} \iprod{ {\frac{\Wm}{\tf{\Wm}}}}{-\nabla\mc{L}(\W(k))} =:\rho(k)>0.
+\end{align}
+</subequations>
+Using \eqref{assum:extra}, we have
+\begin{equation}\label{eqn:localgd:1:nabla0}
+    <br>
+    \begin{split}
+   \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k+1)}{\tf{\W(k)}} \right\rangle &= \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k)}{\tf{\W(k)}} -\frac{\eta}{\tf{\W(k)}}\nabla \mc{L}(\W(k)) \right\rangle\\
+      & \geq \mu \Theta +\frac{ 2\eta (1-\epsilon)\mu \Theta \rho(k) }{\tf{\W(k)}}.
+    </split>
+</end{equation}
+
+From Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, we have $\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle<0$ which implies that $\tf{\W(k+1)} \geq \tf{\W(k)}$. This together with $R_\eps$ definition and $\tf{\W(k)}\geq 1/2$ implies that
+<pre>
+\tf{\W(k+1)}&\leq\frac{1}{{2\tf{\W(k)}}} \left(\tf{\W(k+1)}^2+\tf{\W(k)}^2\right)\\
+& = \frac{1}{2\tf{\W(k)}} \left(2\tf{\W(k)}^2-2\eta\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle+\eta^2\tf{\nabla \Lc(\W(k))}^2\right)\\
+       &\leq \tf{\W(k)}- \frac{\eta}{\tf{\W(k)}}\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle + \eta^2 \frac{\|\nabla \Lc(\W(k))\|_F^2}{\tf{\W(k)}}.
+</pre>
+Thus,
+<pre>
+  \frac{\tf{\W(k+1)}}{\tf{\W(k)}}& \leq 1- \frac{\eta}{\tf{\W(k)}}
+       \left\langle \nabla \Lc(\W(k)),\frac{\W(k)}{\tf{\W(k)}} \right\rangle + \eta^2 \frac{\|\nabla \mc{L}(\W(k))\|_F^2}{\tf{\W(k)}}\\
+& \leq 1- \frac{\eta}{(1-\epsilon)\tf{\W(k)}} \iprod{\nabla\mc{L}(\W(k))}
+     {\frac{\Wm}{\tf{\Wm}}}+ \eta^2 \frac{\|\nabla \mc{L}(\W(k))\|_F^2}{\tf{\W(k)}}\\
+      & \leq 1 + \frac{\eta \rho(k)}{\tf{\W(k)}} + \frac{\eta^2\|\nabla \mc{L}(\W(k))\|_F^2}{\tf{\W(k)}}=:C_1(\rho(k),\eta).
+</pre>
+Here, the second inequality uses \eqref{eqn:neg:corr:0}.
+
+Now, it follows from \eqref{eqn:localgd:1:nabla0} and \eqref{eqn:localgd:2:nabla0} that
+<pre>
+\min_{t\neq \op_i,~i\in[n]} ~~ \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k+1)}{\tf{\W(k+1)}}\right\rangle &\geq \frac{1}{C_1({\rho}(k),\eta)} \left(\mu \Theta+\frac{2\eta (1-\epsilon)\mu \Theta {\rho}(k)}{\tf{\W(k)}}\right)\\
+& = \mu \Theta+\frac{\eta\mu \Theta}{C_1({\rho}(k),\eta)} \left(\frac{ \big(2(1-\epsilon) -1 \big) \rho(k)}{\tf{\W(k)}}
+- \eta \frac{\tf{\nabla \mc{L}(\W(k))}^2 }{\tf{\W(k)}}\right)\\
+& = \mu \Theta+\frac{\eta\mu \Theta}{C_1({\rho}(k),\eta)} \left(\frac{ (1-2\epsilon) \rho(k)}{\tf{\W(k)}}
+- \eta \frac{\tf{\nabla \mc{L}(\W(k))}^2 }{\tf{\W(k)}}\right)\\
+& \geq \mu \Theta,
+</pre>
+where the last inequality uses our choice of stepsize $\eta\leq 1/L_W$ in Theorem <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_23/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0">Theorem 23</a>'s statement. Specifically, we need $\eta$ to be small to ensure the last inequality. We will guarantee this by choosing a proper $R_\eps$ in Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. Specifically, Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> leaves the choice of $D_0$ in $R_\eps$ lower bound of \eqref{Rpi choice2} open (it can always be chosen larger). Here, by choosing $D_0\gtrsim 1/L_{\W}$ will ensure $\eta\leq 1/L_{\W}$ works well.
+
+<pre>
+\begin{equation}\label{eqn:zeta:mu:0}
+\begin{split}
+    \eta &\leq \big( 1-\mu\big)\mu
+ \frac{c}{C} \frac{\Theta}{\bar{A}} \frac{1}{\bar{A}C T} e^{R_\mu^0\Theta/2}\\
+ &\leq \frac{1-2\epsilon }{1-\epsilon} \frac{c \mu}{C} \frac{\Theta}{\bar{A}} \frac{1}{\bar{A}C T} e^{R_\mu^0\Theta/2} \\
+ &\leq \big(1-2\epsilon \big) \frac{\rho(k) } { \|\nabla \mc{L}(\W(k))\|^2_F}.
+\end{split}
+\end{equation}
+</pre>
+
+Here, the first inequality follows since $\epsilon \in (0, \mu/2)$ (as seen in <b>Step 2</b>). Also, $\mu < 1$ implies that $1-\mu > 0$, we obtain $\eta > 0$. The last inequality is obtained from Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>:
+<pre>
+    \frac{\rho(k) } { \tf{\nabla \mc{L}(\W(k))}} &= - \frac{1}{1-\epsilon} \iprod{ \frac{\nabla\mc{L}(\W(k))}{\tf{\nabla \mc{L}(\W(k))}}}
+     {\frac{\Wm}{\tf{\Wm}}} \geq \frac{1}{1-\epsilon} \cdot \frac{c \mu}{C} \cdot \frac{\Theta}{\bar{A}},\\
+         \frac{1} { \tf{\nabla \mc{L}(\W(k))}} &{\geq \frac{1}{\bar{A}C \cdot \frac{1}{n} \sum_{i=1}^n \left(1-\s_{i\op_i}\right)} \geq \frac{1}{ \bar{A} C T e^{-R_\mu^{0}\Theta/2}} }
+</pre>
+for some data dependent constrants $c$, $C$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{(\x_{it}- \x_{i\tau})}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
+
+The remainder of the proof of this step is identical to \eqref{eqn:pitoC0}--\eqref{eqn:pitoC02}, with the replacement of $C_0$ by $D_0$ and the tracking of changes. Specifically, Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> leaves the choice of $D_0$ in $
+</section>
+
+    <section id="proofExplanation">
+        <h4>Explanation of Proof (AI-Generated)</h4>
+        <div>
+            To understand the proof, let's break it down into several steps:
+<br>
+<br>1. <b>Initialization and Setup</b>: The proof begins by defining the initialization lower bound \( R^0_\mu \) and setting up the parameters \(\epsilon\) and \(R_\epsilon\). The initial step size \(\eta(0)\) is chosen to ensure that the initial weight \(\W(1)\) lies within the conic set \(\conb_{\mu, R^0_\mu}(\Wm)\).
+<br>
+<br>2. <b>No Stationary Points</b>: This step leverages Theorem 30 and Lemma 36 to show that there are no stationary points within the conic set \(\conb_{\mu, R^0_\mu}(\Wm)\). It uses the gradient correlation property to establish that the inner product of the gradient and the weight vector is strictly positive.
+<br>
+<br>3. <b>Updates Remain Inside the Cone</b>: The proof proceeds by induction to show that if the weight vector \(\W(k)\) is within the conic set \(\conb_{\mu, R_\epsilon}(\Wm)\) at some iteration \(k\), it will remain within this set for all subsequent iterations. This is achieved by carefully choosing the step size \(\eta\) and using the properties of the gradient and the conic set.
+<br>
+<br>4. <b>Gradient Descent Convergence</b>: Finally, the proof shows that under the given conditions, the norm of the weight vector diverges, and the gradient updates asymptotically align with the target vector \(\Ws\). This ensures that the gradient descent algorithm converges to the desired solution.
+
+Thus, the proof demonstrates that the gradient descent algorithm, with appropriately chosen parameters, will converge to the desired solution while maintaining the weight vector within the specified conic set.
+        </div>
+    </section>
+
+
+
+
+    <section id="Reference">
+        <h3>Reference</h3>
+            <p>Title: <a href="/library/papers/transformers_as_support_vector_machines/index.html">Transformers as Support Vector Machines</a></p>
+            <p>Authors: Davoud Ataee Tarzanagh, Yingcong Li, Christos Thrampoulidis, and Samet Oymak</p>
+            <p>URL: <a href="https://arxiv.org/abs/2308.16898">https://arxiv.org/abs/2308.16898</a></p>
+    </section>
+    <section id="Resources">
+        <!-- Bibtex Modal -->
+        <div id="bibtexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBibtexModal()">&times;</span>
+            <p>@misc{tarzanagh2024transformerssupportvectormachines,<br>&emsp;title={Transformers as Support Vector Machines},<br>&emsp;author={Davoud Ataee Tarzanagh and Yingcong Li and Christos Thrampoulidis and Samet Oymak},<br>&emsp;year={2024},<br>&emsp;eprint={2308.16898},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2308.16898}<br>}</p>
+            <button class="modal-button" onclick="copyBibtex()">Copy</button>
+        </div>
+        </div>
+
+        <!-- Latex Modal -->
+        <div id="latexModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLatexModal()">&times;</span>
+            <p class="tex2jax_ignore"><code>\begin{theorem}\label{conv:gd:w:global:nabla0:app}
+Suppose Assumption~\ref{assum:loss:prope} on the loss function $\ell$ and Assumption \ref{assum:nabla0} on the initial gradient hold.  
+\begin{enumerate}[label={\textnormal{\textbf{L\arabic*.}}}, wide, labelwidth=!,itemindent=!, labelindent=5pt]
+  \item   \label{lem:zglob:l1}For any $\mu>0$, there exists  $R>0$ such  that   $\conb_{\mu,R}(\Ws)$ defined in \eqref{eqn:con:nabla0} does not contain any  stationary points. 
+\item \label{lem:zglob:l2} Fix any  $\mu \in  (0,\min (1,\iota \tf{\Ws}/\tf{\nabla \Lc(0)})$. Consider GD iterations with $\W(0)=0$, $\W(1)=-R\nabla\Lc(0)/\tf{\nabla\Lc(0)}$, and $\W(k+1)=\W(k)-\eta\nabla\Lc(\W(k))$ for $\eta\le 1/L_{\W}$, $k\ge 1$, and $R$ sufficiently large. If all iterates remain within $\conb_{\mu,R}$, then $\lim_{k\rightarrow\infty} \tf{\W(k)}=\infty$ and $\lim_{k\rightarrow\infty}\frac{\W(k)}{\tf{\W(k)}}=\frac{\Wm}{\tf{\Wm}}$.
+\item  \label{lem:zglob:l3} Assume $\eta\leq 1/L_{\W}$ and for all $\W \in \conb_{\mu,R}(\Ws)$ with sufficiently large $R$?
+\begin{align}\label{assum:extra}
+   \min_{i \in [n]}\li(\x_{i\op_i}-\x_\itt)\z_i^\top, \W-\eta\nabla\Lc(\W) \ri \geq     \min_{i \in [n]}\li(\x_{i\op_i}-\x_\itt)\z_i^\top, \W\ri - \frac{2\eta\mu}{\tf{\Wm}^2}\iprod{\nabla\mc{L}(\W)}{\Wm},
+\end{align}
+then all GD iterations remain within $\conb_{\mu,R}(\Wm)$.
+\end{enumerate}
+\end{theorem}</code></p>
+            <button class="modal-button" onclick="copyLatex()">Copy</button>
+        </div>
+        </div>
+
+        <h3>Resources</h3>    
+            <p>
+                <b>BibTex</b>:
+                    <button onclick="copyBibtex()">Copy</button>
+                    <button onclick="openBibtexModel()">Show</button>
+            </p>
+            <p>
+                <b>LaTeX</b>:
+                    <button onclick="copyLatex()">Copy</button>
+                    <button onclick="openLatexModal()">Show</button>
+            </p>
+        <script>
+            function copyBibtex() {
+                var textToCopy = `@misc{tarzanagh2024transformerssupportvectormachines,
+  title={Transformers as Support Vector Machines},
+  author={Davoud Ataee Tarzanagh and Yingcong Li and Christos Thrampoulidis and Samet Oymak},
+  year={2024},
+  eprint={2308.16898},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2308.16898}
+}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+            
+            function copyLatex() {
+                var textToCopy = `\\begin{theorem}\\label{conv:gd:w:global:nabla0:app}
+Suppose Assumption~\\ref{assum:loss:prope} on the loss function $\\ell$ and Assumption \\ref{assum:nabla0} on the initial gradient hold.  
+\\begin{enumerate}[label={\\textnormal{\\textbf{L\\arabic*.}}}, wide, labelwidth=!,itemindent=!, labelindent=5pt]
+  \\item   \\label{lem:zglob:l1}For any $\\mu>0$, there exists  $R>0$ such  that   $\\conb_{\\mu,R}(\\Ws)$ defined in \\eqref{eqn:con:nabla0} does not contain any  stationary points. 
+\\item \\label{lem:zglob:l2} Fix any  $\\mu \\in  (0,\\min (1,\\iota \\tf{\\Ws}/\\tf{\\nabla \\Lc(0)})$. Consider GD iterations with $\\W(0)=0$, $\\W(1)=-R\\nabla\\Lc(0)/\\tf{\\nabla\\Lc(0)}$, and $\\W(k+1)=\\W(k)-\\eta\\nabla\\Lc(\\W(k))$ for $\\eta\\le 1/L_{\\W}$, $k\\ge 1$, and $R$ sufficiently large. If all iterates remain within $\\conb_{\\mu,R}$, then $\\lim_{k\\rightarrow\\infty} \\tf{\\W(k)}=\\infty$ and $\\lim_{k\\rightarrow\\infty}\\frac{\\W(k)}{\\tf{\\W(k)}}=\\frac{\\Wm}{\\tf{\\Wm}}$.
+\\item  \\label{lem:zglob:l3} Assume $\\eta\\leq 1/L_{\\W}$ and for all $\\W \\in \\conb_{\\mu,R}(\\Ws)$ with sufficiently large $R$?
+\\begin{align}\\label{assum:extra}
+   \\min_{i \\in [n]}\\li(\\x_{i\\op_i}-\\x_\\itt)\\z_i^\\top, \\W-\\eta\\nabla\\Lc(\\W) \\ri \\geq     \\min_{i \\in [n]}\\li(\\x_{i\\op_i}-\\x_\\itt)\\z_i^\\top, \\W\\ri - \\frac{2\\eta\\mu}{\\tf{\\Wm}^2}\\iprod{\\nabla\\mc{L}(\\W)}{\\Wm},
+\\end{align}
+then all GD iterations remain within $\\conb_{\\mu,R}(\\Wm)$.
+\\end{enumerate}
+\\end{theorem}`;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    //alert('Text copied to clipboard: ' + textToCopy);
+                }, function(err) {
+                    console.error('Failed to copy text: ', err);
+                });
+            }
+
+            // Bibtex
+            function openBibtexModel() {
+                document.getElementById('bibtexModal').style.display = 'block';
+            }
+            function closeBibtexModal() {
+                document.getElementById('bibtexModal').style.display = 'none';
+            }
+
+            // Latex
+            function openLatexModal() {
+                document.getElementById('latexModal').style.display = 'block';
+            }
+            function closeLatexModal() {
+                document.getElementById('latexModal').style.display = 'none';
+            }
+        </script>
+    </section>
+</section>
+
+    </main>
+    <footer>
+        <p>&copy; 2024 Theoretical Results on Transformers and Language Models</p>
+    </footer>
+</body>
+</html>
