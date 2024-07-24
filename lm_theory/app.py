@@ -97,7 +97,7 @@ async def get_other_pages():
     return HTMLResponse(open("html/library/papers/index.html").read())
 
 
-@app.get("/library/papers/{paper_name}.html", response_class=HTMLResponse)
+@app.get("/library/papers/{paper_name}/index.html", response_class=HTMLResponse)
 async def get_other_pages(paper_name: str):
     return HTMLResponse(open(f"html/library/papers/{paper_name}/index.html").read())
 
