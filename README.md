@@ -12,7 +12,7 @@ To get started, follow these steps:
 
 1. **Clone the repository** (if you haven't already):
    ```bash
-   git clone https://github.com/SL2000s/lm_theory_library
+   git clone https://github.com/SL2000s/lm_theory
    cd lm_theory
    ```
 
