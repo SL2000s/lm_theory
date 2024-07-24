@@ -368,8 +368,10 @@
             },
             "mathjax_macros": [
                 "emph: [\"\\\\textit{#1}\", 1]",
-                "mathds: [\"\\\\mathbf{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
+                "mathds: [\"\\\\mathbf{#1}\", 1]",
+                "textsl: [\"\\\\textit{#1}\", 1]",
+                "xspace: \"\"",
                 "Tr: \"\\\\operatorname{Tr}\"",
                 "softmaxOp: \"\\\\operatorname{softmax}\"",
                 "lip: \"\\\\operatorname{Lip}\"",
@@ -739,8 +741,10 @@
             },
             "mathjax_macros": [
                 "emph: [\"\\\\textit{#1}\", 1]",
-                "mathds: [\"\\\\mathbf{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
+                "mathds: [\"\\\\mathbf{#1}\", 1]",
+                "textsl: [\"\\\\textit{#1}\", 1]",
+                "xspace: \"\"",
                 "data: [\"\\\\textcolor{Maroon}{\\\\texttt{{#1}}}\", 1]"
             ],
             "label2statementid": {
@@ -922,8 +926,10 @@
             },
             "mathjax_macros": [
                 "emph: [\"\\\\textit{#1}\", 1]",
-                "mathds: [\"\\\\mathbf{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
+                "mathds: [\"\\\\mathbf{#1}\", 1]",
+                "textsl: [\"\\\\textit{#1}\", 1]",
+                "xspace: \"\"",
                 "repOp: \"\\\\operatorname{Rep}\"",
                 "genOp: \"\\\\operatorname{gen}\"",
                 "SpanOp: \"\\\\operatorname{Span}\"",
@@ -1416,8 +1422,10 @@
             },
             "mathjax_macros": [
                 "emph: [\"\\\\textit{#1}\", 1]",
-                "mathds: [\"\\\\mathbf{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
+                "mathds: [\"\\\\mathbf{#1}\", 1]",
+                "textsl: [\"\\\\textit{#1}\", 1]",
+                "xspace: \"\"",
                 "soft: \"\\\\operatorname{softmax}\"",
                 "blockdiag: \"\\\\operatorname{blockdiag}\"",
                 "diag: \"\\\\operatorname{diag}\"",
@@ -1510,7 +1518,7 @@
                         "library_name": "Definition 7",
                         "title": "Locally-Optimal Indices and Direction",
                         "statement_original_tex": "\\begin{definition}[\\NEIS and Locally-Optimal Direction]\\label{def loc opt} \nFix token indices $\\bal=(\\alpha_i)_{i=1}^n$. Solve \\eqref{eqn:sattnsvm} with $ (\\opt_i)_{i=1}^n$ replaced with $\\boldsymbol{\\alpha} = (\\alpha_i)_{i=1}^n$ to obtain $\\Wma$. Consider the set $\\Tc_i\\subset[T]$ such that $(\\x_{i\\alpha_i}-\\x_{it})^\\top \\Wma \\z_i=1$ for all $t\\in\\Tc_i$. We refer to $(\\Tc_i)_{i=1}^n$ as the \\neis of $\\bal$. Additionally, if for all $i\\in[n]$ and $t\\in\\Tc_i$ scores per Definition~\\ref{score def} obey $\\bgam_{i\\alpha_i}>\\bgam_{it}$, indices $\\bal=(\\alpha_i)_{i=1}^n$ are called \\emph{locally-optimal} and $\\Wma$ is called a \\emph{locally-optimal direction}.\n\\end{definition}",
-                        "statement_html": "Fix token indices $\\bal=(\\alpha_i)_{i=1}^n$. Solve $\\eqref{eqn:sattnsvm}$ with $(\\opt_i)_{i=1}^n$ replaced with $\\boldsymbol{\\alpha} = (\\alpha_i)_{i=1}^n$ to obtain $\\Wma$. Consider the set $\\Tc_i\\subset[T]$ such that $(\\x_{i\\alpha_i}-\\x_{it})^\\top \\Wma \\z_i=1$ for all $t\\in\\Tc_i$. We refer to $(\\Tc_i)_{i=1}^n$ as the $\\neis$ of $\\bal$. Additionally, if for all $i\\in[n]$ and $t\\in\\Tc_i$ scores per Definition <a href=\"/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_8/index.html#score+def\">Definition 8</a> obey $\\bgam_{i\\alpha_i}>\\bgam_{it}$, indices $\\bal=(\\alpha_i)_{i=1}^n$ are called $\\emph{locally-optimal}$ and $\\Wma$ is called a $\\emph{locally-optimal direction}$.",
+                        "statement_html": "Fix token indices $\\bal=(\\alpha_i)_{i=1}^n$. Solve (<a href=\"https://arxiv.org/pdf/2308.16898#equation.2.3\">Att-SVM</a>) with $(\\opt_i)_{i=1}^n$ replaced with $\\boldsymbol{\\alpha} = (\\alpha_i)_{i=1}^n$ to obtain $\\Wma$. Consider the set $\\Tc_i\\subset[T]$ such that $(\\x_{i\\alpha_i}-\\x_{it})^\\top \\Wma \\z_i=1$ for all $t\\in\\Tc_i$. We refer to $(\\Tc_i)_{i=1}^n$ as the $\\neis$ of $\\bal$. Additionally, if for all $i\\in[n]$ and $t\\in\\Tc_i$ scores per Definition <a href=\"/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_8/index.html#score+def\">Definition 8</a> obey $\\bgam_{i\\alpha_i}>\\bgam_{it}$, indices $\\bal=(\\alpha_i)_{i=1}^n$ are called $\\emph{locally-optimal}$ and $\\Wma$ is called a $\\emph{locally-optimal direction}$.",
                         "statement_type": "definition",
                         "statement_motivation_html": "Understanding the concept of $\\emph{locally-optimal direction}$ and $\\neis$ is crucial in optimization problems, particularly in machine learning and support vector machines (SVMs). When dealing with high-dimensional data, identifying locally-optimal directions helps in efficiently navigating the solution space to find optimal or near-optimal solutions. This can significantly reduce computational complexity and improve the performance of algorithms in practice.",
                         "html_url": "library/definitions/definition_7/index.html"
@@ -2253,8 +2261,10 @@
             },
             "mathjax_macros": [
                 "emph: [\"\\\\textit{#1}\", 1]",
-                "mathds: [\"\\\\mathbf{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
+                "mathds: [\"\\\\mathbf{#1}\", 1]",
+                "textsl: [\"\\\\textit{#1}\", 1]",
+                "xspace: \"\"",
                 "RSIS: \"RSI$+$Smooth\"",
                 "qed: \"{\\\\unskip\\\\nobreak\\\\hfil\\\\penalty50\\\\hskip2em\\\\vadjust{}           \\\\nobreak\\\\hfil$\\\\Box$\\\\parfillskip=0pt\\\\finalhyphendemerits=0\\\\par}\"",
                 "LM: \"\\\\texttt{LMM}\\\\xspace\"",

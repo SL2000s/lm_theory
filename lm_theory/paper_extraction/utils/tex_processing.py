@@ -77,8 +77,10 @@ def expand_tex_restatables(tex):
 def mathjax_macros(tex: str):
     mathjax_macros = [   # extra (hardcoded) macros
         'emph: ["\\\\textit{#1}", 1]',
-        'mathds: ["\\\\mathbf{#1}", 1]',
         'bm: ["\\\\boldsymbol{\\\\mathbf{#1}}", 1]',
+        'mathds: ["\\\\mathbf{#1}", 1]',
+        'textsl: ["\\\\textit{#1}", 1]',
+        'xspace: ""',
     ]
     for pattern, sub_template in MACRO_PATTERNS_TO_MATHJAX:
         matches = pattern.findall(tex)
