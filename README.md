@@ -31,6 +31,8 @@ To get started, follow these steps:
    python lm_theory/app.py
    ```
 
+The database of paper statements can now be seen at localhost:8080 in the browser.
+
 ## Additional Information
 
 - **Poetry Documentation**: For more detailed information on using Poetry, refer to the [official documentation](https://python-poetry.org/docs/).
