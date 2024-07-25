@@ -773,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $\Wm$ denoting the SVM solution. Fix any $\mu>0$ (per Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi} \geq \bar{R}_\mu$ such that, for any $\W\in \conb_{\mu,R}(\Wm)$, we have
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $\Wm$ denoting the SVM solution. Fix any $\mu>0$ (per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi} \geq \bar{R}_\mu$ such that, for any $\W\in \conb_{\mu,R}(\Wm)$, we have
 \[
  \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
 \]
@@ -795,7 +795,7 @@ Let $\Wb= \tf{\Wm} \W/\tf{\W}$, $\hb_i=\X_i\Wb \z_{i}$, $\hbm_i= \X_i\Ws \z_{i}$
 \li -\nabla\Lc(\W),\frac{\W}{\tf{\W}}\ri&= -\frac{1}{n}\sum_{i=1}^n\ell'_i \cdot  \li \hb_i, \sfp{\X_i\W \z_{i}}\bgam_i\ri\\
 &\leq - \frac{1+\pi}{n}\sum_{i=1}^n\ell'_i \cdot  \li\hbm_i, \sfp{\X_i\W \z_{i}}\bgam_i\ri=(1+\pi)\li-\nabla\Lc(\W), \frac{\ps}{\tf{\Ws}}\ri.
 \end{align}
-Directly applying Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, for all $\V\in \Scc_\mu$ with $\tf{\V}=\tf{\Wm}$ and $\hp_i=\X_i\V \z_i$, we have found
+Directly applying <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, for all $\V\in \Scc_\mu$ with $\tf{\V}=\tf{\Wm}$ and $\hp_i=\X_i\V \z_i$, we have found
 \begin{align}
   \big|\hp^\top_i\diag{\s_i}\bgam_i-\hp^\top_i\s_i\s^\top_i\bgam_i-\sum_{t\neq\op_i} (\hp_{i1}-\hp_{it})\s_{it}(\bgam_{i1}-\bgam_{it})\big|\leq 2\Gamma A(1-\s_{i1})^2.
 \end{align}
@@ -806,13 +806,13 @@ Recalling $\hbm_{i1}-\hbm_{it}\geq 1$, we note that $\sum_{t\neq\op_i}\s_{it}(\b
 &\leq-\frac{1+\pi}{n}\sum_{i=1}^n\ell'_i \cdot \sum_{t\neq \op_i}\s_{it}(\bgam_{i1}-\bgam_{it}).
 \end{align*}
 First, we claim that $0.5\pi\sum_{t\in \op_i}\s_{it}(\bgam_{i1}-\bgam_{it})\geq 6\Gamma A(1-\s_{i1})^2$ for all $i \in [n]$.  
-The proof of this claim directly follows the argument in Lemma~<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, 
+The proof of this claim directly follows the argument in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, 
 (namely following \eqref{soft prob bound2}, \eqref{wishfor2}, \eqref{R bound2}) 
 we have that $1-\s_{i1}\leq Te^{-R\mu\Theta}$ and $\bgam_{i1}-\bgam_{it}\geq \bggm$ for all $i \in [n]$. This leads to the choice (for $D_0\geq 12$)
 \begin{align}
   R\geq R_\pi =\frac{1}{\mu\Theta}\log\left(\frac{D_{0}\cdot T\Gamma A}{\pi\bggm}\right).\label{Rpi choice2}
 \end{align}
-We shall choose $D_0$ sufficiently large such that $R_{\pi}\geq \bar{R}_{\mu}$, where $\bar{R}_{\mu}$ is defined in Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>.
+We shall choose $D_0$ sufficiently large such that $R_{\pi}\geq \bar{R}_{\mu}$, where $\bar{R}_{\mu}$ is defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>.
 
 Following this control over the perturbation term $6\Gamma A(1-\s_{i1})^2$, to conclude with the result, what remains is proving the comparison
 \begin{align}\label{desired comp2}

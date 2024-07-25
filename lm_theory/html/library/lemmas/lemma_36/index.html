@@ -818,7 +818,7 @@ A\geq(\x_{i\op_i}-\x_{it})^\top \V \z_i &\geq \mu.
 \end{split}
 \end{equation}
 
-To proceed, we write the gradient correlation following \eqref{grad def} and \eqref{grad def2}
+To proceed, we write the gradient correlation following (15) [in <a href="https://arxiv.org/pdf/2308.16898#equation.B.15">original paper</a>] and \eqref{grad def2}
 \begin{align}\label{grad def32}
 \li\nabla\Lc(\W),\V\ri&=\frac{1}{n}\sum_{i=1}^n\ell'_i\cdot\li\hb_i,\sfp{\hp_i}\bgam_i\ri,
 \end{align}
@@ -834,7 +834,7 @@ Recall scores $\bgam_{it}=Y_i\cdot\vb^\top \x_{it}$. Define the score gaps:
 \end{equation*}
 Let us focus on a fixed datapoint $i\in[n]$, assume (without losing generality) $\op_i=1$, and drop subscripts $i$.
 
-Directly applying Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, we obtain
+Directly applying <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, we obtain
 \[
   \big|\hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam-\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2\Gamma A(1-\s_1)^2.
 \]

@@ -785,7 +785,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-Let us select a value for $R$ and fix the step size to $\eta=1/L(R)$. Assuming that both $(\Kb({k+1}), \Qb(k+1))$ and $(\Kb({k}), \Qb(k))$ reside within the set $\mc{S}(R)$, we can establish a descent of objective analogous to Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_30/index.html#lem%3Agrad%3Adescent">Lemma 30</a>. Specifically, we obtain the following result: 
+Let us select a value for $R$ and fix the step size to $\eta=1/L(R)$. Assuming that both $(\Kb({k+1}), \Qb(k+1))$ and $(\Kb({k}), \Qb(k))$ reside within the set $\mc{S}(R)$, we can establish a descent of objective analogous to <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_30/index.html#lem%3Agrad%3Adescent">Lemma 30</a>. Specifically, we obtain the following result: 
 \begin{align}\label{eq:descent:obj}
 \nonumber
 \mathcal{L}(\Kb({k+1}), \Qb({k+1}))-\mathcal{L}(\Kb({k}),\Qb(k)) &\leq-\frac{1}{2 L(R)} \tf{\nabla \mathcal{L}(\Kb({k}), \Qb(k))}^2 \\
@@ -807,7 +807,7 @@ Fix an arbitrary $R>0$. If \eqref{eqn:grad:low:eps} is not true, then for any $\
 \end{align}
 where $\g_{i}=\X_i\Kb(k) \Qb(k)^\top\z_{i}=\X_i\W(k)\z_{i}$.
 
-It follows from Lemma~<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_31/index.html#global+des+lem">Lemma 31</a> that $\li\nabla\Lc(\W (k)),\Wm/\|\Wm\|_F\ri \leq  - c <0$ for some positive constants $c$.  
+It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_31/index.html#global+des+lem">Lemma 31</a> that $\li\nabla\Lc(\W (k)),\Wm/\|\Wm\|_F\ri \leq  - c <0$ for some positive constants $c$.  
 
 Hence, $\tf{\nabla \Lc (\W(k))}  \geq c$ and $\tf{\Kb(k)} \leq \epsilon/c$.  This together with $\tf{\Qb(k)} \leq R$ implies that   $\tf{ \Kb(k) \Qb(k)^\top} \leq  \epsilon R/ c$.  In other words,  after $k=1$, $\tf{ \Kb(k) \Qb(k)^\top}$  may be arbitrarily small, which implies $\Lc(\Kb(k), \Qb(k))$ can be arbitrarily close to $ \mathcal{L}(\Kb(0),\Qb(0))$. 
 This is a contradiction to \eqref{eqn:obj:less0}. Hence, \eqref{eqn:grad:low:eps} holds.

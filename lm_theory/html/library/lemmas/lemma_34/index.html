@@ -773,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Wm= \Wm_\bal$ denote the SVM solution obtained via (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) by applying the Frobenius norm and replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. 
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Wm= \Wm_\bal$ denote the SVM solution obtained via (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) by applying the Frobenius norm and replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. 
 
 There exists a scalar $\mu=\mu(\bal)>0$ such that for sufficiently large $\RR_\mu$:
 <ol>
@@ -800,7 +800,7 @@ There exists a scalar $\mu=\mu(\bal)>0$ such that for sufficiently large $\RR_\m
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-Let $R=\RR_\mu$, $(\Tc_i)_{i=1}^n$ be the set of all \neis per Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Tcb_i=[T]-\Tc_i-\{\alpha_i\}$ be the non-\neis. Let
+Let $R=\RR_\mu$, $(\Tc_i)_{i=1}^n$ be the set of all \neis per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Tcb_i=[T]-\Tc_i-\{\alpha_i\}$ be the non-\neis. Let
 \begin{equation}\label{mu choice}
 \begin{split}
 &\Theta=1/\tf{\Wm},\\
@@ -820,7 +820,7 @@ Since $\Wm$ is the max-margin model ensuring $(\x_{i\alpha_i}-\x_{it})^\top\Wm \
 \end{equation}
 Here, we used $\tf{\W-\Wm}^2/\tf{\Wm}^2\leq 2\mu$ which implies $\tf{\W-\Wm}\leq \sqrt{2\mu}/\Theta$.
 
-To proceed, we write the gradient correlation following $\eqref{grad def}$ and $\eqref{grad def2}$
+To proceed, we write the gradient correlation following $(15) [in <a href="https://arxiv.org/pdf/2308.16898#equation.B.15">original paper</a>]$ and $\eqref{grad def2}$
 \begin{align}\label{grad def3}
 \li\nabla\Lc(\W),\V\ri&=\frac{1}{n}\sum_{i=1}^n\ell'_i\cdot\hb_i^\top\sfp{\hp_i}\bgam_i,
 \end{align}
@@ -854,7 +854,7 @@ Define the $\bal$-dependent global scalar $\Gamma=\sup_{i\in[n],t,\tau\in[T]}|\b
 
 Let us focus on a fixed datapoint $i\in[n]$, assume (without losing generality) $\alpha_i=1$, and drop subscripts $i$.
 
-Directly applying Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, we obtain
+Directly applying <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_29/index.html#lem%3Aq_reduce">Lemma 29</a>, we obtain
 \[
   \big|\hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam-\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2\Gamma A(1-\s_1)^2.
 \]

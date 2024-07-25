@@ -773,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $ \Wm$ denoting the SVM solution. Fix any $\mu>0$ (per Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi,\mu}$ such that, for any $ \W\in \conb_{\mu,R}(\Wm)$ we have
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $ \Wm$ denoting the SVM solution. Fix any $\mu>0$ (per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi,\mu}$ such that, for any $ \W\in \conb_{\mu,R}(\Wm)$ we have
 \[
  \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
 \]
@@ -790,8 +790,8 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 <h3>Original Proof</h3>
 We provide the proof in four steps:<br>
 <b>Step~1: There are no stationary points within $\conb_{\mu,R_\mu}(\Wm)$ for sufficiently large $R_\mu$.</b> 
-This step directly follows from Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>: for all $\V,\W\in \Sc_{\mu}(\Wm)$ with $\tf{\V}=\tf{\Wm}$ and $\tf{\W}\geq R_\mu$, it follows from Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a> that there exists $R_\mu$ such that $\iprod{\V}{ -\nabla \Lc(\W)}$ is strictly positive.<br>
-<b>Step~2:</b> Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. It follows from Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> that, there exists $R_\epsilon$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
+This step directly follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>: for all $\V,\W\in \Sc_{\mu}(\Wm)$ with $\tf{\V}=\tf{\Wm}$ and $\tf{\W}\geq R_\mu$, it follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a> that there exists $R_\mu$ such that $\iprod{\V}{ -\nabla \Lc(\W)}$ is strictly positive.<br>
+<b>Step~2:</b> Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> that, there exists $R_\epsilon$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
 \begin{align}\label{eqn:neg:corr:local:nabla0}
 \iprod{-\nabla\mc{L}(\W)}{\frac{\Wm}{\tf{\Wm}}} \geq (1-\epsilon) \iprod{-\nabla \mc{L}(\W)}{\frac{\W}{\tf{\W}}}.
 \end{align}
@@ -823,7 +823,7 @@ To proceed, for all $t\neq \op_i,~i\in[n]$, we obtain
 \end{equation}
 Here, the first inequality follows from the induction assumption $\W(k) \in \conb_{\mu,R}(\Wm)$, and the second inequality uses \eqref{eqn:bar:rho}.
 
-From Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, we have $\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle<0$ which implies that $\tf{\W(k+1)} \geq \tf{\W(k)}$. Hence, 
+From <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, we have $\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle<0$ which implies that $\tf{\W(k+1)} \geq \tf{\W(k)}$. Hence, 
 \begin{align*}
 \tf{\W(k+1)}&\leq\frac{1}{{2\tf{\W(k)}}} \left(\tf{\W(k+1)}^2+\tf{\W(k)}^2\right)\\
 & = \frac{1}{2\tf{\W(k)}} \left(2\tf{W(t)}^2-2\eta\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle+\eta^2\tf{\nabla \Lc(\W(k))}^2\right)\\
@@ -855,7 +855,7 @@ $$\eta \leq \frac{\bar{\rho}-\rho\mu \Theta }{\mu\Theta} \frac{1} {\|\nabla \mc{
 $$
 Hence, \eqref{eqn:localgd:3:nabla0} gives $\W(k+1) \in \conb_{\mu,R}$.<br>
 <b>Step 4: The correlation of $\W(k)$ and $\Wm$ increases over $k$.</b> 
-It follows from Theorem <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_22/index.html#diverg%3Anorm%3Aw">Theorem 22</a> that 
+It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_22/index.html#diverg%3Anorm%3Aw">Theorem 22</a> that 
 $\left\Vert \W\left(k\right)\right\Vert \rightarrow\infty$. Hence, we can choose $k_0$ such that for any $k\ge k_0$, it holds that $\tf{\W(k)}> R$ for some $R \geq R_\mu \vee R_\epsilon \vee 1/2$. Now, following similar steps in \eqref{eqn:decpath:1} and \eqref{eqn:decpath:22}, for some constant $C(\epsilon,\eta)$, we obtain
 \begin{align*}
 \left\langle\frac{\W(k)}{\tf{\W(k)}}, \frac{\Wm}{\tf{\Wm}} \right\rangle \ge1-\epsilon+ \frac{C(\epsilon,\eta)}{\tf{\W(k)}}.      
