@@ -784,7 +784,7 @@ Given $\mu\geq 0$, consider the following subset of the sphere and its associate
 \end{align}
 \end{subequations}
 
-For any $\mu>0$, there exists sufficiently large $R=R_\mu=\order{1/\mu}$ (see $\eqref{R bound2}$) such that:
+For any $\mu>0$, there exists sufficiently large $R=R_\mu=\order{1/\mu}$ (see $(41) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.41">original paper</a>]$) such that:
 <ol>
     <li><b>L1.</b> There is no stationary point within $\conb_{\mu,R}$.</li>
     <li><b>L2.</b> Let $s_i=\sft{\X_i\W\z_i}$. For all $\V\in \Sc_{\mu},\W\in\conb_{\mu,R}$, there exist $C,c>0$ such that 
@@ -846,7 +846,7 @@ Next we show that $S=1-\s_1$ dominates $(1-\s_1)^2=S^2$ for large $R$. Specifica
 \begin{align}\label{wishfor2}
 \mu S \bgg/2\geq 2\Gamma A(1-\s_1)^2\iff S\geq \frac{4}{\mu}\frac{\Gamma A}{\bgg}S^2\iff S\leq \frac{\mu\bgg}{4\Gamma A}.
 \end{align}
-Using \eqref{soft prob bound2}, what we wish is ensured for all $i\in[n]$, by guaranteeing $Te^{-R\mu\Theta}\leq \frac{\mu\bgg}{4\Gamma A}$. That is, by choosing
+Using (38) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.38">original paper</a>], what we wish is ensured for all $i\in[n]$, by guaranteeing $Te^{-R\mu\Theta}\leq \frac{\mu\bgg}{4\Gamma A}$. That is, by choosing
 \begin{align}\label{R bound2}
 R:=R_\mu= \frac{1}{\mu\Theta}\log\big(\frac{4T\Gamma A}{\mu\bggm}\big),
 \end{align}
@@ -856,7 +856,7 @@ With the above choice of $R$, we guaranteed
 \[
   2 A(1-\s_1)\cdot \bgm\geq 2A\cdot S\cdot \bgm \geq \sum_{t\neq\op} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\geq\frac{\mu(1-\s_1) \bgg}{2}.
 \]
-via \eqref{wishfor2} and \eqref{aggregate2}. Since this holds over all inputs, going back to the gradient correlation \eqref{grad def32} and averaging above over all inputs $i\in[n]$ and plugging back the indices $i$, we obtain the advertised bound by setting $q_i=1-\s_{i\op_i}$ (where we have used $\op_i=1$ above, without losing generality)
+via (40) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.40">original paper</a>] and \eqref{aggregate2}. Since this holds over all inputs, going back to the gradient correlation \eqref{grad def32} and averaging above over all inputs $i\in[n]$ and plugging back the indices $i$, we obtain the advertised bound by setting $q_i=1-\s_{i\op_i}$ (where we have used $\op_i=1$ above, without losing generality)
 \begin{align}\label{pbb corr2}
   \frac{2A}{n}\sum_{i\in [n]} \ell'_i\cdot q_i\cdot \bgm_i\geq \li\nabla\Lc(\W),\V\ri\geq \frac{\mu}{2n}\sum_{i\in [n]} \ell'_i\cdot q_i\cdot \bgg_i.
 \end{align}

@@ -773,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">Att-SVM</a>) solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see $\eqref{R bound2}$) such that:
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">Att-SVM</a>) solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see $(41) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.41">original paper</a>]$) such that:
 <ol style="list-style-type: none;">
     <li><b>L1.</b> There is no stationary point within $ \conb_{\mu,\RR_\mu}(\Ws)$, where $\conb_{\mu,\RR_\mu} (\Ws)$ is defined in (33) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.33">original paper</a>]. </li>
     <li><b>L2.</b> For all $\V\in \Scc_{\mu} (\Ws)$ with $\tf{\V}=\tf{\Wm}$  and $\W\in\conb_{\mu,\RR_\mu}(\Wm)$, there exist dataset dependent constants $C,c>0$ such that 
@@ -841,7 +841,7 @@ Next we show that $S=1-\s_1$ dominates $(1-\s_1)^2=S^2$ for large $R$. Specifica
 \begin{align}\label{wishfor2}
 \mu S \bgg/2\geq 2\Gamma A(1-\s_1)^2\iff S\geq \frac{4}{\mu}\frac{\Gamma A}{\bgg}S^2\iff S\leq \frac{\mu\bgg}{4\Gamma A}.
 \end{align}
-Using \eqref{soft prob bound2}, what we wish is ensured for all $i\in[n]$, by guaranteeing $Te^{-R\mu\Theta}\leq \frac{\mu\bgg}{4\Gamma A}$. That is, by choosing
+Using (38) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.38">original paper</a>], what we wish is ensured for all $i\in[n]$, by guaranteeing $Te^{-R\mu\Theta}\leq \frac{\mu\bgg}{4\Gamma A}$. That is, by choosing
 \begin{align}\label{R bound2}
 R\geq \frac{1}{\mu\Theta}\log\left(\frac{4T\Gamma A}{\mu\bggm}\right),
 \end{align}
@@ -851,7 +851,7 @@ With the above choice of $R$, we guaranteed
 \[
   2 A(1-\s_1)\cdot \bgm\geq 2A\cdot S\cdot \bgm \geq \sum_{t\neq\op} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\geq\frac{\mu\cdot S\cdot \bgg}{2}\geq\frac{\mu(1-\s_1) \bgg}{2},
 \]
-via \eqref{wishfor2} and \eqref{aggregate2}. 
+via (40) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.40">original paper</a>] and \eqref{aggregate2}. 
 
 Since this holds over all inputs, going back to the gradient correlation \eqref{grad def32} and averaging above over all inputs $i\in[n]$ and plugging back the indices $i$, we obtain the advertised bound 
 \begin{align}\label{pbb corr2}

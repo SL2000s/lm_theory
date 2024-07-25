@@ -846,7 +846,7 @@ For all $ i \in [n]-\mc{I}$,
       & \leq  \left(2A - (1+0.5\pi)\right)\Gamma Te^{-\RR(1+\frac{\pi}{2})} \\
       &\leq   2A\Gamma  T e^{-\RR(1+\frac{\pi}{2})}.
 \end{split}
-</equation>
+\end{equation}
 
 For all $ i \in \mc{I}$, split the tokens into two groups: Let $\Nc_i$ be the group of tokens obeying $ \hb_{i1}-\hb_{it} \leq 1-\nu$ and $\Tc_i-\Nc_i$ be the rest of the neighbors. Observe that
 \[
@@ -869,14 +869,14 @@ Hence, choosing
 R\geq\frac{1}{\nu\Theta}\log\left(\frac{8\Gamma AT}{\bggm\pi}\right)\label{R bound pi 1}
 \end{align}
 results in that
-\begin{equation}\label{eqn:grad:difff3}
-    <div>
+\begin{align}\label{eqn:grad:difff3}
+    
      &\sum_{t\in \Tc_i} (\hb_{i1}-\hb_{it})\s_{it}(\bgam_{i1}-\bgam_{it})  - (1+\frac{\pi}{2}) \sum_{t\in \Tc_i}\s_{it}(\bgam_{i1}-\bgam_{it}) \\
    &\leq\left(\frac{2\Gamma A Te^{-\RR\nu}}{\bggm}-\frac{\pi}{2}\right)\sum_{t\in \Tc_i}\s_{it}(\bgam_{i1}-\bgam_{it})\\
    &\leq -\frac{\pi}{4}\sum_{t\in \Tc_i}\s_{it}(\bgam_{i1}-\bgam_{it})\\
    &\leq-\frac{\pi}{4T}\bggm  e^{-\bar{R} (1-2\nu)}.      
-    </div>
-</equation>
+    
+\end{align}
 Here, the last inequality follows from the fact that $\sum_{t\in \Tc_i}\s_{it}\geq \max_{t\in\Tc_i}s_{it}\geq\frac{e^{-\bar{R}(1-2\nu)}}{\sum_{t=1}^Te^{-\bar{R}(\hb_{i1}-\hb_{it})}}\geq e^{-\bar{R}(1-2\nu)}/T$.
 
 From Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], we have $c_{\min}\leq-\ell'\leq c_{\max}$ for some positive constants $c_{\min}$ and $c_{\max}$. It follows from  \eqref{eqn:grad:difff2} and \eqref{eqn:grad:difff3} that 
