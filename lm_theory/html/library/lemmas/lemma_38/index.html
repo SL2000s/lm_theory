@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumptions $\ref{assum:loss:prope}$ and $\ref{assum:token}$ hold. Assume the gradient at the initialization $(\Kb(0), \Qb(0))$ is nonzero and $\Lc(\Kb(0), \Qb(0)) \leq \Lc(0, 0)$. Consider Algorithm $\ref{GD-QK}$ with a step size $\eta=1/L(R)$, where $L(R):=RL_{\W}$. Then for any $R>0$, there exists an iteration index $k$ at which $(\Kb(k),\Qb(k)) \notin \mc{S} (R)$.
+            Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] and B [in <a href="https://arxiv.org/pdf/2308.16898#assumption.2">original paper</a>] hold. Assume the gradient at the initialization $(\Kb(0), \Qb(0))$ is nonzero and $\Lc(\Kb(0), \Qb(0)) \leq \Lc(0, 0)$. Consider Algorithm $\ref{GD-QK}$ with a step size $\eta=1/L(R)$, where $L(R):=RL_{\W}$. Then for any $R>0$, there exists an iteration index $k$ at which $(\Kb(k),\Qb(k)) \notin \mc{S} (R)$.
         </div>
     </section>
     <section id="motivation">

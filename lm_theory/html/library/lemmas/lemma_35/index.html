@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,11 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $ \Wm= \Wm_\bal$ denote the SVM solution obtained via 
-\begin{equation}
-\eqref{eqn:sattnsvm}
-\end{equation}
-by replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. Let $\mu=\mu(\bal)>0$ and $\bar{R}_{\mu}$ be defined as in Lemma~<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_34/index.html#local+cond">Lemma 34</a>. For any choice of $\pi>0$, there exists $R_\pi \geq \bar{R}_{\mu}$ such that, for any $ \W\in \Cc_{\mu,R_\pi}(\Wm)$, we have
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $ \Wm= \Wm_\bal$ denote the SVM solution obtained via (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) by replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. Let $\mu=\mu(\bal)>0$ and $\bar{R}_{\mu}$ be defined as in Lemma~<a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_34/index.html#local+cond">Lemma 34</a>. For any choice of $\pi>0$, there exists $R_\pi \geq \bar{R}_{\mu}$ such that, for any $ \W\in \Cc_{\mu,R_\pi}(\Wm)$, we have
 \[
  \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
 \]
@@ -837,7 +837,7 @@ Similarly, $\hb_{i1}-\hb_{it}\geq 1-0.5\pi\geq 0.5$. Since all terms $\hb_{i1}-\
 Here $\tau=\arg\max_{\tau\in\Tc_i} \x_{i\tau}\Wb \z_i$ denotes the nearest point to $\hb_{i1}$ (along the $\Wb$ direction). Note that a non-neighbor $t\in\Tcb_i$ cannot be nearest because $\Wb\in \cone_{\mu}(\ps)$ and \eqref{cone-non-nei} holds. Recall that $\s_i=\sft{\RR\hb_i}$ where $\RR=\tf{\W}\Theta \geq R\Theta$. To proceed, let $ \underline{\hb}_i:=\min_{t \in\mc{T}_i}\hb_{i1}-\hb_{it}$,
 \begin{align*}
 \mc{I}:=\left\{ i\in[n]: \underline{\hb}_i \leq 1-2\nu \right\}, \qquad [n]-\mc{I}:=\left\{ i\in[n]:  1-2\nu  <  \underline{\hb}_i\right\}.
-</align*>
+\end{align*}
 For all $ i \in [n]-\mc{I}$,
 \begin{equation}\label{eqn:grad:difff2}
 \begin{split}
@@ -879,14 +879,14 @@ results in that
 </equation>
 Here, the last inequality follows from the fact that $\sum_{t\in \Tc_i}\s_{it}\geq \max_{t\in\Tc_i}s_{it}\geq\frac{e^{-\bar{R}(1-2\nu)}}{\sum_{t=1}^Te^{-\bar{R}(\hb_{i1}-\hb_{it})}}\geq e^{-\bar{R}(1-2\nu)}/T$.
 
-From Assumption~\ref{assum:loss:prope}, we have $c_{\min}\leq-\ell'\leq c_{\max}$ for some positive constants $c_{\min}$ and $c_{\max}$. It follows from  \eqref{eqn:grad:difff2} and \eqref{eqn:grad:difff3} that 
+From Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], we have $c_{\min}\leq-\ell'\leq c_{\max}$ for some positive constants $c_{\min}$ and $c_{\max}$. It follows from  \eqref{eqn:grad:difff2} and \eqref{eqn:grad:difff3} that 
 \begin{align*}
 -\frac{1}{n}\sum_{i}^n \ell_i' \cdot&\left(
       \sum_{t\in \Tc_i} (\hb_{i1}-_{it})\s_{it}(\bgam_{i1}-\bgam_{it})- \sum_{t\in \Tc_i} (1+0.5\pi)\s_{it}(\bgam_{i1}-\bgam_{it})\right)\\
       & \leq    c_{\max}2A\Gamma  T \Gamma e^{-\RR(1 +\frac{\pi}{2})}-\frac{c_{\min}}{nT}\cdot\frac{\pi\bggm}{4}e^{-\bar{R} (1-2\nu)}\\
       
       & \leq 0.
-</align*>
+\end{align*}
 Combing with \eqref{R bound pi 1}, this is guaranteed by 
 choosing 
 

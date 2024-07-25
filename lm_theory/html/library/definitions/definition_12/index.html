@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Fix token indices $\bal=(\alpha_\ik)\ikix$ for which $\eqref{seqattnsvm}$ is feasible to obtain $\Wma:= \Wm_{\dm,\bal}$. Define token scores as
+            Fix token indices $\bal=(\alpha_\ik)\ikix$ for which (<a href="https://arxiv.org/pdf/2308.16898#equation.E.91">SAtt-SVM</a>) is feasible to obtain $\Wma:= \Wm_{\dm,\bal}$. Define token scores as
 \[
 \bgam_\ikt=Y_\ik\cdot h_k(\x_\itt),\quad \bga_\ik:=\bgam_{ik\alpha_\ik}=Y_\ik\cdot h_k(\xa_\ik).
 \]

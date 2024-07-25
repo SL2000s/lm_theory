@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumptions $\ref{assum:loss:prope}$ and $\ref{ass cvx seq}$ hold and the optimal indices $\op_\ik=\arg\max_{t\in[T]}\bgam_\ikt$ are unique. Consider the global regularization path $\Wb_{\dm,R}=\min_{\W\in\Rcm,\td{\W}\leq R}\Lc(\W)$. Let $\Wcb^\svm_\dm$ be the non-empty solution set of $\eqref{seqattnsvm}$ with $\bal\gets\op$ normalized to have unit $\dm$-norm. Then
+            Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] and $\ref{ass cvx seq}$ hold and the optimal indices $\op_\ik=\arg\max_{t\in[T]}\bgam_\ikt$ are unique. Consider the global regularization path $\Wb_{\dm,R}=\min_{\W\in\Rcm,\td{\W}\leq R}\Lc(\W)$. Let $\Wcb^\svm_\dm$ be the non-empty solution set of $\eqref{seqattnsvm}$ with $\bal\gets\op$ normalized to have unit $\dm$-norm. Then
 \[
 \lim_{R\rightarrow\infty}\dist{\frac{\Wb_{\dm,R}}{R},\Wcb^\svm_\dm}
 \]

@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Let $\Wc^\svm_\star$ be the solution set of $\eqref{eqn:sattnsvmst}$ with nuclear norm achieving objective $C_\st$. Further let $\Wcs_{\texttt{cvx}}$ be the solution set of $\eqref{eqn:sattnsvmst}$ with $m=d$ achieving objective $C_{\texttt{cvx}}$. If $\Wcs_\st\cap \Wcs_{\texttt{cvx}}\neq\emptyset$, then $C_\st=C_{\texttt{cvx}}$ and $\Wcs_\st\subseteq \Wcs_{\texttt{cvx}}$. Also, if the elements of $\Wcs_{\texttt{cvx}}$ have rank at most $m$, then, $\Wcs_\st=\Wcs_{\texttt{cvx}}$.
+            Let $\Wc^\svm_\star$ be the solution set of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) with nuclear norm achieving objective $C_\st$. Further let $\Wcs_{\texttt{cvx}}$ be the solution set of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) with $m=d$ achieving objective $C_{\texttt{cvx}}$. If $\Wcs_\st\cap \Wcs_{\texttt{cvx}}\neq\emptyset$, then $C_\st=C_{\texttt{cvx}}$ and $\Wcs_\st\subseteq \Wcs_{\texttt{cvx}}$. Also, if the elements of $\Wcs_{\texttt{cvx}}$ have rank at most $m$, then, $\Wcs_\st=\Wcs_{\texttt{cvx}}$.
         </div>
     </section>
     <section id="motivation">

@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,12 +773,12 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumptions $\ref{assum:loss:prope}$ holds, optimal indices $(\op_i)_{i=1}^n$ are unique, and $\eqref{eqn:sattnsvm}$ is feasible. Let $\Wm$ be the unique solution of $\eqref{eqn:sattnsvm}$, and let $\Wc^\svm_\star$ be the solution set of $\eqref{eqn:sattnsvmst}$ with nuclear norm achieving objective $C_\st$. Then, Algorithms~$\ref{RP-W}$ and $\ref{RP-QK}$, respectively, satisfy:
+            Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds, optimal indices $(\op_i)_{i=1}^n$ are unique, and (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) is feasible. Let $\Wm$ be the unique solution of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>), and let $\Wc^\svm_\star$ be the solution set of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) with nuclear norm achieving objective $C_\st$. Then, Algorithms~$\ref{RP-W}$ and $\ref{RP-QK}$, respectively, satisfy:
 <ul>
 <li>$\W$-parameterization has Frobenius norm bias: $\underset{R\rightarrow\infty}{\lim} \frac{\Wb_R}{R}=\frac{\Wm}{\tf{\Wm}}$.</li>
 <li>$(\Kb,\Qb)$-parameterization has nuclear norm bias: $\underset{R\rightarrow\infty}{\lim} \dist{\frac{\Kbb_R\Qbb_R^\top}{R},\frac{\Wc^\svm_\star}{C_\st}}=0$.
 <ul>
-<li>Setting $m=d$: $\eqref{eqn:sattnsvmst}$ is a convex problem without rank constraints.</li>
+<li>Setting $m=d$: (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) is a convex problem without rank constraints.</li>
 </ul>
 </li>
 </ul>

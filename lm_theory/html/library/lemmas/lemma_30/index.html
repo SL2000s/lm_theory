@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Under Assumption $\ref{assum:loss:prope}$, if $\eta \leq 1/L_{\W}$, then for any initialization $\W(0)$, Algorithm~$\ref{GD-W}$ satisfies:
+            Under Assumption  A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], if $\eta \leq 1/L_{\W}$, then for any initialization $\W(0)$, Algorithm W-GD [in <a href="https://arxiv.org/pdf/2308.16898#equation.2.3">original paper</a>] satisfies:
 \begin{align}\label{eq:descent:obj new}
 \mathcal{L}(\W(k+1))-\mathcal{L}(\W(k))\leq-\frac{\eta}{2} \tf{\nabla \mathcal{L}(\W(k))}^2,
 \end{align}
@@ -786,41 +790,13 @@ for all $k\ge0$. Additionally, it holds that $\sum_{k=0}^{\infty} \tf{\nabla\mat
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-The proof is similar to \cite[Lemma~6]{tarzanagh2023margin}.
+The proof is similar to [<a href="https://arxiv.org/pdf/2308.16898#cite.tarzanagh2023margin">TLZO23</a>, Lemma 6].
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
-            To understand the proof, let's break it down into several steps:
-<br>
-<br>1. <i>Expectation of Product</i>: The proof begins by considering the expectation of the product of two elements, \(\Dm_{kj}\) and \(\Dm_{k'j}\). This is expressed as:
-<br>   \[
-   \Exp [\Dm_{kj} \Dm_{k'j}]
-   \]
-<br>
-<br>2. <i>Substitution with Sum</i>: Next, the elements \(\Dm_{kj}\) and \(\Dm_{k'j}\) are substituted with their respective sums involving \(\Xm\) and \(\Wm\):
-<br>   \[
-   \sum_{zz'} \Xm_{kz} \Xm_{k'z'} \Exp[\Wm_{zj}\Wm_{z'j}]
-   \]
-<br>
-<br>3. <i>Expectation of \(\Wm\) Terms</i>: The expectation \(\Exp[\Wm_{zj}\Wm_{z'j}]\) is simplified using the property that \(\Wm_{zj}\) and \(\Wm_{z'j}\) are independent and identically distributed with variance \(\sigma^2\). This results in:
-<br>   \[
-   \sigma^2 \sum_{z}\Xm_{kz}\Xm_{k'z}
-   \]
-<br>
-<br>4. <i>Inner Product Representation</i>: Finally, the sum \(\sum_{z}\Xm_{kz}\Xm_{k'z}\) is recognized as the inner product \(\langle \Xm_k, \Xm_{k'} \rangle\), and the factor \(\sigma^2\) is adjusted by the dimension \(d\):
-<br>   \[
-   \frac{1}{d}\langle \Xm_k, \Xm_{k'} \rangle
-   \]
-<br>
-<br>Thus, the proof shows that:
-<br>\[
-\Exp [\Dm_{kj} \Dm_{k'j}] = \frac{1}{d}\langle \Xm_k, \Xm_{k'} \rangle
-\]
-
-PROOF:
-The proof is similar to \cite[Lemma~6]{tarzanagh2023margin}.
+            The proof is similar to [<a href="https://arxiv.org/pdf/2308.16898#cite.tarzanagh2023margin">TLZO23</a>, Lemma 6].
         </div>
     </section>
 

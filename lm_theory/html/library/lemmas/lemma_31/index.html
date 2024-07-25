@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Let $\Wm$ be the SVM solution of $\eqref{eqn:sattnsvm}$. Suppose Assumptions $\ref{assum:loss:prope}$ and $\ref{assum:token}$ hold. Then, for all $\W\in\R^{d\times d}$, the training loss $\eqref{eqn:erm:w}$ obeys $\li\nabla\Lc(\W),\Wm\ri<0$.
+            Let $\Wm$ be the SVM solution of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>). Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] and B [in <a href="https://arxiv.org/pdf/2308.16898#assumption.2">original paper</a>] hold. Then, for all $\W\in\R^{d\times d}$, the training loss (<a href="https://arxiv.org/pdf/2308.16898#figure.3">W-ERM</a>) obeys $\li\nabla\Lc(\W),\Wm\ri<0$.
         </div>
     </section>
     <section id="motivation">
@@ -800,11 +804,11 @@ Let us recall the gradient evaluated at $\W$ which is given by
 \ell'_i \cdot \hbm_{i}^\top \sfp{\hb_i} \bgam_i \\
 &=  \frac{1}{n}\sum_{i=1}^n
 \ell'_i \cdot  \left(\hbm^\top_i\diag{\s_i}\bgam_i-\hbm^\top_i\s_i\s^\top_i\bgam_i\right).        
-    </end{split}
-</end{equation}
+    \end{split}
+\end{equation}
 Here, let $\ell'_i:=\ell'(\bgam_i^\top\sft{\hb_i})$, $\s_i=\sft{\hb_i}$ and the third equality uses $\tr\left(\bb\ab^\top\right) = \ab^\top \bb$.
 
-In order to move forward, we will establish the following result, with a focus on the equal score condition (Assumption $\ref{assum:opt:token}$): Let $\gamma=\bgam_{t\geq 2}$ be a constant, and let $\bgam_1$ and $\bar{\hb}_1$ represent the largest indices of vectors $\bgam$ and $\hbm$ respectively. For any vector $\s$ that satisfies $\sum_{t\in[T]}\s_t=1$ and $\s_t> 0$, we aim to prove that $\hbm^\top\diag{\s}\bgam-\hbm^\top\s\s^\top\bgam>0$. To demonstrate this, we proceed by writing the following:
+In order to move forward, we will establish the following result, with a focus on the equal score condition (Assumption B.2 [in <a href="https://arxiv.org/pdf/2308.16898#Item.5">original paper</a>]): Let $\gamma=\bgam_{t\geq 2}$ be a constant, and let $\bgam_1$ and $\bar{\hb}_1$ represent the largest indices of vectors $\bgam$ and $\hbm$ respectively. For any vector $\s$ that satisfies $\sum_{t\in[T]}\s_t=1$ and $\s_t> 0$, we aim to prove that $\hbm^\top\diag{\s}\bgam-\hbm^\top\s\s^\top\bgam>0$. To demonstrate this, we proceed by writing the following:
 \begin{equation}\label{grad def2}
 \begin{split}
 \hbm^\top\diag{\s}\bgam-\hbm^\top\s\s^\top\bgam&=\sum_{t=1}^T \bar{\hb}_t\bgam_t \s_t-\sum_{t=1}^T  \bar{\hb}_t \s_t\sum_{t=1}^T \bgam_t \s_t\\
@@ -812,8 +816,8 @@ In order to move forward, we will establish the following result, with a focus o
 &=\bar{\hb}_1(\bgam_1-\gamma) \s_1(1-\s_1)-(\bgam_1-\gamma)\s_1\sum_{t\geq 2}^T \bar{\hb}_t \s_t\\
 &=(\bgam_1-\gamma)(1- \s_1) \s_1\left[\bar{\hb}_1-\frac{ \sum_{t\geq 2}^T \bar{\hb}_t \s_t}{\sum_{t\geq 2}^T\s_t}\right]\\
 &\geq(\bgam_1-\gamma)(1- \s_1) \s_1 (\bar{\hb}_1-\max_{t\geq 2}\bar{\hb}_t).
-</end{split}
-</end{equation}
+\end{split}
+\end{equation}
 To proceed, define
 \begin{equation*}
 \bgag^i=\bgam_{i\opt_i}-\max_{t\neq\opt_i}\bgam_{it}~~\textnormal{and}~~\bhbg^i=\bar \hb_{i\opt_i}-\max_{t\neq\opt_i}\bar \hb_{it}.
@@ -821,34 +825,34 @@ To proceed, define
 With these, we obtain 
 \begin{equation}\label{eqn:al:lem}
 \hbm^\top_i\diag{\s_i}\bgam_i-\hbm^\top_i\s_i\s^\top_i\bgam_i\geq\bgag^i\bhbg^i(1-\s_{i\opt_i})\s_{i\opt_i}.
-</end{equation}
+\end{equation}
 Note that 
 \begin{equation*}
 \begin{split}
 & \bhbg^i=\min_{t\neq \opt_i}~(\x_{i \opt_i}-\x_{it})^\top\Wm \z_i \geq1,  \\
 &\bgag^i=\min_{t\neq \opt_i}~\bgam_{i\opt_i}-\bgam_{it} >0,\\
 &\s_{i\opt_i}(1-\s_{i\opt_i}) > 0.    
-</end{split}
-</end{equation*}
+\end{split}
+\end{equation*}
 Hence,
 \begin{equation}\label{eqn:lower}
 \min_{i \in [n]}\left\{ \left(\min_{t\neq \opt_i}~(\x_{i \opt_i}-\x_{it})^\top\Wm \z_i\right) \cdot \left(\min_{t\neq \opt_i}~\bgam_{i\opt_i}-\bgam_{it}\right) \cdot \s_{i\opt_i}(1-\s_{i\opt_i}) \right\}>0.
-</end{equation}
+\end{equation}
 It follows from  \eqref{eqn:al:lem} and \eqref{eqn:lower} that 
 \begin{equation}\label{eqn:al:lem:2}
 \min_{i \in [n]}\left\{\hbm^\top_i\diag{\s_i}\bgam_i-\hbm^\top_i\s_i\s^\top_i\bgam_i \right\}>0.
-</end{equation}
-Further, by Assumption \ref{assum:loss:prope}, $\ell'_i<0$, $\ell'$ is continuous and the domain is bounded, the maximum is attained and negative, and thus  
+\end{equation}
+Further, by Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], $\ell'_i<0$, $\ell'$ is continuous and the domain is bounded, the maximum is attained and negative, and thus  
 \begin{equation}\label{eqn:bound:lprim}
 \max_{x} \ell'(x)<0.    
-</end{equation}
+\end{equation}
 Hence, using \eqref{eqn:al:lem:2} and \eqref{eqn:bound:lprim} in  \eqref{eqn:grad:prod:p}, we obtain 
 \begin{equation}\label{eqn:grad:prod:p:fin}
     \begin{split}
 \li\nabla\Lc(\W),\Wm\ri <0.
-    </end{split}
-</end{equation}
-In the scenario that Assumption $\ref{assum:token:supp}$ holds (all tokens are support), $\hbm_t=\x_{it}^\top\Wm \z_i $ is constant for all $t\geq 2$. Hence, following similar steps as in \eqref{grad def2} completes the proof.
+    \end{split}
+\end{equation}
+In the scenario that Assumption  B.1 [in <a href="https://arxiv.org/pdf/2308.16898#Item.4">original paper</a>] holds (all tokens are support), $\hbm_t=\x_{it}^\top\Wm \z_i $ is constant for all $t\geq 2$. Hence, following similar steps as in \eqref{grad def2} completes the proof.
 </section>
 
     <section id="proofExplanation">

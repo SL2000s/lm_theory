@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -770,10 +774,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
         <h3>Statement</h3>
         <div>
             Suppose $d\geq \max(T-1,n)$. Then, almost all datasets $(Y_i,\X_i,\z_i)_{i=1}^n$ -- including the self-attention setting with $\z_i\gets\x_{i1}$ -- obey the following: 
-\begin{equation}
-\eqref{eqn:sattnsvm}
-\end{equation}
-is feasible i.e.,~$\Wm$ separates the desired tokens $\opt=(\opt_i)_{i=1}^n$.
+(<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) is feasible i.e.,~$\Wm$ separates the desired tokens $\opt=(\opt_i)_{i=1}^n$.
         </div>
     </section>
     <section id="motivation">

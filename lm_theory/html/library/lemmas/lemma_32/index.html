@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,17 +773,17 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the $\ref{eqn:sattnsvm}$ solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see $\eqref{R bound2}$) such that:
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique globally-optimal indices with $\Wm$ denoting the (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">Att-SVM</a>) solution. Define the margin $\Theta=1/\tf{\Ws}$. Let $\s_{i}=\sft{\X_i\W\z_i}$. For any $\mu>0$, there exists a sufficiently large $\RR_\mu=\order{1/\mu}$ (see $\eqref{R bound2}$) such that:
 <ol style="list-style-type: none;">
-    <li><b>L1.</b> There is no stationary point within $ \conb_{\mu,\RR_\mu}(\Ws)$, where $\conb_{\mu,\RR_\mu} (\Ws)$ is defined in $\eqref{eqn:con:nabla0}$. </li>
+    <li><b>L1.</b> There is no stationary point within $ \conb_{\mu,\RR_\mu}(\Ws)$, where $\conb_{\mu,\RR_\mu} (\Ws)$ is defined in (33) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.33">original paper</a>]. </li>
     <li><b>L2.</b> For all $\V\in \Scc_{\mu} (\Ws)$ with $\tf{\V}=\tf{\Wm}$  and $\W\in\conb_{\mu,\RR_\mu}(\Wm)$, there exist dataset dependent constants $C,c>0$ such that 
     \begin{subequations}\label{zero:g:lbound}
     \begin{align}
     &C\cdot \frac{1}{n}\sum_{i=1}^n \left(1-\s_{i\op_i}\right) \geq -\Big\langle\nabla\Lc(\W),\V \Big\rangle\geq c\cdot \mu\cdot  \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right)>0, \label{zero1:g:bound} \\
     & -\li\frac{\V}{\tf{\V}},\frac{\nabla\Lc(\W)}{\tf{\nabla\Lc(\W)}}\ri \geq  \frac{c}{C} \cdot \frac{\Theta}{\bar{A}}>0, \label{zero2:g:bound}\\
     &\tf{\nabla\Lc(\W)}\leq \bar{A}C \cdot \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\op_i}\right). \label{zero3:g:bound}
-    </align>
-    </subequations>
+    \end{align}
+    \end{subequations}
     Here,  $\s_{i\opt_i}=(\sft{\X_i\W \z_{i}})_{\opt_i}$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{\x_{it}- \x_{i\tau}}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
 </li>
 </ol>

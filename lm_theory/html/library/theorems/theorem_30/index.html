@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,9 +773,9 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ and Assumption $\ref{assum:nabla0}$ on the initial gradient hold.  
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ and Assumption $\ref{assum:nabla0}$ on the initial gradient hold.  
 <ol style="list-style-type: none;">
-  <li><strong>L1.</strong> For any $\mu>0$, there exists $R>0$ such that $\conb_{\mu,R}(\Ws)$ defined in $\eqref{eqn:con:nabla0}$ does not contain any stationary points.</li>
+  <li><strong>L1.</strong> For any $\mu>0$, there exists $R>0$ such that $\conb_{\mu,R}(\Ws)$ defined in (33) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.33">original paper</a>] does not contain any stationary points.</li>
   <li><strong>L2.</strong> Fix any $\mu \in (0,\min (1,\iota \tf{\Ws}/\tf{\nabla \Lc(0)}))$. Consider GD iterations with $\W(0)=0$, $\W(1)=-R\nabla\Lc(0)/\tf{\nabla\Lc(0)}$, and $\W(k+1)=\W(k)-\eta\nabla\Lc(\W(k))$ for $\eta\le 1/L_{\W}$, $k\ge 1$, and $R$ sufficiently large. If all iterates remain within $\conb_{\mu,R}$, then $\lim_{k\rightarrow\infty} \tf{\W(k)}=\infty$ and $\lim_{k\rightarrow\infty}\frac{\W(k)}{\tf{\W(k)}}=\frac{\Wm}{\tf{\Wm}}$.</li>
   <li><strong>L3.</strong> Assume $\eta\leq 1/L_{\W}$ and for all $\W \in \conb_{\mu,R}(\Ws)$ with sufficiently large $R$:
 \begin{align}\label{assum:extra}
@@ -849,7 +853,7 @@ The following argument applies to a general $\eps\in(0,\mu/2)$. However, at init
 <b>Step~3 (Proof of <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>): Updates remain inside the cone $\conb_{\mu,R_\eps}(\Ws)$.</b>
 Note that if $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$ for all $k \geq 1$, the required condition in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al2">Theorem 30</a> holds, and we proceed to <b>Step 4</b>. In this step, we show <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#lem%3Azglob%3Al3">Theorem 30</a>. Specifically, we show that under Condition \eqref{assum:extra} and using \eqref{eqn:neg:corr:0}, all iterates $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$ remain within $\conb_{\mu,R_\eps}(\Ws)$.
 
-To proceed, by leveraging the results from <b>Step 1</b> and <b>Step 2</b>, we demonstrate that the gradient iterates, with an appropriate constant step size, starting from $\W(k_\eps) \in \conb_{\mu,R_\eps}(\Ws)$, remain within this set. We proceed by induction. Suppose that the claim holds up to iteration $k \geq k_\eps$. This implies that $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$. Hence, recalling $\conb_{\mu,R_\eps}(\Ws)$ defined in \eqref{eqn:con:nabla0}, there exists scalar $\mu=\mu(\bal) \in (0,1)$ and $R_\eps$ such that $\tf{\W(k)}\geq R_\eps$, and
+To proceed, by leveraging the results from <b>Step 1</b> and <b>Step 2</b>, we demonstrate that the gradient iterates, with an appropriate constant step size, starting from $\W(k_\eps) \in \conb_{\mu,R_\eps}(\Ws)$, remain within this set. We proceed by induction. Suppose that the claim holds up to iteration $k \geq k_\eps$. This implies that $\W(k) \in \conb_{\mu,R_\eps}(\Ws)$. Hence, recalling $\conb_{\mu,R_\eps}(\Ws)$ defined in (33) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.33">original paper</a>], there exists scalar $\mu=\mu(\bal) \in (0,1)$ and $R_\eps$ such that $\tf{\W(k)}\geq R_\eps$, and
 
 \begin{equation*}
 \begin{split}
@@ -864,7 +868,7 @@ Let
 \begin{align}
 \frac{1}{1-\epsilon} \iprod{ {\frac{\Wm}{\tf{\Wm}}}}{-\nabla\mc{L}(\W(k))} =:\rho(k)>0.
 \end{align}
-</subequations>
+\end{subequations}
 Using \eqref{assum:extra}, we have
 \begin{equation}\label{eqn:localgd:1:nabla0}
     <br>
@@ -872,7 +876,7 @@ Using \eqref{assum:extra}, we have
    \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k+1)}{\tf{\W(k)}} \right\rangle &= \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k)}{\tf{\W(k)}} -\frac{\eta}{\tf{\W(k)}}\nabla \mc{L}(\W(k)) \right\rangle\\
       & \geq \mu \Theta +\frac{ 2\eta (1-\epsilon)\mu \Theta \rho(k) }{\tf{\W(k)}}.
     </split>
-</end{equation}
+\end{equation}
 
 From Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, we have $\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle<0$ which implies that $\tf{\W(k+1)} \geq \tf{\W(k)}$. This together with $R_\eps$ definition and $\tf{\W(k)}\geq 1/2$ implies that
 <pre>

@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -788,7 +792,7 @@ We have that
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-The proof is similar to \cite[Lemma~4]{tarzanagh2023margin}, but for the sake of completeness, we provide it here. Set $\gamb=\sum_{t=1}^T \bgam_t\s_t$. We have 
+The proof is similar to [<a href="https://arxiv.org/pdf/2308.16898#cite.tarzanagh2023margin">TLZO23</a>, Lemma 4], but for the sake of completeness, we provide it here. Set $\gamb=\sum_{t=1}^T \bgam_t\s_t$. We have 
 \begin{align*}
 \bgam_1-\gamb=\sum_{t\geq 2}^T (\bgam_1-\bgam_t)\s_t,~~\textnormal{and}~~|\bgam_1-\gamb|\leq \Gamma (1-\s_1).
 \end{align*}    

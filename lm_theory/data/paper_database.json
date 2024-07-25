@@ -370,7 +370,6 @@
                 "emph: [\"\\\\textit{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
                 "mathds: [\"\\\\mathbf{#1}\", 1]",
-                "subequations: [\"{\\begin{subarray}{l} #1 \\end{subarray}}\", 1]",
                 "textsl: [\"\\\\textit{#1}\", 1]",
                 "xspace: \"\"",
                 "Tr: \"\\\\operatorname{Tr}\"",
@@ -384,6 +383,9 @@
                 "andriy: [\"\\\\textcolor{blue}{[AM: #1]}\", 1]",
                 "hyunjik: [\"\\\\textcolor{red}{[HK: #1]}\", 1]",
                 "george: [\"\\\\textcolor{magenta}{[George: #1]}\", 1]"
+            ],
+            "mathjax_environments": [
+                "subequations: [\"{\", \"}\"]"
             ],
             "label2statementid": {
                 "Lipschitz_definition": "a0589e9a-e69c-4a1b-addc-72a7905f06eb",
@@ -744,10 +746,12 @@
                 "emph: [\"\\\\textit{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
                 "mathds: [\"\\\\mathbf{#1}\", 1]",
-                "subequations: [\"{\\begin{subarray}{l} #1 \\end{subarray}}\", 1]",
                 "textsl: [\"\\\\textit{#1}\", 1]",
                 "xspace: \"\"",
                 "data: [\"\\\\textcolor{Maroon}{\\\\texttt{{#1}}}\", 1]"
+            ],
+            "mathjax_environments": [
+                "subequations: [\"{\", \"}\"]"
             ],
             "label2statementid": {
                 "theorem: structure: no-norm": "362f460c-83b0-4db5-b727-fb8cf1c91297",
@@ -930,7 +934,6 @@
                 "emph: [\"\\\\textit{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
                 "mathds: [\"\\\\mathbf{#1}\", 1]",
-                "subequations: [\"{\\begin{subarray}{l} #1 \\end{subarray}}\", 1]",
                 "textsl: [\"\\\\textit{#1}\", 1]",
                 "xspace: \"\"",
                 "repOp: \"\\\\operatorname{Rep}\"",
@@ -1064,6 +1067,9 @@
                 "ip: [\"\\\\langle #1,#2\\\\rangle\", 2]",
                 "E: [\"\\\\mathbb{E}_{#1}\\\\left[#2\\\\right]\", 2]",
                 "checkmark: \"\\\\tikz\\\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;\""
+            ],
+            "mathjax_environments": [
+                "subequations: [\"{\", \"}\"]"
             ],
             "label2statementid": {
                 "def:linear_representation_orig": "988476cc-999a-44a1-9fdf-110c2e4863ea",
@@ -1427,7 +1433,6 @@
                 "emph: [\"\\\\textit{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
                 "mathds: [\"\\\\mathbf{#1}\", 1]",
-                "subequations: [\"{\\begin{subarray}{l} #1 \\end{subarray}}\", 1]",
                 "textsl: [\"\\\\textit{#1}\", 1]",
                 "xspace: \"\"",
                 "soft: \"\\\\operatorname{softmax}\"",
@@ -1475,6 +1480,9 @@
                 "Wm: \"{\\\\bf W}\"",
                 "Zm: \"{\\\\bf Z}\"",
                 "Sm: \"{\\\\bf S}\""
+            ],
+            "mathjax_environments": [
+                "subequations: [\"{\", \"}\"]"
             ],
             "label2statementid": {
                 "lemma:prop_kro": "ad659961-5f5f-4afa-b748-82ab4f9c289c",
@@ -2267,7 +2275,6 @@
                 "emph: [\"\\\\textit{#1}\", 1]",
                 "bm: [\"\\\\boldsymbol{\\\\mathbf{#1}}\", 1]",
                 "mathds: [\"\\\\mathbf{#1}\", 1]",
-                "subequations: [\"{\\begin{subarray}{l} #1 \\end{subarray}}\", 1]",
                 "textsl: [\"\\\\textit{#1}\", 1]",
                 "xspace: \"\"",
                 "RSIS: \"RSI$+$Smooth\"",
@@ -2969,6 +2976,9 @@
                 "iprod: [\"\\\\left\\\\langle #1 , #2 \\\\right\\\\rangle\", 2]",
                 "ham: [\"{\\\\|#1,#2\\\\|_H}\", 2]",
                 "endprf: \"\\\\hfill {\\\\vrule height6pt width6pt depth0pt}\\\\medskip\""
+            ],
+            "mathjax_environments": [
+                "subequations: [\"{\", \"}\"]"
             ],
             "label2statementid": {
                 "def loc opt": "8b4381d3-4f77-44ff-b28b-1cb33455102f",

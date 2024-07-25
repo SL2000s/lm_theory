@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ and Assumption $\ref{assum:token}$ on the tokens hold. Assume the initialization $(\Kb(0), \Qb(0))$ satisfies $\nabla \Lc (\Kb(0),\Qb(0)) \neq 0$. Let $\eta_k=\min\{1/L(R_k),1\}$, where $R_k$ is chosen such that $(\Kb(k),\Qb(k))\in \mc{S}(R_k-1)$, and if $(\Kb(k+1),\Qb(k+1))\in \mc{S} (R_k-1)$, then $R_{k+1}=R_k$. Then, the following statements hold:
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ and Assumption B [in <a href="https://arxiv.org/pdf/2308.16898#assumption.2">original paper</a>] on the tokens hold. Assume the initialization $(\Kb(0), \Qb(0))$ satisfies $\nabla \Lc (\Kb(0),\Qb(0)) \neq 0$. Let $\eta_k=\min\{1/L(R_k),1\}$, where $R_k$ is chosen such that $(\Kb(k),\Qb(k))\in \mc{S}(R_k-1)$, and if $(\Kb(k+1),\Qb(k+1))\in \mc{S} (R_k-1)$, then $R_{k+1}=R_k$. Then, the following statements hold:
 <ul>
 <li>There is no $\Kb,\Qb\in\R^{d\times m}$ satisfying $\nabla \Lc(\Kb,\Qb)=0$.</li>
 <li>Algorithm $\ref{GD-QK}$ with the step size $\eta_k$  satisfies  $\lim_{k \rightarrow \infty} \tf{\nabla \Lc_\Kb(\Kb(k), \Qb(k))}\vee\tf{\nabla\Lc_\Qb(\Kb(k),\Qb(k))}=0$, and  $\lim_{k\rightarrow\infty} \tf{\Kb(k)}\wedge\tf{\Qb(k)}=\infty$.</li>
@@ -831,7 +835,7 @@ Let
         S_{\Kb}(k)=\sum_{\tau=0}^{k-1}\eta_{\tau}^2 \nabla_{\Kb} \Lc(\Kb(\tau), \Qb (\tau)))^\top \nabla_{\Kb} \Lc(\Kb(\tau), \Qb (\tau))) .
     </div>
     </begin{align*>
-</subequations>
+\end{subequations}
 We obtain
 \begin{subequations>
     <div>
@@ -848,7 +852,7 @@ It follows from \eqref{eqn:qk:recur} that
 \|\Kb(k)\|_F^2=\|\Qb(k)\|_F^2+\|\Kb(0)\|_F^2-\|\Qb(0)\|_F^2-\tr(P_{\Kb}(k))+\tr(S_{\Qb}(k)).
 </div>
 </begin{align>    
-</subequations>
+\end{subequations}
 In other words, the difference between the squares of Frobenius norms of $(\Kb,\Qb)$ is still bounded.
 
 Now, combining \eqref{eq:qk:tr:b1} and \eqref{eq:qk:tr:b2}, we get

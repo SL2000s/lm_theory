@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,13 +773,13 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Any optimal solution of $\eqref{eqn:sattnsvm}$ or $\eqref{eqn:sattnsvmst}$ is at most rank $n$. More precisely, the row space of $\Ws$ or $\Ws_\st$ lies within $\texttt{span}(\{\z_i\}_{i=1}^n)$.
+            Any optimal solution of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) or (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) is at most rank $n$. More precisely, the row space of $\Ws$ or $\Ws_\st$ lies within $\texttt{span}(\{\z_i\}_{i=1}^n)$.
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            The statement that any optimal solution of $\eqref{eqn:sattnsvm}$ or $\eqref{eqn:sattnsvmst}$ is at most rank $n$ is crucial in the context of support vector machines (SVMs). This result implies that the complexity of the solution is inherently limited by the number of training samples, $n$. Consequently, it ensures that the solution can be efficiently computed and stored, making it practical for large-scale machine learning applications. Additionally, knowing that the row space of $\Ws$ or $\Ws_\st$ lies within $\texttt{span}(\{\z_i\}_{i=1}^n)$ helps in understanding the structure of the solution and can be leveraged to optimize the algorithm further.
+            The statement that any optimal solution of (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) or (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM$_*$</a>) is at most rank $n$ is crucial in the context of support vector machines (SVMs). This result implies that the complexity of the solution is inherently limited by the number of training samples, $n$. Consequently, it ensures that the solution can be efficiently computed and stored, making it practical for large-scale machine learning applications. Additionally, knowing that the row space of $\Ws$ or $\Ws_\st$ lies within $\texttt{span}(\{\z_i\}_{i=1}^n)$ helps in understanding the structure of the solution and can be leveraged to optimize the algorithm further.
         </div>
     </section>
         

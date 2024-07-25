@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Consider the cone definition of $\eqref{cone alpha eq}$ and suppose an SVM solution $\Wma$ exists. If indices $\bal$ are locally-optimal, $\Wma \in \con{\bal}$ for all sufficiently small $\eps > 0$. Otherwise, $\Wma \not\in \con{\bal}$ for all $\eps > 0$. Additionally, suppose optimal indices $\op_\ik \in \arg\max_{t \in [T]} \bgam_\ikt$ are unique. Then, $\con{\opt} = \Rcm$.
+            Consider the cone definition of (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] and suppose an SVM solution $\Wma$ exists. If indices $\bal$ are locally-optimal, $\Wma \in \con{\bal}$ for all sufficiently small $\eps > 0$. Otherwise, $\Wma \not\in \con{\bal}$ for all $\eps > 0$. Additionally, suppose optimal indices $\op_\ik \in \arg\max_{t \in [T]} \bgam_\ikt$ are unique. Then, $\con{\opt} = \Rcm$.
         </div>
     </section>
     <section id="motivation">
@@ -785,7 +789,7 @@ Suppose $\bal$ is locally optimal. Observe that, thanks to local optimality, $\W
 \[
 \min_{t\in\Tc_\ik}\inn{\F_\ikt,\Wma}>\max_{\tau\not\in\Tc_\ik\cup\{\al_\ik\}}\inn{\F_\iktt,\Wma},
 \]
-for all $i\in[n]$. Next, observe that $\Tc_\ik\subseteq \lowi$ and $\higi\subseteq\Tcb_\ik=[T]-\Tc_\ik-\{\al_\ik\}$. Thus, the inequality $\eqref{cone alpha eq}$ holds for small enough $\eps>0$.
+for all $i\in[n]$. Next, observe that $\Tc_\ik\subseteq \lowi$ and $\higi\subseteq\Tcb_\ik=[T]-\Tc_\ik-\{\al_\ik\}$. Thus, the inequality (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] holds for small enough $\eps>0$.
 
 Conversely, suppose $\bal$ is not locally-optimal. Fix \nei $t\in\Tc_\ik$ with $t\in \higi$. Since $t\in\Tc_\ik$, observe that
 \[
@@ -795,7 +799,7 @@ In other words, for this $i\in[n]$, we found
 \[
 \max_{\tau\in\lowi} \inn{\F_\iktt-\F_\ikt,\Wma}\leq 0,
 \]
-violating $\eqref{cone alpha eq}$ definition for any $\eps>0$. To show the final claim, observe that, setting $\bal:=\op$, we have that $\higi=\emptyset$ for all $i\in[n]$ as $\op_\ik$ are unique optimal indices. Thus, there is no constraint enforced on the cone definition in $\eqref{cone alpha eq}$ making it equal to the rank-$m$ manifold $\Rcm$.
+violating (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] definition for any $\eps>0$. To show the final claim, observe that, setting $\bal:=\op$, we have that $\higi=\emptyset$ for all $i\in[n]$ as $\op_\ik$ are unique optimal indices. Thus, there is no constraint enforced on the cone definition in (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] making it equal to the rank-$m$ manifold $\Rcm$.
 </section>
 
     <section id="proofExplanation">
@@ -808,7 +812,7 @@ violating $\eqref{cone alpha eq}$ definition for any $\eps>0$. To show the final
    \min_{t\in\Tc_\ik}\inn{\F_\ikt,\Wma}>\max_{\tau\not\in\Tc_\ik\cup\{\al_\ik\}}\inn{\F_\iktt,\Wma}
    \]
 <br>
-<br>2. <i>Subset Relationships</i>: Next, it is noted that \(\Tc_\ik \subseteq \lowi\) and \(\higi \subseteq \Tcb_\ik = [T] - \Tc_\ik - \{\al_\ik\}\). This relationship helps in establishing that the inequality \(\eqref{cone alpha eq}\) holds for sufficiently small \(\eps > 0\).
+<br>2. <i>Subset Relationships</i>: Next, it is noted that \(\Tc_\ik \subseteq \lowi\) and \(\higi \subseteq \Tcb_\ik = [T] - \Tc_\ik - \{\al_\ik\}\). This relationship helps in establishing that the inequality (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] holds for sufficiently small \(\eps > 0\).
 <br>
 <br>3. <i>Non-Local Optimality Condition</i>: Conversely, if \(\bal\) is not locally optimal, we fix a \(t \in \Tc_\ik\) with \(t \in \higi\). Since \(t \in \Tc_\ik\), we have:
 <br>   \[
@@ -819,9 +823,9 @@ violating $\eqref{cone alpha eq}$ definition for any $\eps>0$. To show the final
 <br>   \[
    \max_{\tau \in \lowi} \inn{\F_\iktt - \F_\ikt, \Wma} \leq 0
    \]
-<br>   This violates the definition of \(\eqref{cone alpha eq}\) for any \(\eps > 0\).
+<br>   This violates the definition of (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>] for any \(\eps > 0\).
 <br>
-<br>5. <i>Final Claim</i>: To show the final claim, we set \(\bal := \op\). In this case, \(\higi = \emptyset\) for all \(i \in [n]\) because \(\op_\ik\) are unique optimal indices. Therefore, there is no constraint enforced on the cone definition in \(\eqref{cone alpha eq}\), making it equal to the rank-\(m\) manifold \(\Rcm\).
+<br>5. <i>Final Claim</i>: To show the final claim, we set \(\bal := \op\). In this case, \(\higi = \emptyset\) for all \(i \in [n]\) because \(\op_\ik\) are unique optimal indices. Therefore, there is no constraint enforced on the cone definition in (<a href="/library/definitions/definition_11/index.html">2</a>) [in <a href="/library/definitions/definition_11/index.html">Definition 11</a>], making it equal to the rank-\(m\) manifold \(\Rcm\).
 <br>
 <br>Thus, the proof demonstrates the conditions under which \(\bal\) is locally optimal and the implications of these conditions.
         </div>

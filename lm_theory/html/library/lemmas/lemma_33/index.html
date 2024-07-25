@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,11 +773,11 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $\Wm$ denoting the SVM solution. Fix any $\mu>0$ (per Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi} \geq \bar{R}_\mu$ such that, for any $\W\in \conb_{\mu,R}(\Wm)$, we have
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $\Wm$ denoting the SVM solution. Fix any $\mu>0$ (per Lemma <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi} \geq \bar{R}_\mu$ such that, for any $\W\in \conb_{\mu,R}(\Wm)$, we have
 \[
  \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
 \]
-Here, $\conb_{\mu,R}(\Wm)$ is the cone defined at $\eqref{eqn:con:nabla0}$.
+Here, $\conb_{\mu,R}(\Wm)$ is the cone defined at (33) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.33">original paper</a>].
         </div>
     </section>
     <section id="motivation">
@@ -831,7 +835,7 @@ Similarly, $\hb_{i1}-\hb_{it}\geq 1-0.5\pi\geq 0.5$. Since all terms $\hb_{i1}-\
 Here $\tau=\arg\max_{\tau\neq\op_i} \x_{i\tau}\Wb \z_i$ denotes the nearest point to $\hb_{i1}$ (along the $\Wb$ direction). Recall that $\s=\sft{  \RR\hb}$, where  $\RR=R\Theta=\tf{\W}/\tf{\Wm}$. To proceed, let $ \underline{\hb}_i:=\min_{t \neq\op_i}\hb_{i1}-\hb_{it}$,
 \begin{align*}
 \mc{I}:=\left\{ i\in[n]: \underline{\hb}_i \leq 1-2\nu \right\}, \qquad [n]-\mc{I}:=\left\{ i\in[n]:  1-2\nu  <  \underline{\hb}_i\right\}.
-</align*>
+\end{align*}
 For all $ i \in [n]-\mc{I}$,
 \begin{equation}\label{eqn:grad:difff0}
 \begin{split}
@@ -873,14 +877,14 @@ results in that
 </equation>
 Here, the last inequality follows from the fact that $\sum_{t\neq\op_i}\s_{it}\geq \max_{t\neq\op_i}\s_{it}\geq\frac{e^{-\bar{R}(1-2\nu)}}{\sum_{t=1}^Te^{-\bar{R}(\hb_{i1}-\hb_{it})}}\geq e^{-\bar{R}(1-2\nu)}/T$.
 
-From Assumption~$\ref{assum:loss:prope}$, we have $c_{\min}\leq-\ell'\leq c_{\max}$ for some positive constants $c_{\min}$ and $c_{\max}$. It follows from  \eqref{eqn:grad:difff0} and \eqref{eqn:grad:difff1} that 
+From Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], we have $c_{\min}\leq-\ell'\leq c_{\max}$ for some positive constants $c_{\min}$ and $c_{\max}$. It follows from  \eqref{eqn:grad:difff0} and \eqref{eqn:grad:difff1} that 
 \begin{align*}
 -\frac{1}{n}\sum_{i}^n \ell_i' \cdot&\left(
       \sum_{t\neq\op_i} (\hb_{i1}-\hb_{it})\s_{it}(\bgam_{i1}-\bgam_{it})- \sum_{t\neq\op_i} (1+0.5\pi)\s_{it}(\bgam_{i1}-\bgam_{it})\right)\\
       & \leq    c_{\max}2A\Gamma  T \Gamma e^{-\RR(1 +\frac{\pi}{2})}-\frac{c_{\min}}{nT}\cdot\frac{\pi\bggm}{4}e^{-\bar{R} (1-2\nu)}\\
       
       & \leq 0.
-</align*>
+\end{align*}
 Combing with \eqref{R bound pi}, this is guaranteed by 
 choosing 
 

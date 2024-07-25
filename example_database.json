@@ -1,0 +1,47 @@
+{
+    "papers": [
+        {
+            "title": ...
+            "authors": ...
+            "year": ...
+            "source_url": ...                               // eg. https://arxiv.org/abs/2006.04710
+            "bibtex": ...
+            "original_tex": ...                             // all tex files in the latex project appended to each other to a string
+            "processed_original_tex": ...                   // original_tex but with all latex comments removed
+            "statements": [
+                "definitions": [
+                    "title": ...                            // eg. Pythagorean Theorem
+                    "statement_original_tex": ...           // the statement on tex format
+                ]
+                "axioms": [
+                    "title": ...                            // eg. Pythagorean Theorem
+                    "statement_original_tex": ...           // the statement on tex format
+                ]
+                "lemmas": [
+                    "title": ...                            // eg. Pythagorean Theorem
+                    "statement_original_tex": ...           // the statement on tex format
+                    "proof": {
+                        "statement_original_tex": ...       // the proof on tex format
+                        "proof_explaination_html" ...       // GPT4o generated explanation of proof on HTML format
+                    }
+                    "corollary_ids": [...]                  // IDs of corollaries
+                ]
+                "theorems": [
+                    "title": ...                            // eg. Pythagorean Theorem
+                    "statement_original_tex": ...           // the statement on tex format
+                    "proof": {
+                        "statement_original_tex": ...       // the proof on tex format
+                        "proof_explaination_html" ...       // GPT4o generated explanation of proof on HTML format
+                    }
+                    "corollary_ids": [...]                  // IDs of corollaries
+                ]
+                "corollaries": [
+                    "title": ...                            // eg. Pythagorean Theorem
+                    "statement_original_tex": ...           // the statement on tex format
+                    "parent_id": ...                        // ID to parent theorem/lemma
+                ]
+            ]
+        },
+        ...                                                 // more papers...
+    ]
+}

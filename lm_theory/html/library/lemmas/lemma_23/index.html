@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Under Assumption $\ref{assum:loss:prope}$, $ \nabla\Lc(\W)$, $ \nabla_{\Kb} \Lc(\Kb,\Qb)$, and $\nabla_{\Qb} \Lc(\Kb,\Qb)$ are $L_{\W}$, $L_{\Kb}$, $L_{\Qb}$--Lipschitz continuous, respectively, where $a_i=\|\vb\|~\|\z_i\|^2 \|\X_i \|^3$, $b_i= M_0\|\vb\|~\|\X_i\|+ 3  M_1 $ for all $i\in[n]$,
+            Under Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>], $ \nabla\Lc(\W)$, $ \nabla_{\Kb} \Lc(\Kb,\Qb)$, and $\nabla_{\Qb} \Lc(\Kb,\Qb)$ are $L_{\W}$, $L_{\Kb}$, $L_{\Qb}$--Lipschitz continuous, respectively, where $a_i=\|\vb\|~\|\z_i\|^2 \|\X_i \|^3$, $b_i= M_0\|\vb\|~\|\X_i\|+ 3  M_1 $ for all $i\in[n]$,
 \begin{align}\label{eqn:lip:cons:erm}
 L_{\W}:=\frac{1}{n}\sum_{i=1}^{n} a_i b_i, \quad L_{\Kb}:= \|\Qb\|L_{\W}, \quad \textnormal{and} \quad L_{\Qb}:= \|\Kb\|L_{\W}.
 \end{align}

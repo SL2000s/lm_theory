@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ (i)-(ii) hold, and not all tokens are optimal per Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_8/index.html#score+def">Definition 8</a>. Then, training risk obeys $\Lc(\W)>\Lc_\st:=\frac{1}{n}\sum_{i=1}^n \ell(\bgam_{i\op_i})$. Additionally, suppose there are optimal indices $(\op_i)_{i=1}^n$ for which $\eqref{eqn:sattnsvm}$ is feasible, i.e.~there exists a $\W$ separating optimal tokens. This $\W$ choice obeys $\lim_{R\rightarrow\infty}\Lc(R\cdot\W)=\Lc_\st$.
+            Suppose Assumption A (i)-(ii) [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] hold, and not all tokens are optimal per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_8/index.html#score+def">Definition 8</a>. Then, training risk obeys $\Lc(\W)>\Lc_\st:=\frac{1}{n}\sum_{i=1}^n \ell(\bgam_{i\op_i})$. Additionally, suppose there are optimal indices $(\op_i)_{i=1}^n$ for which (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) is feasible, i.e.~there exists a $\W$ separating optimal tokens. This $\W$ choice obeys $\lim_{R\rightarrow\infty}\Lc(R\cdot\W)=\Lc_\st$.
         </div>
     </section>
     <section id="motivation">

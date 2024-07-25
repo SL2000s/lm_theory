@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ and Assumption $\ref{assum:nabla0}$ on the initial gradient hold.
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ and Assumption $\ref{assum:nabla0}$ on the initial gradient hold.
 
 <ul>
     <li>For any $\mu>0$, there exists $R>0$ such that $\conb_{\mu,R}$ does not contain any stationary points.</li>

@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose \eqref{seqattnsvm} is feasible and $\bal=(\al_\ik)\ikix$ are locally-optimal token indices. Suppose Assumptions $\ref{assum:loss:prope}$ \& $\ref{ass cvx seq}$ hold. Recall $\con{\bal}$ of \eqref{cone alpha eq} and consider the norm-constrained cone 
+            Suppose \eqref{seqattnsvm} is feasible and $\bal=(\al_\ik)\ikix$ are locally-optimal token indices. Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] \& $\ref{ass cvx seq}$ hold. Recall $\con{\bal}$ of \eqref{cone alpha eq} and consider the norm-constrained cone 
 \[
 \Ccd:=\con{\bal}\bigcap\{\W\bgl \td{\W}\geq R_0\}.
 \]

@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -795,7 +799,7 @@ $
 $ Set $\bgg_\itt=\bgam^{\op}_i-\bgam_\itt=Y_i\cdot \vb^\top(\x_{i\opt_i}-\x_\itt)>0$, and define
 \begin{align}
 &B:=\max_{i\in[n]}\max_{t,\tau\in[T]}\tn{\vb}\cdot \tn{\x_\itt-\x_\ittt}\geq \bgg_\itt.\label{glob:BB eq}
-</end{align}
+\end{align}
 
 Define $c_\op=\min_{i\in[n],t\neq\op_i}\bgg_\itt>0$ and $\bgam^{\W}_i=Y_i\cdot \vb^\top\x^{\W}_i$. We obtain the following score inequalities
 \begin{align}\label{glob:score decomp}
@@ -803,7 +807,7 @@ Define $c_\op=\min_{i\in[n],t\neq\op_i}\bgg_\itt>0$ and $\bgam^{\W}_i=Y_i\cdot \
 
 &|\bgam^{\W}_i-\bgam^{\op}_i|\leq \tn{\vb}\cdot\tn{\x^{\W}_i-\xa_i}\leq \tn{\vb} \sum_{t\neq \op_i}\s^{(i)}_t\tn{\x_\itt-\xa_i}\leq B (1-\s^{(i)}_{\op_i}).\nonumber
 
-</end{align}
+\end{align}
 We will use the $\bgam^{\W}_i-\bgam^{\op}_i$ term in \eqref{glob:score decomp} to evaluate $\W$ against the reference loss $\Lc_\star$ of \eqref{glob:asymp loss}. 
 
 Using the strictly-decreasing nature of $\ell$, we conclude with the fact that for all (finite) $\W\in \Rcm$, 
@@ -821,14 +825,14 @@ In either scenario, $\wrt{R}$ strictly violates one of the margin constraints of
 \begin{align}
 \inn{ (\x^\op_1-\x_{1t})\z_1^\top,\wrt{R}}\leq 1-\delta.\label{margin violate:glob}
 
-</end{align}
+\end{align}
 Now, we will argue that this leads to a contradiction by proving $\Lc(\Wsb_R)<\Lc(\wrb{R})$ for sufficiently large $R$.
 
 To obtain the result, we establish a refined softmax probability control as in Step 1 by studying distance to $\Lc_\star$. Following \eqref{glob:score decomp}, denote the score function at $\wrb{R}$ via $\bgam^R_i:=\bgam_i^{\wrb{R}}$. Similarly, let $\sir_i=\sft{\abr_i}$ with $\abr_i=\X_i\wrb{R}\z_i$. Set the corresponding notation for the reference parameter $\Wsb_R$ as $\bgam^\st_i,\s^\st_i,\ab^\st_i$.  Recall that $R\geq \td{\wrb{R}}$ and $\xdm:=1/\td{\Wm}$. We note the following softmax inequalities 
 \begin{align}
 &\s^\st_{i\op_i}\geq \frac{1}{1+Te^{-R\xdm}}\geq 1-Te^{-R\xdm}\quad \text{for all}\quad i\in[n], \label{glob:salpha bounds}\\
 &s^R_{i\op_i}\leq \frac{1}{1+e^{-(1-\delta)\td{\wrb{R}}\xdm}}\leq \frac{1}{1+e^{-(1-\delta)R\xdm}}\quad\text{for}\quad i=1.\nn
-</end{align}
+\end{align}
 The former inequality is thanks to $\Wm$ achieving $\geq$$1$ margins on all tokens $[T]-\op_i$ and the latter arises from the $\delta$-margin violation of $\wrb{R}$ at $i=1$ i.e.~Eq.~\eqref{margin violate:glob}. Since $\ell$ is strictly decreasing with Lipschitz derivative and the scores are upper/lower bounded by an absolute constant (as tokens are bounded and fixed), we have that $\cop\geq -\ell'(\bgam_i^{\W})\geq \cdn$ for some constants $\cop>\cdn>0$. Thus, following Eq.~\eqref{glob:BB eq}, the score decomposition \eqref{glob:score decomp}, and \eqref{glob:salpha bounds} we can write
 \begin{align}\label{glob:ineq prl}
 \Lc(\wrb{R})-\Lc_\star&\geq \frac{1}{n}[\ell(\bgam_1^{\wrb{R}})-\ell(\bgam^{\op}_1)]\geq \frac{\cdn}{n}(\bgam^{\op}_{1}-\bgam_1^{\wrb{R}})\\

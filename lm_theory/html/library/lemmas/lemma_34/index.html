@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Wm= \Wm_\bal$ denote the SVM solution obtained via $\eqref{eqn:sattnsvm}$ by applying the Frobenius norm and replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. 
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ holds, and let $\bal=(\alpha_i)_{i=1}^n$ be locally optimal tokens according to Definition <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Wm= \Wm_\bal$ denote the SVM solution obtained via (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) by applying the Frobenius norm and replacing $(\opt_i)_{i=1}^n$ with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$. 
 
 There exists a scalar $\mu=\mu(\bal)>0$ such that for sufficiently large $\RR_\mu$:
 <ol>
@@ -780,8 +784,8 @@ There exists a scalar $\mu=\mu(\bal)>0$ such that for sufficiently large $\RR_\m
     &C\cdot \frac{1}{n}\sum_{i=1}^n \left(1-\s_{i\alpha_i}\right) \geq -\Big\langle\nabla\Lc(\W),\V \Big\rangle\geq c\cdot  \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\alpha_i}\right)>0, \label{local1:g:bound} \\
     &\tf{\nabla\Lc(\W)}\leq \bar{A}C \cdot \frac{1}{n} \sum_{i=1}^n  \left(1-\s_{i\alpha_i}\right), \label{local2:g:bound}\\
     & -\li\frac{\V}{\tf{\V}},\frac{\nabla\Lc(\W)}{\tf{\nabla\Lc(\W)}}\ri \geq  \frac{c}{C} \cdot \frac{\Theta}{\bar{A}}>0. \label{local3:g:bound}
-    </align>
-    </subequations>
+    \end{align}
+    \end{subequations}
     Here, $\s_{i\alpha_i}= (\sft{\X_i\W \z_{i}})_{\alpha_i}$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{(\x_{it}- \x_{i\tau})}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
     </li>
 </ol>

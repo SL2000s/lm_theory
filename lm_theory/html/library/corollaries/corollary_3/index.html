@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumptions $\ref{assum:loss:prope}$ and $\ref{ass cvx seq}$ hold and the optimal indices $\op_\ik=\arg\max_{t\in[T]}\bgam_\ikt$ are unique. Consider the regularization paths associated to $\eqref{serm-w}$ and $\eqref{serm-kq}$:
+            Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] and $\ref{ass cvx seq}$ hold and the optimal indices $\op_\ik=\arg\max_{t\in[T]}\bgam_\ikt$ are unique. Consider the regularization paths associated to (<a href="https://arxiv.org/pdf/2308.16898#appendix.E">SERM-W</a>) and (<a href="https://arxiv.org/pdf/2308.16898#appendix.E">SERM-KQ</a>):
 \begin{align}
 &\Wb_R=\underset{\W\in\Rcm,\tf{\W}\leq R}{\arg\min}\Lc(\W)\quad\text{and}\quad \Kbb_R,\Qbb_R=\underset{\tf{\Kb}^2+\tf{\Qb}^2\leq 2R}{\arg\min}\Lc(\Kb,\Qb)
 \end{align}

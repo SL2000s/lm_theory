@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -776,7 +780,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 For input $\mathbf{X}_i$ and index $\alpha_i$, we use the shorthand notations $\texttt{low}^\alpha_i$ and $\texttt{high}^\alpha_i$. Finally define $\mathcal{C}(\boldsymbol{\alpha})$ as
 \begin{align}
 \mathcal{C}(\boldsymbol{\alpha}) := \left\{ \texttt{rank}(W) \leq m \mid \min_{i \in [n]} \max_{t \in \texttt{low}^\alpha_i} \min_{\tau \in \texttt{high}^\alpha_i} (\mathbf{x}_{it} - \mathbf{x}_{i\tau})^\top W \mathbf{z}_i \geq \epsilon \|W\| \right\}. \label{cone alpha eq1}
-\end{align>
+\end{align}
         </div>
     </section>
     <section id="motivation">

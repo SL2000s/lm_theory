@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose $d\geq \max(T-1,n)$ and $m=d$. Then, almost all datasets<sup>1</sup> $(Y_i,\X_i,\z_i)_{i=1}^n$ -- including the self-attention setting with $\z_i\gets\x_{i1}$ -- obey the following: For any choice of indices $\bal=(\alpha_i)_{i=1}^n\subset[T]$, \eqref{dmattnsvm} is feasible,  i.e.~the attention layer can separate and select indices $\bal$.
+            Suppose $d\geq \max(T-1,n)$ and $m=d$. Then, almost all datasets<sup>1</sup> $(Y_i,\X_i,\z_i)_{i=1}^n$ -- including the self-attention setting with $\z_i\gets\x_{i1}$ -- obey the following: For any choice of indices $\bal=(\alpha_i)_{i=1}^n\subset[T]$, (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">$\diamond$-SVM</a>) is feasible,  i.e.~the attention layer can separate and select indices $\bal$.
 
 <sup>1</sup> Here, $\emph{``almost all datasets''}$ means that adding i.i.d.~gaussian noise, with arbitrary nonzero variance, to the input features will almost surely result in SVM's feasibility.
         </div>

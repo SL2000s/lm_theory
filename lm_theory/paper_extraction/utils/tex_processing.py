@@ -75,7 +75,7 @@ def expand_tex_restatables(tex):
 
 
 def mathjax_macros(tex: str):
-    mathjax_macros = [   # extra (hardcoded) macros
+    mathjax_macros_ = [   # extra (hardcoded) macros
         'emph: ["\\\\textit{#1}", 1]',
         'bm: ["\\\\boldsymbol{\\\\mathbf{#1}}", 1]',
         'mathds: ["\\\\mathbf{#1}", 1]',
@@ -85,8 +85,15 @@ def mathjax_macros(tex: str):
     for pattern, sub_template in MACRO_PATTERNS_TO_MATHJAX:
         matches = pattern.findall(tex)
         for match in matches:
-            mathjax_macros.append(sub_template.format(*match).replace('\\', '\\\\').replace('\n', ''))
-    return mathjax_macros
+            mathjax_macros_.append(sub_template.format(*match).replace('\\', '\\\\').replace('\n', ''))
+    return mathjax_macros_
+
+
+def mathjax_environments(tex: str):
+    mathjax_environments_ = [
+        'subequations: ["{", "}"]',
+    ]
+    return mathjax_environments_
 
 
 def statement2title(tex: str):

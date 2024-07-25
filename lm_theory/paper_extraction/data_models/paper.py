@@ -10,7 +10,7 @@ from ..config.config import STATEMENT_TYPES_METADATA
 from .statements.base_provable import Provable
 from .statements.statements import Statements
 from lm_theory.generate_html.html_rendering.jinja2_env_filters import add_root
-from ..utils.tex_processing import process_tex_extraction, mathjax_macros
+from ..utils.tex_processing import process_tex_extraction, mathjax_macros, mathjax_environments
 
 
 TEX_LABEL_PATTERN = regex.compile(r'\\label\{([^{}]+)\}')
@@ -32,6 +32,7 @@ class Paper(BaseModel):
     processed_original_tex: Optional[str] = None
     statements: Optional[Statements] = None
     mathjax_macros: Optional[List] = None
+    mathjax_environments: Optional[List] = None
     label2statementid: Optional[Dict[str, str]] = None
 
     def __init__(self, **data):
@@ -115,3 +116,8 @@ class Paper(BaseModel):
         if overwrite or self.mathjax_macros is None:
             macros = mathjax_macros(self.processed_original_tex)
             self.mathjax_macros = macros
+
+    def extend_mathjax_environments(self, overwrite: bool = True):
+        if overwrite or self.mathjax_environments is None:
+            environments = mathjax_environments(self.processed_original_tex)
+            self.mathjax_environments = environments

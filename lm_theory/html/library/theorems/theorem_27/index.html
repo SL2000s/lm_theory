@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,11 +773,11 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ holds. Fix locally-optimal token indices $\bal=(\al_i)_{i=1}^n$ and $R_0,\eps>0$. Consider the norm-constrained variation of $\eqref{cone alpha eq1}$ defined as 
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds. Fix locally-optimal token indices $\bal=(\al_i)_{i=1}^n$ and $R_0,\eps>0$. Consider the norm-constrained variation of $\eqref{cone alpha eq1}$ defined as 
 \[
 \Ccd:=\con{\bal}\bigcap \left\{\W\bgl \td{\W}\geq R_0\right\}.
 \]
-Define local RP as $\Wb_R=\min_{\Ccd,\td{\W}\leq R}\Lc(\W)$ where $\Lc(\W)$ is given by $\eqref{eqn:erm:w}$. Let $\Wcs$ be the set of minima for $\eqref{dmattnsvm}$ and $\xdm>0$ be the associated margin i.e.~$\xdm=1/\td{\Wma}$. For any sufficiently small $\eps>0$ and sufficiently large $R_0= \order{1/\eps}>0$, $\lim_{R\rightarrow\infty} \dist{\frac{\Wb_R}{R\xdm},\Wcs}=0$. Additionally, suppose optimal indices $\op=(\op_i)_{i=1}^n$ are unique and set $\bal\gets\op$. Then, the same convergence guarantee on regularization path holds by setting $\Ccd$ as the set of rank-$\leq$$m$ matrices.
+Define local RP as $\Wb_R=\min_{\Ccd,\td{\W}\leq R}\Lc(\W)$ where $\Lc(\W)$ is given by (<a href="https://arxiv.org/pdf/2308.16898#figure.3">W-ERM</a>). Let $\Wcs$ be the set of minima for (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">$\diamond$-SVM</a>) and $\xdm>0$ be the associated margin i.e.~$\xdm=1/\td{\Wma}$. For any sufficiently small $\eps>0$ and sufficiently large $R_0= \order{1/\eps}>0$, $\lim_{R\rightarrow\infty} \dist{\frac{\Wb_R}{R\xdm},\Wcs}=0$. Additionally, suppose optimal indices $\op=(\op_i)_{i=1}^n$ are unique and set $\bal\gets\op$. Then, the same convergence guarantee on regularization path holds by setting $\Ccd$ as the set of rank-$\leq$$m$ matrices.
         </div>
     </section>
     <section id="motivation">

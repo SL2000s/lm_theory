@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,7 +773,7 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Let $\Kb,\Qb\in\R^{d\times m}$ and consider regularization path solutions of $\eqref{serm-w}$ and $\eqref{serm-kq}$
+            Let $\Kb,\Qb\in\R^{d\times m}$ and consider regularization path solutions of (<a href="https://arxiv.org/pdf/2308.16898#appendix.E">SERM-W</a>) and (<a href="https://arxiv.org/pdf/2308.16898#appendix.E">SERM-KQ</a>)
 \begin{align}
 &\Wb_R\in\underset{\W\in\Rcm:\tnuc{\W}\leq R}{\arg\min}\Lc(\W)\label{Wpath}\\
 &\Kbb_R,\Qbb_R\in\underset{\tf{\Kb}^2+\tf{\Qb}^2\leq 2R}{\arg\min}\Lc(\Kb,\Qb).\label{KQpath}

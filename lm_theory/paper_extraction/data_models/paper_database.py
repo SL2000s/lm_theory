@@ -99,6 +99,7 @@ class PaperDatabase(BaseModel):
     def extend_html_fields(self, overwrite: bool = True):
         self.extend_urls(overwrite)
         self.extend_mathjax_macros(overwrite)
+        self.extend_mathjax_environments(overwrite)
         self.extend_html_statements(overwrite)
         self.extend_motivation_htmls(overwrite)
         self.extend_proof_explaination_htmls(overwrite)
@@ -131,6 +132,10 @@ class PaperDatabase(BaseModel):
     def extend_mathjax_macros(self, overwrite: bool = True):
         for paper in self.papers:
             paper.extend_mathjax_macros(overwrite)
+
+    def extend_mathjax_environments(self, overwrite: bool = True):
+        for paper in self.papers:
+            paper.extend_mathjax_environments(overwrite)
 
     def extend_html_statements(self, overwrite: bool = True):
         for statement in self.all_statements_and_proofs():

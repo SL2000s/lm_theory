@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,13 +773,13 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose $\eqref{dmattnsvm}$ is feasible. If indices $\bal$ are locally-optimal, $\Wma \in \con{\bal}$ for all sufficiently small $\eps > 0$. Otherwise, $\Wma \not\in \con{\bal}$ for all $\eps > 0$. Additionally, suppose optimal indices $\op_i \in \arg\max_{t \in [T]} \bgam_\itt$ are unique and set $\bal \gets \op$. Then, $\con{\opt}$ is the set of all rank-$\leq m$ matrices (i.e.~global set).
+            Suppose (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">$\diamond$-SVM</a>) is feasible. If indices $\bal$ are locally-optimal, $\Wma \in \con{\bal}$ for all sufficiently small $\eps > 0$. Otherwise, $\Wma \not\in \con{\bal}$ for all $\eps > 0$. Additionally, suppose optimal indices $\op_i \in \arg\max_{t \in [T]} \bgam_\itt$ are unique and set $\bal \gets \op$. Then, $\con{\opt}$ is the set of all rank-$\leq m$ matrices (i.e. global set).
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Understanding the feasibility of $\eqref{dmattnsvm}$ and the behavior of indices $\bal$ is crucial in optimization problems involving rank constraints. This statement helps determine whether a given set of indices is locally optimal and provides conditions under which the global set of rank-$\leq m$ matrices can be identified. This is particularly useful in applications such as matrix completion, signal processing, and machine learning, where rank constraints are common.
+            Understanding the feasibility of (<a href="https://arxiv.org/pdf/2308.16898#equation.5.6">$\diamond$-SVM</a>) and the behavior of indices $\bal$ is crucial in optimization problems involving rank constraints. This statement helps determine whether a given set of indices is locally optimal and provides conditions under which the global set of rank-$\leq m$ matrices can be identified. This is particularly useful in applications such as matrix completion, signal processing, and machine learning, where rank constraints are common.
         </div>
     </section>
         

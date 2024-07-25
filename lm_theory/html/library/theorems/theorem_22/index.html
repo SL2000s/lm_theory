@@ -727,6 +727,10 @@ ham: ["{\\|#1,#2\\|_H}", 2],
 endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
 
             },
+            environments: {
+                subequations: ["{", "}"]
+
+            },
         },
         options: {
             renderActions: {
@@ -769,11 +773,11 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption $\ref{assum:loss:prope}$ on the loss function $\ell$ and Assumption $\ref{assum:token}$ on the tokens hold.  
+            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] on the loss function $\ell$ and Assumption B [in <a href="https://arxiv.org/pdf/2308.16898#assumption.2">original paper</a>] on the tokens hold.  
 
 <ul>
     <li>There is no $\W\in\R^{d\times d}$ satisfying $\nabla \Lc(\W)=0$.</li>
-    <li>Algorithm $\ref{GD-W}$ with the step size $\eta \leq 1 /L_{\W}$ and any starting point $\W(0)$ satisfies 
+    <li>Algorithm  W-GD [in <a href="https://arxiv.org/pdf/2308.16898#equation.2.3">original paper</a>] with the step size $\eta \leq 1 /L_{\W}$ and any starting point $\W(0)$ satisfies 
 
     $$\lim_{k\rightarrow\infty} \tf{\W(k)}=\infty.$$
     </li>
