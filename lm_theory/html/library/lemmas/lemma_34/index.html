@@ -25,6 +25,7 @@
 bm: ["\\boldsymbol{\\mathbf{#1}}", 1],
 mathds: ["\\mathbf{#1}", 1],
 textsl: ["\\textit{#1}", 1],
+vspace: ["", 1],
 xspace: "",
 RSIS: "RSI$+$Smooth",
 qed: "{\\unskip\\nobreak\\hfil\\penalty50\\hskip2em\\vadjust{}           \\nobreak\\hfil$\\Box$\\parfillskip=0pt\\finalhyphendemerits=0\\par}",
@@ -800,7 +801,7 @@ There exists a scalar $\mu=\mu(\bal)>0$ such that for sufficiently large $\RR_\m
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-Let $R=\RR_\mu$, $(\Tc_i)_{i=1}^n$ be the set of all \neis per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Tcb_i=[T]-\Tc_i-\{\alpha_i\}$ be the non-\neis. Let
+Let $R=\RR_\mu$, $(\Tc_i)_{i=1}^n$ be the set of all $\neis$ per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_7/index.html#def+loc+opt">Definition 7</a>. Let $\Tcb_i=[T]-\Tc_i-\{\alpha_i\}$ be the non-$\neis$. Let
 \begin{equation}\label{mu choice}
 \begin{split}
 &\Theta=1/\tf{\Wm},\\
@@ -820,7 +821,7 @@ Since $\Wm$ is the max-margin model ensuring $(\x_{i\alpha_i}-\x_{it})^\top\Wm \
 \end{equation}
 Here, we used $\tf{\W-\Wm}^2/\tf{\Wm}^2\leq 2\mu$ which implies $\tf{\W-\Wm}\leq \sqrt{2\mu}/\Theta$.
 
-To proceed, we write the gradient correlation following $(15) [in <a href="https://arxiv.org/pdf/2308.16898#equation.B.15">original paper</a>]$ and $\eqref{grad def2}$
+To proceed, we write the gradient correlation following (15) [in <a href="https://arxiv.org/pdf/2308.16898#equation.B.15">original paper</a>] and (27) [in <a href="https://arxiv.org/pdf/2308.16898#equation.C.27">original paper</a>]
 \begin{align}\label{grad def3}
 \li\nabla\Lc(\W),\V\ri&=\frac{1}{n}\sum_{i=1}^n\ell'_i\cdot\hb_i^\top\sfp{\hp_i}\bgam_i,
 \end{align}
@@ -832,7 +833,7 @@ Using $\eqref{cone-non-nei}$, for all $t\in\Tc_i,\tau\in \Tcb_i$, for all $\W\in
 &\hp_{i\alpha_i}-\hp_{i\tau}\geq R\Theta(1+\delta),\\
 &\hp_{i\alpha_i}-\hp_{it}\geq R\Theta/2.    
 \end{align*}
-Consequently, we can bound the softmax probabilities $\s_i=\sft{\hp_i}$ over non-\neis as follows: For all $i\in[n]$ and any $t_i\in \Tc_i$
+Consequently, we can bound the softmax probabilities $\s_i=\sft{\hp_i}$ over non-$\neis$ as follows: For all $i\in[n]$ and any $t_i\in \Tc_i$
 \begin{subequations}
 \begin{align}\label{soft prob bound}
 &S_i:=\sum_{\tau\in\Tc_i}\s_{i\tau} 
@@ -842,7 +843,7 @@ Consequently, we can bound the softmax probabilities $\s_i=\sft{\hp_i}$ over non
 \end{align}
 \end{subequations}
 
-Recall scores $\bgam_{it}=Y_i\cdot\vb^\top \x_{it}$. Define the score gaps over \neis:
+Recall scores $\bgam_{it}=Y_i\cdot\vb^\top \x_{it}$. Define the score gaps over $\neis$:
 \begin{equation*}
  \bgg_i=\bgam_{i\alpha_i}-\max_{t\in\Tc_i}\bgam_{it}~~~ \textnormal{and}~~~ \bgm_i=\bgam_{i\alpha_i}-\min_{t\in\Tc_i}\bgam_{it}. 
 \end{equation*}
@@ -858,7 +859,7 @@ Directly applying <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_lib
 \[
   \big|\hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam-\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2\Gamma A(1-\s_1)^2.
 \]
-To proceed, let us decouple the non-\neis within $\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)$ via
+To proceed, let us decouple the non-$\neis$ within $\sum_{t\geq 2}^T (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)$ via
 \[
 \big|\sum_{t\in\Tcb} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2Q\Gamma A.
 \]
@@ -867,15 +868,15 @@ Aggregating these, we found
   \big|\hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam-\sum_{t\in \Tc} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\big|\leq 2\Gamma A((1-\s_1)^2+Q).\label{aggregate}
 \end{align}
 
-To proceed, let us upper/lower bound the gradient correlation.  We use two bounds depending on $\V\in\Sc_{\mu}(\Ws)$ (\textbf{Case 1}) or general $\V\in\R^{d\times d}$ (\textbf{Case 2}$).
-
-$\bullet$ \textbf{Case 1:  $\V\in\Sc_{\mu}(\Ws)$.} Since $1.5\geq \hb_1-\hb_t\geq 0.5$ following $\eqref{cone-non-nei}$, we find
+To proceed, let us upper/lower bound the gradient correlation.  We use two bounds depending on $\V\in\Sc_{\mu}(\Ws)$ ($\textbf{Case 1}$) or general $\V\in\R^{d\times d}$ ($\textbf{Case 2}$).
+<br>
+$\bullet$ $\textbf{Case 1: }  \V\in\Sc_{\mu}(\Ws)$. Since $1.5\geq \hb_1-\hb_t\geq 0.5$ following $\eqref{cone-non-nei}$, we find
 \[
  1.5\cdot S\cdot \bgm  \geq\sum_{t\in \Tc} (\hb_1-\hb_t)\s_t(\bgam_1-\bgam_t)\geq 0.5\cdot S\cdot \bgg,
 \]
 where recall the definition of $S$ (having dropped subscripts) in $\eqref{soft prob bound}$. 
-
-$\bullet$ \textbf{Case 2: $\Vb\in\R^{d\times d}$ and $\tf{\V}=\tf{\Wm}$.}  Define $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{\x_{it}-\x_{i\tau}}~\tn{\z_i}$. For any $\tf{\V}=\tn{\Ws}$, we use the fact that
+<br>
+$\bullet$ $\textbf{Case 2:} \Vb\in\R^{d\times d} \textbf{ and } \tf{\V}=\tf{\Wm}$.  Define $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{\x_{it}-\x_{i\tau}}~\tn{\z_i}$. For any $\tf{\V}=\tn{\Ws}$, we use the fact that
 $$\tn{\hb_1-\hb_t}\leq \tf{(\x_{it}-\x_{i\tau}) \z_i^\top}\cdot\tf{\V}\leq \frac{\bar{A}}{\Theta}.$$
 Note that by definition $ \frac{\bar{A}}{\Theta} \geq 1$. To proceed, we can upper bound
 \begin{align}
@@ -899,8 +900,8 @@ This in turn is ensured for all inputs $i\in[n]$ by choosing
 R\geq \frac{\max(2,\delta^{-1})}{\Theta}\log\left(\frac{64T\Gamma A}{\bggm}\right),
 \end{align}
 where $\bggm=\min_{i\in[n]}\bgg_i$ is the global scalar which is the worst case score gap over all inputs. 
-\\
-$\bullet$ \textbf{Case 1: $\V\in\Sc_{\mu}(\Ws)$}. With the above choice of $R$, we guaranteed
+<br>
+$\bullet$ $\textbf{Case 1: }  \V\in\Sc_{\mu}(\Ws)$. With the above choice of $R$, we guaranteed
 \[
   2 (1-\s_1)\cdot \bgm\geq 2\cdot S\cdot \bgm \geq \hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam\geq\frac{S\cdot \bgg}{4}\geq\frac{(1-\s_1) \bgg}{8}.
 \]
@@ -912,9 +913,9 @@ Since this holds over all inputs, going back to the gradient correlation $\eqref
 \frac{2}{n}\sum_{i\in [n]} -\ell'_i\cdot S_i\cdot \bgm_i\geq -\li\nabla\Lc(\W),\V\ri\geq \frac{1}{8n}\sum_{i\in [n]} -\ell'_i\cdot S_i\cdot \bgg_i.
 \end{align}
 Let $-\ell'_{\min/\max}$ be the min/max values negative loss derivative admits over the ball $[-A,A]$ and note that $\max_{i\in[n]}\bgm_i>0$ and $\min_{i\in[n]}\bgg_i>0$ are dataset dependent constants. Then, we declare the constants $C=-2\ell'_{\max}\cdot \max_{i\in[n]}\bgm_i>0,c=-(1/8)\ell'_{\min}\cdot \min_{i\in[n]}\bgg_i>0$ to obtain the bound $\eqref{local1:g:bound}$. 
-\vspace{.2cm}
-\\
-$\bullet$ \textbf{Case 2: $\Vb\in\R^{d\times d}$ and $\tf{\V}=\tf{\Wm}$.} Next, we show $\eqref{local2:g:bound}$ and $\eqref{local3:g:bound}$. For any $\V \in \mathbb{R}^{d \times d}$ satisfying $\tf{\V}=\tf{\Ws}$, using $\eqref{wishwish2}$ and the  choice of $R$ in $\eqref{R bound}$ similarly guarantees 
+$\vspace{.2cm}$
+<br>
+$\bullet$ $\textbf{Case 2:} \Vb\in\R^{d\times d} \textbf{ and } \tf{\V}=\tf{\Wm}$. Next, we show $\eqref{local2:g:bound}$ and $\eqref{local3:g:bound}$. For any $\V \in \mathbb{R}^{d \times d}$ satisfying $\tf{\V}=\tf{\Ws}$, using $\eqref{wishwish2}$ and the  choice of $R$ in $\eqref{R bound}$ similarly guarantees 
 $$
 \frac{2\bar{A}}{\Theta }(1-\s_1) \bgm\geq \hb^\top\diag{\s}\bgam-\hb^\top\s\s^\top\bgam,
 $$
@@ -928,7 +929,7 @@ To proceed, since $\eqref{local lamma general upper}$ holds for any $\V\in\R^{d\
  n}\sum_{i\in [n]} (1-\s_{i\alpha_i}).
 \]
 Simplifying $\Theta=1/\tf{\Ws}$ on both sides gives $\eqref{local2:g:bound}$. 
-\\
+
 Combining the above inequality with $\eqref{pbb corr}$, we obtain that for all $\V,\W\in\Sc_{\mu}(\Ws)$
 \[ 
 -\li\frac{\V}{\tf{\V}},\frac{\nabla\Lc(\W)}{\tf{\nabla\Lc(\W)}}\ri\geq \frac{c \Theta }{C\bar{A}},
