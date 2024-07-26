@@ -58,6 +58,7 @@ if __name__ == '__main__':
     db = load_paper_database(DB_PATH)
     # db.add_arxiv_papers(arxiv_papers)
     db.extend(overwrite=False)
+    db.extend_statement_nrs()
     db.extend_mathjax_macros()
     db.extend_mathjax_environments()
     db.extend_urls()

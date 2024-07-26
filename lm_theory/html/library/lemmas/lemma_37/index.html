@@ -769,132 +769,93 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     </header>
     <main>
         
-<section id="Gradient Inequality for Optimal Tokens">
-    <h2>Lemma 37: Gradient Inequality for Optimal Tokens</h2>
+<section id="Gradient Escape from Region Lemma">
+    <h2>Lemma 37: Gradient Escape from Region Lemma</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Suppose Assumption A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $ \Wm$ denoting the SVM solution. Fix any $\mu>0$ (per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>). For any choice of $\pi>0$, there exists $R:=R_{\pi,\mu}$ such that, for any $ \W\in \conb_{\mu,R}(\Wm)$ we have
-\[
- \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
-\]
+            Suppose Assumptions A [in <a href="https://arxiv.org/pdf/2308.16898#assumption.1">original paper</a>] and B [in <a href="https://arxiv.org/pdf/2308.16898#assumption.2">original paper</a>] hold. Assume the gradient at the initialization $(\Kb(0), \Qb(0))$ is nonzero and $\Lc(\Kb(0), \Qb(0)) \leq \Lc(0, 0)$. Consider Algorithm $\ref{GD-QK}$ with a step size $\eta=1/L(R)$, where $L(R):=RL_{\W}$. Then for any $R>0$, there exists an iteration index $k$ at which $(\Kb(k),\Qb(k)) \notin \mc{S} (R)$.
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            This result is particularly useful in the context of Support Vector Machines (SVM) optimization. It provides a bound on the gradient of the loss function, ensuring that the optimal solution $\Wm$ is robust within a certain neighborhood. This can be applied to guarantee the stability and performance of the SVM model under small perturbations, making it a valuable tool for both theoretical analysis and practical implementations of SVMs.
+            This result provides a guarantee for the convergence of the gradient descent algorithm under specific conditions. It is particularly useful in optimization problems where the objective is to minimize a loss function. By ensuring that the gradient at initialization is nonzero and the initial loss is bounded, this theorem helps in selecting an appropriate step size for the algorithm, thereby improving the efficiency and effectiveness of the optimization process.
         </div>
     </section>
         
 <section id="OriginalProof">
 <h3>Original Proof</h3>
-We provide the proof in four steps:<br>
-<b>Step~1: There are no stationary points within $\conb_{\mu,R_\mu}(\Wm)$ for sufficiently large $R_\mu$.</b> 
-This step directly follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>: for all $\V,\W\in \Sc_{\mu}(\Wm)$ with $\tf{\V}=\tf{\Wm}$ and $\tf{\W}\geq R_\mu$, it follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a> that there exists $R_\mu$ such that $\iprod{\V}{ -\nabla \Lc(\W)}$ is strictly positive.<br>
-<b>Step~2:</b> Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> that, there exists $R_\epsilon$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
-\begin{align}\label{eqn:neg:corr:local:nabla0}
-\iprod{-\nabla\mc{L}(\W)}{\frac{\Wm}{\tf{\Wm}}} \geq (1-\epsilon) \iprod{-\nabla \mc{L}(\W)}{\frac{\W}{\tf{\W}}}.
+Let us select a value for $R$ and fix the step size to $\eta=1/L(R)$. Assuming that both $(\Kb({k+1}), \Qb(k+1))$ and $(\Kb({k}), \Qb(k))$ reside within the set $\mc{S}(R)$, we can establish a descent of objective analogous to <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_30/index.html#lem%3Agrad%3Adescent">Lemma 30</a>. Specifically, we obtain the following result: 
+\begin{align}\label{eq:descent:obj}
+\nonumber
+\mathcal{L}(\Kb({k+1}), \Qb({k+1}))-\mathcal{L}(\Kb({k}),\Qb(k)) &\leq-\frac{1}{2 L(R)} \tf{\nabla \mathcal{L}(\Kb({k}), \Qb(k))}^2 \\
+& =-\frac{\eta}{2} \tf{\nabla \mathcal{L}(\Kb({k}), \Qb(k))}^2.
 \end{align}
-
-<b>Step~3: Updates remain inside the cone $\conb_{\mu,R_\mu}(\Wm)$.</b> By leveraging the results from <b>Step 1</b> and <b>Step 2</b>, we demonstrate that the gradient iterates remain within this cone. Note that by our assumption and for sufficiently large $\eta_0$, we get $\W(1) \in \conb_{\mu,R}(\Wm)$. Here, $R$ is chosen such that 
-\begin{align}\label{eqn:bound:R:nabla0}
-R \geq R_\mu \vee R_\epsilon \vee 1/2.
+By our assumption, $\tf{\nabla \Lc (\Kb(0), \Qb(0))} \neq 0$, which implies that  
+\begin{equation}\label{eqn:obj:less0}
+    \mathcal{L}(\Kb({1}),\Qb(1)) \leq  \mathcal{L}(\Kb({0}),\Qb(0)) - \frac{1}{ 2 L(R)} \tf{\nabla \mathcal{L}(\Kb({0}), \Qb(0))}^2 <    \mathcal{L}(\Kb(0),\Qb(0)) \leq  \mathcal{L}(0,0).
+\end{equation}
+Next, we claim that for any $R>0$, there exists a constant $\epsilon(R)>0$, such that 
+\begin{align}\label{eqn:grad:low:eps}
+\forall k\ge1\,:\,  \quad (\Kb (k),\Qb(k)) \in \mathcal{S}, \qquad \tf{\nabla_{\Qb} \Lc(\Kb(k),\Qb(k))}\geq \epsilon(R). 
 \end{align}
-We provide the proof by induction. By the above argument, $\W(1) \in \conb_{\mu,R}(\Wm)$. Let $\W(k) \in \conb_{\mu,R}(\Wm)$. For all $k\geq 1$, we have that 
-
-\begin{subequations}\label{eqn:rho:def:nabla0}
-\begin{align}
-& \min_{t\neq \op_i,~i\in[n]} ~~ \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, - \nabla \mc{L}(\W(k)) \right\rangle \geq \bar{\rho} , 
-\label{eqn:bar:rho}
-\\
-&\frac{1}{1-\epsilon} \iprod{ {\frac{\Wm}{\tf{\Wm}}}}{-\nabla\mc{L}(\W(k))} \geq \rho.
+Fix an arbitrary $R>0$. If \eqref{eqn:grad:low:eps} is not true, then for any $\epsilon>0$, there exists some $k\ge1$ such that $\|\Kb(k)\|_F\le R$ and  $\tf{\Qb(k)} \leq R$ while  \eqref{grad def KQ} gives
+\begin{align}\label{eqn:qgrad}
+\nonumber
+\left\|\nabla_{\Qb} \Lc(\Kb (k),\Qb(k))\right\|_F^2 & =\left\|\frac{1}{n}\sum_{i=1}^n \ell' \left(\bgam_i^\top \sft{\g_i}\right) \cdot \X_i^\top  \sfp{\g_i}  \bgam_i  \z_{i}^\top \Kb(k)\right\|_F^2 \\
+&=  \tf{\nabla \Lc (\W(k))}^2 \left\|\Kb(k)\right\|^2_F \leq \epsilon^2,   
 \end{align}
-\end{subequations}
-for some positive constants $\bar{\rho}$ and $\rho$.  
+where $\g_{i}=\X_i\Kb(k) \Qb(k)^\top\z_{i}=\X_i\W(k)\z_{i}$.
 
-To proceed, for all $t\neq \op_i,~i\in[n]$, we obtain 
-\begin{equation}\label{eqn:localgd:1:nabla0}
-\begin{split}
-\left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k+1)}{\tf{\W(k)}} \right\rangle &= \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k)}{\tf{\W(k)}} -\frac{\eta}{\tf{\W(k)}}\nabla \mc{L}(\W(k)) \right\rangle\\   
-&\ge \mu \Theta- \frac{\eta}{\tf{\W(k)}} \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \nabla \mc{L}(\W(k)) \right\rangle \\
+It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_31/index.html#global+des+lem">Lemma 31</a> that $\li\nabla\Lc(\W (k)),\Wm/\|\Wm\|_F\ri \leq  - c <0$ for some positive constants $c$.  
 
-& \geq \mu \Theta +\frac{\eta\bar{\rho}}{\tf{\W(k)}}.
-\end{split}
-\end{equation}
-Here, the first inequality follows from the induction assumption $\W(k) \in \conb_{\mu,R}(\Wm)$, and the second inequality uses \eqref{eqn:bar:rho}.
+Hence, $\tf{\nabla \Lc (\W(k))}  \geq c$ and $\tf{\Kb(k)} \leq \epsilon/c$.  This together with $\tf{\Qb(k)} \leq R$ implies that   $\tf{ \Kb(k) \Qb(k)^\top} \leq  \epsilon R/ c$.  In other words,  after $k=1$, $\tf{ \Kb(k) \Qb(k)^\top}$  may be arbitrarily small, which implies $\Lc(\Kb(k), \Qb(k))$ can be arbitrarily close to $ \mathcal{L}(\Kb(0),\Qb(0))$. 
+This is a contradiction to \eqref{eqn:obj:less0}. Hence, \eqref{eqn:grad:low:eps} holds.
 
-From <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_36/index.html#glocal+cond">Lemma 36</a>, we have $\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle<0$ which implies that $\tf{\W(k+1)} \geq \tf{\W(k)}$. Hence, 
+Now,  it follows from \eqref{eq:descent:obj} and \eqref{eqn:grad:low:eps}  that 
 \begin{align*}
-\tf{\W(k+1)}&\leq\frac{1}{{2\tf{\W(k)}}} \left(\tf{\W(k+1)}^2+\tf{\W(k)}^2\right)\\
-& = \frac{1}{2\tf{\W(k)}} \left(2\tf{W(t)}^2-2\eta\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle+\eta^2\tf{\nabla \Lc(\W(k))}^2\right)\\
-&\leq \tf{\W(k)}- \frac{\eta}{\tf{\W(k)}}\left\langle \nabla \Lc(\W(k)),\W(k)\right\rangle + \eta^2 \|\nabla \Lc(\W(k))\|^2, 
-\end{align*}
-where the last inequality follows from $\tf{\W(k)} \geq R \geq 1/2 $. 
-
-Thus,
-\begin{equation}\label{eqn:localgd:2:nabla0}
-\begin{split}
-\frac{\tf{\W(k+1)}}{\tf{\W(k)}}& \leq 1- \eta
-\left\langle \nabla \Lc(\W(k)),\frac{\W(k)}{\tf{\W(k)}} \right\rangle + \eta^2 \frac{\|\nabla \mc{L}(\W(k))\|^2}{\tf{\W(k)}}\\
-& \leq 1- \frac{\eta}{1-\epsilon} \iprod{\nabla\mc{L}(\W(k))}
-{\frac{\Wm}{\tf{\Wm}}}+ \eta^2 \frac{\|\nabla \mc{L}(\W(k))\|^2}{\tf{\W(k)}}\\
-& \leq 1 + \frac{\eta \rho}{\tf{\W(k)}} + \frac{\eta^2\|\nabla \mc{L}(\W(k))\|^2}{\tf{\W(k)}}=C_1(\rho,\eta).
-\end{split}
-\end{equation}
-Now, it follows from \eqref{eqn:localgd:1:nabla0} and \eqref{eqn:localgd:2:nabla0} that   
-\begin{equation}\label{eqn:localgd:3:nabla0}
-\begin{split}
-\min_{t\neq \op_i,~i\in[n]} ~~ \left\langle (\x_{i\op_i}-\x_\itt) \z_i^\top, \frac{\W(k+1)}{\tf{\W(k+1)}}\right\rangle &\geq \frac{1}{C_1(\bar{\rho},\eta)} \left(\mu \Theta+\frac{\eta \bar{\rho}}{\tf{\W(k)}}\right)\\
-& \geq \mu \Theta+\frac{\eta}{C_1(\bar{\rho},\eta)} \left(\frac{\bar{\rho}-\rho\mu \Theta}{\tf{\W(k)}}
-- \eta \mu \Theta \frac{\|\nabla \mc{L}(\W(k))\|^2 }{\tf{\W(k)}}\right)\\
-& \geq \mu \Theta.
-\end{split}
-\end{equation}
-Here, we leverage the fact that the parameter $\mu$ can be chosen arbitrarily, and then we select the step size $\eta$ to satisfy the following condition:
-$$\eta \leq \frac{\bar{\rho}-\rho\mu \Theta }{\mu\Theta} \frac{1} {\|\nabla \mc{L}(\W(k))\|^2}.
-$$
-Hence, \eqref{eqn:localgd:3:nabla0} gives $\W(k+1) \in \conb_{\mu,R}$.<br>
-<b>Step 4: The correlation of $\W(k)$ and $\Wm$ increases over $k$.</b> 
-It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_22/index.html#diverg%3Anorm%3Aw">Theorem 22</a> that 
-$\left\Vert \W\left(k\right)\right\Vert \rightarrow\infty$. Hence, we can choose $k_0$ such that for any $k\ge k_0$, it holds that $\tf{\W(k)}> R$ for some $R \geq R_\mu \vee R_\epsilon \vee 1/2$. Now, following similar steps in \eqref{eqn:decpath:1} and \eqref{eqn:decpath:22}, for some constant $C(\epsilon,\eta)$, we obtain
-\begin{align*}
-\left\langle\frac{\W(k)}{\tf{\W(k)}}, \frac{\Wm}{\tf{\Wm}} \right\rangle \ge1-\epsilon+ \frac{C(\epsilon,\eta)}{\tf{\W(k)}}.      
-\end{align*}
-Consequently,
-\begin{align*}
-\liminf_{t\to\infty}\iprod{\frac{\W(k)}{\tf{\W(k)}}}{\frac{\Wm}{\tf{\Wm}}}\ge1-\epsilon.
-\end{align*}
-Since $\epsilon \in (0, \mu/2)$ is arbitrary, we get $\W(k)/\tf{\W(k)}\to \Wm/\tf{\Wm}$.
+  \mathcal{L}(\Kb(0),\Qb(0))
+         \ge   \mathcal{L}(\Kb(0),\Qb(0)) -\mathcal{L}_{\star} \geq  \frac{1}{2 L(R)}\sum_{k=0}^{\infty} \left\|\nabla_{\Qb} \Lc(\Kb(k),\Qb(k)) \right\|_{F}^2
+         
+        
+          \geq \infty,
+    \end{align*}
+which is a contradiction. Hence,  $(\Kb(k),\Qb(k))$ must go out of $\mc{S} (R)$.
 </section>
 
     <section id="proofExplanation">
         <h4>Explanation of Proof (AI-Generated)</h4>
         <div>
             To understand the proof, let's break it down into several steps:
-
-<br><br>1. <i></i>No Stationary Points in the Cone<i></i>: The first step establishes that there are no stationary points within the cone \(\conb_{\mu,R_\mu}(\Wm)\) for sufficiently large \(R_\mu\). This follows directly from Lemma 36, which states that for all \(\V, \W \in \Sc_{\mu}(\Wm)\) with \(\tf{\V} = \tf{\Wm}\) and \(\tf{\W} \geq R_\mu\), there exists \(R_\mu\) such that \(\iprod{\V}{ -\nabla \Lc(\W)}\) is strictly positive.
-
-<br><br>2. <i></i>Choosing \(\epsilon\) and Establishing Inequality<i></i>: In this step, an arbitrary value of \(\epsilon \in (0, \mu/2)\) is considered, and \(1/(1+\pi) = 1 - \epsilon\) is set. From Lemma 37, it follows that there exists \(R_\epsilon\) such that all \(\W \in \conb_{\mu,R_\epsilon}(\Wm)\) satisfy:
-\[
-\iprod{-\nabla\mc{L}(\W)}{\frac{\Wm}{\tf{\Wm}}} \geq (1-\epsilon) \iprod{-\nabla \mc{L}(\W)}{\frac{\W}{\tf{\W}}}.
-\]
-
-<br><br>3. <i></i>Updates Remain Inside the Cone<i></i>: This step demonstrates that the gradient iterates remain within the cone \(\conb_{\mu,R_\mu}(\Wm)\). By leveraging the results from Steps 1 and 2, it is shown that for sufficiently large \(\eta_0\), \(\W(1) \in \conb_{\mu,R}(\Wm)\), where \(R\) is chosen such that:
-\[
-R \geq R_\mu \vee R_\epsilon \vee 1/2.
-\]
-The proof is provided by induction, showing that if \(\W(k) \in \conb_{\mu,R}(\Wm)\), then \(\W(k+1)\) also remains in the cone.
-
-<br><br>4. <i></i>Increasing Correlation Over Iterations<i></i>: The final step shows that the correlation between \(\W(k)\) and \(\Wm\) increases over iterations. From Theorem 22, it is known that \(\left\Vert \W\left(k\right)\right\Vert \rightarrow\infty\). For any \(k \ge k_0\), it holds that \(\tf{\W(k)} > R\) for some \(R \geq R_\mu \vee R_\epsilon \vee 1/2\). Following similar steps as in previous equations, it is shown that:
-\[
-\left\langle\frac{\W(k)}{\tf{\W(k)}}, \frac{\Wm}{\tf{\Wm}} \right\rangle \ge1-\epsilon+ \frac{C(\epsilon,\eta)}{\tf{\W(k)}}.
-\]
-Thus, it is concluded that:
-\[
-\liminf_{t\to\infty}\iprod{\frac{\W(k)}{\tf{\W(k)}}}{\frac{\Wm}{\tf{\Wm}}}\ge1-\epsilon.
-\]
-Since \(\epsilon \in (0, \mu/2)\) is arbitrary, it follows that \(\W(k)/\tf{\W(k)}\to \Wm/\tf{\Wm}\).
+<br>
+<br>1. <i>Initialization and Assumptions</i>: The proof begins by selecting a value for \(R\) and fixing the step size to \(\eta = 1/L(R)\). It assumes that both \((\Kb({k+1}), \Qb(k+1))\) and \((\Kb({k}), \Qb(k))\) are within the set \(\mc{S}(R)\).
+<br>
+<br>2. <i>Descent of Objective</i>: Using the assumption, a descent of the objective function is established, analogous to Lemma 30. This is expressed as:
+<br>   \[
+   \mathcal{L}(\Kb({k+1}), \Qb({k+1})) - \mathcal{L}(\Kb({k}), \Qb(k)) \leq -\frac{1}{2 L(R)} \|\nabla \mathcal{L}(\Kb({k}), \Qb(k))\|^2 = -\frac{\eta}{2} \|\nabla \mathcal{L}(\Kb({k}), \Qb(k))\|^2.
+   \]
+<br>
+<br>3. <i>Initial Gradient Assumption</i>: It is assumed that \(\|\nabla \Lc (\Kb(0), \Qb(0))\| \neq 0\), leading to:
+<br>   \[
+   \mathcal{L}(\Kb({1}), \Qb(1)) \leq \mathcal{L}(\Kb({0}), \Qb(0)) - \frac{1}{2 L(R)} \|\nabla \mathcal{L}(\Kb({0}), \Qb(0))\|^2 < \mathcal{L}(\Kb(0), \Qb(0)) \leq \mathcal{L}(0,0).
+   \]
+<br>
+<br>4. <i>Gradient Lower Bound Claim</i>: The proof claims that for any \(R > 0\), there exists a constant \(\epsilon(R) > 0\) such that:
+<br>   \[
+   \forall k \ge 1\,:\, (\Kb(k), \Qb(k)) \in \mathcal{S}, \quad \|\nabla_{\Qb} \Lc(\Kb(k), \Qb(k))\| \geq \epsilon(R).
+   \]
+<br>
+<br>5. <i>Contradiction Argument</i>: If the above claim is not true, then for any \(\epsilon > 0\), there exists some \(k \ge 1\) such that \(\|\Kb(k)\|_F \le R\) and \(\|\Qb(k)\| \leq R\), leading to:
+<br>   \[
+   \left\|\nabla_{\Qb} \Lc(\Kb(k), \Qb(k))\right\|_F^2 = \left\|\frac{1}{n}\sum_{i=1}^n \ell' \left(\bgam_i^\top \sft{\g_i}\right) \cdot \X_i^\top \sfp{\g_i} \bgam_i \z_{i}^\top \Kb(k)\right\|_F^2 = \|\nabla \Lc (\W(k))\|^2 \|\Kb(k)\|^2_F \leq \epsilon^2.
+   \]
+<br>
+<br>6. <i>Lemma 31 Application</i>: Using Lemma 31, it is shown that \(\li\nabla\Lc(\W(k)), \Wm/\|\Wm\|_F\ri \leq -c < 0\) for some positive constant \(c\). Hence, \(\|\nabla \Lc (\W(k))\| \geq c\) and \(\|\Kb(k)\| \leq \epsilon/c\).
+<br>
+<br>7. <i>Contradiction Conclusion</i>: Combining the above results, it is shown that \(\|\Kb(k) \Qb(k)^\top\| \leq \epsilon R / c\), implying \(\Lc(\Kb(k), \Qb(k))\) can be arbitrarily close to \(\mathcal{L}(\Kb(0), \Qb(0))\), which contradicts the earlier descent result.
+<br>
+<br>Thus, the proof concludes that \((\Kb(k), \Qb(k))\) must go out of \(\mc{S}(R)\).
         </div>
     </section>
 
@@ -921,11 +882,8 @@ Since \(\epsilon \in (0, \mu/2)\) is arbitrary, it follows that \(\W(k)/\tf{\W(k
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{lemma}[Gradient Condition for Optimal Tokens]\label{lem:glocal:corr} 
-Suppose Assumption~\ref{assum:loss:prope} holds and let $\op=(\op_i)_{i=1}^n$ be the unique optimal tokens with $ \Wm$ denoting the SVM solution. Fix any $\mu>0$ (per Lemma \ref{glocal cond}). For any choice of $\pi>0$, there exists $R:=R_{\pi,\mu}$ such that, for any $ \W\in \conb_{\mu,R}(\Wm)$ we have
-\[
- \li \nabla\Lc(\W), \frac{\W}{\tf{\W}} \ri\geq (1+\pi)\li \nabla\Lc(\W), \frac{\Wm}{\tf{\Wm}}\ri.
-\]
+            <p class="tex2jax_ignore"><code>\begin{lemma}\label{lem:out:S}
+Suppose Assumptions~\ref{assum:loss:prope} and \ref{assum:token} hold. Assume the gradient at the initialization $(\Kb(0), \Qb(0))$ is nonzero and $\Lc(\Kb(0), \Qb(0)) \leq \Lc(0, 0)$. Consider Algorithm~\ref{GD-QK} with a step size $\eta=1/L(R)$, where $L(R):=RL_{\W}$. Then for any $R>0$, there exists an iteration index $k$ at which $(\Kb(k),\Qb(k)) \notin \mc{S} (R)$.
 \end{lemma}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
         </div>
@@ -961,11 +919,8 @@ Suppose Assumption~\ref{assum:loss:prope} holds and let $\op=(\op_i)_{i=1}^n$ be
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{lemma}[Gradient Condition for Optimal Tokens]\\label{lem:glocal:corr} 
-Suppose Assumption~\\ref{assum:loss:prope} holds and let $\\op=(\\op_i)_{i=1}^n$ be the unique optimal tokens with $ \\Wm$ denoting the SVM solution. Fix any $\\mu>0$ (per Lemma \\ref{glocal cond}). For any choice of $\\pi>0$, there exists $R:=R_{\\pi,\\mu}$ such that, for any $ \\W\\in \\conb_{\\mu,R}(\\Wm)$ we have
-\\[
- \\li \\nabla\\Lc(\\W), \\frac{\\W}{\\tf{\\W}} \\ri\\geq (1+\\pi)\\li \\nabla\\Lc(\\W), \\frac{\\Wm}{\\tf{\\Wm}}\\ri.
-\\]
+                var textToCopy = `\\begin{lemma}\\label{lem:out:S}
+Suppose Assumptions~\\ref{assum:loss:prope} and \\ref{assum:token} hold. Assume the gradient at the initialization $(\\Kb(0), \\Qb(0))$ is nonzero and $\\Lc(\\Kb(0), \\Qb(0)) \\leq \\Lc(0, 0)$. Consider Algorithm~\\ref{GD-QK} with a step size $\\eta=1/L(R)$, where $L(R):=RL_{\\W}$. Then for any $R>0$, there exists an iteration index $k$ at which $(\\Kb(k),\\Qb(k)) \\notin \\mc{S} (R)$.
 \\end{lemma}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);

@@ -805,7 +805,7 @@ Note that <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_
 
 We provide the proof in four steps:
 <br>
-<b>Step~1: $\conb_{\mu,R^0_\mu}(\Wm)$ construction</b>. Let us denote the initialization lower bound as $R^0_\mu:=R$, where $R$ is given in the <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0%3Aapp">Theorem 30</a>'s statement. Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. We additionally denote $R_\eps\gets R_\pi\vee 1/2$ where $R_\pi$ was defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. At initialization $\W(0)$, we set $\eps=\mu/2$ to obtain $R^0_\mu= R_{\mu/2}$.
+<b>Step~1: $\conb_{\mu,R^0_\mu}(\Wm)$ construction</b>. Let us denote the initialization lower bound as $R^0_\mu:=R$, where $R$ is given in the <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_30/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0%3Aapp">Theorem 30</a>'s statement. Consider an arbitrary value of $\epsilon \in (0, \mu/2)$ and let $1/(1+\pi)=1-\epsilon$. We additionally denote $R_\eps\gets R_\pi\vee 1/2$ where $R_\pi$ was defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a>. At initialization $\W(0)$, we set $\eps=\mu/2$ to obtain $R^0_\mu= R_{\mu/2}$.
 
 We proceed to show $\mu \in (0,\min (1,\iota \tf{\Ws}/\tf{\nabla \Lc(0)})$. It follows from Assumption $\ref{assum:nabla0}$ and under zero initialization for GD ($\W(0)=0$) that
 $$
@@ -824,7 +824,7 @@ Here, the last inequality follows from our choice of $\mu$ in the theorem statem
  \mu \in \left(0, \min\left(1, \frac{\iota \tf{\Wm}}{\tf{\nabla \mc{L}(0)}}\right)\right).
 \end{align}
 
-This $\mu$ choice induces the conic set $\conb_{\mu,R^0_\mu}(\Wm)$ with $R^0_\mu= R_{\mu/2}$, where $R_{\mu/2}$ was defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. Now, given the parameter $\mu$ satisfying \eqref{eqn:mu:zero}, we can choose $\eta (0)$ such that $\tf{\W (1)} \geq R^0_\mu$ and $\W(1)\in\conb_{\mu, R^0_\mu}(\Wm)$. To achieve this, since $\W(0)=0$, we obtain
+This $\mu$ choice induces the conic set $\conb_{\mu,R^0_\mu}(\Wm)$ with $R^0_\mu= R_{\mu/2}$, where $R_{\mu/2}$ was defined in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a>. Now, given the parameter $\mu$ satisfying \eqref{eqn:mu:zero}, we can choose $\eta (0)$ such that $\tf{\W (1)} \geq R^0_\mu$ and $\W(1)\in\conb_{\mu, R^0_\mu}(\Wm)$. To achieve this, since $\W(0)=0$, we obtain
 \begin{equation}\label{eqn:stepeta0}
     \eta (0) =\frac{R^0_\mu}{\tf{\nabla \mc{L}(0) }}.
 \end{equation}
@@ -839,7 +839,7 @@ we can apply <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/
 <br>
 $\emph{Gradient correlation holds for large parameter norm.}$
 
-It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> that, there exists $R_\epsilon\geq \bar{R}_\mu\vee 1/2$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
+It follows from <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a> that, there exists $R_\epsilon\geq \bar{R}_\mu\vee 1/2$ such that all $\W \in \conb_{\mu,R_\epsilon}(\Wm)$ satisfy
 \begin{align}\label{eqn:neg:corr:0}
 \iprod{-\nabla\mc{L}(\W)} {\frac{\Wm}{\tf{\Wm}}} \geq (1-\epsilon) \iprod{-\nabla \mc{L}(\W)}{\frac{\W}{\tf{\W}}}.
 \end{align}
@@ -904,7 +904,7 @@ Now, it follows from \eqref{eqn:localgd:1:nabla0} and \eqref{eqn:localgd:2:nabla
 - \eta \frac{\tf{\nabla \mc{L}(\W(k))}^2 }{\tf{\W(k)}}\right)\\
 & \geq \mu \Theta,
 </pre>
-where the last inequality uses our choice of stepsize $\eta\leq 1/L_W$ in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_23/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0">Theorem 23</a>'s statement. Specifically, we need $\eta$ to be small to ensure the last inequality. We will guarantee this by choosing a proper $R_\eps$ in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a>. Specifically, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> leaves the choice of $D_0$ in $R_\eps$ lower bound of \eqref{Rpi choice2} open (it can always be chosen larger). Here, by choosing $D_0\gtrsim 1/L_{\W}$ will ensure $\eta\leq 1/L_{\W}$ works well.
+where the last inequality uses our choice of stepsize $\eta\leq 1/L_W$ in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/theorems/theorem_23/index.html#conv%3Agd%3Aw%3Aglobal%3Anabla0">Theorem 23</a>'s statement. Specifically, we need $\eta$ to be small to ensure the last inequality. We will guarantee this by choosing a proper $R_\eps$ in <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a>. Specifically, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a> leaves the choice of $D_0$ in $R_\eps$ lower bound of \eqref{Rpi choice2} open (it can always be chosen larger). Here, by choosing $D_0\gtrsim 1/L_{\W}$ will ensure $\eta\leq 1/L_{\W}$ works well.
 
 <pre>
 \begin{equation}\label{eqn:zeta:mu:0}
@@ -925,7 +925,7 @@ Here, the first inequality follows since $\epsilon \in (0, \mu/2)$ (as seen in <
 </pre>
 for some data dependent constrants $c$, $C$, $\bar{A}=\max_{i\in[n],t,\tau\in[T]}\tn{(\x_{it}- \x_{i\tau})}~\tn{\z_i}$, and $\Theta=1/\tf{\Ws}$.
 
-The remainder of the proof of this step is identical to \eqref{eqn:pitoC0}--\eqref{eqn:pitoC02}, with the replacement of $C_0$ by $D_0$ and the tracking of changes. Specifically, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_37/index.html#lem%3Aglocal%3Acorr">Lemma 37</a> leaves the choice of $D_0$ in $
+The remainder of the proof of this step is identical to \eqref{eqn:pitoC0}--\eqref{eqn:pitoC02}, with the replacement of $C_0$ by $D_0$ and the tracking of changes. Specifically, <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/lemmas/lemma_33/index.html#lem%3Aglocal%3Acorr">Lemma 33</a> leaves the choice of $D_0$ in $
 </section>
 
     <section id="proofExplanation">
