@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Definition 12 - LM Theory</title>
+    <title>Definition 17 - LM Theory</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
     
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -769,18 +769,22 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
     </header>
     <main>
         
-<section id="Locally-Optimal Indices and Direction">
-    <h2>Definition 12: Locally-Optimal Indices and Direction</h2>
+<section id="Locally-Optimal Token Selection">
+    <h2>Definition 17: Locally-Optimal Token Selection</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            Fix token indices $\bal=(\alpha_i)_{i=1}^n$. Solve (<a href="https://arxiv.org/pdf/2308.16898#equation.2.3">Att-SVM</a>) with $(\opt_i)_{i=1}^n$ replaced with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$ to obtain $\Wma$. Consider the set $\Tc_i\subset[T]$ such that $(\x_{i\alpha_i}-\x_{it})^\top \Wma \z_i=1$ for all $t\in\Tc_i$. We refer to $(\Tc_i)_{i=1}^n$ as the $\neis$ of $\bal$. Additionally, if for all $i\in[n]$ and $t\in\Tc_i$ scores per <a href="/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory_library/generated_pages/library/definitions/definition_8/index.html#score+def">Definition 8</a> obey $\bgam_{i\alpha_i}>\bgam_{it}$, indices $\bal=(\alpha_i)_{i=1}^n$ are called $\emph{locally-optimal}$ and $\Wma$ is called a $\emph{locally-optimal direction}$.
+            Fix token indices $\bal=(\alpha_\ik)\ikix$ for which (<a href="https://arxiv.org/pdf/2308.16898#equation.E.91">SAtt-SVM</a>) is feasible to obtain $\Wma:= \Wm_{\dm,\bal}$. Define token scores as
+\[
+\bgam_\ikt=Y_\ik\cdot h_k(\x_\itt),\quad \bga_\ik:=\bgam_{ik\alpha_\ik}=Y_\ik\cdot h_k(\xa_\ik).
+\]
+Consider tokens $\Tc_\ik\subset[T]$ such that $\inn{\Fa_\ik-\F_\ikt,\Wma}=1$ for all $t\in\Tc_\ik$. $\Tc_\ik$ is allowed to be an empty set. We refer to $\Tc_\ik$ as $\neis$ of $\Fa_\ik=\xa_\ik\z_\ik^\top$ and define its complement $\Tcb_\ik=[T]-\Tc_\ik-\{\al_\ik\}$. Additionally, token indices $\bal=(\alpha_\ik)\ikix$ are called locally-optimal if for all $i\in[n],k\in[K]$ and $t\in\Tc_\ik$, token scores obey $\bga_\ik>\bgam_\ikt$. Associated $\Wma$ is called a locally-optimal direction. Finally, let $\op_\ik\in\arg\max_{t\in[T]}\bgam_\ikt$ be the optimal indices and define the associated $\Ws(\op)$ to be a globally-optimal direction.
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            Understanding the concept of $\emph{locally-optimal direction}$ and $\neis$ is crucial in optimization problems, particularly in machine learning and support vector machines (SVMs). When dealing with high-dimensional data, identifying locally-optimal directions helps in efficiently navigating the solution space to find optimal or near-optimal solutions. This can significantly reduce computational complexity and improve the performance of algorithms in practice.
+            Understanding the concept of locally-optimal and globally-optimal directions is crucial in optimization problems, particularly in machine learning and data analysis. Locally-optimal directions help in identifying the best possible solution within a neighborhood, which can be useful for iterative algorithms that refine solutions step-by-step. On the other hand, globally-optimal directions provide the best possible solution across the entire dataset, ensuring the most accurate and efficient outcomes. This distinction is essential when designing algorithms that need to balance between computational efficiency and solution accuracy.
         </div>
     </section>
         
@@ -804,8 +808,11 @@ endprf: "\\hfill {\\vrule height6pt width6pt depth0pt}\\medskip"
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{definition}[\NEIS and Locally-Optimal Direction]\label{def loc opt} 
-Fix token indices $\bal=(\alpha_i)_{i=1}^n$. Solve \eqref{eqn:sattnsvm} with $ (\opt_i)_{i=1}^n$ replaced with $\boldsymbol{\alpha} = (\alpha_i)_{i=1}^n$ to obtain $\Wma$. Consider the set $\Tc_i\subset[T]$ such that $(\x_{i\alpha_i}-\x_{it})^\top \Wma \z_i=1$ for all $t\in\Tc_i$. We refer to $(\Tc_i)_{i=1}^n$ as the \neis of $\bal$. Additionally, if for all $i\in[n]$ and $t\in\Tc_i$ scores per Definition~\ref{score def} obey $\bgam_{i\alpha_i}>\bgam_{it}$, indices $\bal=(\alpha_i)_{i=1}^n$ are called \emph{locally-optimal} and $\Wma$ is called a \emph{locally-optimal direction}.
+            <p class="tex2jax_ignore"><code>\begin{definition}[\Neis and Locally-Optimal Indices]\label{seq loc opt} Fix token indices $\bal=(\alpha_\ik)\ikix$ for which \eqref{seqattnsvm} is feasible to obtain $\Wma:= \Wm_{\dm,\bal}$. Define token scores as
+\[
+\bgam_\ikt=Y_\ik\cdot h_k(\x_\itt),\quad \bga_\ik:=\bgam_{ik\alpha_\ik}=Y_\ik\cdot h_k(\xa_\ik).
+\]
+Consider tokens $\Tc_\ik\subset[T]$ such that $\inn{\Fa_\ik-\F_\ikt,\Wma}=1$ for all $t\in\Tc_\ik$. $\Tc_\ik$ is allowed to be an empty set. We refer to $\Tc_\ik$ as \neis of $\Fa_\ik=\xa_\ik\z_\ik^\top$ and define its complement $\Tcb_\ik=[T]-\Tc_\ik-\{\al_\ik\}$.  Additionally, token indices $\bal=(\alpha_\ik)\ikix$ are called locally-optimal if for all $i\in[n],k\in[K]$ and  $t\in\Tc_\ik$, token scores obey $\bga_\ik>\bgam_\ikt$. Associated $\Wma$ is called a locally-optimal direction. Finally, let $\op_\ik\in\arg\max_{t\in[T]}\bgam_\ikt$ be the optimal indices and define the associated $\Ws(\op)$ to be a globally-optimal direction.
 \end{definition}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
         </div>
@@ -841,8 +848,11 @@ Fix token indices $\bal=(\alpha_i)_{i=1}^n$. Solve \eqref{eqn:sattnsvm} with $ (
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{definition}[\\NEIS and Locally-Optimal Direction]\\label{def loc opt} 
-Fix token indices $\\bal=(\\alpha_i)_{i=1}^n$. Solve \\eqref{eqn:sattnsvm} with $ (\\opt_i)_{i=1}^n$ replaced with $\\boldsymbol{\\alpha} = (\\alpha_i)_{i=1}^n$ to obtain $\\Wma$. Consider the set $\\Tc_i\\subset[T]$ such that $(\\x_{i\\alpha_i}-\\x_{it})^\\top \\Wma \\z_i=1$ for all $t\\in\\Tc_i$. We refer to $(\\Tc_i)_{i=1}^n$ as the \\neis of $\\bal$. Additionally, if for all $i\\in[n]$ and $t\\in\\Tc_i$ scores per Definition~\\ref{score def} obey $\\bgam_{i\\alpha_i}>\\bgam_{it}$, indices $\\bal=(\\alpha_i)_{i=1}^n$ are called \\emph{locally-optimal} and $\\Wma$ is called a \\emph{locally-optimal direction}.
+                var textToCopy = `\\begin{definition}[\\Neis and Locally-Optimal Indices]\\label{seq loc opt} Fix token indices $\\bal=(\\alpha_\\ik)\\ikix$ for which \\eqref{seqattnsvm} is feasible to obtain $\\Wma:= \\Wm_{\\dm,\\bal}$. Define token scores as
+\\[
+\\bgam_\\ikt=Y_\\ik\\cdot h_k(\\x_\\itt),\\quad \\bga_\\ik:=\\bgam_{ik\\alpha_\\ik}=Y_\\ik\\cdot h_k(\\xa_\\ik).
+\\]
+Consider tokens $\\Tc_\\ik\\subset[T]$ such that $\\inn{\\Fa_\\ik-\\F_\\ikt,\\Wma}=1$ for all $t\\in\\Tc_\\ik$. $\\Tc_\\ik$ is allowed to be an empty set. We refer to $\\Tc_\\ik$ as \\neis of $\\Fa_\\ik=\\xa_\\ik\\z_\\ik^\\top$ and define its complement $\\Tcb_\\ik=[T]-\\Tc_\\ik-\\{\\al_\\ik\\}$.  Additionally, token indices $\\bal=(\\alpha_\\ik)\\ikix$ are called locally-optimal if for all $i\\in[n],k\\in[K]$ and  $t\\in\\Tc_\\ik$, token scores obey $\\bga_\\ik>\\bgam_\\ikt$. Associated $\\Wma$ is called a locally-optimal direction. Finally, let $\\op_\\ik\\in\\arg\\max_{t\\in[T]}\\bgam_\\ikt$ be the optimal indices and define the associated $\\Ws(\\op)$ to be a globally-optimal direction.
 \\end{definition}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);

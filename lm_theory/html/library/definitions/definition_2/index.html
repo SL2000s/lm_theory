@@ -27,137 +27,7 @@ mathds: ["\\mathbf{#1}", 1],
 textsl: ["\\textit{#1}", 1],
 vspace: ["", 1],
 xspace: "",
-repOp: "\\operatorname{Rep}",
-genOp: "\\operatorname{gen}",
-SpanOp: "\\operatorname{Span}",
-ConeOp: "\\operatorname{Cone}",
-argmin: "\\operatorname{argmin}",
-argmax: "\\operatorname{argmax}",
-logit: "\\operatorname{logit}",
-promptSpace: "\\mathcal{X}",
-conceptSpace: "\\mathcal{C}",
-repSpace: "\\mathcal{R}",
-responseSpace: "\\mathcal{Y}",
-defas: ":=",
-nullconcept: "\\phi",
-conceptDistSpace: "\\mathcal{Q}",
-cov: "\\mathrm{Cov}",
-yquad: "\\mathcal{Y}",
-parnum: "\\bfseries\\P\\arabic{parcount}",
-grad: "\\nabla",
-prm: "\\:;\\:",
-mbw: "\\mb{w}",
-mbW: "\\mb{W}",
-mbx: "\\mb{x}",
-mbX: "\\mb{X}",
-mby: "\\mb{y}",
-mbY: "\\mb{Y}",
-mbz: "\\mb{z}",
-mbZ: "\\mb{Z}",
-mbT: "\\mb{T}",
-mbA: "\\mb{A}",
-mba: "\\mb{a}",
-mbI: "\\mb{I}",
-mbone: "\\mb{1}",
-mbL: "\\mb{L}",
-mbtheta: "\\mb{\\theta}",
-mbTheta: "\\mb{\\Theta}",
-mbomega: "\\mb{\\omega}",
-mbOmega: "\\mb{\\Omega}",
-mbsigma: "\\mb{\\sigma}",
-mbSigma: "\\mb{\\Sigma}",
-mbphi: "\\mb{\\phi}",
-mbPhi: "\\mb{\\Phi}",
-mbalpha: "\\mb{\\alpha}",
-mbbeta: "\\mb{\\beta}",
-mbgamma: "\\mb{\\gamma}",
-mbeta: "\\mb{\\eta}",
-mbmu: "\\mb{\\mu}",
-mbrho: "\\mb{\\rho}",
-mblambda: "\\mb{\\lambda}",
-mbzeta: "\\mb{\\zeta}",
-diag: "\\textrm{diag}",
-supp: "\\textrm{supp}",
-V: "\\mathbb{V}",
-bbH: "\\mathbb{H}",
-bbN: "\\mathbb{N}",
-bbZ: "\\mathbb{Z}",
-bbR: "\\mathbb{R}",
-bbS: "\\mathbb{S}",
-cL: "\\mathcal{L}",
-cD: "\\mathcal{D}",
-cN: "\\mathcal{N}",
-cT: "\\mathcal{T}",
-Gam: "\\textrm{Gam}",
-InvGam: "\\textrm{InvGam}",
-g: "\\, | \\,",
-s: "\\, ; \\,",
-indpt: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
-defeq: "\\coloneqq",
-asympeq: "\\ \\sim\\ ",
-Reals: "\\mathbb{R}",
-Nats: "\\mathbb{N}",
-NNReals: "\\Reals_{+}",
-exclude: "\\backslash",
-eps: "\\varepsilon",
-edges: "e",
-vertices: "v",
-loops: "l",
-EE: "\\mathbb{E}",
-var: "\\mathrm{var}",
-convPr: "\\xrightarrow{\\,p\\,}",
-convDist: "\\xrightarrow{\\,d\\,}",
-equaldist: "\\overset{d}{=}",
-upto: "\\!\\uparrow\\!",
-given: "\\mid",
-as: "\\textrm{ a.s.}",
-equalas: "\\overset{\\mathrm{a.s.}}{=}",
-intd: "\\mathrm{d}",
-dist: "\\ \\sim\\ ",
-distiid: "\\overset{\\mathrm{iid}}{\\dist}",
-distind: "\\overset{ind}{\\dist}",
-PPDist: "\\mathrm{PP}",
-Lebesgue: "\\Lambda",
-cdo: "\\mathrm{do}",
-normalDist: "\\mathrm{Normal}",
-diriDist: "\\mathrm{Diri}",
-categDist: "\\mathrm{Cat}",
-betaDist: "\\mathrm{Beta}",
-bernDist: "\\mathrm{Bern}",
-binDist: "\\mathrm{Bin}",
-uniDist: "\\mathrm{Uni}",
-poiDist: "\\mathrm{Poi}",
-gammaDist: "\\mathrm{Gamma}",
-multiDist: "\\mathrm{Multi}",
-Ind: "\\mathbbm{1}",
-p: "    \\stepcounter{parcount}    \\leavevmode\\marginpar[\\hfill\\parnum]{\\parnum}",
-independent: "\\protect\\mathpalette{\\protect\\independenT}{\\perp}",
-dif: "\\mathop{}\\!\\mathrm{d}",
-lmText: ["\\lmOp(\\text{``#1''})", 1],
-lm: ["\\lmOp(#1)", 1],
-repText: ["\\repOp(\\text{``#1''})", 1],
-rep: ["\\repOp(#1)", 1],
-ConceptName: ["$\\mathtt{#1}$", 1],
-ConceptValue: ["\\texttt{#1}", 1],
-SpanText: ["\\SpanOp(\\text{``#1''})", 1],
-Span: ["\\SpanOp(#1)", 1],
-ConeText: ["\\ConeOp(\\text{``#1''})", 1],
-Cone: ["\\ConeOp(#1)", 1],
-red: ["\\textcolor{BrickRed}{#1}", 1],
-orange: ["\\textcolor{BurntOrange}{#1}", 1],
-green: ["\\textcolor{OliveGreen}{#1}", 1],
-blue: ["\\textcolor{MidnightBlue}{#1}", 1],
-gray: ["\\textcolor{black!60}{#1}", 1],
-cdashlinelr: ["  \\noalign{\\vskip\\aboverulesep           \\global\\let\\@dashdrawstore\\adl@draw           \\global\\let\\adl@draw\\adl@drawiv}  \\cdashline{#1}  \\noalign{\\global\\let\\adl@draw\\@dashdrawstore           \\vskip\\belowrulesep}", 1],
-defnphrase: ["\\emph{#1}", 1],
-abs: ["\\left\\lvert#1 \\right\\rvert", 1],
-dtv: ["\\|#1\\|_{\\mathrm{TV}}", 1],
-NatSubs: ["\\tilde \\Nats_{#1}", 1],
-ConceptDirName: ["\\texttt{#1}\\Rightarrow\\texttt{#2}", 2],
-ConceptDirMath: ["#1 \\Rightarrow #2", 2],
-ip: ["\\langle #1,#2\\rangle", 2],
-E: ["\\mathbb{E}_{#1}\\left[#2\\right]", 2],
-checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;"
+data: ["\\textcolor{Maroon}{\\texttt{{#1}}}", 1]
 
             },
             environments: {
@@ -201,37 +71,34 @@ checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- 
     </header>
     <main>
         
-<section id="Linear Concept Separability">
-    <h2>Definition 2: Linear Concept Separability</h2>
+<section id="Semantic Subspace">
+    <h2>Definition 2: Semantic Subspace</h2>
     <section id="Statement">
         <h3>Statement</h3>
         <div>
-            A vector $\bar{\ell}_W$ is a linear representation of a binary concept $W$ if for all contexts $\ell$, and all concept variables $Z$ that are causally separable with $W$, we have, for all $\alpha>0$,
-\begin{align}
-  \Pr(W = 1 \given \ell + \alpha \bar{\ell}_W) &> \Pr(W = 1 \given \ell), \text{ and} \\
-  \Pr(Z \given \ell + \alpha \bar{\ell}_W) &= \Pr(Z\given \ell).
-\end{align}
+            <b>Semantic subspace:</b> any independent $N_\alpha$-dimensional subspace $\mathbb{S}_\alpha^{N_\alpha} \subset \mathbb{S}^N$ for which every element may be uniquely identified by some parameters $\theta_\alpha$, such that it is possible for the attention scores $w_t$ to be fully specified by $\theta_\alpha$
+
         </div>
     </section>
     <section id="motivation">
         <h3>Motivation of Statement (AI-Generated)</h3>
         <div>
-            A linear representation of a binary concept $W$ is useful in the context of causal inference and machine learning. It allows us to isolate the effect of $W$ from other variables $Z$ that are causally separable from $W$. This can be particularly valuable when trying to understand the direct impact of $W$ on an outcome, without interference from other factors.
+            Semantic subspaces are useful in the context of machine learning and natural language processing. They allow for the representation of complex data in a lower-dimensional space while preserving meaningful relationships. This can significantly reduce computational complexity and improve the efficiency of algorithms, especially in tasks involving attention mechanisms. By uniquely identifying elements with parameters $\theta_\alpha$, semantic subspaces enable more precise and interpretable models.
         </div>
     </section>
         
     <section id="Reference">
         <h3>Reference</h3>
-            <p>Title: <a href="/library/papers/the_geometry_of_categorical_and_hierarchical_concepts_in_large_language_models/index.html">The Geometry of Categorical and Hierarchical Concepts in Large Language Models</a></p>
-            <p>Authors: Kiho Park, Yo Joong Choe, Yibo Jiang, and Victor Veitch</p>
-            <p>URL: <a href="https://arxiv.org/abs/2406.01506">https://arxiv.org/abs/2406.01506</a></p>
+            <p>Title: <a href="/library/papers/transformer_normalisation_layers_and_the_independence_of_semantic_subspaces/index.html">Transformer Normalisation Layers and the Independence of Semantic Subspaces</a></p>
+            <p>Authors: Stephen Menary, Samuel Kaski, and Andre Freitas</p>
+            <p>URL: <a href="https://arxiv.org/abs/2406.17837">https://arxiv.org/abs/2406.17837</a></p>
     </section>
     <section id="Resources">
         <!-- Bibtex Modal -->
         <div id="bibtexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeBibtexModal()">&times;</span>
-            <p>@misc{park2024geometrycategoricalhierarchicalconcepts,<br>&emsp;title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, <br>&emsp;author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},<br>&emsp;year={2024},<br>&emsp;eprint={2406.01506},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.CL},<br>&emsp;url={https://arxiv.org/abs/2406.01506}}</p>
+            <p>@misc{menary2024transformernormalisationlayersindependence,<br>&emsp;title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, <br>&emsp;author={Stephen Menary and Samuel Kaski and Andre Freitas},<br>&emsp;year={2024},<br>&emsp;eprint={2406.17837},<br>&emsp;archivePrefix={arXiv},<br>&emsp;primaryClass={cs.LG},<br>&emsp;url={https://arxiv.org/abs/2406.17837}<br>}</p>
             <button class="modal-button" onclick="copyBibtex()">Copy</button>
         </div>
         </div>
@@ -240,13 +107,10 @@ checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- 
         <div id="latexModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeLatexModal()">&times;</span>
-            <p class="tex2jax_ignore"><code>\begin{definition}\label{def:linear_representation_orig}
-  A vector $\bar{\ell}_W$ is a linear representation of a binary concept $W$ if for all contexts $\ell$, and all concept variables $Z$ that are causally separable with $W$, we have, for all $\alpha>0$,
-  \begin{align}
-    \Pr(W = 1 \given \ell + \alpha \bar{\ell}_W) &> \Pr(W = 1 \given \ell), \text{ and} \\
-    \Pr(Z \given \ell + \alpha \bar{\ell}_W) &= \Pr(Z\given \ell).
-  \end{align} 
-\end{definition}</code></p>
+            <p class="tex2jax_ignore"><code>\begin{mdframed}[backgroundcolor=red!5]
+\textbf{[Definition] ~ Semantic subspace:} any independent $N_\alpha$-dimensional subspace $\mathbb{S}_\alpha^{N_\alpha} \subset \mathbb{S}^N$ for which every element may be uniquely identified by some parameters $\theta_\alpha$, such that it is possible for the attention scores $w_t$ to be fully specified by $\theta_\alpha$.
+
+\end{mdframed}</code></p>
             <button class="modal-button" onclick="copyLatex()">Copy</button>
         </div>
         </div>
@@ -264,14 +128,15 @@ checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- 
             </p>
         <script>
             function copyBibtex() {
-                var textToCopy = `@misc{park2024geometrycategoricalhierarchicalconcepts,
-  title={The Geometry of Categorical and Hierarchical Concepts in Large Language Models}, 
-  author={Kiho Park and Yo Joong Choe and Yibo Jiang and Victor Veitch},
+                var textToCopy = `@misc{menary2024transformernormalisationlayersindependence,
+  title={Transformer Normalisation Layers and the Independence of Semantic Subspaces}, 
+  author={Stephen Menary and Samuel Kaski and Andre Freitas},
   year={2024},
-  eprint={2406.01506},
+  eprint={2406.17837},
   archivePrefix={arXiv},
-  primaryClass={cs.CL},
-  url={https://arxiv.org/abs/2406.01506}}`;
+  primaryClass={cs.LG},
+  url={https://arxiv.org/abs/2406.17837}
+}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {
@@ -280,13 +145,10 @@ checkmark: "\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- 
             }
             
             function copyLatex() {
-                var textToCopy = `\\begin{definition}\\label{def:linear_representation_orig}
-  A vector $\\bar{\\ell}_W$ is a linear representation of a binary concept $W$ if for all contexts $\\ell$, and all concept variables $Z$ that are causally separable with $W$, we have, for all $\\alpha>0$,
-  \\begin{align}
-    \\Pr(W = 1 \\given \\ell + \\alpha \\bar{\\ell}_W) &> \\Pr(W = 1 \\given \\ell), \\text{ and} \\\\
-    \\Pr(Z \\given \\ell + \\alpha \\bar{\\ell}_W) &= \\Pr(Z\\given \\ell).
-  \\end{align} 
-\\end{definition}`;
+                var textToCopy = `\\begin{mdframed}[backgroundcolor=red!5]
+\\textbf{[Definition] ~ Semantic subspace:} any independent $N_\\alpha$-dimensional subspace $\\mathbb{S}_\\alpha^{N_\\alpha} \\subset \\mathbb{S}^N$ for which every element may be uniquely identified by some parameters $\\theta_\\alpha$, such that it is possible for the attention scores $w_t$ to be fully specified by $\\theta_\\alpha$.
+
+\\end{mdframed}`;
                 navigator.clipboard.writeText(textToCopy).then(function() {
                     //alert('Text copied to clipboard: ' + textToCopy);
                 }, function(err) {
