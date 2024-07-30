@@ -53,7 +53,7 @@
           {
             "key": "Code",
             "dataType": "CODE",
-            "value": "db_path = '{db_path}'\nresult = open(db_path, 'r').read()",
+            "value": "db_path = '{db_path}'\nwith open(db_path, 'r') as db_file:\n  db_json_str = db_file.read()\nresult = db_json_str",
             "templateVariables": {
               "Code.db_path": ":undef:"
             },
@@ -197,7 +197,7 @@
             "dataType": "CODE",
             "value": "db_dict = {db_dict}\n\nllama_index_dict = {}\nfor paper_dict in db_dict['papers']:\n  source = paper_dict['source_url']\n  for type_statements in paper_dict['statements'].values():\n    for statement_dict in type_statements:\n      lib_name = statement_dict['library_name']\n      statement_tex = statement_dict['statement_original_tex']\n      statement_id = statement_dict['statement_id']\n      llama_index_dict[lib_name] = {\n        'library_name': lib_name,\n        'statement': statement_tex,\n        'id': statement_id,\n        'source': source\n      }\n\nresult = llama_index_dict",
             "templateVariables": {
-              "Code.db_dict": ":undef:"
+              "Code.db_dict": ""
             },
             "componentId": "a0ec84c5-c137-4edd-849e-229512a8ddc4"
           }
@@ -261,7 +261,7 @@
         },
         "version": null,
         "isCustom": false,
-        "isTerminal": true,
+        "isTerminal": false,
         "position": {
           "x": 1934.6657988400211,
           "y": 203.55750372785795
@@ -275,15 +275,88 @@
         ],
         "componentExamplePath": "llamaindex_index/llamaindex_index/example.json",
         "invalidErrors": []
+      },
+      {
+        "id": "a0ec84c5-c137-4edd-849e-229512a8ddc4",
+        "workflowId": "d9ca7a05-bc45-4a1e-ae70-726c659982dc",
+        "name": "Python coder",
+        "className": "PythonCoder",
+        "description": "Performs customized Python code execution. Outputs the value that the Python variable `result` is set to during the execution of the Python code.\nInputs:\n  `Code` (str): A string of the Python code to execute.  If needed, the Python code can be inputted manually by the user.\nOutput (Any): The value of the variable `result` in the Python code after execution.",
+        "group": "Coders",
+        "inputs": [
+          {
+            "key": "Code",
+            "dataType": "CODE",
+            "value": "import json\n\nindex_data = {index_data}\nindex_json_path = '{index_json_path}'\n\nif index_json_path:\n  with open(index_json_path, 'w') as json_file:\n      json.dump(index_data, json_file, indent=4)\n\nresult = index_json_path",
+            "templateVariables": {
+              "Code.index_data": ":undef:",
+              "Code.index_json_path": ":undef:"
+            },
+            "componentId": "a0ec84c5-c137-4edd-849e-229512a8ddc4"
+          }
+        ],
+        "output": {
+          "dataType": "ANY",
+          "value": ":undef:"
+        },
+        "label": "PYTHONCODER-6",
+        "configuration": {
+          "force_run": false,
+          "openai_api_key": "",
+          "openai_api_base": ""
+        },
+        "version": null,
+        "isCustom": false,
+        "isTerminal": true,
+        "position": {
+          "x": 2387.7050010327357,
+          "y": 236.3213098237208
+        },
+        "timeout": 600,
+        "componentCode": "python_coder/python_coder/__init__.py",
+        "componentCodeRequirements": [],
+        "componentExamplePath": "python_coder/python_coder/example.json",
+        "invalidErrors": []
+      },
+      {
+        "id": "ba77b735-8902-4c04-beff-eafb6b86be57",
+        "workflowId": "d9ca7a05-bc45-4a1e-ae70-726c659982dc",
+        "name": "Text Input",
+        "className": "TextInput",
+        "description": "Allows the user to input a text (potentially with template variables) that can be used in other downstream components.\nInputs:\n  `Input` (str): The text to output.\nOutput (str): The inputted text.",
+        "group": "Input",
+        "inputs": [
+          {
+            "key": "Input",
+            "dataType": "TEMPLATE",
+            "value": "",
+            "templateVariables": {},
+            "componentId": "ba77b735-8902-4c04-beff-eafb6b86be57"
+          }
+        ],
+        "output": {
+          "dataType": "TEXT",
+          "value": ":undef:"
+        },
+        "label": "TEXTINPUT-7",
+        "configuration": {
+          "force_run": false
+        },
+        "version": null,
+        "isCustom": false,
+        "isTerminal": false,
+        "position": {
+          "x": 1954.924991576393,
+          "y": 473.4094889171954
+        },
+        "timeout": 600,
+        "componentCode": "text_input/text_input/__init__.py",
+        "componentCodeRequirements": [],
+        "componentExamplePath": "text_input/text_input/example.json",
+        "invalidErrors": []
       }
     ],
     "dependencies": [
-      {
-        "componentInputKey": "Code",
-        "sourceLabel": "TEXTINPUT-0",
-        "targetLabel": "PYTHONCODER-1",
-        "templateVariableKey": "Code.db_path"
-      },
       {
         "componentInputKey": "papers",
         "sourceLabel": "PYTHONCODER-2",
@@ -307,6 +380,24 @@
         "sourceLabel": "PYTHONCODER-4",
         "targetLabel": "LLAMAINDEXINDEXING-5",
         "templateVariableKey": null
+      },
+      {
+        "componentInputKey": "Code",
+        "sourceLabel": "LLAMAINDEXINDEXING-5",
+        "targetLabel": "PYTHONCODER-6",
+        "templateVariableKey": "Code.index_data"
+      },
+      {
+        "componentInputKey": "Code",
+        "sourceLabel": "TEXTINPUT-7",
+        "targetLabel": "PYTHONCODER-6",
+        "templateVariableKey": "Code.index_json_path"
+      },
+      {
+        "componentInputKey": "Code",
+        "sourceLabel": "TEXTINPUT-0",
+        "targetLabel": "PYTHONCODER-1",
+        "templateVariableKey": "Code.db_path"
       }
     ],
     "timeout": 3600,
@@ -317,4 +408,4 @@
       "y0": 0.0
     },
     "invalidErrors": []
-  }
+}
