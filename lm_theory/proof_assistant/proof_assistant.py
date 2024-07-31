@@ -1,11 +1,8 @@
-# import asyncio
+import json
 import os
 import requests
-# import shutil
 
-# from lunarcore.component_library import COMPONENT_REGISTRY
-# from lunarcore.core.controllers.workflow_controller import WorkflowController
-from lunarcore.core.data_models import WorkflowModel
+from lunarcore.core.data_models import WorkflowModel, ComponentModel
 
 from lm_theory.config.config import (
     DB_PATH,    
@@ -14,7 +11,7 @@ from lm_theory.config.config import (
 
 LUNARCORE_ADDRESS="0.0.0.0"
 LUNARCORE_PORT=8088
-LUNAR_RUN_URL = f'http://{LUNARCORE_ADDRESS}:{LUNARCORE_PORT}/workflow/run'
+LUNAR_RUN_URL_TEMPLATE = f'http://{LUNARCORE_ADDRESS}:{LUNARCORE_PORT}/workflow/run?user_id={{user_id}}'
 
 
 INDEX_JSON_PATH = os.path.join(PKG_ROOT, 'data', 'db_llamaindex_data.json')
@@ -32,7 +29,7 @@ DB2LLAMAINDEX_DB_PATH_COMPONENT = 'TEXTINPUT-0'
 DB2LLAMAINDEX_INDEX_PATH_COMPONENT = 'TEXTINPUT-7'
 LLAMAINDEX_QUEST_QUERY_COMPONENT = 'TEXTINPUT-0'
 LLAMAINDEX_QUEST_INDEX_PATH_COMPONENT = 'TEXTINPUT-3'
-
+LLAMAINDEX_RESPONSE_COMPONENT = 'LLAMAINDEXQUERYING-1'
 
 def load_workflow(path: str):
     with open(path, 'r') as workflow_json_file:
@@ -43,28 +40,16 @@ def load_workflow(path: str):
 
 def run_workflow(workflow: WorkflowModel):              # TODO: make sure this works when simultanous requests on same workflow (probably fails now)
     try:
-        data = {
-            'workflow': workflow.model_dump(),
-            # 'user_id': 'si5126lj-s@student.lu.se'                          # TODO: si5126lj-s@student.lu.se?
-        }
-        user_id = 'admin'
-        response = requests.post(
-            f'{LUNAR_RUN_URL}?user_id={user_id}',                     # TODO: make template string
-            json=workflow.dict()
-        )
+        url = LUNAR_RUN_URL_TEMPLATE.format(user_id=workflow.user_id)       # TODO: change default user?
+        response = requests.post(url, json=workflow.model_dump())
         if response.status_code == 200:
-            print('Success:', response.status_code)
-            input(123)
-            print('Response:', response.text)
-            input(123)
-            print(response)
+            component_outputs = json.loads(response.text)
+            return component_outputs
         else:
             print('Failed with status code:', response.status_code)
-            print(dir(response))
-            print(response.text)
-            print(response.raw)
     except requests.exceptions.RequestException as e:
         print('Error making request:', e)
+    return None
 
 
 def component_by_label(label: str, workflow: WorkflowModel):
@@ -92,7 +77,8 @@ def build_index():
         DB2LLAMAINDEX_INDEX_PATH_COMPONENT,
         workflow
     )
-    run_workflow(workflow)
+    component_outputs = run_workflow(workflow)
+    return component_outputs
 
 
 def db_query(query):
@@ -107,8 +93,19 @@ def db_query(query):
         LLAMAINDEX_QUEST_INDEX_PATH_COMPONENT,
         workflow
     )
-    run_workflow(workflow)
+    component_outputs = run_workflow(workflow)
+    
+    # TODO first: find and return value!!
+    
+    response_component = ComponentModel.model_validate_json(
+        str(component_outputs[LLAMAINDEX_RESPONSE_COMPONENT])           # TODO: is there a better way to do this?
+    )
+    print(response_component.output.value)
+    print(type(response_component.output.value))
+
+    # TODO return response
 
 
 if __name__ == '__main__':
-    build_index()
+    # build_index()
+    db_query("What does Lemma 22 say?")
