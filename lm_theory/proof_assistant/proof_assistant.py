@@ -1,16 +1,20 @@
-import asyncio
+# import asyncio
 import os
-import shutil
+import requests
+# import shutil
 
-from lunarcore.component_library import COMPONENT_REGISTRY
-from lunarcore.core.controllers.workflow_controller import WorkflowController
+# from lunarcore.component_library import COMPONENT_REGISTRY
+# from lunarcore.core.controllers.workflow_controller import WorkflowController
 from lunarcore.core.data_models import WorkflowModel
 
 from lm_theory.config.config import (
     DB_PATH,    
-    ENV_PATH_LUNAR,
     PKG_ROOT,
 )
+
+LUNARCORE_ADDRESS="0.0.0.0"
+LUNARCORE_PORT=8088
+LUNAR_RUN_URL = f'http://{LUNARCORE_ADDRESS}:{LUNARCORE_PORT}/workflow/run'
 
 
 INDEX_JSON_PATH = os.path.join(PKG_ROOT, 'data', 'db_llamaindex_data.json')
@@ -30,21 +34,6 @@ LLAMAINDEX_QUEST_QUERY_COMPONENT = 'TEXTINPUT-0'
 LLAMAINDEX_QUEST_INDEX_PATH_COMPONENT = 'TEXTINPUT-3'
 
 
-if len(COMPONENT_REGISTRY.components) == 0:                     # TODO: Is this thread-safe?
-    asyncio.run(COMPONENT_REGISTRY.register(fetch=True))
-
-
-def _clear_venv(workflow: WorkflowModel, workflow_controller: WorkflowController):
-    venv_dir = os.path.join(
-        workflow_controller.config.FLOW_STORAGE_BASE_PATH,
-        workflow.user_id,
-        workflow_controller.config.FLOW_ROOT_DIR,
-        workflow_controller.config.FLOW_DEFAULT_VENV_ROOT,
-        workflow.id,
-    )
-    shutil.rmtree(venv_dir)
-
-
 def load_workflow(path: str):
     with open(path, 'r') as workflow_json_file:
         workflow_json_str = workflow_json_file.read()
@@ -52,11 +41,30 @@ def load_workflow(path: str):
     return workflow
 
 
-def run_workflow(workflow: WorkflowModel):
-    workflow_controller = WorkflowController(ENV_PATH_LUNAR)
-    run_result = asyncio.run(workflow_controller.run(workflow, workflow.user_id))
-    _clear_venv(workflow)
-    return run_result
+def run_workflow(workflow: WorkflowModel):              # TODO: make sure this works when simultanous requests on same workflow (probably fails now)
+    try:
+        data = {
+            'workflow': workflow.model_dump(),
+            # 'user_id': 'si5126lj-s@student.lu.se'                          # TODO: si5126lj-s@student.lu.se?
+        }
+        user_id = 'admin'
+        response = requests.post(
+            f'{LUNAR_RUN_URL}?user_id={user_id}',                     # TODO: make template string
+            json=workflow.dict()
+        )
+        if response.status_code == 200:
+            print('Success:', response.status_code)
+            input(123)
+            print('Response:', response.text)
+            input(123)
+            print(response)
+        else:
+            print('Failed with status code:', response.status_code)
+            print(dir(response))
+            print(response.text)
+            print(response.raw)
+    except requests.exceptions.RequestException as e:
+        print('Error making request:', e)
 
 
 def component_by_label(label: str, workflow: WorkflowModel):
