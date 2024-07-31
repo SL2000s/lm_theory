@@ -1,205 +1,205 @@
 {
-    "id": "18849d0b-9334-49d9-9024-eacb39c3aa06",
-    "userId": "si5126lj-s@student.lu.se",
-    "name": "LlamaIndex quest",
-    "description": "Make a non-retrieval LlamaIndex quest to an existing LlamaIndex index.",
-    "version": null,
-    "components": [
-      {
-        "id": "ba77b735-8902-4c04-beff-eafb6b86be57",
-        "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
-        "name": "Text Input",
-        "className": "TextInput",
-        "description": "Allows the user to input a text (potentially with template variables) that can be used in other downstream components.\nInputs:\n  `Input` (str): The text to output.\nOutput (str): The inputted text.",
-        "group": "Input",
-        "inputs": [
-          {
-            "key": "Input",
-            "dataType": "TEMPLATE",
-            "value": "",
-            "templateVariables": {},
-            "componentId": "ba77b735-8902-4c04-beff-eafb6b86be57"
-          }
-        ],
-        "output": {
-          "dataType": "TEXT",
-          "value": ":undef:"
-        },
-        "label": "TEXTINPUT-0",
-        "configuration": {
-          "force_run": false
-        },
-        "version": null,
-        "isCustom": false,
-        "isTerminal": false,
-        "position": {
-          "x": 310.6485387919471,
-          "y": 327.51787033557093
-        },
-        "timeout": 600,
-        "componentCode": "text_input/text_input/__init__.py",
-        "componentCodeRequirements": [],
-        "componentExamplePath": "text_input/text_input/example.json",
-        "invalidErrors": []
+  "id": "18849d0b-9334-49d9-9024-eacb39c3aa06",
+  "userId": "si5126lj-s@student.lu.se",
+  "name": "LlamaIndex quest",
+  "description": "Make a non-retrieval LlamaIndex quest to an existing LlamaIndex index.",
+  "version": null,
+  "components": [
+    {
+      "id": "ba77b735-8902-4c04-beff-eafb6b86be57",
+      "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
+      "name": "Text Input",
+      "className": "TextInput",
+      "description": "Allows the user to input a text (potentially with template variables) that can be used in other downstream components.\nInputs:\n  `Input` (str): The text to output.\nOutput (str): The inputted text.",
+      "group": "Input",
+      "inputs": [
+        {
+          "key": "Input",
+          "dataType": "TEMPLATE",
+          "value": "",
+          "templateVariables": {},
+          "componentId": "ba77b735-8902-4c04-beff-eafb6b86be57"
+        }
+      ],
+      "output": {
+        "dataType": "TEXT",
+        "value": ":undef:"
       },
-      {
-        "id": "6c6c9623-6da9-4023-874d-9943b1f2d232",
-        "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
-        "name": "LlamaIndex Querying",
-        "className": "LlamaIndexQuerying",
-        "description": "Querying from LlamaIndex index.\nConfiguration:\n  `query_prefix` (str): A prefix that is added to the query.\n  `retrieval_only` (str): A string with the value `True` or `False`.\n  `top_k` (str): The number k of the best matches that should be retrived if retrival_only\nInputs:\n  `Index Details Json` (dict): A dictionary containing the keys:\n  `original_json` (dict): copy of the input,\n  `index_dir` (str): directory where the index is stored,\n  `index_name` (str): name of the stored index,\n  `keys_list` (list[str]): list of the stored index keys,\n  `llm_config` (dict): configuration of the LLM,\n  `embed_model_config` (dict): configuration of the embedding model\nOutput: A dictionary with the keys `Top_1`, `Top_2`, ..., `Top_k` if retrival_only, else a dictionary with the key `Response`",
-        "group": "Prompt Query",
-        "inputs": [
-          {
-            "key": "Index Details Json",
-            "dataType": "JSON",
-            "value": ":undef:",
-            "templateVariables": {},
-            "componentId": "6c6c9623-6da9-4023-874d-9943b1f2d232"
-          },
-          {
-            "key": "Query",
-            "dataType": "TEMPLATE",
-            "value": ":undef:",
-            "templateVariables": {},
-            "componentId": "6c6c9623-6da9-4023-874d-9943b1f2d232"
-          }
-        ],
-        "output": {
-          "dataType": "JSON",
-          "value": ":undef:"
-        },
-        "label": "LLAMAINDEXQUERYING-1",
-        "configuration": {
-          "force_run": "true",
-          "query_prefix": "",
-          "retrieval_only": "False",
-          "top_k": "3",
-          "openai_api_key": ""
-        },
-        "version": null,
-        "isCustom": false,
-        "isTerminal": true,
-        "position": {
-          "x": 837.1556030401475,
-          "y": 184.61337809115912
-        },
-        "timeout": 600,
-        "componentCode": "llamaindex_query/llamaindex_query/__init__.py",
-        "componentCodeRequirements": [
-          "llama-index-llms-azure-openai",
-          "llama_index",
-          "llama-index-embeddings-azure-openai",
-          "llama-index-retrievers-bm25"
-        ],
-        "componentExamplePath": "llamaindex_query/llamaindex_query/example.json",
-        "invalidErrors": []
+      "label": "TEXTINPUT-0",
+      "configuration": {
+        "force_run": false
       },
-      {
-        "id": "a0ec84c5-c137-4edd-849e-229512a8ddc4",
-        "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
-        "name": "Python coder",
-        "className": "PythonCoder",
-        "description": "Performs customized Python code execution. Outputs the value that the Python variable `result` is set to during the execution of the Python code.\nInputs:\n  `Code` (str): A string of the Python code to execute.  If needed, the Python code can be inputted manually by the user.\nOutput (Any): The value of the variable `result` in the Python code after execution.",
-        "group": "Coders",
-        "inputs": [
-          {
-            "key": "Code",
-            "dataType": "CODE",
-            "value": "import json\n\nindex_json_path = '{index_json_path}'\n\nwith open(index_json_path, 'r') as json_file:\n  json_dict = json.load(json_file)\n\nresult = json_dict",
-            "templateVariables": {
-              "Code.index_json_path": ":undef:"
-            },
-            "componentId": "a0ec84c5-c137-4edd-849e-229512a8ddc4"
-          }
-        ],
-        "output": {
-          "dataType": "ANY",
-          "value": ":undef:"
-        },
-        "label": "PYTHONCODER-2",
-        "configuration": {
-          "force_run": false,
-          "openai_api_key": "",
-          "openai_api_base": ""
-        },
-        "version": null,
-        "isCustom": false,
-        "isTerminal": false,
-        "position": {
-          "x": 310.4100202213581,
-          "y": -53.06123895293218
-        },
-        "timeout": 600,
-        "componentCode": "python_coder/python_coder/__init__.py",
-        "componentCodeRequirements": [],
-        "componentExamplePath": "python_coder/python_coder/example.json",
-        "invalidErrors": []
+      "version": null,
+      "isCustom": false,
+      "isTerminal": false,
+      "position": {
+        "x": 310.6485387919471,
+        "y": 327.51787033557093
       },
-      {
-        "id": "ba77b735-8902-4c04-beff-eafb6b86be57",
-        "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
-        "name": "Text Input",
-        "className": "TextInput",
-        "description": "Allows the user to input a text (potentially with template variables) that can be used in other downstream components.\nInputs:\n  `Input` (str): The text to output.\nOutput (str): The inputted text.",
-        "group": "Input",
-        "inputs": [
-          {
-            "key": "Input",
-            "dataType": "TEMPLATE",
-            "value": "",
-            "templateVariables": {},
-            "componentId": "ba77b735-8902-4c04-beff-eafb6b86be57"
-          }
-        ],
-        "output": {
-          "dataType": "TEXT",
-          "value": ":undef:"
-        },
-        "label": "TEXTINPUT-3",
-        "configuration": {
-          "force_run": false
-        },
-        "version": null,
-        "isCustom": false,
-        "isTerminal": false,
-        "position": {
-          "x": -104.15485024082659,
-          "y": -56.82631037440245
-        },
-        "timeout": 600,
-        "componentCode": "text_input/text_input/__init__.py",
-        "componentCodeRequirements": [],
-        "componentExamplePath": "text_input/text_input/example.json",
-        "invalidErrors": []
-      }
-    ],
-    "dependencies": [
-      {
-        "componentInputKey": "Query",
-        "sourceLabel": "TEXTINPUT-0",
-        "targetLabel": "LLAMAINDEXQUERYING-1",
-        "templateVariableKey": null
-      },
-      {
-        "componentInputKey": "Code",
-        "sourceLabel": "TEXTINPUT-3",
-        "targetLabel": "PYTHONCODER-2",
-        "templateVariableKey": "Code.index_json_path"
-      },
-      {
-        "componentInputKey": "Index Details Json",
-        "sourceLabel": "PYTHONCODER-2",
-        "targetLabel": "LLAMAINDEXQUERYING-1",
-        "templateVariableKey": null
-      }
-    ],
-    "timeout": 3600,
-    "autoComponentSpacing": {
-      "dx": 450.0,
-      "dy": 350.0,
-      "x0": 0.0,
-      "y0": 0.0
+      "timeout": 600,
+      "componentCode": "text_input/text_input/__init__.py",
+      "componentCodeRequirements": [],
+      "componentExamplePath": "text_input/text_input/example.json",
+      "invalidErrors": []
     },
-    "invalidErrors": []
-  }
+    {
+      "id": "6c6c9623-6da9-4023-874d-9943b1f2d232",
+      "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
+      "name": "LlamaIndex Querying",
+      "className": "LlamaIndexQuerying",
+      "description": "Querying from LlamaIndex index.\nConfiguration:\n  `query_prefix` (str): A prefix that is added to the query.\n  `retrieval_only` (str): A string with the value `True` or `False`.\n  `top_k` (str): The number k of the best matches that should be retrived if retrival_only\nInputs:\n  `Index Details Json` (dict): A dictionary containing the keys:\n  `original_json` (dict): copy of the input,\n  `index_dir` (str): directory where the index is stored,\n  `index_name` (str): name of the stored index,\n  `keys_list` (list[str]): list of the stored index keys,\n  `llm_config` (dict): configuration of the LLM,\n  `embed_model_config` (dict): configuration of the embedding model\nOutput: A dictionary with the keys `Top_1`, `Top_2`, ..., `Top_k` if retrival_only, else a dictionary with the key `Response`",
+      "group": "Prompt Query",
+      "inputs": [
+        {
+          "key": "Index Details Json",
+          "dataType": "JSON",
+          "value": ":undef:",
+          "templateVariables": {},
+          "componentId": "6c6c9623-6da9-4023-874d-9943b1f2d232"
+        },
+        {
+          "key": "Query",
+          "dataType": "TEMPLATE",
+          "value": ":undef:",
+          "templateVariables": {},
+          "componentId": "6c6c9623-6da9-4023-874d-9943b1f2d232"
+        }
+      ],
+      "output": {
+        "dataType": "JSON",
+        "value": ":undef:"
+      },
+      "label": "LLAMAINDEXQUERYING-1",
+      "configuration": {
+        "force_run": "true",
+        "query_prefix": "",
+        "retrieval_only": "False",
+        "top_k": "3",
+        "openai_api_key": ""
+      },
+      "version": null,
+      "isCustom": false,
+      "isTerminal": true,
+      "position": {
+        "x": 837.1556030401475,
+        "y": 184.61337809115912
+      },
+      "timeout": 600,
+      "componentCode": "llamaindex_query/llamaindex_query/__init__.py",
+      "componentCodeRequirements": [
+        "llama-index-llms-azure-openai",
+        "llama_index",
+        "llama-index-embeddings-azure-openai",
+        "llama-index-retrievers-bm25"
+      ],
+      "componentExamplePath": "llamaindex_query/llamaindex_query/example.json",
+      "invalidErrors": []
+    },
+    {
+      "id": "a0ec84c5-c137-4edd-849e-229512a8ddc4",
+      "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
+      "name": "Python coder",
+      "className": "PythonCoder",
+      "description": "Performs customized Python code execution. Outputs the value that the Python variable `result` is set to during the execution of the Python code.\nInputs:\n  `Code` (str): A string of the Python code to execute.  If needed, the Python code can be inputted manually by the user.\nOutput (Any): The value of the variable `result` in the Python code after execution.",
+      "group": "Coders",
+      "inputs": [
+        {
+          "key": "Code",
+          "dataType": "CODE",
+          "value": "import json\n\nindex_json_path = '{index_json_path}'\n\nwith open(index_json_path, 'r') as json_file:\n  json_dict = json.load(json_file)\n\nresult = json_dict",
+          "templateVariables": {
+            "Code.index_json_path": ":undef:"
+          },
+          "componentId": "a0ec84c5-c137-4edd-849e-229512a8ddc4"
+        }
+      ],
+      "output": {
+        "dataType": "ANY",
+        "value": ":undef:"
+      },
+      "label": "PYTHONCODER-2",
+      "configuration": {
+        "force_run": false,
+        "openai_api_key": "",
+        "openai_api_base": ""
+      },
+      "version": null,
+      "isCustom": false,
+      "isTerminal": false,
+      "position": {
+        "x": 310.4100202213581,
+        "y": -53.06123895293218
+      },
+      "timeout": 600,
+      "componentCode": "python_coder/python_coder/__init__.py",
+      "componentCodeRequirements": [],
+      "componentExamplePath": "python_coder/python_coder/example.json",
+      "invalidErrors": []
+    },
+    {
+      "id": "ba77b735-8902-4c04-beff-eafb6b86be57",
+      "workflowId": "18849d0b-9334-49d9-9024-eacb39c3aa06",
+      "name": "Text Input",
+      "className": "TextInput",
+      "description": "Allows the user to input a text (potentially with template variables) that can be used in other downstream components.\nInputs:\n  `Input` (str): The text to output.\nOutput (str): The inputted text.",
+      "group": "Input",
+      "inputs": [
+        {
+          "key": "Input",
+          "dataType": "TEMPLATE",
+          "value": "",
+          "templateVariables": {},
+          "componentId": "ba77b735-8902-4c04-beff-eafb6b86be57"
+        }
+      ],
+      "output": {
+        "dataType": "TEXT",
+        "value": ":undef:"
+      },
+      "label": "TEXTINPUT-3",
+      "configuration": {
+        "force_run": false
+      },
+      "version": null,
+      "isCustom": false,
+      "isTerminal": false,
+      "position": {
+        "x": -104.15485024082659,
+        "y": -56.82631037440245
+      },
+      "timeout": 600,
+      "componentCode": "text_input/text_input/__init__.py",
+      "componentCodeRequirements": [],
+      "componentExamplePath": "text_input/text_input/example.json",
+      "invalidErrors": []
+    }
+  ],
+  "dependencies": [
+    {
+      "componentInputKey": "Query",
+      "sourceLabel": "TEXTINPUT-0",
+      "targetLabel": "LLAMAINDEXQUERYING-1",
+      "templateVariableKey": null
+    },
+    {
+      "componentInputKey": "Code",
+      "sourceLabel": "TEXTINPUT-3",
+      "targetLabel": "PYTHONCODER-2",
+      "templateVariableKey": "Code.index_json_path"
+    },
+    {
+      "componentInputKey": "Index Details Json",
+      "sourceLabel": "PYTHONCODER-2",
+      "targetLabel": "LLAMAINDEXQUERYING-1",
+      "templateVariableKey": null
+    }
+  ],
+  "timeout": 3600,
+  "autoComponentSpacing": {
+    "dx": 450.0,
+    "dy": 350.0,
+    "x0": 0.0,
+    "y0": 0.0
+  },
+  "invalidErrors": []
+}
