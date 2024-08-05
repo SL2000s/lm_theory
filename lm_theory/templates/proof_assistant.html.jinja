@@ -1,18 +1,63 @@
 {% extends "base.html.jinja" %}
 
-{% block title %}Proof Assistant{% endblock %}
+{% block title %}Proof Assistant - LM Theory{% endblock %}
+
+{% block head %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script>
+    window.MathJax = {
+        loader: {load: ['[tex]/mathtools']},
+        tex: {
+            tags: 'all',  // Automatically number all display equations
+            packages: {'[+]': ['mathtools']},
+            autoload: {
+                coloneqq: ['mathtools']
+            },
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                {{[] | code_list}}
+            },
+            environments: {
+                {{[] | code_list}}
+            },
+        },
+        options: {
+            renderActions: {
+                addMenu: []
+            },
+            ignoreHtmlClass: "tex2jax_ignore",
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock %}
 
 {% block content %}
+<h2>Proof Assistant</h2>
+
+At this page, you can get assistance for constructing informal proofs and building new theorems.
+<br>
+<br>
+The assistant has access to all statments in the statement database. Refer to them with the corresponding numbers (e.g. Theorem 1, Definition 11, etc.)
+
+<h2>Chat</h2>
 <div class="chat-container">
     <div class="messages" id="messages">
         {% for message in messages %}
             <div class="message {{ message.sender }}">
-                <strong>{{ message.sender }}:</strong> {{ message.text }}
+                <strong>{{ message.sender }}:</strong>
+                <br>
+                {{ message.text }}
+                <br>
+                <br>
             </div>
         {% endfor %}
     </div>
+    <br>
     <form method="post" action="/proof_assistant_query">
-        <input type="text" name="prompt" placeholder="Type your message here..." required>
+        <textarea name="prompt" placeholder="Type a quest to the statements database..." rows="5" required></textarea>
         <button type="submit">Send</button>
     </form>
 </div>
