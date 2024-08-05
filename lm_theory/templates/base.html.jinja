@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}LM Theory{% endblock %}</title>
+    <link rel="shortcut icon" href="{{'/assets/images/favicon.png' | add_assets_root}}">
     <link rel="stylesheet" href="{{'/assets/css/styles.css' | add_assets_root}}">
     {% block head %}{% endblock %}
 </head>
@@ -15,6 +16,7 @@
             <a href="{{'examples' | add_pages_root}}">Examples</a>
             <a href="{{'contact' | add_pages_root}}">Contact</a>
             <a href="{{'contribute' | add_pages_root}}">Contribute</a>
+            <a href="{{'proof_assistant' | add_pages_root}}">Proof Assistant</a>
             <div class="hover-container">
                 <span class="hover-word"><a href="{{'library' | add_pages_root}}">Index</a></span>
                 <div class="dropdown-content">
