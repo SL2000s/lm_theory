@@ -5,7 +5,6 @@ import warnings
 from jinja2 import Environment, FileSystemLoader
 
 from ...paper_extraction.config.config import (
-    JINJA2_TEMPLATES_ROOT,
     STATEMENT_TYPE_HTML_TEMPLATE_PATHS,
     STATEMENT_TYPES_METADATA,
     STATEMENT_TYPE_URL_TEMPLATE,
@@ -23,7 +22,10 @@ from ..html_rendering.jinja2_env_filters import (
     text_list,
 )
 
-from lm_theory.config.config import GENERATED_HTML_DIR
+from lm_theory.config.config import (
+    GENERATED_HTML_DIR,
+    JINJA2_TEMPLATES_ROOT,
+)
 
 
 class HTMLGenerator():

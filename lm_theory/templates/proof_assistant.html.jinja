@@ -1,0 +1,19 @@
+{% extends "base.html.jinja" %}
+
+{% block title %}Proof Assistant{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="messages" id="messages">
+        {% for message in messages %}
+            <div class="message {{ message.sender }}">
+                <strong>{{ message.sender }}:</strong> {{ message.text }}
+            </div>
+        {% endfor %}
+    </div>
+    <form method="post" action="/proof_assistant_query">
+        <input type="text" name="prompt" placeholder="Type your message here..." required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ from lm_theory.generate_html.html_pages_builder import build_html_files
 
 
 PAGES_ROOT = '/'
-ASSETS_ROOT = '/'
+ASSETS_ROOT = '/'   # TODO: remove
 
 SRC_ROOT = os.path.dirname(os.path.dirname(__file__))
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'paper_database.json')

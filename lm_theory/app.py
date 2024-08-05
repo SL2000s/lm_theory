@@ -2,15 +2,37 @@ import json
 import os
 
 from datetime import datetime
-from fastapi import FastAPI, Form, File, UploadFile
+from fastapi import FastAPI, Form, File, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+
+from lm_theory.config.config import (
+    ASSETS_ROOT,
+    GENERATED_HTML_ROOT,
+    JINJA2_TEMPLATES_ROOT,
+    PKG_ROOT,
+)
+
+
+from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
+    add_html_tabs_newlines,
+    add_root,
+    capitalize_first,
+    code_list,
+    escape_backslashes,
+    link_list,
+    replace_tabs_by_spaces,
+    text_list,
+)
 
 
 app = FastAPI()
 
 app.mount("/html", StaticFiles(directory="html"), name="html")          # TODO: don't hardcode   # TODO: works only when cwd is here
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")    # TODO: don't hardcode   # TODO: works only when cwd is here
+app.mount("/templates", StaticFiles(directory="templates"), name="templates")    # TODO: don't hardcode   # TODO: works only when cwd is here
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -149,6 +171,46 @@ async def submit_contribution(
             file_object.write(contribution_file.file.read())
     
     return RedirectResponse(url='/', status_code=303)
+
+
+
+
+class CustomJinja2Templates(Jinja2Templates):
+    def __init__(self, directory: str):
+        super().__init__(directory=directory)
+        self.env.filters['add_html_tabs_newlines'] = add_html_tabs_newlines
+        self.env.filters['add_root'] = lambda s: add_root(s, PKG_ROOT)
+        self.env.filters['add_pages_root'] = lambda s: add_root(s, GENERATED_HTML_ROOT)
+        self.env.filters['add_assets_root'] = lambda s: add_root(s, ASSETS_ROOT)
+        self.env.filters['capitalize_first'] = capitalize_first
+        self.env.filters['code_list'] = code_list
+        self.env.filters['escape_backslashes'] = escape_backslashes
+        self.env.filters['link_list'] = lambda s: link_list(s, GENERATED_HTML_ROOT)
+        self.env.filters['replace_tabs_by_spaces'] = replace_tabs_by_spaces
+        self.env.filters['text_list'] = text_list
+
+
+
+chat_history = []
+templates = CustomJinja2Templates(directory=JINJA2_TEMPLATES_ROOT)
+
+
+def generate_response(prompt: str) -> str:
+    return f"Bot response to: {prompt}"       # TODO
+
+
+@app.get("/proof_assistant", response_class=HTMLResponse)
+async def proof_assistant(request: Request):
+    return templates.TemplateResponse('proof_assistant.html.jinja', {"request": request, "messages": chat_history})
+
+
+@app.post("/proof_assistant_query", response_class=HTMLResponse)
+async def proof_assistant_query(request: Request, prompt: str = Form(...)):
+    chat_history.append({"sender": "user", "text": prompt})
+    bot_response = generate_response(prompt)
+    chat_history.append({"sender": "bot", "text": bot_response})
+    return templates.TemplateResponse("proof_assistant.html.jinja", {"request": request, "messages": chat_history})
+
 
 if __name__ == "__main__":
     import uvicorn

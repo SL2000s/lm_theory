@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+import warnings
 
 from lunarcore.core.data_models import WorkflowModel, ComponentModel
 
@@ -29,7 +30,7 @@ DB2LLAMAINDEX_DB_PATH_COMPONENT = 'TEXTINPUT-0'
 DB2LLAMAINDEX_INDEX_PATH_COMPONENT = 'TEXTINPUT-7'
 LLAMAINDEX_QUEST_QUERY_COMPONENT = 'TEXTINPUT-0'
 LLAMAINDEX_QUEST_INDEX_PATH_COMPONENT = 'TEXTINPUT-3'
-LLAMAINDEX_RESPONSE_COMPONENT = 'LLAMAINDEXQUERYING-1'
+LLAMAINDEX_OUTPUT_COMPONENT = 'LLAMAINDEXQUERYING-1'
 
 def load_workflow(path: str):
     with open(path, 'r') as workflow_json_file:
@@ -46,9 +47,10 @@ def run_workflow(workflow: WorkflowModel):              # TODO: make sure this w
             component_outputs = json.loads(response.text)
             return component_outputs
         else:
-            print('Failed with status code:', response.status_code)
+            warnings.warn(f'Failed with status code: {response.status_code}')
     except requests.exceptions.RequestException as e:
-        print('Error making request:', e)
+        warnings.warn(f'Error making request: {e}')
+    warnings.warn('Failed running workflow. Have you started the LunarCore server?')
     return None
 
 
@@ -94,18 +96,15 @@ def db_query(query):
         workflow
     )
     component_outputs = run_workflow(workflow)
-    
-    # TODO first: find and return value!!
-    
-    response_component = ComponentModel.model_validate_json(
-        str(component_outputs[LLAMAINDEX_RESPONSE_COMPONENT])           # TODO: is there a better way to do this?
-    )
-    print(response_component.output.value)
-    print(type(response_component.output.value))
 
-    # TODO return response
+    response_component = ComponentModel(
+        **component_outputs[LLAMAINDEX_OUTPUT_COMPONENT]           # TODO: is there a better way to do this?
+    )
+    response = response_component.output.value['Response']['response']
+    return response
 
 
 if __name__ == '__main__':
     # build_index()
-    db_query("What does Lemma 22 say?")
+    response = db_query("What does Lemma 22 say?")
+    print(response)

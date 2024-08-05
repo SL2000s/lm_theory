@@ -2,7 +2,6 @@ import os
 
 
 PKG_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-JINJA2_TEMPLATES_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'templates')
 
 DOTENV_PATH = os.path.join(PKG_ROOT, '.env')
 
