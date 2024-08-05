@@ -14,8 +14,6 @@ from lm_theory.config.config import (
     JINJA2_TEMPLATES_ROOT,
     PKG_ROOT,
 )
-
-
 from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     add_html_tabs_newlines,
     add_root,
@@ -26,6 +24,7 @@ from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     replace_tabs_by_spaces,
     text_list,
 )
+from lm_theory.proof_assistant.proof_assistant import db_query
 
 
 app = FastAPI()
@@ -36,6 +35,22 @@ app.mount("/templates", StaticFiles(directory="templates"), name="templates")   
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+
+class CustomJinja2Templates(Jinja2Templates):
+    def __init__(self, directory: str):
+        super().__init__(directory=directory)
+        self.env.filters['add_html_tabs_newlines'] = add_html_tabs_newlines
+        self.env.filters['add_root'] = lambda s: add_root(s, '/')
+        self.env.filters['add_pages_root'] = lambda s: add_root(s, '/')
+        self.env.filters['add_assets_root'] = lambda s: add_root(s, '/')
+        self.env.filters['capitalize_first'] = capitalize_first
+        self.env.filters['code_list'] = code_list
+        self.env.filters['escape_backslashes'] = escape_backslashes
+        self.env.filters['link_list'] = lambda s: link_list(s, GENERATED_HTML_ROOT)
+        self.env.filters['replace_tabs_by_spaces'] = replace_tabs_by_spaces
+        self.env.filters['text_list'] = text_list
+templates = CustomJinja2Templates(directory=JINJA2_TEMPLATES_ROOT)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -60,67 +75,67 @@ async def get_other_pages():
 
 @app.get("/library/axioms", response_class=HTMLResponse)
 @app.get("/library/axioms/index.html", response_class=HTMLResponse)   # TODO (also below): remove need of this
-async def get_other_pages():
+async def get_axioms():
     return HTMLResponse(open("html/library/axioms/index.html").read())
 
 
 @app.get("/library/axioms/{library_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(library_name: str):
+async def get_axiom(library_name: str):
     return HTMLResponse(open(f"html/library/axioms/{library_name}/index.html").read())
 
 
 @app.get("/library/corollaries", response_class=HTMLResponse)
 @app.get("/library/corollaries/index.html", response_class=HTMLResponse)
-async def get_other_pages():
+async def get_corollaries():
     return HTMLResponse(open("html/library/corollaries/index.html").read())
 
 
 @app.get("/library/corollaries/{library_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(library_name: str):
+async def get_corollary(library_name: str):
     return HTMLResponse(open(f"html/library/corollaries/{library_name}/index.html").read())
 
 
 @app.get("/library/definitions", response_class=HTMLResponse)
 @app.get("/library/definitions/index.html", response_class=HTMLResponse)
-async def get_other_pages():
+async def get_definitions():
     return HTMLResponse(open("html/library/definitions/index.html").read())
 
 
 @app.get("/library/definitions/{library_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(library_name: str):
+async def get_definition(library_name: str):
     return HTMLResponse(open(f"html/library/definitions/{library_name}/index.html").read())
 
 
 @app.get("/library/lemmas", response_class=HTMLResponse)
 @app.get("/library/lemmas/index.html", response_class=HTMLResponse)
-async def get_other_pages():
+async def get_lemmas():
     return HTMLResponse(open("html/library/lemmas/index.html").read())
 
 
 @app.get("/library/lemmas/{library_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(library_name: str):
+async def get_lemma(library_name: str):
     return HTMLResponse(open(f"html/library/lemmas/{library_name}/index.html").read())
 
 
 @app.get("/library/theorems", response_class=HTMLResponse)
 @app.get("/library/theorems/index.html", response_class=HTMLResponse)
-async def get_other_pages():
+async def get_theorems():
     return HTMLResponse(open("html/library/theorems/index.html").read())
 
 
 @app.get("/library/theorems/{library_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(library_name: str):
+async def get_theorem(library_name: str):
     return HTMLResponse(open(f"html/library/theorems/{library_name}/index.html").read())
 
 
 @app.get("/library/papers", response_class=HTMLResponse)
 @app.get("/library/papers/index.html", response_class=HTMLResponse)
-async def get_other_pages():
+async def get_papers():
     return HTMLResponse(open("html/library/papers/index.html").read())
 
 
 @app.get("/library/papers/{paper_name}/index.html", response_class=HTMLResponse)
-async def get_other_pages(paper_name: str):
+async def get_paper(paper_name: str):
     return HTMLResponse(open(f"html/library/papers/{paper_name}/index.html").read())
 
 
@@ -175,28 +190,16 @@ async def submit_contribution(
 
 
 
-class CustomJinja2Templates(Jinja2Templates):
-    def __init__(self, directory: str):
-        super().__init__(directory=directory)
-        self.env.filters['add_html_tabs_newlines'] = add_html_tabs_newlines
-        self.env.filters['add_root'] = lambda s: add_root(s, PKG_ROOT)
-        self.env.filters['add_pages_root'] = lambda s: add_root(s, GENERATED_HTML_ROOT)
-        self.env.filters['add_assets_root'] = lambda s: add_root(s, ASSETS_ROOT)
-        self.env.filters['capitalize_first'] = capitalize_first
-        self.env.filters['code_list'] = code_list
-        self.env.filters['escape_backslashes'] = escape_backslashes
-        self.env.filters['link_list'] = lambda s: link_list(s, GENERATED_HTML_ROOT)
-        self.env.filters['replace_tabs_by_spaces'] = replace_tabs_by_spaces
-        self.env.filters['text_list'] = text_list
 
 
 
 chat_history = []
-templates = CustomJinja2Templates(directory=JINJA2_TEMPLATES_ROOT)
 
 
 def generate_response(prompt: str) -> str:
-    return f"Bot response to: {prompt}"       # TODO
+    # return f"Bot response to: {prompt}"
+    bot_response = (db_query(prompt))
+    return bot_response
 
 
 @app.get("/proof_assistant", response_class=HTMLResponse)
@@ -204,12 +207,12 @@ async def proof_assistant(request: Request):
     return templates.TemplateResponse('proof_assistant.html.jinja', {"request": request, "messages": chat_history})
 
 
-@app.post("/proof_assistant_query", response_class=HTMLResponse)
-async def proof_assistant_query(request: Request, prompt: str = Form(...)):
-    chat_history.append({"sender": "user", "text": prompt})
+@app.post("/proof_assistant_query", response_class=RedirectResponse)
+async def proof_assistant_query(request: Request, prompt: str = Form(...)):   # TODO: what to do with request argument?
+    chat_history.append({"sender": "User", "text": prompt})
     bot_response = generate_response(prompt)
-    chat_history.append({"sender": "bot", "text": bot_response})
-    return templates.TemplateResponse("proof_assistant.html.jinja", {"request": request, "messages": chat_history})
+    chat_history.append({"sender": "Bot", "text": bot_response})
+    return RedirectResponse(url='/proof_assistant', status_code=303)
 
 
 if __name__ == "__main__":
