@@ -6,7 +6,11 @@ from fastapi import FastAPI, Form, File, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+from typing import Dict
 
+# from fastapi_sessions import SessionMiddleware   # TODO: remove from poetry
+# from fastapi_sessions.cookie_storage import CookieStorage
 
 from lm_theory.config.config import (
     ASSETS_ROOT,
@@ -28,6 +32,7 @@ from lm_theory.proof_assistant.proof_assistant import db_query
 
 
 app = FastAPI()
+# app.add_middleware(SessionMiddleware)
 
 app.mount("/html", StaticFiles(directory="html"), name="html")          # TODO: don't hardcode   # TODO: works only when cwd is here
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")    # TODO: don't hardcode   # TODO: works only when cwd is here
@@ -188,31 +193,29 @@ async def submit_contribution(
     return RedirectResponse(url='/', status_code=303)
 
 
+def generate_reply(prompt: str):
+    reply = (db_query(prompt))
+    # reply = "TEST RESPONSE\n$$a=b$$"
+    return reply
 
 
-
-
-
-chat_history = []
-
-
-def generate_response(prompt: str) -> str:
-    # return f"Bot response to: {prompt}"
-    bot_response = (db_query(prompt))
-    return bot_response
+class Query(BaseModel):
+    prompt: str
 
 
 @app.get("/proof_assistant", response_class=HTMLResponse)
 async def proof_assistant(request: Request):
-    return templates.TemplateResponse('proof_assistant.html.jinja', {"request": request, "messages": chat_history})
+    return templates.TemplateResponse(
+        'proof_assistant.html.jinja',
+        {"request": request}
+    )
 
 
-@app.post("/proof_assistant_query", response_class=RedirectResponse)
-async def proof_assistant_query(request: Request, prompt: str = Form(...)):   # TODO: what to do with request argument?
-    chat_history.append({"sender": "User", "text": prompt})
-    bot_response = generate_response(prompt)
-    chat_history.append({"sender": "Bot", "text": bot_response})
-    return RedirectResponse(url='/proof_assistant', status_code=303)
+@app.post("/proof_assistant/query")
+async def proof_assistant_query(query: Query):
+    prompt = query.prompt
+    reply = generate_reply(prompt)
+    return {"reply": reply}
 
 
 if __name__ == "__main__":
