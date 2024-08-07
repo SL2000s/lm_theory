@@ -32,6 +32,9 @@
     };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.7/purify.min.js"></script>
+    
 {% endblock %}
 
 {% block content %}
@@ -43,22 +46,14 @@ At this page, you can get assistance for constructing informal proofs and buildi
 The assistant has access to all statments in the statement database. Refer to them with the corresponding numbers (e.g. Theorem 1, Definition 11, etc.)
 
 <h2>Chat</h2>
-<div class="chat-container">
-    <div class="messages" id="messages">
-        {% for message in messages %}
-            <div class="message {{ message.sender }}">
-                <strong>{{ message.sender }}:</strong>
-                <br>
-                {{ message.text }}
-                <br>
-                <br>
-            </div>
-        {% endfor %}
+
+<div id="chat-container">
+    <div id="messages"></div>
+    <div id="input-container">
+        <input id="message-input" type="text" placeholder="Type a message..." />
+        <button id="send-button">Send</button>
     </div>
-    <br>
-    <form method="post" action="/proof_assistant_query">
-        <textarea name="prompt" placeholder="Type a quest to the statements database..." rows="5" required></textarea>
-        <button type="submit">Send</button>
-    </form>
 </div>
+<script src="/assets/js/scripts.js"></script>
+
 {% endblock %}
