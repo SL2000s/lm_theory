@@ -72,7 +72,7 @@
       "label": "LLAMAINDEXQUERYING-1",
       "configuration": {
         "force_run": "true",
-        "query_prefix": "You are a proof assistant, answering to prompts from the user. Answer with a text that can be shown on a webpage (that uses MathJax).\nUse <br> to show new lines on the webpage.\nOutput only the text.\n\nPROMPT:\n",
+        "query_prefix": "You are a proof assistant, answering to prompts from the user. Answer with a text that can be shown on a webpage (that uses MathJax).\nUse HTML tags when needed. For example, use <br> to show new lines on the webpage, and <b>Some bold text</b> to show bold text.\nOutput only the answer text.\n\nPROMPT:\n",
         "retrieval_only": "False",
         "top_k": "3",
         "openai_api_key": ""
