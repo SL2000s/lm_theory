@@ -29,6 +29,10 @@ from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     text_list,
 )
 from lm_theory.proof_assistant.proof_assistant import db_query
+from lm_theory.utils.utils import (
+    db2mathjax_environments,
+    db2mathjax_macros,
+)
 
 
 app = FastAPI()
@@ -195,7 +199,7 @@ async def submit_contribution(
 
 def generate_reply(prompt: str):
     reply = (db_query(prompt))
-    # reply = "TEST RESPONSE\n$$a=b$$"
+    # reply = "TEST RESPONSE\n$$\lip a=b$$"
     return reply
 
 
@@ -207,7 +211,11 @@ class Query(BaseModel):
 async def proof_assistant(request: Request):
     return templates.TemplateResponse(
         'proof_assistant.html.jinja',
-        {"request": request}
+        {
+            "request": request,
+            "mathjax_macros": db2mathjax_macros(),
+            "mathjax_environments": db2mathjax_environments(),
+        }
     )
 
 

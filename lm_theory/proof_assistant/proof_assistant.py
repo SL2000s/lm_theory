@@ -10,6 +10,8 @@ from lm_theory.config.config import (
     PKG_ROOT,
 )
 
+from lm_theory.utils.utils import load_json
+
 LUNARCORE_ADDRESS="0.0.0.0"
 LUNARCORE_PORT=8088
 LUNAR_RUN_URL_TEMPLATE = f'http://{LUNARCORE_ADDRESS}:{LUNARCORE_PORT}/workflow/run?user_id={{user_id}}'
@@ -31,12 +33,6 @@ DB2LLAMAINDEX_INDEX_PATH_COMPONENT = 'TEXTINPUT-7'
 LLAMAINDEX_QUEST_QUERY_COMPONENT = 'TEXTINPUT-0'
 LLAMAINDEX_QUEST_INDEX_PATH_COMPONENT = 'TEXTINPUT-3'
 LLAMAINDEX_OUTPUT_COMPONENT = 'LLAMAINDEXQUERYING-1'
-
-
-def load_json(path: str):
-    with open(path, 'r') as json_file:
-        json_data = json.load(json_file)
-    return json_data
 
 
 def run_workflow(workflow_json: Dict):              # TODO: make sure this works when simultanous requests on same workflow (probably fails now)

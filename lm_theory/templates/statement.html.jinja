@@ -18,10 +18,10 @@
             inlineMath: [['$', '$'], ['\\(', '\\)']],
             displayMath: [['$$', '$$'], ['\\[', '\\]']],
             macros: {
-                {{paper.mathjax_macros | code_list}}
+                {{paper.mathjax_macros | code_list | safe}}
             },
             environments: {
-                {{paper.mathjax_environments | code_list}}
+                {{paper.mathjax_environments | code_list | safe}}
             },
         },
         options: {
