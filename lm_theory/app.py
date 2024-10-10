@@ -14,6 +14,8 @@ from typing import Dict
 
 from lm_theory.config.config import (
     ASSETS_ROOT,
+    HTML_ROOT,
+    TEMPLATES_ROOT,
     GENERATED_HTML_ROOT,
     JINJA2_TEMPLATES_ROOT,
     PKG_ROOT,
@@ -38,9 +40,9 @@ from lm_theory.utils.utils import (
 app = FastAPI()
 # app.add_middleware(SessionMiddleware)
 
-app.mount("/html", StaticFiles(directory="html"), name="html")          # TODO: don't hardcode   # TODO: works only when cwd is here
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")    # TODO: don't hardcode   # TODO: works only when cwd is here
-app.mount("/templates", StaticFiles(directory="templates"), name="templates")    # TODO: don't hardcode   # TODO: works only when cwd is here
+app.mount("/assets", StaticFiles(directory=ASSETS_ROOT), name="assets") 
+app.mount("/html", StaticFiles(directory=HTML_ROOT), name="html")
+app.mount("/templates", StaticFiles(directory=TEMPLATES_ROOT), name="templates")
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -64,93 +66,93 @@ templates = CustomJinja2Templates(directory=JINJA2_TEMPLATES_ROOT)
 
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
-    return HTMLResponse(open("html/index.html").read())   # TODO (also below): works only when cwd is here
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "index.html")).read())
 
 
 @app.get("/contact", response_class=HTMLResponse)
 async def get_about():
-    return HTMLResponse(open("html/contact.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "contact.html")).read())
 
 
 @app.get("/examples", response_class=HTMLResponse)
 async def get_about():
-    return HTMLResponse(open("html/examples.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "examples.html")).read())
 
 
 @app.get("/library", response_class=HTMLResponse)
 async def get_other_pages():
-    return HTMLResponse(open("html/library/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/index.html")).read())
 
 
 @app.get("/library/axioms", response_class=HTMLResponse)
 @app.get("/library/axioms/index.html", response_class=HTMLResponse)   # TODO (also below): remove need of this
 async def get_axioms():
-    return HTMLResponse(open("html/library/axioms/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/axioms/index.html")).read())
 
 
 @app.get("/library/axioms/{library_name}/index.html", response_class=HTMLResponse)
 async def get_axiom(library_name: str):
-    return HTMLResponse(open(f"html/library/axioms/{library_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/axioms/{library_name}/index.html")).read())
 
 
 @app.get("/library/corollaries", response_class=HTMLResponse)
 @app.get("/library/corollaries/index.html", response_class=HTMLResponse)
 async def get_corollaries():
-    return HTMLResponse(open("html/library/corollaries/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/corollaries/index.html")).read())
 
 
 @app.get("/library/corollaries/{library_name}/index.html", response_class=HTMLResponse)
 async def get_corollary(library_name: str):
-    return HTMLResponse(open(f"html/library/corollaries/{library_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/corollaries/{library_name}/index.html")).read())
 
 
 @app.get("/library/definitions", response_class=HTMLResponse)
 @app.get("/library/definitions/index.html", response_class=HTMLResponse)
 async def get_definitions():
-    return HTMLResponse(open("html/library/definitions/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/definitions/index.html")).read())
 
 
 @app.get("/library/definitions/{library_name}/index.html", response_class=HTMLResponse)
 async def get_definition(library_name: str):
-    return HTMLResponse(open(f"html/library/definitions/{library_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/definitions/{library_name}/index.html")).read())
 
 
 @app.get("/library/lemmas", response_class=HTMLResponse)
 @app.get("/library/lemmas/index.html", response_class=HTMLResponse)
 async def get_lemmas():
-    return HTMLResponse(open("html/library/lemmas/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/lemmas/index.html")).read())
 
 
 @app.get("/library/lemmas/{library_name}/index.html", response_class=HTMLResponse)
 async def get_lemma(library_name: str):
-    return HTMLResponse(open(f"html/library/lemmas/{library_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/lemmas/{library_name}/index.html")).read())
 
 
 @app.get("/library/theorems", response_class=HTMLResponse)
 @app.get("/library/theorems/index.html", response_class=HTMLResponse)
 async def get_theorems():
-    return HTMLResponse(open("html/library/theorems/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/theorems/index.html")).read())
 
 
 @app.get("/library/theorems/{library_name}/index.html", response_class=HTMLResponse)
 async def get_theorem(library_name: str):
-    return HTMLResponse(open(f"html/library/theorems/{library_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/theorems/{library_name}/index.html")).read())
 
 
 @app.get("/library/papers", response_class=HTMLResponse)
 @app.get("/library/papers/index.html", response_class=HTMLResponse)
 async def get_papers():
-    return HTMLResponse(open("html/library/papers/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "library/papers/index.html")).read())
 
 
 @app.get("/library/papers/{paper_name}/index.html", response_class=HTMLResponse)
 async def get_paper(paper_name: str):
-    return HTMLResponse(open(f"html/library/papers/{paper_name}/index.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, f"library/papers/{paper_name}/index.html")).read())
 
 
 @app.get("/contribute", response_class=HTMLResponse)
 async def get_contribute_form():
-    return HTMLResponse(open("html/contribute.html").read())
+    return HTMLResponse(open(os.path.join(HTML_ROOT, "contribute.html")).read())
 
 
 @app.post("/submit_contribution")

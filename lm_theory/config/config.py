@@ -8,5 +8,7 @@ GENERATED_HTML_DIR = 'html'
 GENERATED_HTML_ROOT = os.path.join(PKG_ROOT, GENERATED_HTML_DIR)
 
 ASSETS_ROOT = os.path.join(PKG_ROOT, 'assets')
+HTML_ROOT = os.path.join(PKG_ROOT, 'html')
+TEMPLATES_ROOT = os.path.join(PKG_ROOT, 'templates')
 
 DB_PATH = os.path.join(PKG_ROOT, 'data', 'paper_database.json')
