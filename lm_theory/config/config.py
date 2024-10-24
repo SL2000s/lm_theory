@@ -8,6 +8,9 @@ GENERATED_HTML_DIR = 'html'
 GENERATED_HTML_ROOT = os.path.join(PKG_ROOT, GENERATED_HTML_DIR)
 
 ASSETS_ROOT = os.path.join(PKG_ROOT, 'assets')
+DATA_ROOT = os.path.join(PKG_ROOT, 'data')
+LLAMAINDEX_DATA_ROOT = os.path.join(DATA_ROOT, 'llama_index')
+os.makedirs(LLAMAINDEX_DATA_ROOT, exist_ok=True)
 HTML_ROOT = os.path.join(PKG_ROOT, 'html')
 TEMPLATES_ROOT = os.path.join(PKG_ROOT, 'templates')
 
