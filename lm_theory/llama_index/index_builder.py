@@ -27,13 +27,14 @@ def db2documents_args(db_path=DB_PATH, documents_path=DOCUMENTS_PATH):
     for paper in paper_db.papers:
         for statement in paper.statements.all_statements():
             doc_data = {
+                # 'text': f'"{statement.library_name}":\n{statement.statement_original_tex}',
                 'text': statement.statement_original_tex,
                 'metadata': {
-                    'library_name': statement.library_name,
-                    'statement_title': statement.title,
-                    'statement_id': statement.statement_id,
-                    'paper': paper.title,
-                    'paper_url': paper.source_url,
+                    'Statement label': statement.library_name,
+                    'Statement title': statement.title,
+                    # 'statement_id': statement.statement_id,
+                    # 'paper': paper.title,
+                    # 'paper_url': paper.source_url,
                 }
             }
             # if hasattr(statement, 'proof'):
@@ -92,11 +93,6 @@ def build_index(db_path=DB_PATH, documents_path=DOCUMENTS_PATH, persist_dir: str
 def query_index(query, persist_dir=PERSIST_DIR):
     storage_context = StorageContext.from_defaults(persist_dir=persist_dir)
     index = load_index_from_storage(storage_context)
-
-    # # Insert new documents
-    # for doc in documents:
-    #     vector_index.insert(doc)
-
     query_engine = index.as_query_engine()
     response = query_engine.query(query)
     return response
@@ -106,4 +102,5 @@ if __name__ == '__main__':
     from dotenv import load_dotenv
     load_dotenv()
     build_index(persist_dir=PERSIST_DIR)
-    print(query_index('Prove Theorem 1'))
+    init_llm_and_embed()
+    # print(query_index('Prove Theorem 1'))
