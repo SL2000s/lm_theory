@@ -1,3 +1,4 @@
+import ast
 import json
 import os
 from llama_index.core import (
@@ -9,6 +10,7 @@ from llama_index.core import (
 )
 from llama_index.embeddings.azure_openai import AzureOpenAIEmbedding
 from llama_index.llms.azure_openai import AzureOpenAI
+from typing import List
 
 from lm_theory.config.config import (
     LLAMAINDEX_DATA_ROOT,
@@ -19,6 +21,7 @@ from lm_theory.paper_extraction.builders.paper_database_builder import load_pape
 
 PERSIST_DIR = os.path.join(LLAMAINDEX_DATA_ROOT, 'persist_index')
 DOCUMENTS_PATH = os.path.join(LLAMAINDEX_DATA_ROOT, 'documents.json')
+STATEMENT2LATEX_DEFS_PATH = os.path.join(LLAMAINDEX_DATA_ROOT, 'statement2latex_defs.json')
 
 
 def db2documents_args(db_path=DB_PATH, documents_path=DOCUMENTS_PATH):
@@ -45,6 +48,48 @@ def db2documents_args(db_path=DB_PATH, documents_path=DOCUMENTS_PATH):
     with open(documents_path, 'w') as documents_file:
         json.dump(documents, documents_file, indent=4)
     return documents
+
+
+SPLIT_STR = ': '  # TODO: move up or to config
+def mathjax2katex_macro(mathjax_macro: str):
+    # E.g. "emph: [\"\\\\textit{#1}\", 1]" --> "\\emph", "\\textit{#1}"
+    # E.g. "Tr: \"\\\\operatorname{Tr}\"" --> "\\Tr", "\\operatorname{Tr}"
+    i = mathjax_macro.index(SPLIT_STR)
+    mathjax_key, mathjax_val = mathjax_macro[:i], mathjax_macro[i+len(SPLIT_STR):]
+    mathjax_val = ast.literal_eval(mathjax_val)
+    if isinstance(mathjax_val, list):
+        mathjax_val = mathjax_val[0]
+    mathjax_val.replace('\\\\', '\\')
+    mathjax_key = f'\\{mathjax_key}'
+    return mathjax_key, mathjax_val
+
+
+def mathjaxes2katexes_macros(mathjax_macros: List[str]):
+    katex_macros = {}
+    for mathjax_macro in mathjax_macros:
+        key, value = mathjax2katex_macro(mathjax_macro)
+        katex_macros[key] = value
+    return katex_macros
+
+
+def mathjaxes2katexes_environments(mathjax_environments: List[str]):
+    return mathjax_environments  # TODO
+
+
+def build_latex_defs(db_path=DB_PATH, write_path=STATEMENT2LATEX_DEFS_PATH):
+    statement2latex_defs = {}
+    paper_db = load_paper_database(db_path)
+    for paper in paper_db.papers:
+        defs = {
+            'macros': mathjaxes2katexes_macros(paper.mathjax_macros),
+            'environments': mathjaxes2katexes_environments(paper.mathjax_environments),
+        }
+        for statement in paper.statements.all_statements():
+            statement_label = statement.library_name
+            statement2latex_defs[statement_label] = defs
+    with open(write_path, 'w') as file:
+        json.dump(statement2latex_defs, file, indent=4)
+    return statement2latex_defs
 
 
 def init_llm():
@@ -101,6 +146,7 @@ def query_index(query, persist_dir=PERSIST_DIR):
 if __name__ == '__main__':
     from dotenv import load_dotenv
     load_dotenv()
-    build_index(persist_dir=PERSIST_DIR)
-    init_llm_and_embed()
+    # build_index(persist_dir=PERSIST_DIR)
+    build_latex_defs()
+    # init_llm_and_embed()
     # print(query_index('Prove Theorem 1'))
