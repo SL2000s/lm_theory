@@ -110,7 +110,6 @@ class HTMLGenerator():
         self._render_template('contribute.html.jinja', {}, 'contribute/index.html')
         self._render_template('add_statement.html.jinja', {}, 'contribute/add_statement.html')
         self._render_template('add_paper.html.jinja', {}, 'contribute/add_paper.html')
-        self._render_template('submit_paper_extraction.html.jinja', {}, 'contribute/submit_paper_extraction.html')
 
         self._render_template(
             'library_index.html.jinja',

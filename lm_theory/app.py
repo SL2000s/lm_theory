@@ -222,7 +222,9 @@ async def paper_extract(
     # db.extend_mathjax_macros()
     # db.extend_mathjax_environments()
     # db.extend_urls()
-    paper_data_json = db.json()
+    
+    # Format the JSON with indent=4
+    paper_data_json = json.dumps(json.loads(db.json()), indent=4)
 
     return templates.TemplateResponse(
         "submit_paper_extraction.html.jinja",

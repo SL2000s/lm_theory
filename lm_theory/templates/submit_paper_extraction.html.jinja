@@ -5,7 +5,7 @@
 <div class="form-container">
     <form action="/submit_paper_extraction" method="POST">
         <label for="paper-data-json">Extracted Data (Editable):</label>
-        <textarea id="paper-data-json" name="paper_data_json" rows="20" cols="80">{{ paper_data_json }}</textarea>
+        <textarea id="paper-data-json" name="paper_data_json" rows="20" cols="80">{{ paper_data_json | e }}</textarea>
         
         <button type="submit" class="submit-btn">Submit Edited Data</button>
     </form>
