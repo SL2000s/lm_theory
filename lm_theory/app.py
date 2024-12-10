@@ -154,9 +154,11 @@ async def get_paper(paper_name: str):
 async def get_contribute_form():
     return HTMLResponse(open(os.path.join(HTML_ROOT, "contribute/index.html")).read())
 
+
 @app.get("/contribute/add_statement", response_class=HTMLResponse)
 async def get_contribute_form():
     return HTMLResponse(open(os.path.join(HTML_ROOT, "contribute/add_statement.html")).read())
+
 
 @app.get("/contribute/add_paper", response_class=HTMLResponse)
 async def get_contribute_form():
