@@ -46,22 +46,22 @@ if __name__ == '__main__':
     # print_db_structure()
     # input()
 
-    arxiv_papers = [
-        # '2006.04710',
-        # '2406.17837',
-        # '2406.01506',
-        # '2206.03126',
-        '2308.16898',
-    ]
+    # arxiv_papers = [
+    #     # '2006.04710',
+    #     # '2406.17837',
+    #     # '2406.01506',
+    #     # '2206.03126',
+    #     '2308.16898',
+    # ]
 
 
-    db = load_paper_database(DB_PATH)
-    # db.add_arxiv_papers(arxiv_papers)
-    db.extend(overwrite=False)
-    db.extend_statement_nrs()
-    db.extend_mathjax_macros()
-    db.extend_mathjax_environments()
-    db.extend_urls()
-    db.save()
+    # db = load_paper_database(DB_PATH)
+    # # db.add_arxiv_papers(arxiv_papers)
+    # db.extend(overwrite=False)
+    # db.extend_statement_nrs()
+    # db.extend_mathjax_macros()
+    # db.extend_mathjax_environments()
+    # db.extend_urls()
+    # db.save()
 
     build_html_files(SRC_ROOT, PAGES_ROOT, DB_PATH)

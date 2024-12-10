@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LM Theory</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/css/styles.css">
     
 </head>
@@ -14,7 +15,14 @@
             <a href="/">Home</a>
             <a href="/examples">Examples</a>
             <a href="/contact">Contact</a>
-            <a href="/contribute">Contribute</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="/contribute">Contribute</a></span>
+                <div class="dropdown-content">
+                    <a href="/contribute/add_statement">Add statement</a>
+                    <a href="/contribute/add_paper">Add paper</a>
+                </div>
+            </div>
+            <!-- <a href="/proof_assistant">Proof Assistant</a> -->
             <div class="hover-container">
                 <span class="hover-word"><a href="/library">Index</a></span>
                 <div class="dropdown-content">
@@ -31,7 +39,7 @@
     </header>
     <main>
         
-<h2>Contribute</h2>
+<h2>Contribute with a statement</h2>
 <div class="form-container">
     <form action="/submit_contribution" method="POST" enctype="multipart/form-data">
         <label for="contributor-name">Name:</label>
@@ -45,11 +53,11 @@
     
         <label for="contribution-type">Contribution Type:</label>
         <select id="contribution-type" name="contribution_type" required>
+            <option value="axiom">Axiom</option>
             <option value="definition">Definition</option>
             <option value="theorem">Theorem</option>
             <option value="lemma">Lemma</option>
             <option value="proof">Proof</option>
-            <option value="empirical-statement">Empirical Statement</option>
         </select>
     
         <label for="contribution-title">Title:</label>

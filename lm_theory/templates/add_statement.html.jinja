@@ -1,0 +1,49 @@
+{% extends "base.html.jinja" %}
+
+{% block content %}
+<h2>Contribute with a statement</h2>
+<div class="form-container">
+    <form action="/submit_contribution" method="POST" enctype="multipart/form-data">
+        <label for="contributor-name">Name:</label>
+        <input type="text" id="contributor-name" name="contributor_name" required>
+    
+        <label for="contributor-affiliation">Affiliation (optional):</label>
+        <input type="text" id="contributor-affiliation" name="contributor_affiliation">
+    
+        <label for="contributor-email">Email (optional):</label>
+        <input type="email" id="contributor-email" name="contributor_email">
+    
+        <label for="contribution-type">Contribution Type:</label>
+        <select id="contribution-type" name="contribution_type" required>
+            <option value="axiom">Axiom</option>
+            <option value="definition">Definition</option>
+            <option value="theorem">Theorem</option>
+            <option value="lemma">Lemma</option>
+            <option value="proof">Proof</option>
+        </select>
+    
+        <label for="contribution-title">Title:</label>
+        <input type="text" id="contribution-title" name="contribution_title" required>
+    
+        <label for="contribution-content">Content:</label>
+        <textarea id="contribution-content" name="contribution_content" required></textarea>
+    
+        <label for="contribution-proof">Proof (if applicable):</label>
+        <textarea id="contribution-proof" name="contribution_proof"></textarea>
+    
+        <label for="contribution-keywords">Keywords/Tags:</label>
+        <input type="text" id="contribution-keywords" name="contribution_keywords">
+    
+        <label for="contribution-field">Related Field:</label>
+        <input type="text" id="contribution-field" name="contribution_field">
+    
+        <label for="contribution-references">References/Citations:</label>
+        <textarea id="contribution-references" name="contribution_references"></textarea>
+    
+        <label for="contribution-file">Upload Supporting Documents (optional):</label>
+        <input type="file" id="contribution-file" name="contribution_file">
+    
+        <button type="submit" class="submit-btn">Submit Contribution</button>
+    </form>
+</div>
+{% endblock %}

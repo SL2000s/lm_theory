@@ -15,8 +15,14 @@
             <a href="{{'/' | add_pages_root}}">Home</a>
             <a href="{{'examples' | add_pages_root}}">Examples</a>
             <a href="{{'contact' | add_pages_root}}">Contact</a>
-            <a href="{{'contribute' | add_pages_root}}">Contribute</a>
-            <a href="{{'proof_assistant' | add_pages_root}}">Proof Assistant</a>
+            <div class="hover-container">
+                <span class="hover-word"><a href="{{'contribute' | add_pages_root}}">Contribute</a></span>
+                <div class="dropdown-content">
+                    <a href="{{'contribute/add_statement' | add_pages_root}}">Add statement</a>
+                    <a href="{{'contribute/add_paper' | add_pages_root}}">Add paper</a>
+                </div>
+            </div>
+            <!-- <a href="{{'proof_assistant' | add_pages_root}}">Proof Assistant</a> -->
             <div class="hover-container">
                 <span class="hover-word"><a href="{{'library' | add_pages_root}}">Index</a></span>
                 <div class="dropdown-content">
