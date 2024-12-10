@@ -2,5 +2,12 @@
 
 {% block content %}
 <h2>Contribute with a paper</h2>
-Comming soon!
+<div class="form-container">
+    <form action="/paper_extract" method="POST">
+        <label for="arxiv-paper">arXiv Paper ID:</label>
+        <input type="text" id="arxiv-paper" name="arxiv_paper" placeholder="e.g. 2308.16898" required>
+        
+        <button type="submit" class="submit-btn">Submit Paper</button>
+    </form>
+</div>
 {% endblock %}

@@ -30,6 +30,7 @@ from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     replace_tabs_by_spaces,
     text_list,
 )
+from lm_theory.paper_extraction.builders.paper_database_builder import create_paper_database, load_paper_database
 from lm_theory.proof_assistant.proof_assistant import db_query
 from lm_theory.utils.utils import (
     db2mathjax_environments,
@@ -207,6 +208,63 @@ async def submit_contribution(
             file_object.write(contribution_file.file.read())
     
     return RedirectResponse(url='/', status_code=303)
+
+
+
+@app.post("/paper_extract")
+async def paper_extract(
+    arxiv_paper: str = Form(...)  # e.g., '2308.16898'
+):
+    db = create_paper_database()
+    db.add_arxiv_papers([arxiv_paper])
+    # db.extend(overwrite=False)
+    # db.extend_statement_nrs()
+    # db.extend_mathjax_macros()
+    # db.extend_mathjax_environments()
+    # db.extend_urls()
+    paper_data_json = db.json()
+
+    return templates.TemplateResponse(
+        "submit_paper_extraction.html.jinja",
+        {"request": {}, "paper_data_json": paper_data_json}
+    )
+
+@app.post("/submit_paper_extraction")
+async def submit_paper_extraction(
+    paper_data_json: str = Form(...)
+):
+    # Here you can parse, validate, and save the JSON data
+    try:
+        paper_data = json.loads(paper_data_json)  # Parse the submitted JSON
+        # Save or process the data as needed
+        save_path = os.path.join(UPLOAD_FOLDER, "edited_paper_data.json")
+        with open(save_path, "w") as file:
+            json.dump(paper_data, file, indent=4)
+        return RedirectResponse(url="/", status_code=303)
+    except json.JSONDecodeError:
+        return HTMLResponse(
+            content="Invalid JSON submitted. Please correct and try again.",
+            status_code=400
+        )
+# @app.post("/paper_extract")
+# async def paper_extract(
+#     arxiv_paper: str,  # e.g. '2308.16898'
+# ):
+#     db = create_paper_database()
+#     db.add_arxiv_papers([arxiv_paper])
+#     db.extend(overwrite=False)
+#     db.extend_statement_nrs()
+#     db.extend_mathjax_macros()
+#     db.extend_mathjax_environments()
+#     db.extend_urls()
+#     return db.json()
+
+
+# @app.post("/submit_paper_extraction")
+# async def submit_paper_extraction(
+#     paper_data: Dict,
+# ):    
+#     return RedirectResponse(url='/', status_code=303)
 
 
 def generate_reply(prompt: str):
