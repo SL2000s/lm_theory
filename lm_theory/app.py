@@ -18,7 +18,9 @@ from lm_theory.config.config import (
     TEMPLATES_ROOT,
     GENERATED_HTML_ROOT,
     JINJA2_TEMPLATES_ROOT,
-    PKG_ROOT,
+    DB_PATH,
+    PAGES_ROOT,
+    SRC_ROOT,
 )
 from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     add_html_tabs_newlines,
@@ -30,7 +32,9 @@ from lm_theory.generate_html.html_rendering.jinja2_env_filters import (
     replace_tabs_by_spaces,
     text_list,
 )
+from lm_theory.generate_html.html_pages_builder import build_html_files
 from lm_theory.paper_extraction.builders.paper_database_builder import create_paper_database, load_paper_database
+from lm_theory.paper_extraction.data_models.paper_database import PaperDatabase
 from lm_theory.proof_assistant.proof_assistant import db_query
 from lm_theory.utils.utils import (
     db2mathjax_environments,
@@ -210,18 +214,17 @@ async def submit_contribution(
     return RedirectResponse(url='/', status_code=303)
 
 
-
 @app.post("/paper_extract")
 async def paper_extract(
     arxiv_paper: str = Form(...)  # e.g., '2308.16898'
 ):
     db = create_paper_database()
     db.add_arxiv_papers([arxiv_paper])
-    # db.extend(overwrite=False)
-    # db.extend_statement_nrs()
-    # db.extend_mathjax_macros()
-    # db.extend_mathjax_environments()
-    # db.extend_urls()
+    db.extend(overwrite=False)
+    db.extend_statement_nrs()
+    db.extend_mathjax_macros()
+    db.extend_mathjax_environments()
+    db.extend_urls()
     
     # Format the JSON with indent=4
     paper_data_json = json.dumps(json.loads(db.json()), indent=4)
@@ -231,42 +234,28 @@ async def paper_extract(
         {"request": {}, "paper_data_json": paper_data_json}
     )
 
+
 @app.post("/submit_paper_extraction")
 async def submit_paper_extraction(
     paper_data_json: str = Form(...)
 ):
-    # Here you can parse, validate, and save the JSON data
     try:
         paper_data = json.loads(paper_data_json)  # Parse the submitted JSON
-        # Save or process the data as needed
-        save_path = os.path.join(UPLOAD_FOLDER, "edited_paper_data.json")
-        with open(save_path, "w") as file:
-            json.dump(paper_data, file, indent=4)
+        submit_db = PaperDatabase(**paper_data)
+        db = load_paper_database(DB_PATH)
+        db.papers.append(submit_db.papers[0])
+        db.extend_statement_nrs(overwrite=True)        
+        db.save()
+        build_html_files(SRC_ROOT, PAGES_ROOT, DB_PATH)
+
+        # TODO: update llamaindex
+
         return RedirectResponse(url="/", status_code=303)
     except json.JSONDecodeError:
         return HTMLResponse(
             content="Invalid JSON submitted. Please correct and try again.",
             status_code=400
         )
-# @app.post("/paper_extract")
-# async def paper_extract(
-#     arxiv_paper: str,  # e.g. '2308.16898'
-# ):
-#     db = create_paper_database()
-#     db.add_arxiv_papers([arxiv_paper])
-#     db.extend(overwrite=False)
-#     db.extend_statement_nrs()
-#     db.extend_mathjax_macros()
-#     db.extend_mathjax_environments()
-#     db.extend_urls()
-#     return db.json()
-
-
-# @app.post("/submit_paper_extraction")
-# async def submit_paper_extraction(
-#     paper_data: Dict,
-# ):    
-#     return RedirectResponse(url='/', status_code=303)
 
 
 def generate_reply(prompt: str):

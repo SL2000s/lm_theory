@@ -1,5 +1,5 @@
 {
-    "db_path": "/remote/idiap.svm/temp.rea01/sljungbeck/lm_theory_library/lm_theory/lm_theory/data/paper_database.json",
+    "db_path": "/remote/idiap.svm/temp.rea01/sljungbeck/iipa_project/iipa/knowledgebases/lm_theory/lm_theory/data/paper_database.json",
     "papers": [
         {
             "paper_id": "083fc279-e9c8-48f3-94e5-2b3a363832b3",

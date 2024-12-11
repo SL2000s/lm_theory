@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 PKG_ROOT = os.path.dirname(os.path.dirname(__file__))
 JINJA2_TEMPLATES_ROOT = os.path.join(PKG_ROOT, 'templates')
@@ -15,3 +18,5 @@ HTML_ROOT = os.path.join(PKG_ROOT, 'html')
 TEMPLATES_ROOT = os.path.join(PKG_ROOT, 'templates')
 
 DB_PATH = os.path.join(PKG_ROOT, 'data', 'paper_database.json')
+SRC_ROOT = os.path.dirname(os.path.dirname(__file__))
+PAGES_ROOT = '/'

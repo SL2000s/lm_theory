@@ -1,16 +1,11 @@
 import os
 
 
+from lm_theory.config.config import DB_PATH, SRC_ROOT, PAGES_ROOT
 from lm_theory.paper_extraction.data_models.paper_database import PaperDatabase
 from lm_theory.paper_extraction.builders.paper_database_builder import create_paper_database, load_paper_database
 from lm_theory.generate_html.html_pages_builder import build_html_files
 
-
-PAGES_ROOT = '/'
-ASSETS_ROOT = '/'   # TODO: remove
-
-SRC_ROOT = os.path.dirname(os.path.dirname(__file__))
-DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'paper_database.json')
 
 
 def print_db_structure():  # TODO: get this working
